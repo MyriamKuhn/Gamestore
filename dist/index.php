@@ -47,9 +47,34 @@
 
   <!-- START : Main -->
   <main>
-
+    <div class="py-5">
+      Hello World !
+    </div>
   </main>
   <!-- END : Main -->
+
+  <!-- START : Footer -->
+  <footer class="container-fluid shadow-lg bg-white bg-opacity-75">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center">
+      <img class="w-50 pb-5 pt-4" src="./assets/images/logo_small.svg" alt="Logo de l'entreprise Gamestore">
+      <div class="row row-cols-1 flex-column">
+        <ul class="navbar-nav text-center p-0">
+          <li class="nav-item pb-1"><a href="#" class="nav-link text-uppercase">Nos points de vente</a></li>
+          <li class="nav-item pb-4"><a href="#" class="nav-link text-uppercase">Comment acheter</a></li>
+          <li class="nav-item pb-1"><a href="#" class="nav-link text-uppercase">Mentions légales</a></li>
+          <li class="nav-item pb-1"><a href="#" class="nav-link text-uppercase">Cgu</a></li>
+          <li class="nav-item"><a href="#" class="nav-link text-uppercase">Vie privée</a></li>
+        </ul>
+        <div class="d-flex justify-content-center">
+          <a href="https://www.facebook.com/" class="btn text-primary fs-2"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.instagram.com/" class="btn text-primary fs-2"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.twitter.com/" class="btn text-primary fs-2"><i class="bi bi-twitter-x"></i></a>
+        </div>
+      </div>
+      <p class="text-center text-secondary pb-1">© 2024 Gamestore, All rights reserved.</p>
+    </div>
+  </footer>
+  <!-- END : Footer -->
 
   <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./assets/js/pagesControls.js"></script>
