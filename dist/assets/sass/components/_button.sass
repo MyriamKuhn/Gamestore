@@ -1,4 +1,6 @@
 .btn-gamestore
+  font-family: "Montserrat", sans-serif
+  font-weight: 600
   --bs-btn-font-weight: 600
   --bs-btn-color: var(--gamestore-white)
   --bs-btn-bg: var(--gamestore-blue)
@@ -16,25 +18,44 @@
   --bs-btn-padding-x: 1rem
   --bs-box-shadow: 2px 2px 6px 1px rgba(0,0,0,0.25)
 
-
-
-.navbar-nav 
-  --bs-nav-link-padding-x: 0.5rem
-  --bs-nav-link-padding-y: 0,5rem
-  --bs-nav-link-font-weight: 600
-  --bs-nav-link-color: var(--gamestore-blue)
-  --bs-nav-link-hover-color: var(--gamestore-red)
-  --bs-nav-link-disabled-color: var(--gamestore-darkblue)
-  --bs-navbar-active-color: var(--gamestore-red)
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5)
-
 .navbar-cart
   text-shadow: 2px 2px 6px rgba(0,0,0,0.25)
-
-.navbar-cart:hover
-  color: var(--gamestore-red) !important
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.25)
+  &:hover
+    color: var(--gamestore-red) !important
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.25)
 
 .navbar-cart-img::before
   vertical-align: 0
   text-shadow: 2px 2px 6px rgba(0,0,0,0.25)
+
+.footer-logo
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.25)
+  color: var(--gamestore-blue)
+  transition: color .15s ease-in-out
+  &:hover
+    color: var(--gamestore-red)
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.25)
+
+.menu-link
+  font-family: "Montserrat", sans-serif
+  font-weight: 600
+  text-decoration: none
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.5)
+  color: var(--gamestore-blue)
+  transition: color .15s ease-in-out
+  &:hover
+    color: var(--gamestore-red)
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5)
+  &:active
+    color: var(--gamestore-red)
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5)
+  &:disabled
+    color: var(--gamestore-darkblue)
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5)
+
+.menu-link.active
+  color: var(--gamestore-red) !important
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.5)
+
+.logo
+  width: 9rem
