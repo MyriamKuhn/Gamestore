@@ -42,7 +42,7 @@
           </ul>
           <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center p-3 py-lg-0 pe-lg-0 position-relative">
             <a href="#" class="btn btn-gamestore text-uppercase shadow me-lg-5">Se connecter</a>
-            <a href="#" class="nav-link text-primary navbar-cart pt-2 align-self-end me-lg-5 fw-bold fs-5"><sub>0</sub><i class="bi bi-cart2 fs-1 navbar-cart-img"></i></a>
+            <a href="#" class="nav-link navbar-cart pt-2 align-self-end me-lg-5 fw-bold fs-5"><sub>0</sub><i class="bi bi-cart2 fs-1 navbar-cart-img"></i></a>
           </div>
         </div>
       </div>
@@ -52,8 +52,9 @@
 
   <!-- START : Main -->
   <main class="container">
-    <div class="py-5">
-      Hello World !
+    <div>
+      <h1 class="text-center text-uppercase mt-5">Bienvenue sur Gamestore</h1>
+      <p class="text-center mt-3">Votre expert en jeux vidéo pour toutes les plateformes existantes</p>
     </div>
   </main>
   <!-- END : Main -->
