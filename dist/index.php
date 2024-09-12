@@ -231,8 +231,8 @@
     </section>
     <!-- END : Banner NL -->
     <!-- START : Back To Top -->
-    <a class="btn btn-gamestore shadow py-2" href="#" id="scrollTopButton">
-      <i class="bi bi-chevron-up text-white"></i>
+    <a class="btn btn-gamestore-outline shadow px-1" href="#" id="scrollTopButton">
+      <i class="bi bi-chevron-up fs-4"></i>
     </a>
     <!-- END : Back To Top -->
   </main>
