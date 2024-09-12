@@ -92,10 +92,12 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE supply (
   fk_game_id INT(11) UNSIGNED NOT NULL,
+  fk_plattform_id INT(11) UNSIGNED NOT NULL,
   fk_store_id INT(11) UNSIGNED NOT NULL,
-  PRIMARY KEY(fk_game_id, fk_store_id),
+  PRIMARY KEY(fk_game_id, fk_store_id, fk_plattform_id),
   quantity INT(11) NOT NULL,
   FOREIGN KEY(fk_game_id) REFERENCES game(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(fk_plattform_id) REFERENCES plattform(id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(fk_store_id) REFERENCES store(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

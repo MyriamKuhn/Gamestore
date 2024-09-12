@@ -4,7 +4,6 @@ namespace App\Model;
 
 use App\Tools\StringTools;
 
-
 class Model
 {
 
@@ -16,24 +15,21 @@ class Model
     return $model;
   }
 
-  public function hydrate(array $data)
+  public function hydrate(array $datas): void
   {
-    if (count($data) > 0) {
+    if (count($datas) > 0) {
       // On parcourt le tableau de données
-      foreach ($data as $key => $value) {
-        // Pour chaque donnée, on appel le setter
-        $methodName = 'set' . StringTools::toPascalCase($key);
-        if (method_exists($this, $methodName)) {
-          if ($key == 'created_at') {
-            $value = new \DateTime($value);
-          } else if ($key == 'release_date') {
-            $value = new \DateTime($value);
-          } else if ($key == 'duration') {
-            $value = new \DateTime($value);
-          }
-          $this->{$methodName}($value);
+      foreach ($datas as $key => $value) {
+        // On récupère le nom du setter correspondant à l'attribut
+        $method = 'set'.ucfirst($key);
+              
+        // Si le setter correspondant existe
+        if (method_exists($this, $method)) {
+          // On appelle le setter
+          $this->$method($value);
         }
       }
     }
   }
+  
 }

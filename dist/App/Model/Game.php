@@ -10,81 +10,48 @@ class Game extends Model
   protected string $description;
   protected int $fk_pegi_id;
 
-
-  /**
-   * Get the value of id
-   */ 
-  public function getId()
+  public function getId(): int
   {
     return $this->id;
   }
 
-  /**
-   * Set the value of id
-   *
-   * @return  self
-   */ 
-  public function setId($id)
+  public function setId(int $id): self
   {
     $this->id = $id;
 
     return $this;
   }
 
-  /**
-   * Get the value of name
-   */ 
-  public function getName()
+  public function getName(): string
   {
     return $this->name;
   }
 
-  /**
-   * Set the value of name
-   *
-   * @return  self
-   */ 
-  public function setName($name)
+  public function setName(string $name): self
   {
     $this->name = $name;
 
     return $this;
   }
 
-  /**
-   * Get the value of description
-   */ 
-  public function getDescription()
+  public function getDescription(): string
   {
     return $this->description;
   }
 
-  /**
-   * Set the value of description
-   *
-   * @return  self
-   */ 
-  public function setDescription($description)
+  public function setDescription(string $description): self
   {
     $this->description = $description;
 
     return $this;
   }
 
-  /**
-   * Get the value of fk_pegi_id
-   */ 
-  public function getFk_pegi_id()
+  public function getFk_pegi_id(): int
   {
     return $this->fk_pegi_id;
   }
 
-  /**
-   * Set the value of fk_pegi_id
-   *
-   * @return  self
-   */ 
-  public function setFk_pegi_id($fk_pegi_id)
+  public function setFk_pegi_id(int $fk_pegi_id): self
   {
     $this->fk_pegi_id = $fk_pegi_id;
 
