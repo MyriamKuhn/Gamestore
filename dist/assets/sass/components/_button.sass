@@ -1,61 +1,114 @@
 .btn-gamestore
-  font-family: "Montserrat", sans-serif
-  font-weight: 600
+  --bs-btn-padding-x: 1rem
+  --bs-btn-font-family: var(--gamestore-font-menus)
   --bs-btn-font-weight: 600
   --bs-btn-color: var(--gamestore-white)
   --bs-btn-bg: var(--gamestore-blue)
-  --bs-btn-border-color: var(--gamestore-blue)
+  --bs-btn-border-width: 0
+  --bs-btn-border-color: transparent
+  --bs-btn-border-radius: 20px
   --bs-btn-hover-color: var(--gamestore-white)
   --bs-btn-hover-bg: var(--gamestore-red)
-  --bs-btn-hover-border-color: var(--gamestore-red)
-  --bs-btn-border-radius: 20px
+  --bs-btn-hover-border-color: transparent
   --bs-btn-active-color: var(--gamestore-white)
   --bs-btn-active-bg: var(--gamestore-red)
-  --bs-btn-active-border-color: var(--gamestore-red)
+  --bs-btn-active-border-color: transparent
   --bs-btn-disabled-color: var(--gamestore-white)
   --bs-btn-disabled-bg: var(--gamestore-darkblue)
+  --bs-btn-disabled-border-color: transparent
+  --bs-box-shadow: var(--gamestore-box-shadow)
+  box-shadow: var(--gamestore-box-shadow)
+
+.btn-gamestore-outline
+  --bs-btn-padding-x: 5px
+  --bs-btn-padding-y: 0
+  --bs-btn-font-family: var(--gamestore-font-menus)
+  --bs-btn-font-weight: 600
+  --bs-btn-font-size: 0.8rem
+  --bs-btn-color: var(--gamestore-blue)
+  --bs-btn-bg: transparent
+  --bs-btn-border-width: 2px
+  --bs-btn-border-color: var(--gamestore-blue)
+  --bs-btn-border-radius: 20px
+  --bs-btn-hover-color: var(--gamestore-red)
+  --bs-btn-hover-bg: transparent
+  --bs-btn-hover-border-color: var(--gamestore-red)
+  --bs-btn-active-color: var(--gamestore-red)
+  --bs-btn-active-bg: transparent
+  --bs-btn-active-border-color: var(--gamestore-red)
+  --bs-btn-disabled-color: var(--gamestore-darkblue)
+  --bs-btn-disabled-bg: transparent
   --bs-btn-disabled-border-color: var(--gamestore-darkblue)
-  --bs-btn-padding-x: 1rem
-  --bs-box-shadow: 2px 2px 6px 1px rgba(0,0,0,0.25)
+  box-shadow: var(--gamestore-box-shadow)
 
 .navbar-cart
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.25)
+  color: var(--gamestore-blue)
+  text-shadow: var(--gamestore-box-shadow)
   &:hover
     color: var(--gamestore-red) !important
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.25)
+    text-shadow: var(--gamestore-box-shadow)
 
 .navbar-cart-img::before
   vertical-align: 0
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.25)
+  text-shadow: var(--gamestore-box-shadow)
 
 .footer-logo
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.25)
+  text-shadow: var(--gamestore-box-shadow)
   color: var(--gamestore-blue)
   transition: color .15s ease-in-out
   &:hover
     color: var(--gamestore-red)
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.25)
+    text-shadow: var(--gamestore-box-shadow)
 
 .menu-link
-  font-family: "Montserrat", sans-serif
+  font-family: var(--gamestore-font-menus)
   font-weight: 600
   text-decoration: none
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5)
+  text-shadow: var(--gamestore-text-shadow)
   color: var(--gamestore-blue)
   transition: color .15s ease-in-out
   &:hover
     color: var(--gamestore-red)
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.5)
+    text-shadow: var(--gamestore-text-shadow)
   &:active
     color: var(--gamestore-red)
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.5)
+    text-shadow: var(--gamestore-text-shadow)
   &:disabled
     color: var(--gamestore-darkblue)
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.5)
-
-.menu-link.active
-  color: var(--gamestore-red) !important
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5)
+    text-shadow: var(--gamestore-text-shadow)
+  &.active
+    color: var(--gamestore-red) !important
+    text-shadow: var(--gamestore-text-shadow)
 
 .logo
   width: 9rem
+
+.toggler-logo
+  color: var(--gamestore-blue)
+  &:hover
+    color: var(--gamestore-red)
+  &:active
+    color: var(--gamestore-red)
+  
+.text-link
+  text-shadow: var(--gamestore-text-shadow)
+  color: var(--gamestore-blue)
+  transition: color .15s ease-in-out
+  &:hover
+    color: var(--gamestore-red)
+    text-shadow: var(--gamestore-text-shadow)
+  &:active
+    color: var(--gamestore-red)
+    text-shadow: var(--gamestore-text-shadow)
+  &:disabled
+    color: var(--gamestore-darkblue)
+    text-shadow: var(--gamestore-text-shadow)
+  &:visited
+    color: var(--gamestore-blue)
+    text-shadow: var(--gamestore-text-shadow)
+
+.banner-logo
+  color: var(--gamestore-white)
+  transition: text-shadow .15s ease-in-out
+  &:hover
+    text-shadow: var(--gamestore-box-shadow)
