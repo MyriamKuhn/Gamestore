@@ -1,0 +1,56 @@
+.card
+  --bs-card-spacer-y: 1rem
+  --bs-card-spacer-x: 1rem
+  --bs-card-title-spacer-y: 1rem
+  --bs-card-title-color: var(--gamestore-black)
+  --bs-card-subtitle-color: var(--gamestore-black)
+  --bs-card-border-width: 1px
+  --bs-card-border-color: var(--gamestore-blue)
+  --bs-card-border-radius: 15px 15px 0 0
+  --bs-card-bg: var(--gamestore-white)
+  --bs-card-color: var(--gamestore-black)
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.63)
+
+.card-body
+  padding-bottom: 0.5rem
+  padding-left: 0.5rem
+  padding-right: 0.5rem
+  
+.gamestore-card
+  margin-top: 30px
+  & .card-img-block 
+    width: 98%
+    height: 100%
+    margin: 0 auto
+    position: relative
+    top: -30px
+  & .card-img-block img 
+    border-radius: 15px 15px 0 0
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.63)
+
+.news-card-footer
+  color: var(--gamestore-white)
+  background-color: var(--gamestore-blue)
+  font-family: var(--gamestore-font-menus)
+  font-weight: 600
+  font-size: 1rem
+  cursor: pointer
+  transition: background-color .15s ease-in-out
+  &:hover
+    background-color: var(--gamestore-red)
+
+.card-price
+  color: var(--gamestore-red)
+  font-weight: 900
+  font-size: 1.2rem
+  text-shadow: var(--gamestore-text-shadow)
+  margin-top: 10px
+  margin-bottom: 10px
+  text-align: center
+
+.card-title
+  font-family: var(--gamestore-font-menus)
+  font-size: 1rem
+  font-weight: 600
+  color: var(--gamestore-black)
+  margin-top: -20px
