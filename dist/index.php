@@ -22,4 +22,12 @@ Autoload::register();
 
 // Chargement du routeur
 $controller = new App\Controller\RoutingController();
-$controller->route();  
+$controller->route();
+
+use App\Repository\GamesRepository;
+// Create an instance of GamesRepository
+$gamesRepository = new GamesRepository();
+// Call the getGames method
+$games = $gamesRepository->getGames();
+// Output the result
+var_dump($games);
