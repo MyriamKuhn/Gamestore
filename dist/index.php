@@ -51,7 +51,7 @@
   <!-- END : Header -->
 
   <!-- START : Main -->
-  <main class="container my-4 main">
+  <main class="container my-4 main" id="hero">
     <!-- START : Hero -->
     <section class="hero row row-cols-1 row-cols-lg-2 align-items-lg-center">
       <div class="pe-lg-5">
@@ -230,7 +230,11 @@
       </div>
     </section>
     <!-- END : Banner NL -->
-
+    <!-- START : Back To Top -->
+    <a class="btn btn-gamestore shadow py-2" href="#" id="scrollTopButton">
+      <i class="bi bi-chevron-up text-white"></i>
+    </a>
+    <!-- END : Back To Top -->
   </main>
   <!-- END : Main -->
 
