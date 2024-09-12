@@ -13,7 +13,7 @@ class Mysql
   // Constructor
   private function __construct()
   {
-    $dotenv = new DotEnv(_ROOTPATH_.'/../.env');
+    $dotenv = new DotEnv(_ROOTPATH_.'/.env');
     $dotenv->load();
   }
   //singleton
