@@ -24,10 +24,12 @@ Autoload::register();
 $controller = new App\Controller\RoutingController();
 $controller->route();
 
-use App\Repository\GamesRepository;
+
+use App\Repository\ImageRepository;
+
 // Create an instance of GamesRepository
-$gamesRepository = new GamesRepository();
+$gamesRepository = new ImageRepository();
 // Call the getGames method
-$games = $gamesRepository->getGames();
+$games = $gamesRepository->getImagesByGameId(2);
 // Output the result
 var_dump($games);

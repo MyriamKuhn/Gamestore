@@ -8,21 +8,11 @@ INSERT INTO plattform (name) VALUES
 
 
 INSERT INTO pegi (name) VALUES
-('pegi3.jpg'), 
-('pegi7.jpg'), 
-('pegi12.jpg'), 
-('pegi16.jpg'), 
-('pegi18.jpg'),
-('pegi_discrimination.jpg'), 
-('pegi_drugs.jpg'), 
-('pegi_fear.jpg'), 
-('pegi_gambling.jpg'), 
-('pegi_language.jpg'), 
-('pegi_online.jpg'), 
-('pegi_paids.jpg'),
-('pegi_parental.jpg'), 
-('pegi_sexual.jpg'), 
-('pegi_violence.jpg');
+('pegi3'), 
+('pegi7'), 
+('pegi12'), 
+('pegi16'), 
+('pegi18');
 
 INSERT INTO genre (name) VALUES
 ('Action'), 
@@ -144,3 +134,19 @@ INSERT INTO supply (fk_game_id, fk_plattform_id, fk_store_id, quantity) VALUES
 (14, 12, 1, 8), (14, 12, 2, 8), (14, 12, 3, 8), (14, 12, 4, 8), (14, 12, 5, 8),
 (15, 9, 1, 10), (15, 9, 2, 10), (15, 9, 3, 10), (15, 9, 4, 10), (15, 9, 5, 10);
 
+INSERT INTO image (name, fk_game_id) VALUES
+('spotlight-alyx.jpg', 1), ('presentation-alyx.jpg', 1), ('carousel-1-alyx.jpg', 1), ('carousel-2-alyx.jpg', 1), ('carousel-3-alyx.jpg', 1), ('carousel-4-alyx.jpg', 1), ('carousel-5-alyx.jpg', 1),
+('spotlight-cyberpunk.jpg', 2), ('presentation-cyberpunk.png', 2), ('carousel-1-cyberpunk.jpg', 2), ('carousel-2-cyberpunk.jpg', 2), ('carousel-3-cyberpunk.jpg', 2), 
+('spotlight-lastofus.jpg', 3), ('presentation-lastofus.png', 3), ('carousel-1-lastofus.jpg', 3),
+('spotlight-animalcrossing.jpg', 4), ('presentation-animalcrossing.jpg', 4), ('carousel-1-animalcrossing.jpg', 4), ('carousel-2-animalcrossing.webp', 4),
+('spotlight-doom.jpg', 5), ('presentation-doom.jpg', 5), ('carousel-1-doom.jpg', 5), ('carousel-2-doom.jpg', 5), ('carousel-3-doom.jpg', 5),
+('spotlight-finalfantasy.jpg', 6), ('presentation-finalfantasy.jpg', 6), ('carousel-1-finalfantaisy.jpg', 6), 
+('spotlight-ghost.jpg', 7), ('presentation-ghost.jpg', 7), ('carousel-1-ghost.jpg', 7),
+('spotlight-hades.jpg', 8), ('presentation-hades.jpg', 8), ('carousel-1-hades.jpg', 8),
+('spotlight-ori.jpg', 9), ('presentation-ori.jpg', 9), ('carousel-1-ori.jpg', 9),
+('spotlight-persona.jpg', 10), ('presentation-persona.jpg', 10), ('carousel-1-persona.jpg', 10),
+('spotlight-sekiro.jpg', 11), ('presentation-sekiro.jpg', 11), ('carousel-1-sekiro.jpg', 11), ('carousel-2-sekiro.jpg', 11),
+('spotlight-streets.jpg', 12), ('presentation-streets.jpg', 12), ('carousel-1-streets.jpg', 12),
+('spotlight-zelda.jpg', 13), ('presentation-zelda.jpg', 13), ('carousel-1-zelda.jpg', 13),
+('spotlight-witcher.jpg', 14), ('presentation-witcher.jpg', 14), ('carousel-1-witcher.jpg', 14),
+('spotlight-uncharted4.jpg', 15), ('presentation-uncharted.jpg', 15), ('carousel-1-uncharted4.jpg', 15), ('carousel-2-uncharted4.jpg', 15);

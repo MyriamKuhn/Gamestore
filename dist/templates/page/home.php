@@ -1,4 +1,8 @@
-<?php require_once _TEMPLATEPATH_.'/header.php'; ?>
+<?php
+
+use App\Tools\StringTools;
+
+ require_once _TEMPLATEPATH_.'/header.php'; ?>
 
 <!-- START : Main -->
 <main class="container my-4 main" id="hero">
@@ -91,30 +95,32 @@
         <a href="#" class="btn btn-gamestore-outline text-uppercase align-self-start">Voir tout</a>
       </div>
       <div class="mt-3 row row-cols-1 row-cols-lg-5 justify-content-center gap-4">
+        <?php foreach ($lastGamesDatas as $lastGameData) : ?>
         <!-- START : Card News -->
         <div class="card gamestore-card" style="width: 15rem;">
           <div class="card-img-block">
-            <img class="card-img-top" src="./uploads/games/spotlight-alyx.jpg" alt="Half-Life : Alyx">
+            <img class="card-img-top" src="<?= _GAMES_IMAGES_FOLDER_.$lastGameData['gameImages'] ?>" alt="<?= $lastGameData['name'] ?>">
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Nouveauté</span>
           </div>
           <div class="card-body pt-0">
-            <h5 class="card-title text-uppercase text-center">Half-Life : Alyx</h5>
-            <div class="card-price pb-3">59,99 €</div>
+            <h5 class="card-title text-uppercase text-center"><?= $lastGameData['name'] ?></h5>
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <img src="./assets/images/platforms/pc-display.svg" alt="PC" width="25">
-                <img src="./assets/images/platforms/playstation.svg" alt="Playstation" width="25">
+              <?php foreach ($lastGameData['gamePlatforms'] as $lastGamePlatform) : ?>
+                <img src="<?= _ASSETS_IMAGES_FOLDER_.'/platforms/'.StringTools::slugify($lastGamePlatform).'.svg' ?>" alt="<?= $lastGamePlatform ?>" width="25">
+              <?php endforeach; ?>
               </div>
               <div>
-                <img src="./assets/images/pegi/age-12-black.jpg" alt="Xbox" width="30">
+                <img src="<?= _ASSETS_IMAGES_FOLDER_.'/pegi/'.$lastGameData['pegi'].'.jpg' ?>" alt="<?= $lastGameData['pegi'] ?>" width="30">
               </div>
             </div>
           </div>
           <div class="row row-cols-1 justify-content-center">
-            <a href="#" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Acheter</a>
+            <a href="index.php?controller=movie&action=show&id=<?= $lastGameData['id'] ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Acheter</a>
           </div>
         </div>
         <!-- END : Card News -->
+        <?php endforeach; ?>
       </div>
     </section>
     <!-- END : News -->
@@ -140,7 +146,7 @@
         <!-- START : Card Promos -->
         <div class="card gamestore-card" style="width: 18rem;">
           <div class="card-img-block">
-            <img class="card-img-top" src="./uploads/games/spotlight-alyx.jpg" alt="Half-Life : Alyx">
+            <img class="card-img-top" src="./uploads/games/spotlight-zelda.jpg" alt="Half-Life : Alyx">
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Promo</span>
           </div>
           <div class="card-body pt-0">

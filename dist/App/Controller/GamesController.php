@@ -4,5 +4,5 @@ namespace App\Controller;
 
 class GamesController
 {
-  
+
 }
