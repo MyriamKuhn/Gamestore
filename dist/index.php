@@ -25,11 +25,12 @@ $controller = new App\Controller\RoutingController();
 $controller->route();
 
 
-use App\Repository\ImageRepository;
+
+// JUST FOR TESTING
+use App\Repository\GamesRepository;
 
 // Create an instance of GamesRepository
-$gamesRepository = new ImageRepository();
+$gamesRepository = new GamesRepository();
 // Call the getGames method
-$games = $gamesRepository->getImagesByGameId(2);
+$games = $gamesRepository->getGameById(1);
 // Output the result
-var_dump($games);

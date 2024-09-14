@@ -11,11 +11,11 @@
     <div class="row row-cols-1 row-cols-md-3 justify-content-center justify-content-md-center align-items-center pt-4">
       <img class="mb-4 logo mx-auto my-md-auto" src="./assets/images/logo_small.svg" alt="Logo de l'entreprise Gamestore" width="50">
       <ul class="navbar-nav text-center">
-        <li class="nav-item pb-1"><a href="#" class="text-uppercase menu-link">Nos points de vente</a></li>
-        <li class="nav-item pb-3"><a href="#" class="text-uppercase menu-link">Comment acheter</a></li>
-        <li class="nav-item pb-1"><a href="#" class="text-uppercase menu-link">Mentions légales</a></li>
-        <li class="nav-item pb-1"><a href="#" class="text-uppercase menu-link">Cgu</a></li>
-        <li class="nav-item pb-1"><a href="#" class="text-uppercase menu-link">Vie privée</a></li>
+        <li class="nav-item pb-1"><a href="index.php?controller=page&action=about" class="text-uppercase menu-link">Nos points de vente</a></li>
+        <li class="nav-item pb-3"><a href="index.php?controller=page&action=buy" class="text-uppercase menu-link">Comment acheter</a></li>
+        <li class="nav-item pb-1"><a href="index.php?controller=page&action=legal" class="text-uppercase menu-link">Mentions légales</a></li>
+        <li class="nav-item pb-1"><a href="index.php?controller=page&action=cgu" class="text-uppercase menu-link">Cgu</a></li>
+        <li class="nav-item pb-1"><a href="index.php?controller=page&action=private" class="text-uppercase menu-link">Vie privée</a></li>
       </ul>
       <div class="text-center mt-3 my-md-auto">
         <a href="https://www.facebook.com/" target="_blank" class="footer-logo pe-3"><i class="bi bi-facebook fs-1 footer-logo-img"></i></a>
@@ -29,6 +29,7 @@
 
   <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./assets/js/pagesControls.js"></script>
+  </div>
 </body>
 
 </html>

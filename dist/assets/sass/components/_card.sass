@@ -15,18 +15,31 @@
   padding-bottom: 0.5rem
   padding-left: 0.5rem
   padding-right: 0.5rem
+  display: inline-grid
+  align-content: space-between
+  
+.card-body-news
+  height: 7.5rem
+
+.card-body-promos
+  height: 13rem
   
 .gamestore-card
   margin-top: 30px
+  place-self: flex-start
   & .card-img-block 
     width: 98%
     height: 100%
     margin: 0 auto
     position: relative
     top: -30px
+    display: grid
+    place-items: center
   & .card-img-block img 
     border-radius: 15px 15px 0 0
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.63)
+    aspect-ratio: 1/1
+    object-fit: cover
 
 .news-card-footer
   color: var(--gamestore-white)
@@ -53,3 +66,11 @@
   font-size: 1rem
   font-weight: 600
   color: var(--gamestore-black)
+
+.card-percent
+  color: var(--gamestore-red)
+  font-weight: 900
+  font-size: 2rem
+  margin-top: 10px
+  margin-bottom: 10px
+  text-align: center

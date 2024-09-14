@@ -1,8 +1,13 @@
 <?php
 
 use App\Tools\StringTools;
+use App\Tools\FileTools;
 
- require_once _TEMPLATEPATH_.'/header.php'; ?>
+require_once _TEMPLATEPATH_.'/header.php'; 
+
+$needle = 'spotlight';
+
+?>
 
 <!-- START : Main -->
 <main class="container my-4 main" id="hero">
@@ -16,7 +21,7 @@ use App\Tools\StringTools;
         <p class="m-0"><strong>Réservez vos jeux préférés en ligne et venez les récupérer dans l'un des nos magasins !</strong></p>
         <p>Rejoignez notre communauté de passionnés et restez à jour avec les dernières sorties et offres spéciales.</p>
         <p><strong>Gamestore</strong>, c'est plus qu'un magasin de jeux vidéo, c'est votre univers de divertissement !</p>
-        <a href="#" class="btn btn-gamestore text-uppercase">En savoir plus</a>
+        <a href="index.php?controller=page&action=about" class="btn btn-gamestore text-uppercase">En savoir plus</a>
       </div>
       <div class="mt-4 ps-lg-5">
         <div class="accordion accordion-flush" id="accordionFlushHero">
@@ -27,7 +32,7 @@ use App\Tools\StringTools;
               </button>
             </div>
             <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushHero">
-              <div class="accordion-body">Placez le ou les jeux de votre choix dans votre panier, définissez une date de retrait dans votre magasin préféré lors de la confirmation de votre panier et venez retirer vos jeux directement en magasin. Vous avez 7 jours pour retirer votre réservation.</div>
+              <div class="accordion-body">Placez le ou les jeux de votre choix dans votre panier, définissez une date de retrait dans votre magasin préféré lors de la confirmation de votre panier et venez retirer vos jeux directement en magasin. Vous avez 7 jours pour retirer votre réservation. <a href="index.php?controller=page&action=buy" class="text-link">Plus d'infos</a></div>
             </div>
           </div>
           <div class="accordion-item">
@@ -59,7 +64,7 @@ use App\Tools\StringTools;
               </button>
             </div>
             <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushHero">
-              <div class="accordion-body">Vous pouvez toujours nous rendre visite dans l'un de nos cinq magasins ou nous suivre sur nos réseaux sociaux pour les dernières nouvelles et les offres spéciales. Vous trouverez les coordonnées de nos magasins sur la <a href="#" class="text-link">page de contact</a>.</div>
+              <div class="accordion-body">Vous pouvez toujours nous rendre visite dans l'un de nos cinq magasins ou nous suivre sur nos réseaux sociaux pour les dernières nouvelles et les offres spéciales. Vous trouverez les coordonnées de nos magasins sur la <a href="index.php?controller=pag&action=contact" class="text-link">page de contact</a>.</div>
             </div>
           </div>
           <div class="accordion-item">
@@ -92,31 +97,32 @@ use App\Tools\StringTools;
     <section class="news mt-5">
       <div class="d-flex justify-content-between gamestore-title">
         <h2 class="text-uppercase">Nouveautés</h2>
-        <a href="#" class="btn btn-gamestore-outline text-uppercase align-self-start">Voir tout</a>
+        <a href="index.php?controller=games&action=list" class="btn btn-gamestore-outline text-uppercase align-self-start">Voir tout</a>
       </div>
-      <div class="mt-3 row row-cols-1 row-cols-lg-5 justify-content-center gap-4">
-        <?php foreach ($lastGamesDatas as $lastGameData) : ?>
+      <div class="mt-3 row row-cols-1 row-cols-lg-5 justify-content-center justify-content-xl-between gap-4">
+        <?php foreach ($lastGamesDatas as $lastGameData) : 
+          $spotlight = FileTools::getImagesAsCategory('spotlight', $lastGameData['images']) ?>
         <!-- START : Card News -->
         <div class="card gamestore-card" style="width: 15rem;">
           <div class="card-img-block">
-            <img class="card-img-top" src="<?= _GAMES_IMAGES_FOLDER_.$lastGameData['gameImages'] ?>" alt="<?= $lastGameData['name'] ?>">
+            <img class="card-img-top" src="<?= htmlentities(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= htmlentities($lastGameData['game_name']) ?>">
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Nouveauté</span>
           </div>
-          <div class="card-body pt-0">
-            <h5 class="card-title text-uppercase text-center"><?= $lastGameData['name'] ?></h5>
+          <div class="card-body card-body-news pt-0">
+            <div class="card-title text-uppercase text-center"><?= htmlentities($lastGameData['game_name']) ?></div>
             <div class="d-flex justify-content-between align-items-center">
               <div>
-              <?php foreach ($lastGameData['gamePlatforms'] as $lastGamePlatform) : ?>
-                <img src="<?= _ASSETS_IMAGES_FOLDER_.'/platforms/'.StringTools::slugify($lastGamePlatform).'.svg' ?>" alt="<?= $lastGamePlatform ?>" width="25">
+              <?php foreach ($lastGameData['platforms'] as $lastGamePlatform) : ?>
+                <img src="<?= htmlentities(_ASSETS_IMAGES_FOLDER_.'platforms/'.StringTools::slugify($lastGamePlatform).'.svg') ?>" alt="<?= htmlentities($lastGamePlatform) ?>" width="25">
               <?php endforeach; ?>
               </div>
               <div>
-                <img src="<?= _ASSETS_IMAGES_FOLDER_.'/pegi/'.$lastGameData['pegi'].'.jpg' ?>" alt="<?= $lastGameData['pegi'] ?>" width="30">
+                <img src="<?= htmlentities(_ASSETS_IMAGES_FOLDER_.'pegi/'.$lastGameData['pegi_name'].'.jpg') ?>" alt="<?= htmlentities($lastGameData['pegi_name']) ?>" width="30">
               </div>
             </div>
           </div>
           <div class="row row-cols-1 justify-content-center">
-            <a href="index.php?controller=movie&action=show&id=<?= $lastGameData['id'] ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Acheter</a>
+            <a href="index.php?controller=games&action=show&id=<?= htmlentities($lastGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Acheter</a>
           </div>
         </div>
         <!-- END : Card News -->
@@ -140,39 +146,47 @@ use App\Tools\StringTools;
     <section class="news mt-4">
       <div class="d-flex justify-content-between gamestore-title">
         <h2 class="text-uppercase">Promos</h2>
-        <a href="#" class="btn btn-gamestore-outline text-uppercase align-self-start">Voir tout</a>
+        <a href="index.php?controller=games&action=list" class="btn btn-gamestore-outline text-uppercase align-self-start">Voir tout</a>
       </div>
-      <div class="mt-3 row row-cols-1 row-cols-lg-5 justify-content-center gap-4">
+      <div class="mt-3 row row-cols-1 row-cols-lg-5 justify-content-center justify-content-lg-evenly gap-4">
         <!-- START : Card Promos -->
+        <?php foreach ($reducedGamesDatas as $reducedGameData) : 
+          $spotlight = FileTools::getImagesAsCategory('spotlight', $reducedGameData['images']);
+          $platformPrice = (float) $reducedGameData['platform_price'];
+          $discountRate = (float) $reducedGameData['discount_rate'];
+          $reducedPrice = ($platformPrice * (1 - $discountRate));
+          ?>
         <div class="card gamestore-card" style="width: 18rem;">
           <div class="card-img-block">
-            <img class="card-img-top" src="./uploads/games/spotlight-zelda.jpg" alt="Half-Life : Alyx">
+            <img class="card-img-top" src="<?= htmlentities(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= htmlentities($reducedGameData['game_name']) ?>">
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Promo</span>
           </div>
-          <div class="card-body pt-0">
-            <h5 class="card-title text-uppercase text-center pb-2">Half-Life : Alyx</h5>
-            <div class="d-flex justify-content-center pb-3">
+          <div class="card-body card-body-promos pt-0">
+            <div class="card-title text-uppercase text-center pb-2"><?= htmlentities($reducedGameData['game_name']) ?></div>
+            <div class="d-flex justify-content-center">
+              <div class="card-percent"><?= htmlentities(($reducedGameData['discount_rate'] * 100)) ?></div>
               <img src="./assets/images/percent_icon.svg" alt="Image représentant un pourcentage">
-              <div class="d-flex flex-column align-items-center">
-                <div class="card-price m-0">49,99 €</div>
-                <div class="text-decoration-line-through">59,99 €</div>
+              <div class="d-flex flex-column align-items-center justify-content-center ps-3">
+                <div class="card-price m-0"><?= htmlentities(round($reducedPrice, 2)) ?> €</div>
+                <div class="text-decoration-line-through"><?= htmlentities($reducedGameData['platform_price']) ?> €</div>
               </div>
             </div>
+            <h5 class="text-center">Uniquement à <?= htmlentities($reducedGameData['store_location']) ?></h5>
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                <img src="./assets/images/platforms/pc-display.svg" alt="PC" width="25">
-                <img src="./assets/images/platforms/playstation.svg" alt="Playstation" width="25">
+                  <img src="<?= htmlentities(_ASSETS_IMAGES_FOLDER_.'platforms/'.StringTools::slugify($reducedGameData['platform_name']).'.svg') ?>" alt="<?= htmlentities($reducedGameData['platform_name']) ?>" width="25">
               </div>
               <div>
-                <img src="./assets/images/pegi/age-12-black.jpg" alt="Xbox" width="30">
+                <img src="<?= htmlentities(_ASSETS_IMAGES_FOLDER_.'pegi/'.$reducedGameData['pegi_name'].'.jpg') ?>" alt="<?= htmlentities($reducedGameData['pegi_name']) ?>" width="30">
               </div>
             </div>
           </div>
           <div class="row row-cols-1 justify-content-center">
-            <a href="#" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Acheter</a>
+            <a href="index.php?controller=games&action=show&id=<?= htmlentities($reducedGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Acheter</a>
           </div>
         </div>
         <!-- END : Card Promo -->
+        <?php endforeach; ?>
       </div>
     </section>
     <!-- END : Promos -->
@@ -181,7 +195,7 @@ use App\Tools\StringTools;
       <div class="banner-community py-4">
         <h3 class="text-uppercase text-center">Ne ratez plus aucune nouveauté ou promo</h3>
         <div class="text-center">
-          <a href="#" class="btn btn-gamestore text-uppercase shadow me-lg-5">Inscrivez-vous</a>
+          <a href="index.php?controller=page&action=contact" class="btn btn-gamestore text-uppercase shadow me-lg-5">Inscrivez-vous</a>
         </div>
       </div>
     </section>

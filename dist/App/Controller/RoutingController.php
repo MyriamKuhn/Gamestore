@@ -4,6 +4,7 @@ namespace App\Controller;
 
 class RoutingController
 {
+
   public function route(): void
   {
     try {
@@ -23,9 +24,10 @@ class RoutingController
             $controller = new UserController();
             //$controller->route();
             break;
-          case 'movie':
+          case 'games':
             $controller = new GamesController();
             //$controller->route();
+            $controller->route();
             break;
           default:
             throw new \Exception("Le controleur n'existe pas");
@@ -45,11 +47,11 @@ class RoutingController
 
   protected function render(string $path, array $params = []): void
   {
-    $filePath = _ROOTPATH_ . '/templates/' . $path . '.php';
+    $filePath = _ROOTPATH_.'/templates/'.$path.'.php';
 
     try {
       if (!file_exists($filePath)) {
-        throw new \Exception("Fichier non trouvé : " . $filePath);
+        throw new \Exception("Fichier non trouvé : ".$filePath);
       } else {
         // Extrait chaque ligne du tableau et crée des variables pour chacune
         extract($params);
@@ -61,4 +63,5 @@ class RoutingController
       ]);
     }
   }
+
 }

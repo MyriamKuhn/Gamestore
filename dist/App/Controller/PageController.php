@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Repository\GamesRepository;
-use App\Repository\GamePlatformRepository;
-use App\Repository\ImageRepository;
 
 class PageController extends RoutingController
 {
@@ -17,6 +15,30 @@ class PageController extends RoutingController
             //charger controleur home
             $this->home();
             break;
+          case 'about':
+            //charger controleur about
+            $this->about();
+            break;
+          case 'buy':
+            //charger controleur buy
+            $this->buy();
+            break;
+            case 'contact':
+              //charger controleur contact
+              $this->contact();
+              break;
+            case 'legal':
+              //charger controleur legal
+              $this->legal();
+              break;
+            case 'cgu':
+              //charger controleur cgu
+              $this->cgu();
+              break;
+            case 'private':
+              //charger controleur private
+              $this->private();
+              break;
           default:
             throw new \Exception("Cette action n'existe pas : " . $_GET['action']);
             break;
@@ -33,37 +55,14 @@ class PageController extends RoutingController
 
   protected function home()
   {
-    $lastGamesDatas = [];
-
     try {
       $gamesRepository = new GamesRepository();
-      $lastGames = $gamesRepository->getGames(5);
-
-      $gamePlatformRepository = new GamePlatformRepository();
-
-      $gameImageRepository = new ImageRepository();
-
-      foreach ($lastGames as $game) {
-        $gamePlatforms = $gamePlatformRepository->getAllPlatformsByGameId($game['id']);
-        
-        $gameImages = $gameImageRepository->getImagesByGameId($game['id']);
-        $spotlight = 'spotlight';
-        $spotlightImage = array_filter($gameImages, function ($image) use ($spotlight) {
-          return strpos($image['name'], $spotlight) !== false;
-        });
-
-        $lastGamesDatas[] = [
-          'id' => $game['id'],
-          'name' => $game['game_name'],
-          'description' => $game['description'],
-          'pegi' => $game['pegi_name'],
-          'gamePlatforms' => $gamePlatforms,
-          'gameImages' => $spotlightImage[0]['name']
-        ];
-      }
+      $lastGames = $gamesRepository->getGamesList(5);
+      $reducedGames = $gamesRepository->getAllReducedGames();
 
       $this->render('page/home', [
-        'lastGamesDatas' => $lastGamesDatas
+        'lastGamesDatas' => $lastGames,
+        'reducedGamesDatas' => $reducedGames
       ]);
 
     } catch (\Exception $e) {
@@ -72,5 +71,77 @@ class PageController extends RoutingController
       ]);
     }
   }
+
+  protected function about()
+  {
+    try {
+      $this->render('page/about');
+
+    } catch (\Exception $e) {
+      $this->render('errors/default', [
+        'error' => $e->getMessage()
+      ]);
+    }
+  }
+
+  protected function buy()
+  {
+    try {
+      $this->render('page/buy');
+
+    } catch (\Exception $e) {
+      $this->render('errors/default', [
+        'error' => $e->getMessage()
+      ]);
+    }
+  }	
+
+  protected function contact()
+  {
+    try {
+      $this->render('page/contact');
+
+    } catch (\Exception $e) {
+      $this->render('errors/default', [
+        'error' => $e->getMessage()
+      ]);
+    }
+  }	
+
+  protected function legal()
+  {
+    try {
+      $this->render('page/legal');
+
+    } catch (\Exception $e) {
+      $this->render('errors/default', [
+        'error' => $e->getMessage()
+      ]);
+    }
+  }	
+
+  protected function cgu()
+  {
+    try {
+      $this->render('page/cgu');
+
+    } catch (\Exception $e) {
+      $this->render('errors/default', [
+        'error' => $e->getMessage()
+      ]);
+    }
+  }	
+
+  protected function private()
+  {
+    try {
+      $this->render('page/private');
+
+    } catch (\Exception $e) {
+      $this->render('errors/default', [
+        'error' => $e->getMessage()
+      ]);
+    }
+  }	
 
 }
