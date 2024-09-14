@@ -20,3 +20,4 @@
 ### Files ###
 # Ignore all files above
 /todo.todo
+dist\.env
