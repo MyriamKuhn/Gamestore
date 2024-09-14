@@ -24,10 +24,13 @@ Autoload::register();
 $controller = new App\Controller\RoutingController();
 $controller->route();
 
+
+
+// JUST FOR TESTING
 use App\Repository\GamesRepository;
+
 // Create an instance of GamesRepository
 $gamesRepository = new GamesRepository();
 // Call the getGames method
-$games = $gamesRepository->getGames();
+$games = $gamesRepository->getGameById(1);
 // Output the result
-var_dump($games);

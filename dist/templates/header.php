@@ -16,7 +16,7 @@ use App\Tools\NavigationTools;
   <meta property="og:title" content="<?= NavigationTools::addMetas()['title'] ?>">
   <meta property="og:description" content="<?= NavigationTools::addMetas()['description'] ?>">
   <meta property="og:image" content="<?= NavigationTools::addMetas()['image'] ?>">
-  <meta name="keywords" content="<?= NavigationTools::addMetas()['description'] ?>">
+  <meta name="keywords" content="<?= NavigationTools::addMetas()['keywords'] ?>">
   <!-- END : SEO -->
   <title><?= NavigationTools::addMetas()['title'] ?></title>
   <!-- START : Fonts -->
@@ -32,6 +32,7 @@ use App\Tools\NavigationTools;
 </head>
 
 <body>
+  <div class="wrapper d-flex flex-column">
   <!-- START : Header -->
   <header>
     <nav class="navbar navbar-expand-lg bg-white fixed-top bg-opacity-75 nav-shadow" id="navbar-opacity">
@@ -44,8 +45,11 @@ use App\Tools\NavigationTools;
         </button>
         <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
           <ul class="navbar-nav align-items-center pt-2 pt-lg-0">
+          <li class="nav-item px-lg-5">
+              <a class="menu-link text-uppercase <?= NavigationTools::addActiveClass('page', 'home') ?>" href="index.php?controller=page&action=home">Accueil</a>
+            </li>
             <li class="nav-item px-lg-5">
-              <a class="menu-link text-uppercase <?= NavigationTools::addActiveClass('game', 'list') ?>" href="#">Nos jeux vidéos</a>
+              <a class="menu-link text-uppercase <?= NavigationTools::addActiveClass('games', 'list') ?>" href="index.php?controller=games&action=list">Nos jeux vidéos</a>
             </li>
           </ul>
           <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center p-3 py-lg-0 pe-lg-0 position-relative">

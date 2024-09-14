@@ -2,6 +2,8 @@
 
 namespace App\Tools;
 
+use App\Repository\GamesRepository;
+
 class NavigationTools
 {
 
@@ -46,24 +48,54 @@ class NavigationTools
         ];
         return $metaDatas;
         break;
-      case 'game':
+      case 'games':
+        switch (isset($_GET['action']) ? $_GET['action'] : '') {
+          case 'list':
+            $metaDatas = [
+              'title' => "Gamestore : Nos jeux vidéos",
+              'description' => "Découvrez notre catalogue de jeux vidéo pour toutes les plateformes existantes. Retrouvez les dernières sorties, les jeux les plus populaires et les offres exclusives. Ajoutez vos jeux préférés à votre panier et retirez-les en magasin dès aujourd'hui !",
+              'keywords' => "jeux vidéo, catalogue, plateformes, dernières sorties, jeux populaires, offres exclusives, panier, retrait en magasin, Gamestore",
+              'image' => _ASSETS_IMAGES_FOLDER_."logo_small.svg"
+            ];
+            return $metaDatas;
+            break;
+          case 'show':
+            $image = FileTools::getImagesAsCategory('spotlight', static::getGameDetails()['images']);
+            $metaDatas = [
+              'title' => static::getGameDetails()['game_name'],
+              'description' => static::getGameDetails()['game_description'],
+              'keywords' => static::getGameDetails()['game_name'].','.static::getGameDetails()['genre_name'].', Gamestore',
+              'image' => _ASSETS_IMAGES_FOLDER_.reset($image)
+            ];
+            return $metaDatas;
+            break;
+          default:
+            $metaDatas = [
+              'title' => "Gamestore : Nos jeux vidéos",
+              'description' => "Découvrez notre catalogue de jeux vidéo pour toutes les plateformes existantes. Retrouvez les dernières sorties, les jeux les plus populaires et les offres exclusives. Ajoutez vos jeux préférés à votre panier et retirez-les en magasin dès aujourd'hui !",
+              'keywords' => "jeux vidéo, catalogue, plateformes, dernières sorties, jeux populaires, offres exclusives, panier, retrait en magasin, Gamestore",
+              'image' => _ASSETS_IMAGES_FOLDER_."logo_small.svg"
+            ];
+            return $metaDatas;
+        }
+        break;
+      default:
         $metaDatas = [
-          'title' => "Gamestore : Détails du jeu",
-          'description' => "Découvrez les détails du jeu sélectionné : description, caractéristiques, avis des joueurs, captures d'écran, vidéos et bien plus encore. Ajoutez-le à votre panier et retirez-le en magasin dès aujourd'hui !",
-          'keywords' => "détails, jeu, description, caractéristiques, avis, joueurs, captures d'écran, vidéos, Gamestore",
+          'title' => "Gamestore : Vos jeux préférés, à portée de main",
+          'description' => "Gamestore : votre expert en jeux vidéo pour toutes les plateformes existantes. Explorez notre vaste catalogue et retirez vos achats directement en magasin. Profitez des dernières sorties et de nos offres exclusives dès aujourd'hui !",
+          'keywords' => "jeux vidéo, achat jeux vidéo, jeux pour toutes les plateformes, retrait en magasin, nouveautés jeux vidéo, promotions jeux vidéo, Gamestore",
           'image' => _ASSETS_IMAGES_FOLDER_."logo_small.svg"
         ];
-          return $metaDatas;
-          break;
-        default:
-          $metaDatas = [
-            'title' => "Gamestore : Vos jeux préférés, à portée de main",
-            'description' => "Gamestore : votre expert en jeux vidéo pour toutes les plateformes existantes. Explorez notre vaste catalogue et retirez vos achats directement en magasin. Profitez des dernières sorties et de nos offres exclusives dès aujourd'hui !",
-            'keywords' => "jeux vidéo, achat jeux vidéo, jeux pour toutes les plateformes, retrait en magasin, nouveautés jeux vidéo, promotions jeux vidéo, Gamestore",
-            'image' => _ASSETS_IMAGES_FOLDER_."logo_small.svg"
-          ];
-          return $metaDatas;
+        return $metaDatas;
     } 
+  }
+
+  private static function getGameDetails()
+  {
+    $gameId = $_GET['id'];
+    $gamesRepository = new GamesRepository();
+    $game = $gamesRepository->getGameById($gameId);
+    return $game;
   }
 
 }
