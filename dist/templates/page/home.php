@@ -1,9 +1,10 @@
 <?php
 
+require_once _TEMPLATEPATH_.'/header.php'; 
+
 use App\Tools\StringTools;
 use App\Tools\FileTools;
 
-require_once _TEMPLATEPATH_.'/header.php'; 
 
 $needle = 'spotlight';
 
@@ -64,7 +65,7 @@ $needle = 'spotlight';
               </button>
             </div>
             <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushHero">
-              <div class="accordion-body">Vous pouvez toujours nous rendre visite dans l'un de nos cinq magasins ou nous suivre sur nos réseaux sociaux pour les dernières nouvelles et les offres spéciales. Vous trouverez les coordonnées de nos magasins sur la <a href="index.php?controller=pag&action=contact" class="text-link">page de contact</a>.</div>
+              <div class="accordion-body">Vous pouvez toujours nous rendre visite dans l'un de nos cinq magasins ou nous suivre sur nos réseaux sociaux pour les dernières nouvelles et les offres spéciales. Vous trouverez les coordonnées de nos magasins sur la <a href="index.php?controller=page&action=contact" class="text-link">page de contact</a>.</div>
             </div>
           </div>
           <div class="accordion-item">
@@ -105,7 +106,7 @@ $needle = 'spotlight';
         <!-- START : Card News -->
         <div class="card gamestore-card" style="width: 15rem;">
           <div class="card-img-block">
-            <img class="card-img-top" src="<?= htmlentities(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= htmlentities($lastGameData['game_name']) ?>">
+            <img class="card-img-top" src="<?= htmlentities(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= htmlentities($lastGameData['game_name']) ?> loading="lazy">
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Nouveauté</span>
           </div>
           <div class="card-body card-body-news pt-0">
@@ -122,7 +123,7 @@ $needle = 'spotlight';
             </div>
           </div>
           <div class="row row-cols-1 justify-content-center">
-            <a href="index.php?controller=games&action=show&id=<?= htmlentities($lastGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Acheter</a>
+            <a href="index.php?controller=games&action=show&id=<?= htmlentities($lastGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Plus d'infos</a>
           </div>
         </div>
         <!-- END : Card News -->
@@ -146,7 +147,7 @@ $needle = 'spotlight';
     <section class="news mt-4">
       <div class="d-flex justify-content-between gamestore-title">
         <h2 class="text-uppercase">Promos</h2>
-        <a href="index.php?controller=games&action=list" class="btn btn-gamestore-outline text-uppercase align-self-start">Voir tout</a>
+        <a href="index.php?controller=games&action=promo" class="btn btn-gamestore-outline text-uppercase align-self-start">Voir tout</a>
       </div>
       <div class="mt-3 row row-cols-1 row-cols-lg-5 justify-content-center justify-content-lg-evenly gap-4">
         <!-- START : Card Promos -->
@@ -158,7 +159,7 @@ $needle = 'spotlight';
           ?>
         <div class="card gamestore-card" style="width: 18rem;">
           <div class="card-img-block">
-            <img class="card-img-top" src="<?= htmlentities(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= htmlentities($reducedGameData['game_name']) ?>">
+            <img class="card-img-top" src="<?= htmlentities(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= htmlentities($reducedGameData['game_name']) ?>" loading="lazy">
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Promo</span>
           </div>
           <div class="card-body card-body-promos pt-0">
@@ -167,7 +168,7 @@ $needle = 'spotlight';
               <div class="card-percent"><?= htmlentities(($reducedGameData['discount_rate'] * 100)) ?></div>
               <img src="./assets/images/percent_icon.svg" alt="Image représentant un pourcentage">
               <div class="d-flex flex-column align-items-center justify-content-center ps-3">
-                <div class="card-price m-0"><?= htmlentities(round($reducedPrice, 2)) ?> €</div>
+                <div class="card-price m-0"><?= htmlentities(StringTools::truncate_string($reducedPrice, 2)) ?> €</div>
                 <div class="text-decoration-line-through"><?= htmlentities($reducedGameData['platform_price']) ?> €</div>
               </div>
             </div>
@@ -182,7 +183,7 @@ $needle = 'spotlight';
             </div>
           </div>
           <div class="row row-cols-1 justify-content-center">
-            <a href="index.php?controller=games&action=show&id=<?= htmlentities($reducedGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Acheter</a>
+            <a href="index.php?controller=games&action=show&id=<?= htmlentities($reducedGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Plus d'infos</a>
           </div>
         </div>
         <!-- END : Card Promo -->

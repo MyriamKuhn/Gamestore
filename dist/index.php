@@ -26,11 +26,13 @@ $controller->route();
 
 
 
+
 // JUST FOR TESTING
-use App\Repository\GamesRepository;
+
+use App\Repository\GamePlatformRepository;
 
 // Create an instance of GamesRepository
-$gamesRepository = new GamesRepository();
+$gamesRepository = new GamePlatformRepository();
 // Call the getGames method
-$games = $gamesRepository->getGameById(1);
+$games = $gamesRepository->getAllGamesByStore(1);
 // Output the result
