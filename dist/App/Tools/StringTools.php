@@ -61,4 +61,16 @@ class StringTools
 
     return $text;
   }
+
+  /*
+        Coup un nombre à un nombre de décimales donné
+    */
+  public static function truncate_string($number, $decimals) 
+  {
+    $numberStr = (string)$number;
+    $dotPos = strpos($numberStr, '.');
+    if ($dotPos === false) return $numberStr; // Pas de point décimal
+    return substr($numberStr, 0, $dotPos + $decimals + 1);
+  }
+
 }

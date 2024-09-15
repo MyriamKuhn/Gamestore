@@ -18,7 +18,7 @@ CREATE TABLE genre (
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE `plattform` (
+CREATE TABLE `platform` (
   id INT(11) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL UNIQUE
 ) 
@@ -76,29 +76,18 @@ CREATE TABLE game_genre (
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE game_plattform (
+CREATE TABLE game_platform (
   fk_game_id INT(11) UNSIGNED NOT NULL,
   fk_store_id INT(11) UNSIGNED NOT NULL,
-  fk_plattform_id INT(11) UNSIGNED NOT NULL,
-  PRIMARY KEY(fk_game_id, fk_store_id, fk_plattform_id),  
+  fk_platform_id INT(11) UNSIGNED NOT NULL,
+  PRIMARY KEY(fk_game_id, fk_store_id, fk_platform_id),  
   price DECIMAL(10,2) NOT NULL,
   is_reduced TINYINT(1) NOT NULL,
   discount_rate DECIMAL(5,2) NOT NULL,
-  FOREIGN KEY(fk_game_id) REFERENCES game(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY(fk_store_id) REFERENCES store(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY(fk_plattform_id) REFERENCES plattform(id) ON DELETE CASCADE ON UPDATE CASCADE
-) 
-ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-CREATE TABLE supply (
-  fk_game_id INT(11) UNSIGNED NOT NULL,
-  fk_plattform_id INT(11) UNSIGNED NOT NULL,
-  fk_store_id INT(11) UNSIGNED NOT NULL,
-  PRIMARY KEY(fk_game_id, fk_store_id, fk_plattform_id),
   quantity INT(11) NOT NULL,
   FOREIGN KEY(fk_game_id) REFERENCES game(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY(fk_plattform_id) REFERENCES plattform(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  FOREIGN KEY(fk_store_id) REFERENCES store(id) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY(fk_store_id) REFERENCES store(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(fk_platform_id) REFERENCES platform(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

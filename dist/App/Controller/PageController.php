@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\GamesRepository;
+use App\Repository\GamePlatformRepository;
 
 class PageController extends RoutingController
 {
@@ -23,26 +23,26 @@ class PageController extends RoutingController
             //charger controleur buy
             $this->buy();
             break;
-            case 'contact':
-              //charger controleur contact
-              $this->contact();
-              break;
-            case 'legal':
-              //charger controleur legal
-              $this->legal();
-              break;
-            case 'cgu':
-              //charger controleur cgu
-              $this->cgu();
-              break;
-            case 'private':
-              //charger controleur private
-              $this->private();
-              break;
+          case 'contact':
+            //charger controleur contact
+            $this->contact();
+            break;
+          case 'legal':
+            //charger controleur legal
+            $this->legal();
+            break;
+          case 'cgu':
+            //charger controleur cgu
+            $this->cgu();
+            break;
+          case 'private':
+            //charger controleur private
+            $this->private();
+            break;
           default:
             throw new \Exception("Cette action n'existe pas : " . $_GET['action']);
             break;
-        }
+          }
       } else {
         throw new \Exception("Aucune action détectée");
       }
@@ -56,9 +56,9 @@ class PageController extends RoutingController
   protected function home()
   {
     try {
-      $gamesRepository = new GamesRepository();
-      $lastGames = $gamesRepository->getGamesList(5);
-      $reducedGames = $gamesRepository->getAllReducedGames();
+      $gpRepository = new GamePlatformRepository();
+      $lastGames = $gpRepository->getAllNewGames(5);
+      $reducedGames = $gpRepository->getReducedGamesListShort(8);
 
       $this->render('page/home', [
         'lastGamesDatas' => $lastGames,
