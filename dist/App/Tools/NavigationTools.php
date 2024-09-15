@@ -64,7 +64,7 @@ class NavigationTools
             $metaDatas = [
               'title' => static::getGameDetails()['game_name'],
               'description' => static::getGameDetails()['game_description'],
-              'keywords' => static::getGameDetails()['game_name'].','.static::getGameDetails()['genre_name'].', Gamestore',
+              'keywords' => static::getGameDetails()['game_name'].', '.static::getGameDetails()['genre_name'].', Gamestore',
               'image' => _ASSETS_IMAGES_FOLDER_.reset($image)
             ];
             return $metaDatas;

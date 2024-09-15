@@ -2,7 +2,7 @@
 
 <!-- START : Main -->
 <main class="container my-4 main" id="hero">
-<section class="mt-5">
+<section class="mt-2">
   <div class="d-flex justify-content-between gamestore-title">
     <h2 class="text-uppercase">Mentions légales</h2>
   </div>
@@ -10,9 +10,9 @@
     <h4 class="text-uppercase mt-3">Éditeur du Site :</h4>
     <address class="m-0">Nom de l'entreprise : Myriam Kühn</address>
     <address class="m-0">Adresse : 8 rue Louis Pasteur, 57230 BITCHE, France</address>
-    Téléphone : <a href="tel:+33682499706">+33 6 82 49 97 06</a>
+    Téléphone : <a href="tel:+33682499706" class="text-link">+33 6 82 49 97 06</a>
     <br>
-    E-mail : <a href="mailto:myriam.kuehn@free.fr">myriam.kuehn@free.fr</a>
+    E-mail : <a href="mailto:myriam.kuehn@free.fr" class="text-link">myriam.kuehn@free.fr</a>
     <p class="m-0">SIRET : 123 456 789 00010</p>
     <p class="m-0">Directeur de la publication : Myriam Kühn, Gérante</p>
   </div>
@@ -20,7 +20,7 @@
     <h4 class="text-uppercase mt-3">Hébergeur du Site :</h4>
     <address class="m-0">Nom de l'entreprise : ALWAYSDATA</address>
     <address class="m-0">Adresse : 91 rue du Faubourg Saint Honoré - 75008 Paris</address>
-    Téléphone : <a href="tel:+33184162340">+33 1 84 16 23 40</a>
+    Téléphone : <a href="tel:+33184162340" class="text-link">+33 1 84 16 23 40</a>
     <br>
     <p class="m-0">SARL au capital de 200.000 € immatriculée au RCS de Paris sous le numéro 492 893 490</p>
     <p class="m-0">Directeur de la publication : Monsieur Nicolas FERRARI</p>
@@ -36,8 +36,8 @@
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Protection des données personnelles :</h4>
     <p class="m-0">Conformément au Règlement Général sur la Protection des Données (RGPD), Myriam Kühn s'engage à respecter la confidentialité des informations personnelles fournies par les utilisateurs.</p>
-    Délégué à la Protection des Données (DPO) : <a href="mailto:myriam.kuehn@free.fr">myriam.kuehn@free.fr</a>
-    <p class="m-0">Vous disposez d'un droit d'accès, de rectification, et d'effacement de vos données personnelles. Pour exercer ces droits, veuillez nous contacter à : <a href="mailto:myriam.kuehn@free.fr">myriam.kuehn@free.fr</a></p>
+    Délégué à la Protection des Données (DPO) : <a href="mailto:myriam.kuehn@free.fr" class="text-link">myriam.kuehn@free.fr</a>
+    <p class="m-0">Vous disposez d'un droit d'accès, de rectification, et d'effacement de vos données personnelles. Pour exercer ces droits, veuillez nous contacter à : <a href="mailto:myriam.kuehn@free.fr" class="text-link">myriam.kuehn@free.fr</a></p>
     <p class="m-0">Le site utilise des cookies pour améliorer l'expérience utilisateur. Vous pouvez gérer vos préférences concernant l'utilisation des cookies en ajustant les paramètres de votre navigateur.</p>
   </div>
   <div class="mb-2">

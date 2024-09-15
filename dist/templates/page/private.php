@@ -2,7 +2,7 @@
 
 <!-- START : Main -->
 <main class="container my-4 main" id="hero">
-<section class="mt-5">
+<section class="mt-2">
   <div class="d-flex justify-content-between gamestore-title">
     <h2 class="text-uppercase">Vie privée et protection des données</h2>
   </div>
@@ -10,9 +10,9 @@
     <h4 class="text-uppercase mt-3">Responsable du traitement des données</h4>
     <address class="m-0">Nom de l'entreprise : Myriam Kühn</address>
     <address class="m-0">Adresse : 8 rue Louis Pasteur, 57230 BITCHE, France</address>
-    Téléphone : <a href="tel:+33682499706">+33 6 82 49 97 06</a>
+    Téléphone : <a href="tel:+33682499706" class="text-link">+33 6 82 49 97 06</a>
     <br>
-    E-mail : <a href="mailto:myriam.kuehn@free.fr">myriam.kuehn@free.fr</a>
+    E-mail : <a href="mailto:myriam.kuehn@free.fr" class="text-link">myriam.kuehn@free.fr</a>
   </div>
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Données collectées</h4>
@@ -60,7 +60,7 @@
     <ul>
       <li>Données de compte : conservées jusqu'à la suppression du compte.</li>
       <li>Données de commande : conservées 5 ans conformément aux obligations légales.</li>
-      <li>Données de cookies : conservées jusqu'’'à 13 mois.</li>
+      <li>Données de cookies : conservées jusqu'à 13 mois.</li>
     </ul>
   </div>
   <div class="mb-2">
@@ -74,7 +74,7 @@
       <li>Droit à la portabilité : Vous pouvez demander la transmission de vos données à un autre prestataire.</li>
       <li>Droit d'opposition : Vous pouvez vous opposer au traitement de vos données pour des motifs légitimes.</li>
     </ul>
-    <p class="m-0">Pour exercer ces droits, vous pouvez nous contacter à l'adresse suivante : <a href="mailto:myriam.kuehn@free.fr">myriam.kuehn@free.fr</a> ou via notre formulaire de contact.</p>
+    <p class="m-0">Pour exercer ces droits, vous pouvez nous contacter à l'adresse suivante : <a href="mailto:myriam.kuehn@free.fr" class="text-link">myriam.kuehn@free.fr</a> ou via notre formulaire de contact.</p>
   </div>
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Utilisation des cookies</h4>

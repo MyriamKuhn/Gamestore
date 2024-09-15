@@ -37,7 +37,7 @@ use App\Tools\NavigationTools;
   <header>
     <nav class="navbar navbar-expand-lg bg-white fixed-top bg-opacity-75 nav-shadow" id="navbar-opacity">
       <div class="container-fluid">
-        <a class="navbar-brand ps-lg-5" href="/index.php">
+        <a class="navbar-brand ps-lg-5" href="index.php?controller=page&action=home">
           <img src="./assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" width="180">
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +45,7 @@ use App\Tools\NavigationTools;
         </button>
         <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
           <ul class="navbar-nav align-items-center pt-2 pt-lg-0">
-          <li class="nav-item px-lg-5">
+          <li class="nav-item pb-2 pb-lg-0 px-lg-5">
               <a class="menu-link text-uppercase <?= NavigationTools::addActiveClass('page', 'home') ?>" href="index.php?controller=page&action=home">Accueil</a>
             </li>
             <li class="nav-item px-lg-5">
