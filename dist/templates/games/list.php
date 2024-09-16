@@ -45,7 +45,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
           <div class="accordion-body row row-cols-auto justify-content-center">
             <?php foreach ($genres as $genre) : ?>
               <input type="checkbox" class="btn-check genre-filter" id="btn-check-genre-<?= Security::secureInput($genre['id']) ?>" autocomplete="off" value="<?= Security::secureInput($genre['name']) ?>">
-              <label class="btn btn-gamestore-outline-checked text-uppercase mb-1 me-1" for="btn-check-genre-<?= $genre['id'] ?>"><?= $genre['name'] ?></label>
+              <label class="btn btn-gamestore-outline-checked text-uppercase mb-1 me-1" for="btn-check-genre-<?= Security::secureInput($genre['id']) ?>"><?= Security::secureInput($genre['name']) ?></label>
             <?php endforeach; ?>
           </div>
         </div>
@@ -60,7 +60,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
           <div class="accordion-body row row-cols-auto justify-content-center">
             <?php foreach ($platforms as $platform) : ?>
               <input type="checkbox" class="btn-check platform-filter" id="btn-check-platform-<?= Security::secureInput($platform['id']) ?>" autocomplete="off" value="<?= Security::secureInput($platform['name']) ?>">
-              <label class="btn btn-gamestore-outline-checked text-uppercase mb-1 me-1" for="btn-check-platform-<?= $platform['id'] ?>"><?= $platform['name'] ?></label>
+              <label class="btn btn-gamestore-outline-checked text-uppercase mb-1 me-1" for="btn-check-platform-<?= Security::secureInput($platform['id']) ?>"><?= Security::secureInput($platform['name']) ?></label>
             <?php endforeach; ?>
           </div>
         </div>
@@ -248,7 +248,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
     <!-- START : Pagination -->
     <section class="mt-5 mb-3">
       <div class="d-flex justify-content-center" id="pagination-container">
-
+        <!-- Emplacement de la pagination -->
       </div>
     </section>
     <!-- END : Pagination -->

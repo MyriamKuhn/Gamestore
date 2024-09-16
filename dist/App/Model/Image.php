@@ -4,6 +4,7 @@ namespace App\Model;
 
 class Image extends Model
 {
+  
   protected int $id;
   protected string $name;
   protected int $fk_game_id;

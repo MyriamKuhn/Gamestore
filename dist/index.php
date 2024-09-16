@@ -28,7 +28,6 @@ $controller->route();
 
 
 // JUST FOR TESTING
-
 use App\Repository\GamePlatformRepository;
 
 // Create an instance of GamesRepository

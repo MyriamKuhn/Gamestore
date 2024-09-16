@@ -145,7 +145,7 @@ class GamePlatformRepository extends MainRepository
     INNER JOIN genre AS ge ON gg.fk_genre_id = ge.id
     INNER JOIN image AS i ON g.id = i.fk_game_id
     INNER JOIN store AS s ON gp.fk_store_id = s.id
-    WHERE is_reduced = 1 and gp.quantity > 0
+    WHERE is_reduced = 1 AND gp.quantity > 0
     GROUP BY g.id, gp.price, gp.discount_rate, s.location';
 
     $stmt = $this->pdo->prepare($query);
@@ -164,7 +164,7 @@ class GamePlatformRepository extends MainRepository
     return $reducedGames;
   }
 
-  // Récupération de toute les données brutes
+  // Récupération de toutes les données de prix
   public function getAllPrices(): array
   {
     $query = 'SELECT gp.price FROM game_platform AS gp';

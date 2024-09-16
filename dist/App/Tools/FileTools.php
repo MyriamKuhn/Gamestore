@@ -27,6 +27,7 @@ class FileTools
           case 'list':
             $scripts = [
               'utils.js',
+              'variables.js',
               'listFilters.js',
               'listPage.js',
               'listCardsCreate.js',
@@ -42,7 +43,10 @@ class FileTools
           case 'promo':
             $scripts = [
               'utils.js',
+              'variables.js',
               'promoPage.js',
+              'promoCardsCreate.js',
+              'promoFilters.js',
             ];
             return $scripts;
             break;

@@ -1,10 +1,11 @@
-/*******************************/
+/***********/
 
-// IMPORT DES FONCTIONS UTILES //
+// IMPORTS //
 
-/******************************/
+/**********/
 import { getSpotlightImg } from "./utils.js";
 import { cardsNantesDiv, cardsLilleDiv, cardsBordeauxDiv, cardsParisDiv, cardsToulouseDiv } from './listPage.js';
+import { searchGame } from './listFilters.js';
 
 
 /***************************************/
@@ -151,4 +152,42 @@ export function createHtmlCard(datas, city) {
     cardFooter.textContent = 'Plus d\'infos';
     cardEnd.appendChild(cardFooter);
   });
+}
+
+
+/**********************************/
+
+// MISE EN PLACE DE LA PAGINATION //
+
+/**********************************/
+export function constructPagination(totalPages) {
+  const paginationContainer = document.getElementById('pagination-container');
+  paginationContainer.innerHTML = '';
+
+  const paginationPacman = document.createElement('div');
+  paginationPacman.classList.add('pagination-pacman');
+  paginationContainer.appendChild(paginationPacman);
+
+  for (let i=0; i<totalPages; i++) {
+    const input = document.createElement('input');
+    input.classList.add('input-pacman');
+    input.id = `dot-${i+1}`;
+    input.type = 'radio';
+    input.name = 'dots';
+      if (i === 0) {
+        input.checked = 'checked';
+      }
+    input.addEventListener('change', function() {
+      searchGame(i+1, false);
+    });
+    paginationPacman.appendChild(input);
+
+    const label = document.createElement('label');
+    label.classList.add('label-pacman');
+    label.htmlFor = `dot-${i+1}`;
+    paginationPacman.appendChild(label);
+  }
+  const pacman = document.createElement('div');
+  pacman.classList.add('pacman');
+  paginationPacman.appendChild(pacman);
 }

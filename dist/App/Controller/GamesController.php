@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\GenreRepository;
 use App\Repository\PlatformRepository;
 use App\Repository\GamePlatformRepository;
+use App\Repository\StoreRepository;
 
 class GamesController extends RoutingController
 {
@@ -78,7 +79,18 @@ class GamesController extends RoutingController
   protected function promo()
   {
     try {
-      $this->render('games/promo');
+      $genreRepository = new GenreRepository();
+      $allGenres = $genreRepository->getAllGenres();
+      $platformRepository = new PlatformRepository();
+      $allPlatforms = $platformRepository->getAllPlatforms();
+      $storeRepository = new StoreRepository();
+      $allStores = $storeRepository->getAllStores();
+
+      $this->render('games/promo', [
+        'genres' => $allGenres,
+        'platforms' => $allPlatforms,
+        'stores' => $allStores
+      ]);
 
     } catch (\Exception $e) {
       $this->render('errors/default', [

@@ -2,11 +2,11 @@
 
 namespace App\Model;
 
-class Genre extends Model
+class Store extends Model
 {
 
   protected int $id;
-  protected string $name;
+  protected string $location;
 
   public function getId(): int
   {
@@ -20,16 +20,16 @@ class Genre extends Model
     return $this;
   }
 
-  public function getName(): string
+  public function getLocation(): string
   {
-    return $this->name;
+    return $this->location;
   }
 
-  public function setName(string $name): self
+  public function setLocation(string $location): self
   {
-    $this->name = $name;
+    $this->location = $location;
 
     return $this;
   }
-  
+
 }

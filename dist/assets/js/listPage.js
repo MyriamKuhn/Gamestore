@@ -1,9 +1,10 @@
-/*******************************/
+/***********/
 
-// IMPORT DES FONCTIONS UTILES //
+// IMPORTS //
 
-/******************************/
-import { searchGame, resetFilters } from './listFilters.js';
+/**********/
+import { searchGame } from './listFilters.js';
+import { searchInput, paginationSelect, resetButton, genresChecks, platformsChecks } from './variables.js';
 
 
 /********************/
@@ -33,7 +34,7 @@ function getDatas() {
     .then(response => response.json())
     .then(datas => {
       gameDatas = datas;
-      prepareHtmlCard(gameDatas['datas']);
+      prepareHtmlCard();
     })
     .catch(error => console.error('Erreur : ' + error));
 }
@@ -44,15 +45,10 @@ function getDatas() {
 // VARIABLES //
 
 /**************/
-export const searchInput = document.getElementById('search-game');
 export const minPriceInput = document.getElementById('min-price');
 export const labelminPriceInput = document.getElementById('label-min-price');
 export const maxPriceInput = document.getElementById('max-price');
 export const labelmaxPriceInput = document.getElementById('label-max-price');
-export const genresChecks = document.querySelectorAll('.genre-filter');
-export const platformsChecks = document.querySelectorAll('.platform-filter');
-export const resetButton = document.getElementById('reset-filters');
-export const paginationSelect = document.getElementById('games-per-page');
 
 export const cardsNantesDiv = document.getElementById('cards-nantes');
 export const cardsLilleDiv = document.getElementById('cards-lille');
@@ -75,12 +71,60 @@ tabs.forEach(tab => {
 });
 
 
+/************************/
+
+// LISTENER SUR FILTRES //
+
+/***********************/
+searchInput.addEventListener('search', () => {
+  searchGame(1, true)
+});
+searchInput.addEventListener('input', () => {
+  searchGame(1, true)
+});
+paginationSelect.addEventListener('change', () => {
+  searchGame(1, true)
+});
+resetButton.addEventListener('click', resetFilters);
+
+genresChecks.forEach(genre => {
+  genre.addEventListener('change', () => {
+    searchGame(1, true)
+  });
+});
+
+platformsChecks.forEach(platform => {
+  platform.addEventListener('change', () => {
+    searchGame(1, true)
+  });
+});
+
+minPriceInput.addEventListener('input', function(event) {
+  if (event.target.value > maxPriceInput.value) {
+    event.target.value = maxPriceInput.value;
+  } else if (event.target.value < minPriceInput.getAttribute('min')) {
+    event.target.value = minPriceInput.getAttribute('min');
+  }
+  labelminPriceInput.textContent = event.target.value + " €";
+  searchGame(1, true)
+});
+maxPriceInput.addEventListener('input', function(event) {
+  if (event.target.value < minPriceInput.value) {
+    event.target.value = minPriceInput.value;
+  } else if (event.target.value > maxPriceInput.getAttribute('max')) {
+    event.target.value = maxPriceInput.getAttribute('max');
+  }
+  labelmaxPriceInput.textContent = event.target.value + " €";
+  searchGame(1, true)
+});
+
+
 /********************************/
 
 // AFFICHAGE DES CARTES DE JEUX //
 
 /********************************/
-export function prepareHtmlCard(datas) {
+export function prepareHtmlCard() {
   const activeTab = document.querySelector('.stores.active');
   const activeTabId = activeTab.getAttribute('id');
 
@@ -109,39 +153,23 @@ export function prepareHtmlCard(datas) {
 }
 
 
-/**********************************/
+/**********************/
 
-// MISE EN PLACE DE LA PAGINATION //
+// RESET DES FILTRES //
 
-/**********************************/
-export function constructPagination(totalPages) {
-  const paginationContainer = document.getElementById('pagination-container');
-  paginationContainer.innerHTML = '';
-
-  const paginationPacman = document.createElement('div');
-  paginationPacman.classList.add('pagination-pacman');
-  paginationContainer.appendChild(paginationPacman);
-
-  for (let i=0; i<totalPages; i++) {
-    const input = document.createElement('input');
-    input.classList.add('input-pacman');
-    input.id = `dot-${i+1}`;
-    input.type = 'radio';
-    input.name = 'dots';
-      if (i === 0) {
-        input.checked = 'checked';
-      }
-    input.addEventListener('change', function() {
-      searchGame(i+1, false);
-    });
-    paginationPacman.appendChild(input);
-
-    const label = document.createElement('label');
-    label.classList.add('label-pacman');
-    label.htmlFor = `dot-${i+1}`;
-    paginationPacman.appendChild(label);
-  }
-  const pacman = document.createElement('div');
-  pacman.classList.add('pacman');
-  paginationPacman.appendChild(pacman);
+/*********************/
+export function resetFilters() {
+  searchInput.value = '';
+  genresChecks.forEach(genre => {
+    genre.checked = false;
+  });
+  platformsChecks.forEach(platform => {
+    platform.checked = false;
+  });
+  minPriceInput.value = '0.00';
+  labelminPriceInput.textContent = minPriceInput.value + " €";
+  maxPriceInput.value = '1000.00';
+  labelmaxPriceInput.textContent = maxPriceInput.value + " €";
+  paginationSelect.selectedIndex = 1;
+  prepareHtmlCard(gameDatas['datas']);
 }
