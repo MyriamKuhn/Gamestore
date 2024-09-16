@@ -13,4 +13,56 @@ class FileTools
       return $imagesDatas;
   }
 
+  public static function addScripts()
+  {
+    switch (isset($_GET['controller']) ? $_GET['controller'] : '') {
+      case 'page':
+        $scripts = [
+          'utils.js',
+        ];
+        return $scripts;
+        break;
+      case 'games':
+        switch (isset($_GET['action']) ? $_GET['action'] : '') {
+          case 'list':
+            $scripts = [
+              'utils.js',
+              'listFilters.js',
+              'listPage.js',
+              'listCardsCreate.js',
+            ];
+            return $scripts;
+            break;
+          case 'show':
+            $scripts = [
+              'utils.js',
+            ];
+            return $scripts;
+            break;
+          case 'promo':
+            $scripts = [
+              'utils.js',
+              'promoPage.js',
+            ];
+            return $scripts;
+            break;
+          default:
+            $scripts = [
+              'utils.js',
+            ];
+            return $scripts;
+        }
+        break;
+      default:
+        $scripts = [
+          'utils.js',
+          'filters.js',
+          'listPage.js',
+          'promoPage.js',
+          'variables.js'
+        ];
+        return $scripts;
+    }
+  }
+
 }

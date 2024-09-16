@@ -1,3 +1,7 @@
+<?php 
+
+use App\Tools\FileTools; ?>
+      
       <!-- START : Back To Top -->
       <a class="btn btn-gamestore-outline shadow px-1" href="#" id="scrollTopButton">
       <i class="bi bi-chevron-up fs-4"></i>
@@ -27,9 +31,13 @@
   </footer>
   <!-- END : Footer -->
 
+</div>
   <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="./assets/js/pagesControls.js"></script>
-  </div>
+  <?php 
+    $scripts = FileTools::addScripts();
+    foreach($scripts as $script) : ?>
+      <script type="module" src="./assets/js/<?= $script ?>"></script>
+    <?php endforeach; ?>
 </body>
 
 </html>
