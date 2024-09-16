@@ -29,6 +29,10 @@ class RoutingController
             //$controller->route();
             $controller->route();
             break;
+          case 'datas':
+            $controller = new DatasController();
+            //$controller->route();
+            break;
           default:
             throw new \Exception("Le controleur n'existe pas");
             break;

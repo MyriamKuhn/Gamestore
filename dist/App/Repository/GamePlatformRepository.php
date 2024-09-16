@@ -164,6 +164,14 @@ class GamePlatformRepository extends MainRepository
     return $reducedGames;
   }
 
+  // Récupération de toute les données brutes
+  public function getAllPrices(): array
+  {
+    $query = 'SELECT gp.price FROM game_platform AS gp';
+    $stmt = $this->pdo->query($query);
+    
+    return $stmt->fetchAll();
+  }
 
 }
 

@@ -1,14 +1,26 @@
-// Récupération des données des jeux dans le div data-container
-const dataContainer = document.getElementById('data-container');
-const gameDatas = JSON.parse(dataContainer.getAttribute('data-games'));
+let gameDatas = null;
+
+function getDatas() {
+  fetch('index.php?controller=datas',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ action: 'getPromoDatas' })
+    })
+    .then(response => response.json())
+    .then(datas => {
+      gameDatas = datas;
+      createHtmlCard(gameDatas);
+    })
+    .catch(error => console.error('Erreur : ' + error));
+}
+
+getDatas();
 
 // Récupération de l'emplacement où afficher les cartes de jeux
 const cardsDiv = document.getElementById('cards');
-
-//Au démarrage de la page, on appelle la fonction pour afficher les jeux en promo
-if (gameDatas) {
-  createHtmlCard();
-};
 
 // Récupération de l'image Spotlight dans gameDatas
 function getSpotlightImg(datas) {
@@ -19,7 +31,7 @@ function getSpotlightImg(datas) {
 // Fonction pour afficher les cartes de jeux
 function createHtmlCard() {
   cardsDiv.innerHTML = '';
-  gameDatas.forEach(game => {
+  gameDatas['datas'].forEach(game => {
     const gameCard = document.createElement('div');
     gameCard.classList.add('card', 'gamestore-card');
     gameCard.style.width = '18rem';

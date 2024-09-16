@@ -31,13 +31,13 @@
   </div>
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Conditions d'utilisation :</h4>
-    <p class="m-0">L'utilisation de ce site implique l'acceptation pleine et entière des conditions générales d'utilisation ci-après décrites. Le site est accessible à tout moment aux utilisateurs, toutefois, une interruption pour raison de maintenance technique peut être décidée par Myriam Kühn.</p>
+    <p class="m-0">L'utilisation de ce site implique l'acceptation pleine et entière des conditions générales d'utilisation ci-après décrites. Le site est accessible à tout moment aux utilisateurs, toutefois, une interruption pour raison de maintenance technique peut être décidée par Gamestore.</p>
   </div>
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Protection des données personnelles :</h4>
     <p class="m-0">Conformément au Règlement Général sur la Protection des Données (RGPD), Myriam Kühn s'engage à respecter la confidentialité des informations personnelles fournies par les utilisateurs.</p>
-    Délégué à la Protection des Données (DPO) : <a href="mailto:myriam.kuehn@free.fr" class="text-link">myriam.kuehn@free.fr</a>
-    <p class="m-0">Vous disposez d'un droit d'accès, de rectification, et d'effacement de vos données personnelles. Pour exercer ces droits, veuillez nous contacter à : <a href="mailto:myriam.kuehn@free.fr" class="text-link">myriam.kuehn@free.fr</a></p>
+    Délégué à la Protection des Données (DPO) : <a href="mailto:gamestore.josedupont@gmail.com" class="text-link">gamestore.josedupont@gmail.com</a>
+    <p class="m-0">Vous disposez d'un droit d'accès, de rectification, et d'effacement de vos données personnelles. Pour exercer ces droits, veuillez nous contacter à : <a href="mailto:gamestore.josedupont@gmail.com" class="text-link">gamestore.josedupont@gmail.com</a></p>
     <p class="m-0">Le site utilise des cookies pour améliorer l'expérience utilisateur. Vous pouvez gérer vos préférences concernant l'utilisation des cookies en ajustant les paramètres de votre navigateur.</p>
   </div>
   <div class="mb-2">
@@ -50,7 +50,7 @@
   </div>
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Loi applicable et juridiction compétente :</h4>
-    <p class="m-0">Les présentes mentions légales sont régies par la loi française. En cas de litige, la compétence est attribuée aux tribunaux de Sarreguemines.</p>
+    <p class="m-0">Les présentes mentions légales sont régies par la loi française. En cas de litige, la compétence est attribuée aux tribunaux de Paris.</p>
   </div>
 </section>
 

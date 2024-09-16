@@ -3,7 +3,6 @@
 <!-- START : Main -->
 <main class="container my-4 main" id="hero">
   <section class="mt-2">
-    <div id="data-container" data-games="<?= htmlspecialchars($reducedGames, ENT_QUOTES, 'UTF-8') ?>"></div>
     <div class="d-flex justify-content-between gamestore-title">
       <h2 class="text-uppercase">Toutes nos offres promotionnelles</h2>
     </div>

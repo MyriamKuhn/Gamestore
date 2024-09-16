@@ -46,7 +46,7 @@
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Données Personnelles</h4>
     <p class="m-0">L'utilisation du Site peut entraîner la collecte de données personnelles conformément à notre <a href="index.php?controller=page&action=private" class="text-link">Politique de Confidentialité</a>. L'utilisateur dispose des droits d'accès, de rectification, d'effacement et de portabilité de ses données personnelles, conformément à la réglementation en vigueur (notamment le RGPD).</p>
-    <p class="m-0">Pour exercer ces droits, l'utilisateur peut contacter le responsable de la protection des données à l'adresse suivante : <a href="mailto:myriam.kuehn@free.fr" class="text-link">myriam.kuehn@free.fr</a>.</p>
+    <p class="m-0">Pour exercer ces droits, l'utilisateur peut contacter le responsable de la protection des données à l'adresse suivante : <a href="mailto:gamestore.josedupont@gmail.com" class="text-link">gamestore.josedupont@gmail.com</a>.</p>
   </div>
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Cookies</h4>
@@ -66,7 +66,7 @@
   </div>
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Contact</h4>
-    <p class="m-0">Pour toute question concernant les présentes CGU, vous pouvez nous contacter par email à l'adresse suivante : <a href="mailto:myriam.kuehn@free.fr" class="text-link">myriam.kuehn@free.fr</a>.</p>
+    <p class="m-0">Pour toute question concernant les présentes CGU, vous pouvez nous contacter par email à l'adresse suivante : <a href="mailto:gamestore.josedupont@gmail.com" class="text-link">gamestore.josedupont@gmail.com</a>.</p>
   </div>
 </section>
 
