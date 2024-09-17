@@ -3,6 +3,7 @@
 namespace App\Tools;
 
 use App\Repository\GamesRepository;
+use App\Tools\Security;
 
 class NavigationTools
 {
@@ -92,7 +93,7 @@ class NavigationTools
 
   private static function getGameDetails()
   {
-    $gameId = $_GET['id'];
+    $gameId = Security::secureInput($_GET['id']);
     $gamesRepository = new GamesRepository();
     $game = $gamesRepository->getGameById($gameId);
     return $game;

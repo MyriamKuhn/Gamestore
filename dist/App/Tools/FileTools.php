@@ -37,6 +37,7 @@ class FileTools
           case 'show':
             $scripts = [
               'utils.js',
+              'showPage.js',
             ];
             return $scripts;
             break;

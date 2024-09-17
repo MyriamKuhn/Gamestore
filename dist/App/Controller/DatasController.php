@@ -22,6 +22,9 @@ class DatasController extends RoutingController
           } elseif ($data['action'] === 'getPromoDatas') {
               // Appeler la fonction getPromoDatas()
               $this->getPromoDatas();
+          } elseif ($data['action'] === 'getGameDatas') {
+              // Appeler la fonction getGameDatas()
+              $this->getGameDatas($data['gameId']);
           } else {
               // Si l'action n'est pas reconnue
               $this->sendResponse(false, "Action inconnue");
@@ -56,6 +59,14 @@ class DatasController extends RoutingController
       'datasParis' => $gamesParis,
       'datasToulouse' => $gamesToulouse
     ]);
+  }
+
+  protected function getGameDatas($gameId)
+  {
+    $gpRepository = new GamePlatformRepository();
+    $game = $gpRepository->getGameById($gameId);
+
+    $this->sendResponse(true, $game);
   }
 
   // Fonction pour envoyer une réponse JSON

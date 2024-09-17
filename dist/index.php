@@ -33,5 +33,5 @@ use App\Repository\GamePlatformRepository;
 // Create an instance of GamesRepository
 $gamesRepository = new GamePlatformRepository();
 // Call the getGames method
-$games = $gamesRepository->getAllGamesByStore(1);
+$games = $gamesRepository->getGameById(14);
 // Output the result
