@@ -21,3 +21,4 @@
 # Ignore all files above
 /todo.todo
 dist\.env
+dist\App\Db\test.php

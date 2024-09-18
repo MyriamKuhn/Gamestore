@@ -2,20 +2,24 @@
 
 namespace App\Db;
 
-use config\Dotenv;
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use Dotenv\Dotenv;
 
 class Mysql
 {
-  // Database configuration
-  private ?\PDO $pdo = null;
-  private static ?self $_instance = null;
 
   // Constructor
   private function __construct()
   {
-    $dotenv = new DotEnv(_ROOTPATH_.'/.env');
+    $dotenv = new Dotenv(__DIR__ . '/../..');
     $dotenv->load();
   }
+
+  // Database configuration
+  private ?\PDO $pdo = null;
+  private static ?self $_instance = null;
+
   //singleton
   public static function getInstance(): self
   {
@@ -39,4 +43,5 @@ class Mysql
     }
     return $this->pdo;
   }
+  
 }
