@@ -20,8 +20,10 @@ class GamesController extends RoutingController
             $this->list();
             break;
           case 'show':
-            //charger controleur 
-            $this->show();
+            if (!isset($_GET['id'])) {
+              throw new \Exception("Aucun identifiant de jeu spécifié");
+            }
+            $this->show($_GET['id']);
             break;
           case 'promo':
             //charger controleur 
@@ -64,10 +66,15 @@ class GamesController extends RoutingController
     }
   }
 
-  protected function show()
+  protected function show(int $gameId)
   {
     try {
-      $this->render('games/show');
+      $gpRepository = new GamePlatformRepository();
+      $game = $gpRepository->getGameById($gameId);
+
+      $this->render('games/show', [
+        'game' => $game
+      ]);
 
     } catch (\Exception $e) {
       $this->render('errors/default', [

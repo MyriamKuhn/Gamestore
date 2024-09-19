@@ -1,4 +1,4 @@
-USE myriam_gamestore;
+USE dbs13300266;
 
 CREATE TABLE pegi (
   id INT(11) UNSIGNED PRIMARY KEY AUTO_INCREMENT,

@@ -36,8 +36,8 @@
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Protection des données personnelles :</h4>
     <p class="m-0">Conformément au Règlement Général sur la Protection des Données (RGPD), Myriam Kühn s'engage à respecter la confidentialité des informations personnelles fournies par les utilisateurs.</p>
-    Délégué à la Protection des Données (DPO) : <a href="mailto:gamestore.josedupont@gmail.com" class="text-link">gamestore.josedupont@gmail.com</a>
-    <p class="m-0">Vous disposez d'un droit d'accès, de rectification, et d'effacement de vos données personnelles. Pour exercer ces droits, veuillez nous contacter à : <a href="mailto:gamestore.josedupont@gmail.com" class="text-link">gamestore.josedupont@gmail.com</a></p>
+    Délégué à la Protection des Données (DPO) : <a href="mailto:contact@gamestore.myriamkuhn.com" class="text-link">contact@gamestore.myriamkuhn.com</a>
+    <p class="m-0">Vous disposez d'un droit d'accès, de rectification, et d'effacement de vos données personnelles. Pour exercer ces droits, veuillez nous contacter à : <a href="mailto:contact@gamestore.myriamkuhn.com" class="text-link">contact@gamestore.myriamkuhn.com</a></p>
     <p class="m-0">Le site utilise des cookies pour améliorer l'expérience utilisateur. Vous pouvez gérer vos préférences concernant l'utilisation des cookies en ajustant les paramètres de votre navigateur.</p>
   </div>
   <div class="mb-2">

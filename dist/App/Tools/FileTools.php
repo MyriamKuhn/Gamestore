@@ -37,6 +37,8 @@ class FileTools
           case 'show':
             $scripts = [
               'utils.js',
+              'showPage.js',
+              'carouselGamestore.js',
             ];
             return $scripts;
             break;

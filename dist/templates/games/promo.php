@@ -96,7 +96,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
               </div>
               <div class="text-center d-flex flex-column ms-5">
                 <div>Reset des filtres</div>
-                <button class="btn btn-gamestore" id="reset-filters">Reset</button>
+                <button class="btn btn-gamestore text-uppercase" id="reset-filters">Reset</button>
               </div>
             </div>
           </div>

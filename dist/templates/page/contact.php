@@ -5,10 +5,11 @@ require './vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-use config\Dotenv;
+use Dotenv\Dotenv;
+
 use App\Tools\Security;
 
-$dotenv = new DotEnv(_ROOTPATH_.'/.env');
+$dotenv = new Dotenv(__DIR__ . '../../..');
 $dotenv->load();
 
 // Clé secrète reCAPTCHA
