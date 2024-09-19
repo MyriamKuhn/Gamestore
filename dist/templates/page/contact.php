@@ -9,7 +9,7 @@ use Dotenv\Dotenv;
 
 use App\Tools\Security;
 
-$dotenv = new Dotenv(__DIR__ . '../../..');
+$dotenv = new Dotenv(_ROOTPATH_);
 $dotenv->load();
 
 // Clé secrète reCAPTCHA
