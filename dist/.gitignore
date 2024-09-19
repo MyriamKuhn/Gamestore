@@ -1,4 +1,3 @@
 ### Files ###
 # Ignore all files above
 .env
-dist\App\Db\test.php

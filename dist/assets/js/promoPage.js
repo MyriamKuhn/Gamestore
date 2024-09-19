@@ -34,7 +34,6 @@ function getDatas() {
     .then(response => response.json())
     .then(datas => {
       gameDatas = datas;
-      console.log(gameDatas);
       prepareHtmlCard();
     })
     .catch(error => console.error('Erreur : ' + error));

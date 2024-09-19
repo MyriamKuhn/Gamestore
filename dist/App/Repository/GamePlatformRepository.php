@@ -182,7 +182,7 @@ class GamePlatformRepository extends MainRepository
     g.description AS game_description,
     p.name AS pegi_name,
     GROUP_CONCAT(DISTINCT i.name) AS images,
-    GROUP_CONCAT(DISTINCT ge.name) AS genre,
+    GROUP_CONCAT(DISTINCT ge.name SEPARATOR ", ") AS genres,
     GROUP_CONCAT(DISTINCT CONCAT(s.location, ",", pl.name, ",", gp.price, ",", gp.is_reduced, ",", gp.discount_rate, ",", gp.quantity)) AS game_prices
     FROM game_platform AS gp
     INNER JOIN game AS g ON gp.fk_game_id = g.id
@@ -204,7 +204,6 @@ class GamePlatformRepository extends MainRepository
 
     if ($result) {
       $result['images'] = explode(',', $result['images']);
-      $result['genre'] = explode(',', $result['genre']);
       $result['game_prices'] = explode(',', $result['game_prices']);
       $result['game_prices'] = array_chunk($result['game_prices'], 6);
       $result['game_prices'] = array_map(function ($price) {
