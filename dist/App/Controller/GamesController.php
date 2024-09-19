@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Repository\GenreRepository;
+use App\Repository\PlatformRepository;
 use App\Repository\GamePlatformRepository;
+use App\Repository\StoreRepository;
 
 class GamesController extends RoutingController
 {
@@ -17,8 +20,10 @@ class GamesController extends RoutingController
             $this->list();
             break;
           case 'show':
-            //charger controleur 
-            $this->show();
+            if (!isset($_GET['id'])) {
+              throw new \Exception("Aucun identifiant de jeu spécifié");
+            }
+            $this->show($_GET['id']);
             break;
           case 'promo':
             //charger controleur 
@@ -40,27 +45,19 @@ class GamesController extends RoutingController
 
   protected function list()
   {
+    $genreRepository = new GenreRepository();
+    $allGenres = $genreRepository->getAllGenres();
+    $platformRepository = new PlatformRepository();
+    $allPlatforms = $platformRepository->getAllPlatforms();
+    $gpRepository = new GamePlatformRepository();
+    $prices = $gpRepository->getAllPrices();
+
     try {
-      $gpRepository = new GamePlatformRepository();
-      $gamesNantes = $gpRepository->getAllGamesByStore(1);
-      $gamesLille = $gpRepository->getAllGamesByStore(2);
-      $gamesBordeaux = $gpRepository->getAllGamesByStore(3);
-      $gamesParis = $gpRepository->getAllGamesByStore(4);
-      $gamesToulouse = $gpRepository->getAllGamesByStore(5);
-
-      $gamesNantes = json_encode($gamesNantes);
-      $gamesLille = json_encode($gamesLille);
-      $gamesBordeaux = json_encode($gamesBordeaux);
-      $gamesParis = json_encode($gamesParis);
-      $gamesToulouse = json_encode($gamesToulouse);
-
-      $this->render('games/list', [
-        'gamesNantes' => $gamesNantes,
-        'gamesLille' => $gamesLille,
-        'gamesBordeaux' => $gamesBordeaux,
-        'gamesParis' => $gamesParis,
-        'gamesToulouse' => $gamesToulouse
-      ]);
+        $this->render('games/list', [
+          'genres' => $allGenres,
+          'platforms' => $allPlatforms,
+          'prices' => $prices
+        ]);
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
@@ -69,10 +66,15 @@ class GamesController extends RoutingController
     }
   }
 
-  protected function show()
+  protected function show(int $gameId)
   {
     try {
-      $this->render('games/show');
+      $gpRepository = new GamePlatformRepository();
+      $game = $gpRepository->getGameById($gameId);
+
+      $this->render('games/show', [
+        'game' => $game
+      ]);
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
@@ -84,13 +86,17 @@ class GamesController extends RoutingController
   protected function promo()
   {
     try {
-      $gpRepository = new GamePlatformRepository();
-      $reducedGames = $gpRepository->getAllReducedGames();
-
-      $reducedGames = json_encode($reducedGames);
+      $genreRepository = new GenreRepository();
+      $allGenres = $genreRepository->getAllGenres();
+      $platformRepository = new PlatformRepository();
+      $allPlatforms = $platformRepository->getAllPlatforms();
+      $storeRepository = new StoreRepository();
+      $allStores = $storeRepository->getAllStores();
 
       $this->render('games/promo', [
-        'reducedGames' => $reducedGames
+        'genres' => $allGenres,
+        'platforms' => $allPlatforms,
+        'stores' => $allStores
       ]);
 
     } catch (\Exception $e) {

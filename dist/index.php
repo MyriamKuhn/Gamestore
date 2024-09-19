@@ -1,5 +1,10 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+ini_set('error_log', $_SERVER['DOCUMENT_ROOT'].'/error.log');
+
 require_once __DIR__.'/config.php';
 
 // Sécurisation du cookie de session avec httpOnly
@@ -28,11 +33,10 @@ $controller->route();
 
 
 // JUST FOR TESTING
-
 use App\Repository\GamePlatformRepository;
 
 // Create an instance of GamesRepository
 $gamesRepository = new GamePlatformRepository();
 // Call the getGames method
-$games = $gamesRepository->getAllGamesByStore(1);
+$games = $gamesRepository->getGameById(14);
 // Output the result

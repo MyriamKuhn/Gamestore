@@ -4,6 +4,7 @@ require_once _TEMPLATEPATH_.'/header.php';
 
 use App\Tools\StringTools;
 use App\Tools\FileTools;
+use App\Tools\Security;
 
 
 $needle = 'spotlight';
@@ -106,24 +107,24 @@ $needle = 'spotlight';
         <!-- START : Card News -->
         <div class="card gamestore-card" style="width: 15rem;">
           <div class="card-img-block">
-            <img class="card-img-top" src="<?= htmlentities(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= htmlentities($lastGameData['game_name']) ?> loading="lazy">
+            <img class="card-img-top" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= Security::secureInput($lastGameData['game_name']) ?> loading="lazy">
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Nouveauté</span>
           </div>
           <div class="card-body card-body-news pt-0">
-            <div class="card-title text-uppercase text-center"><?= htmlentities($lastGameData['game_name']) ?></div>
+            <div class="card-title text-uppercase text-center"><?= Security::secureInput($lastGameData['game_name']) ?></div>
             <div class="d-flex justify-content-between align-items-center">
               <div>
               <?php foreach ($lastGameData['platforms'] as $lastGamePlatform) : ?>
-                <img src="<?= htmlentities(_ASSETS_IMAGES_FOLDER_.'platforms/'.StringTools::slugify($lastGamePlatform).'.svg') ?>" alt="<?= htmlentities($lastGamePlatform) ?>" width="25">
+                <img src="<?= Security::secureInput(_ASSETS_IMAGES_FOLDER_.'platforms/'.StringTools::slugify($lastGamePlatform).'.svg') ?>" alt="<?= Security::secureInput($lastGamePlatform) ?>" width="25">
               <?php endforeach; ?>
               </div>
               <div>
-                <img src="<?= htmlentities(_ASSETS_IMAGES_FOLDER_.'pegi/'.$lastGameData['pegi_name'].'.jpg') ?>" alt="<?= htmlentities($lastGameData['pegi_name']) ?>" width="30">
+                <img src="<?= Security::secureInput(_ASSETS_IMAGES_FOLDER_.'pegi/'.$lastGameData['pegi_name'].'.jpg') ?>" alt="<?= Security::secureInput($lastGameData['pegi_name']) ?>" width="30">
               </div>
             </div>
           </div>
           <div class="row row-cols-1 justify-content-center">
-            <a href="index.php?controller=games&action=show&id=<?= htmlentities($lastGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Plus d'infos</a>
+            <a href="index.php?controller=games&action=show&id=<?= Security::secureInput($lastGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Plus d'infos</a>
           </div>
         </div>
         <!-- END : Card News -->
@@ -159,31 +160,31 @@ $needle = 'spotlight';
           ?>
         <div class="card gamestore-card" style="width: 18rem;">
           <div class="card-img-block">
-            <img class="card-img-top" src="<?= htmlentities(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= htmlentities($reducedGameData['game_name']) ?>" loading="lazy">
+            <img class="card-img-top" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= Security::secureInput($reducedGameData['game_name']) ?>" loading="lazy">
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Promo</span>
           </div>
           <div class="card-body card-body-promos pt-0">
-            <div class="card-title text-uppercase text-center pb-2"><?= htmlentities($reducedGameData['game_name']) ?></div>
+            <div class="card-title text-uppercase text-center pb-2"><?= Security::secureInput($reducedGameData['game_name']) ?></div>
             <div class="d-flex justify-content-center">
-              <div class="card-percent"><?= htmlentities(($reducedGameData['discount_rate'] * 100)) ?></div>
+              <div class="card-percent"><?= Security::secureInput(($reducedGameData['discount_rate'] * 100)) ?></div>
               <img src="./assets/images/percent_icon.svg" alt="Image représentant un pourcentage">
               <div class="d-flex flex-column align-items-center justify-content-center ps-3">
-                <div class="card-price m-0"><?= htmlentities(StringTools::truncate_string($reducedPrice, 2)) ?> €</div>
-                <div class="text-decoration-line-through"><?= htmlentities($reducedGameData['platform_price']) ?> €</div>
+                <div class="card-price m-0"><?= Security::secureInput(StringTools::truncate_string($reducedPrice, 2)) ?> €</div>
+                <div class="text-decoration-line-through"><?= Security::secureInput($reducedGameData['platform_price']) ?> €</div>
               </div>
             </div>
-            <h5 class="text-center">Uniquement à <?= htmlentities($reducedGameData['store_location']) ?></h5>
+            <h5 class="text-center">Uniquement à <?= Security::secureInput($reducedGameData['store_location']) ?></h5>
             <div class="d-flex justify-content-between align-items-center">
               <div>
-                  <img src="<?= htmlentities(_ASSETS_IMAGES_FOLDER_.'platforms/'.StringTools::slugify($reducedGameData['platform_name']).'.svg') ?>" alt="<?= htmlentities($reducedGameData['platform_name']) ?>" width="25">
+                  <img src="<?= Security::secureInput(_ASSETS_IMAGES_FOLDER_.'platforms/'.StringTools::slugify($reducedGameData['platform_name']).'.svg') ?>" alt="<?= Security::secureInput($reducedGameData['platform_name']) ?>" width="25">
               </div>
               <div>
-                <img src="<?= htmlentities(_ASSETS_IMAGES_FOLDER_.'pegi/'.$reducedGameData['pegi_name'].'.jpg') ?>" alt="<?= htmlentities($reducedGameData['pegi_name']) ?>" width="30">
+                <img src="<?= Security::secureInput(_ASSETS_IMAGES_FOLDER_.'pegi/'.$reducedGameData['pegi_name'].'.jpg') ?>" alt="<?= Security::secureInput($reducedGameData['pegi_name']) ?>" width="30">
               </div>
             </div>
           </div>
           <div class="row row-cols-1 justify-content-center">
-            <a href="index.php?controller=games&action=show&id=<?= htmlentities($reducedGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Plus d'infos</a>
+            <a href="index.php?controller=games&action=show&id=<?= Security::secureInput($reducedGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Plus d'infos</a>
           </div>
         </div>
         <!-- END : Card Promo -->

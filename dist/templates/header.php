@@ -1,6 +1,7 @@
 <?php
 
 use App\Tools\NavigationTools;
+use App\Tools\Security;
 
 ?>
 
@@ -28,6 +29,7 @@ use App\Tools\NavigationTools;
   <link rel="shortcut icon" href="./assets/images/logo_small.svg" type="image/svg+xml">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="./assets/css/main.min.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <!-- END : Styles -->
 </head>
 
@@ -45,16 +47,21 @@ use App\Tools\NavigationTools;
         </button>
         <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
           <ul class="navbar-nav align-items-center pt-2 pt-lg-0">
-          <li class="nav-item pb-2 pb-lg-0 px-lg-5">
+          <li class="nav-item pb-2 pb-lg-0 px-lg-4">
               <a class="menu-link text-uppercase <?= NavigationTools::addActiveClass('page', 'home') ?>" href="index.php?controller=page&action=home">Accueil</a>
             </li>
-            <li class="nav-item px-lg-5">
+            <li class="nav-item px-lg-4">
               <a class="menu-link text-uppercase <?= NavigationTools::addActiveClass('games', 'list') ?>" href="index.php?controller=games&action=list">Nos jeux vidéos</a>
             </li>
           </ul>
           <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center p-3 py-lg-0 pe-lg-0 position-relative">
-            <a href="#" class="btn btn-gamestore text-uppercase shadow me-lg-5">Se connecter</a>
-            <a href="#" class="nav-link navbar-cart pt-2 align-self-end me-lg-5 fw-bold fs-5"><sub>0</sub><i class="bi bi-cart2 fs-1 navbar-cart-img"></i></a>
+            <?php if (Security::isLogged()) : ?>
+              <a href="index.php?controller=user&action=logout" class="btn btn-gamestore text-uppercase shadow me-lg-5">Se déconnecter</a>
+              <a href="#" class="nav-link navbar-cart pt-2 align-self-end me-lg-5 fw-bold fs-5"><sub>0</sub><i class="bi bi-cart2 fs-1 navbar-cart-img"></i></a>
+            <?php else : ?>
+            <a href="/index.php?controller=auth&action=login" class="btn btn-gamestore text-uppercase shadow me-lg-5 mb-2 mb-lg-0 <?= NavigationTools::addActiveClass('auth', 'login') ?>">Se connecter</a>
+            <a href="/index.php?controller=user&action=register" class="btn btn-gamestore text-uppercase shadow me-lg-5 <?= NavigationTools::addActiveClass('auth', 'register') ?>">S'inscrire</a>
+            <?php endif; ?>
           </div>
         </div>
       </div>
