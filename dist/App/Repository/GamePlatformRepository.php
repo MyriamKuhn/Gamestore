@@ -145,7 +145,7 @@ class GamePlatformRepository extends MainRepository
     INNER JOIN genre AS ge ON gg.fk_genre_id = ge.id
     INNER JOIN image AS i ON g.id = i.fk_game_id
     INNER JOIN store AS s ON gp.fk_store_id = s.id
-    WHERE is_reduced = 1 and gp.quantity > 0
+    WHERE is_reduced = 1 AND gp.quantity > 0
     GROUP BY g.id, gp.price, gp.discount_rate, s.location';
 
     $stmt = $this->pdo->prepare($query);
@@ -164,6 +164,64 @@ class GamePlatformRepository extends MainRepository
     return $reducedGames;
   }
 
+  // Récupération de toutes les données de prix
+  public function getAllPrices(): array
+  {
+    $query = 'SELECT gp.price FROM game_platform AS gp';
+    $stmt = $this->pdo->query($query);
+    
+    return $stmt->fetchAll();
+  }
+
+  // Récupération d'un jeu en fonction de son ID
+  public function getGameById(int $gameId): array
+  {
+    $query = 'SELECT
+    g.id AS game_id,
+    g.name AS game_name,
+    g.description AS game_description,
+    p.name AS pegi_name,
+    GROUP_CONCAT(DISTINCT i.name) AS images,
+    GROUP_CONCAT(DISTINCT ge.name SEPARATOR ", ") AS genres,
+    GROUP_CONCAT(DISTINCT CONCAT(s.location, ",", pl.name, ",", gp.price, ",", gp.is_reduced, ",", gp.discount_rate, ",", gp.quantity)) AS game_prices
+    FROM game_platform AS gp
+    INNER JOIN game AS g ON gp.fk_game_id = g.id
+    INNER JOIN pegi AS p ON g.fk_pegi_id = p.id
+    INNER JOIN image AS i ON g.id = i.fk_game_id
+    INNER JOIN platform AS pl ON gp.fk_platform_id = pl.id
+    INNER JOIN game_genre AS gg ON g.id = gg.fk_game_id
+    INNER JOIN genre AS ge ON gg.fk_genre_id = ge.id
+    INNER JOIN store AS s ON gp.fk_store_id = s.id
+    WHERE g.id = :gameId
+    GROUP BY g.id';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':gameId', $gameId, \PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch();
+
+    $game = [];
+
+    if ($result) {
+      $result['images'] = explode(',', $result['images']);
+      $result['game_prices'] = explode(',', $result['game_prices']);
+      $result['game_prices'] = array_chunk($result['game_prices'], 6);
+      $result['game_prices'] = array_map(function ($price) {
+        return [
+          'location' => $price[0],
+          'platform' => $price[1],
+          'price' => $price[2],
+          'is_reduced' => $price[3],
+          'discount_rate' => $price[4],
+          'stock' => $price[5]
+        ];
+        }, $result['game_prices']);
+        
+      $game = $result;
+    }
+
+    return $game;
+  }
 
 }
 

@@ -74,7 +74,7 @@
       <li>Droit à la portabilité : Vous pouvez demander la transmission de vos données à un autre prestataire.</li>
       <li>Droit d'opposition : Vous pouvez vous opposer au traitement de vos données pour des motifs légitimes.</li>
     </ul>
-    <p class="m-0">Pour exercer ces droits, vous pouvez nous contacter à l'adresse suivante : <a href="mailto:myriam.kuehn@free.fr" class="text-link">myriam.kuehn@free.fr</a> ou via notre formulaire de contact.</p>
+    <p class="m-0">Pour exercer ces droits, vous pouvez nous contacter à l'adresse suivante : <a href="mailto:contact@gamestore.myriamkuhn.com" class="text-link">contact@gamestore.myriamkuhn.com</a> ou via notre formulaire de contact.</p>
   </div>
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Utilisation des cookies</h4>
