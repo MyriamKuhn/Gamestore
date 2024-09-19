@@ -38,6 +38,7 @@ class FileTools
             $scripts = [
               'utils.js',
               'showPage.js',
+              'carouselGamestore.js',
             ];
             return $scripts;
             break;

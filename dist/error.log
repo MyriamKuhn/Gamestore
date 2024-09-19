@@ -79,3 +79,21 @@ Stack trace:
 #5 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
 #6 {main}
   thrown in D:\GitHub\Gamestore\dist\templates\games\show.php on line 64
+[19-Sep-2024 18:38:36 UTC] PHP Warning:  Undefined variable $carousel in D:\GitHub\Gamestore\dist\templates\games\show.php on line 109
+[19-Sep-2024 18:38:36 UTC] PHP Stack trace:
+[19-Sep-2024 18:38:36 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[19-Sep-2024 18:38:36 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[19-Sep-2024 18:38:36 UTC] PHP   3. App\Controller\GamesController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:30
+[19-Sep-2024 18:38:36 UTC] PHP   4. App\Controller\GamesController->show($gameId = '14') D:\GitHub\Gamestore\dist\App\Controller\GamesController.php:26
+[19-Sep-2024 18:38:36 UTC] PHP   5. App\Controller\RoutingController->render($path = 'games/show', $params = ['game' => ['game_id' => 14, 'game_name' => 'The Witcher 3 : Wild Hunt', 'game_description' => 'The Witcher 3 : Wild Hunt est un jeu de rôle en monde ouvert. Le joueur y incarne Geralt de Riv, un sorceleur qui doit retrouver Ciri, sa protégée, pour la protéger de la Chasse Sauvage.', 'pegi_name' => 'pegi18', 'images' => [...], 'genres' => 'Action, Aventure, Combat, RPG', 'game_prices' => [...]]]) D:\GitHub\Gamestore\dist\App\Controller\GamesController.php:75
+[19-Sep-2024 18:38:36 UTC] PHP   6. require_once() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:62
+[19-Sep-2024 18:38:36 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, null given in D:\GitHub\Gamestore\dist\templates\games\show.php:109
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(62): require_once()
+#1 D:\GitHub\Gamestore\dist\App\Controller\GamesController.php(75): App\Controller\RoutingController->render('games/show', Array)
+#2 D:\GitHub\Gamestore\dist\App\Controller\GamesController.php(26): App\Controller\GamesController->show(14)
+#3 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(30): App\Controller\GamesController->route()
+#4 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#5 {main}
+  thrown in D:\GitHub\Gamestore\dist\templates\games\show.php on line 109
+[19-Sep-2024 18:38:59 UTC] PHP Parse error:  syntax error, unexpected variable "$carousel" in D:\GitHub\Gamestore\dist\templates\games\show.php on line 9

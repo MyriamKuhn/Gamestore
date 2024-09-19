@@ -1,22 +1,24 @@
-<?php 
+<?php
 
 use App\Tools\Security;
 use App\Tools\FileTools;
 
-require_once _TEMPLATEPATH_.'/header.php'; 
+require_once _TEMPLATEPATH_ . '/header.php';
 
-$presentation = FileTools::getImagesAsCategory('presentation', $game['images']) 
+$presentation = FileTools::getImagesAsCategory('presentation', $game['images']);
+$carousel = FileTools::getImagesAsCategory('carousel', $game['images']);
 
 ?>
 
 <!-- START : Main -->
 <main class="container my-4 main" id="hero">
-<section class="mt-2">
-  <div class="d-flex justify-content-between gamestore-title">
-    <h2 class="text-uppercase"><?= Security::secureInput($game['game_name']) ?></h2>
-  </div>
+  <section class="mt-2">
+    <div class="d-flex justify-content-between gamestore-title">
+      <h2 class="text-uppercase"><?= Security::secureInput($game['game_name']) ?></h2>
+    </div>
+  </section>
   <section class="py-4 row row-cols-1 row-cols-xl-2 mx-lg-5 mx-xl-0">
-    <img class="mx-md-auto" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_.reset($presentation)) ?>" alt="<?= Security::secureInput($game['game_name']) ?>" loading="lazy">
+    <img class="mx-md-auto" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_ . reset($presentation)) ?>" alt="<?= Security::secureInput($game['game_name']) ?>" loading="lazy">
     <div class="pt-3 pt-lg-0 my-auto mx-lg-auto">
       <div id="select-platforms" class="mb-4">
         <!-- Emplacement des plateformes -->
@@ -29,8 +31,9 @@ $presentation = FileTools::getImagesAsCategory('presentation', $game['images'])
         <div class="col-12 col-sm-2 d-flex flex-column align-items-center">
           <span class="price-show" id="price-nantes">13,99€</span>
           <div id="prices-container-nantes">
-            <span id="discount-nantes">60%</span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice-nantes">25,99€</div>
-          </div>  
+            <span id="discount-nantes">60%</span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice-nantes">25,99€
+          </div>
+        </div>
         <span class="col-12 col-sm-5 text-end" id="stock-nantes">15 exemplaires en stock</span>
       </div>
       <div class="row mb-1 align-items-center">
@@ -41,8 +44,9 @@ $presentation = FileTools::getImagesAsCategory('presentation', $game['images'])
         <div class="col-12 col-sm-2 d-flex flex-column align-items-center">
           <span class="price-show" id="price-lille">13,99€</span>
           <div id="prices-container-lille">
-            <span id="discount-lille">60%</span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice-lille">25,99€</div>
-          </div>  
+            <span id="discount-lille">60%</span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice-lille">25,99€
+          </div>
+        </div>
         <span class="col-12 col-sm-5 text-end" id="stock-lille">15 exemplaires en stock</span>
       </div>
       <div class="row mb-1 align-items-center">
@@ -53,8 +57,9 @@ $presentation = FileTools::getImagesAsCategory('presentation', $game['images'])
         <div class="col-12 col-sm-2 d-flex flex-column align-items-center">
           <span class="price-show" id="price-bordeaux">13,99€</span>
           <div id="prices-container-bordeaux">
-            <span id="discount-bordeaux">60%</span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice-bordeaux">25,99€</div>
-          </div>  
+            <span id="discount-bordeaux">60%</span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice-bordeaux">25,99€
+          </div>
+        </div>
         <span class="col-12 col-sm-5 text-end" id="stock-bordeaux">15 exemplaires en stock</span>
       </div>
       <div class="row mb-1 align-items-center">
@@ -65,8 +70,9 @@ $presentation = FileTools::getImagesAsCategory('presentation', $game['images'])
         <div class="col-12 col-sm-2 d-flex flex-column align-items-center">
           <span class="price-show" id="price-paris">13,99€</span>
           <div id="prices-container-paris">
-            <span id="discount-paris">60%</span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice-paris">25,99€</div>
-          </div>  
+            <span id="discount-paris">60%</span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice-paris">25,99€
+          </div>
+        </div>
         <span class="col-12 col-sm-5 text-end" id="stock-paris">15 exemplaires en stock</span>
       </div>
       <div class="row mb-1 align-items-center">
@@ -77,8 +83,9 @@ $presentation = FileTools::getImagesAsCategory('presentation', $game['images'])
         <div class="col-12 col-sm-2 d-flex flex-column align-items-center">
           <span class="price-show" id="price-toulouse">13,99€</span>
           <div id="prices-container-toulouse">
-            <span id="discount-toulouse">60%</span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice-toulouse">25,99€</div>
-          </div>  
+            <span id="discount-toulouse">60%</span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice-toulouse">25,99€
+          </div>
+        </div>
         <span class="col-12 col-sm-5 text-end" id="stock-toulouse">15 exemplaires en stock</span>
       </div>
       <div class="d-flex justify-content-center">
@@ -91,20 +98,32 @@ $presentation = FileTools::getImagesAsCategory('presentation', $game['images'])
     <div>
       <p class="text-uppercase title-show"><?= Security::secureInput($game['game_name']) ?></p>
       <p><span class="fw-bold">Genre : </span><?= Security::secureInput($game['genres']) ?></p>
-      <img class="pb-3" src="<?= Security::secureInput(_ASSETS_IMAGES_FOLDER_.'pegi/'.$game['pegi_name'].'.jpg') ?>" alt="<?= Security::secureInput($game['pegi_name']) ?>" width="30">
+      <img class="pb-3" src="<?= Security::secureInput(_ASSETS_IMAGES_FOLDER_ . 'pegi/' . $game['pegi_name'] . '.jpg') ?>" alt="<?= Security::secureInput($game['pegi_name']) ?>" width="30">
     </div>
   </section>
-  <section class="row row-cols-1 px-xl-5">
-    <img src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_.reset($presentation)) ?>" alt="<?= Security::secureInput($game['game_name']) ?>">
-    <!-- START : Pagination -->
-    <section class="mt-3 mb-3">
-      <div class="d-flex justify-content-center" id="pagination-container">
-        Paginaton<!-- Emplacement de la pagination -->
-      </div>
-    </section>
-    <!-- END : Pagination -->
-  </section>
-  <?php var_dump($game); ?>
-</section>
 
-<?php require_once _TEMPLATEPATH_.'/footer.php'; ?>
+  <section class="pb-4">
+    <!-- Emplacement du carousel -->
+    <div id="carousel-gamestore" class="mb-3">
+      <div class="carousel-gamestore" tabindex="0">
+        <div class="carousel-gamestore__container">
+          <?php for ($i = 0; $i < count($carousel); $i++) : ?>
+            <div class="carousel-gamestore__item">
+              <div class="carousel-gamestore__image">
+                <img src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_ . $carousel[$i]) ?>" alt="<?= Security::secureInput($game['game_name']) ?>" loading="lazy">
+              </div>
+            </div>
+          <?php endfor; ?>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center" id="pagination-container">
+      <div class="pagination-pacman">
+        <!-- Emplacement de la pagination -->
+      </div>
+    </div>
+  </section>
+
+  
+
+  <?php require_once _TEMPLATEPATH_ . '/footer.php'; ?>
