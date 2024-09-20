@@ -98,4 +98,6 @@ function pagination(searchResult, currentPage, isFirstTime) {
     const paginatedGames = searchResult.slice(start, end);
     createHtmlCard(paginatedGames);
   }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }

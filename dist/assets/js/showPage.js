@@ -77,11 +77,52 @@ function createSelectPlatforms() {
   uniquePlatforms.forEach(platform => {
     const option = document.createElement('option');
     option.value = platform;
-    option.textContent = platform;
+    option.innerHTML = '<i class="bi bi-exclamation-lg warn"></i>' + platform;
     selectPlatforms.appendChild(option);
   });
   changeDatasByPlatform();
 }
+
+
+// Fonction pour mettre à jour le bouton avec l'icône et le texte sélectionnés
+function updateButton(iconClass, text) {
+  const dropdownButton = document.getElementById('dropdownMenuButton');
+
+  // Vide le contenu actuel du bouton
+  dropdownButton.innerHTML = '';
+
+  // Ajoute l'icône et le texte dans le bouton
+  const icon = document.createElement('i');
+  icon.className = iconClass; // Ajoute la classe de l'icône
+  dropdownButton.appendChild(icon);
+
+  const textSpan = document.createElement('span');
+  textSpan.classList.add('ms-2'); // Espacement entre l'icône et le texte
+  textSpan.textContent = text;
+  dropdownButton.appendChild(textSpan);
+}
+
+// Initialisation : affiche la première option par défaut
+document.addEventListener('DOMContentLoaded', function() {
+  const firstItem = document.querySelector('.dropdown-menu .dropdown-item');
+  const firstIconClass = firstItem.querySelector('i').className;
+  const firstText = firstItem.textContent.trim();
+  
+  updateButton(firstIconClass, firstText); // Met à jour le bouton avec la première option
+});
+
+// Gérer le clic sur les liens de pagination
+const dropdownItems = document.querySelectorAll('.dropdown-item');
+dropdownItems.forEach(item => {
+  item.addEventListener('click', function(event) {
+      event.preventDefault(); // Empêche le comportement par défaut du lien
+
+      const iconClass = this.querySelector('i').className; // Récupère la classe de l'icône
+      const text = this.textContent.trim(); // Récupère le texte de l'option
+
+      updateButton(iconClass, text); // Met à jour le bouton avec la nouvelle option
+  });
+});
 
 
 /*************************************/
@@ -144,24 +185,26 @@ document.getElementById('select-platforms').addEventListener('change', changeDat
   if (parseInt(priceN['stock']) === 0) {
     iconContainerN.classList = 'bi bi-x-lg cross';
     priceContainerN.textContent = ' ';
-    pricesContainerN.style.display = 'none';
-    stockContainerN.textContent = 'Rupture de stock';
+    discountContainerN.textContent = ' ';
+    oldpriceContainerN.textContent = ' ';
+    stockContainerN.textContent = 'Indisponible';
   } else if (parseInt(priceN['is_reduced']) === 1) {
     iconContainerN.classList = 'bi bi-percent percent';
     priceContainerN.textContent = (priceN['price'] * (1 - priceN['discount_rate'])).toFixed(2) + ' €';
-    pricesContainerN.style.display = 'block';
     discountContainerN.textContent = priceN['discount_rate'] * 100 + '%';
     oldpriceContainerN.textContent = priceN['price'] + ' €';
     stockContainerN.textContent = priceN['stock'] + ' en stock';
   } else if (parseInt(priceN['stock']) <= 5) {
     iconContainerN.classList = 'bi bi-exclamation-lg warn';
     priceContainerN.textContent = priceN['price'] + ' €';
-    pricesContainerN.style.display = 'none';
+    discountContainerN.textContent = ' ';
+    oldpriceContainerN.textContent = ' ';
     stockContainerN.textContent = 'reste ' + priceN['stock'];
   } else {
     iconContainerN.classList = 'bi bi-check2 check';
     priceContainerN.textContent = priceN['price'] + ' €';
-    pricesContainerN.style.display = 'none';
+    discountContainerN.textContent = ' ';
+    oldpriceContainerN.textContent = ' ';
     stockContainerN.textContent = priceN['stock'] + ' en stock';
   }
 
@@ -169,24 +212,26 @@ document.getElementById('select-platforms').addEventListener('change', changeDat
     if (parseInt(priceL['stock']) === 0) {
       iconContainerL.classList = 'bi bi-x-lg cross';
       priceContainerL.textContent = ' ';
-      pricesContainerL.style.display = 'none';
-      stockContainerL.textContent = 'Rupture de stock';
+      discountContainerL.textContent = ' ';
+      oldpriceContainerL.textContent = ' ';
+      stockContainerL.textContent = 'Indisponible';
     } else if (parseInt(priceL['is_reduced']) === 1) {
       iconContainerL.classList = 'bi bi-percent percent';
       priceContainerL.textContent = (priceL['price'] * (1 - priceL['discount_rate'])).toFixed(2) + ' €';
-      pricesContainerL.style.display = 'block';
       discountContainerL.textContent = priceL['discount_rate'] * 100 + '%';
       oldpriceContainerL.textContent = priceL['price'] + ' €';
       stockContainerL.textContent = priceL['stock'] + ' en stock';
     } else if (parseInt(priceL['stock']) <= 5) {
       iconContainerL.classList = 'bi bi-exclamation-lg warn';
       priceContainerL.textContent = priceL['price'] + ' €';
-      pricesContainerL.style.display = 'none';
+      discountContainerL.textContent = ' ';
+      oldpriceContainerL.textContent = ' ';
       stockContainerL.textContent = 'reste ' + priceL['stock'];
     } else {
       iconContainerL.classList = 'bi bi-check2 check';
       priceContainerL.textContent = priceL['price'] + ' €';
-      pricesContainerL.style.display = 'none';
+      discountContainerL.textContent = ' ';
+      oldpriceContainerL.textContent = ' ';
       stockContainerL.textContent = priceL['stock'] + ' en stock';
     }
 
@@ -194,24 +239,26 @@ document.getElementById('select-platforms').addEventListener('change', changeDat
     if (parseInt(priceB['stock']) === 0) {
       iconContainerB.classList = 'bi bi-x-lg cross';
       priceContainerB.textContent = ' ';
-      pricesContainerB.style.display = 'none';
-      stockContainerB.textContent = 'Rupture de stock';
+      discountContainerB.textContent = ' ';
+      oldpriceContainerB.textContent = ' ';
+      stockContainerB.textContent = 'Indisponible';
     } else if (parseInt(priceB['is_reduced']) === 1) {
       iconContainerB.classList = 'bi bi-percent percent';
       priceContainerB.textContent = (priceB['price'] * (1 - priceB['discount_rate'])).toFixed(2) + ' €';
-      pricesContainerB.style.display = 'block';
       discountContainerB.textContent = priceB['discount_rate'] * 100 + '%';
       oldpriceContainerB.textContent = priceB['price'] + ' €';
       stockContainerB.textContent = priceB['stock'] + ' en stock';
     } else if (parseInt(priceB['stock']) <= 5) {
       iconContainerB.classList = 'bi bi-exclamation-lg warn';
       priceContainerB.textContent = priceB['price'] + ' €';
-      pricesContainerB.style.display = 'none';
+      discountContainerB.textContent = ' ';
+      oldpriceContainerB.textContent = ' ';
       stockContainerB.textContent = 'reste ' + priceB['stock'];
     } else {
       iconContainerB.classList = 'bi bi-check2 check';
       priceContainerB.textContent = priceB['price'] + ' €';
-      pricesContainerB.style.display = 'none';
+      discountContainerB.textContent = ' ';
+      oldpriceContainerB.textContent = ' ';
       stockContainerB.textContent = priceB['stock'] + ' en stock';
     }
 
@@ -219,24 +266,26 @@ document.getElementById('select-platforms').addEventListener('change', changeDat
     if (parseInt(priceP['stock']) === 0) {
       iconContainerP.classList = 'bi bi-x-lg cross';
       priceContainerP.textContent = ' ';
-      pricesContainerP.style.display = 'none';
-      stockContainerP.textContent = 'Rupture de stock';
+      discountContainerP.textContent = ' ';
+      oldpriceContainerP.textContent = ' ';
+      stockContainerP.textContent = 'Indisponible';
     } else if (parseInt(priceP['is_reduced']) === 1) {
       iconContainerP.classList = 'bi bi-percent percent';
       priceContainerP.textContent = (priceP['price'] * (1 - priceP['discount_rate'])).toFixed(2) + ' €';
-      pricesContainerP.style.display = 'block';
       discountContainerP.textContent = priceP['discount_rate'] * 100 + '%';
       oldpriceContainerP.textContent = priceP['price'] + ' €';
       stockContainerP.textContent = priceP['stock'] + ' en stock';
     } else if (parseInt(priceP['stock']) <= 5) {
       iconContainerP.classList = 'bi bi-exclamation-lg warn';
       priceContainerP.textContent = priceP['price'] + ' €';
-      pricesContainerP.style.display = 'none';
+      discountContainerP.textContent = ' ';
+      oldpriceContainerP.textContent = ' ';
       stockContainerP.textContent = 'reste ' + priceP['stock'];
     } else {
       iconContainerP.classList = 'bi bi-check2 check';
       priceContainerP.textContent = priceP['price'] + ' €';
-      pricesContainerP.style.display = 'none';
+      discountContainerP.textContent = ' ';
+      oldpriceContainerP.textContent = ' ';
       stockContainerP.textContent = priceP['stock'] + ' en stock';
     }
 
@@ -244,24 +293,26 @@ document.getElementById('select-platforms').addEventListener('change', changeDat
     if (parseInt(priceT['stock']) === 0) {
       iconContainerT.classList = 'bi bi-x-lg cross';
       priceContainerT.textContent = ' ';
-      pricesContainerT.style.display = 'none';
-      stockContainerT.textContent = 'Rupture de stock';
+      discountContainerT.textContent = ' ';
+      oldpriceContainerT.textContent = ' ';
+      stockContainerT.textContent = 'Indisponible';
     } else if (parseInt(priceT['is_reduced']) === 1) {
       iconContainerT.classList = 'bi bi-percent percent';
       priceContainerT.textContent = (priceT['price'] * (1 - priceT['discount_rate'])).toFixed(2) + ' €';
-      pricesContainerT.style.display = 'block';
       discountContainerT.textContent = priceT['discount_rate'] * 100 + '%';
       oldpriceContainerT.textContent = priceT['price'] + ' €';
       stockContainerT.textContent = priceT['stock'] + ' en stock';
     } else if (parseInt(priceT['stock']) <= 5) {
       iconContainerT.classList = 'bi bi-exclamation-lg warn';
       priceContainerT.textContent = priceT['price'] + ' €';
-      pricesContainerT.style.display = 'none';
+      discountContainerT.textContent = ' ';
+      oldpriceContainerT.textContent = ' ';
       stockContainerT.textContent = 'reste ' + priceT['stock'];
     } else {
       iconContainerT.classList = 'bi bi-check2 check';
       priceContainerT.textContent = priceT['price'] + ' €';
-      pricesContainerT.style.display = 'none';
+      discountContainerT.textContent = ' ';
+      oldpriceContainerT.textContent = ' ';
       stockContainerT.textContent = priceT['stock'] + ' en stock';
     }
 }
