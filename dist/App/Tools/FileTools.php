@@ -26,29 +26,19 @@ class FileTools
         switch (isset($_GET['action']) ? $_GET['action'] : '') {
           case 'list':
             $scripts = [
-              'utils.js',
-              'variables.js',
-              'listFilters.js',
               'listPage.js',
-              'listCardsCreate.js',
             ];
             return $scripts;
             break;
           case 'show':
             $scripts = [
-              'utils.js',
               'showPage.js',
-              'carouselGamestore.js',
             ];
             return $scripts;
             break;
           case 'promo':
             $scripts = [
-              'utils.js',
-              'variables.js',
               'promoPage.js',
-              'promoCardsCreate.js',
-              'promoFilters.js',
             ];
             return $scripts;
             break;
