@@ -11,7 +11,7 @@ use App\Tools\FileTools; ?>
   <!-- END : Main -->
 
   <!-- START : Footer -->
-  <footer class="container-fluid bg-white bg-opacity-75 footer-shadow">
+  <footer class="container-fluid bg-white footer-shadow">
     <div class="row row-cols-1 row-cols-md-3 justify-content-center justify-content-md-center align-items-center pt-4">
       <img class="mb-4 logo mx-auto my-md-auto" src="./assets/images/logo_small.svg" alt="Logo de l'entreprise Gamestore" width="50">
       <ul class="navbar-nav text-center">
@@ -38,6 +38,7 @@ use App\Tools\FileTools; ?>
     foreach($scripts as $script) : ?>
       <script type="module" src="./assets/js/<?= $script ?>"></script>
     <?php endforeach; ?>
+  <script src="./assets/js/scrollOnPages.js"></script>
 </body>
 
 </html>

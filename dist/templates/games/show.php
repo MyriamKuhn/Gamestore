@@ -26,49 +26,35 @@ $carousel = FileTools::getImagesAsCategory('carousel', $game['images']);
     <!-- Prix  -->
     <div class="pt-3 pt-lg-0 my-auto mx-lg-auto">
       <div class="col-12 d-flex flex-column align-items-center pb-3">
-        <span class="price-show" id="price-nantes">13,99€</span>
+        <span class="price-show" id="price"><!-- Emplacement du prix --></span>
         <div id="price-container">
-          <span id="discount">60%</span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice">25,99€</span>
+          <span id="discount"><!-- Emplacement de la promo --></span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice"><!-- Emplacement du vieux prix --></span>
         </div>
       </div>
       <!-- Plateformes et locations -->
-      <div class="dropdown">
-        <button class="btn btn-gamestore dropdown-toggle w-50" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-x-lg cross"></i> <span class="ms-2">Maison</span>
+      <div class="input-group">
+        <!-- Platforms -->
+        <button class="btn btn-gamestore-outline-select text-uppercase dropdown-toggle d-flex justify-content-center align-items-center w-50 text-wrap" type="button" id="platforms" data-bs-toggle="dropdown" aria-expanded="false">
+          <!-- Emplacement du texte de la plateforme sélectionnée -->
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li>
-            <a class="dropdown-item" href="#">
-              <i class="bi bi-x-lg cross"></i> Maison
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">
-              <i class="bi bi-gear"></i> Paramètres
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">
-              <i class="bi bi-person"></i> Profil
-            </a>
-          </li>
+        <ul class="dropdown-menu" aria-labelledby="platforms" id="menu-platform">
+          <!-- Emplacement du menu des plateformes -->
+        </ul>
+        <!-- Locations -->
+        <button class="btn btn-gamestore-outline-select text-uppercase dropdown-toggle d-flex justify-content-center align-items-center w-50" type="button" id="locations" data-bs-toggle="dropdown" aria-expanded="false">
+          <!-- Emplacement du texte de la location sélectionnée -->
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="locations" id="menu-location">
+          <!-- Emplacement du menu des locations -->
         </ul>
       </div>
-      <div id="select-platforms" class="mb-4">
-        <!-- Emplacement des plateformes et locations -->
-      </div>
       <!-- Stock -->
-      <div class="row pb-4">
-        <div class="col-6 text-end">
-          <span class="title-store text-uppercase">Disponibilité : </span>
-        </div>
-        <div class="col-6 text-start">
-          <span>reste 5 en stock</span>
-        </div>
+      <div class="pt-2 pb-4 text-center">
+          <span id="stock"><!-- Emplacement du texte pour le stock --></span>
       </div>
         <!-- Bouton d'ajout au panier -->  
         <div class="d-flex justify-content-center">
-          <button class="btn btn-gamestore text-uppercase px-5"><i class="bi bi-cart2"></i> Ajouter au panier</button>
+          <button class="btn btn-gamestore text-uppercase px-5" id="buy-button"><i class="bi bi-cart2"></i> Ajouter au panier</button>
         </div>
   </section>
   <!-- Deuxième section de description -->
@@ -102,7 +88,5 @@ $carousel = FileTools::getImagesAsCategory('carousel', $game['images']);
       </div>
     </div>
   </section>
-
-  
 
   <?php require_once _TEMPLATEPATH_ . '/footer.php'; ?>
