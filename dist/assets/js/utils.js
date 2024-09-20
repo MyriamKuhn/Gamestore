@@ -15,32 +15,12 @@ export function secureInput(text) {
 }
 
 
-/*****************************/
+/*******************************************/
 
-// CHERCHER IMAGE SPOTLIGHT //
+// CHERCHER IMAGE> EN FONCTION DE SON NOM //
 
-/*****************************/
-export function getSpotlightImg(datas) {
+/*****************************************/
+export function getImgByName(datas) {
   let spotlight = datas.find(data => data.includes('spotlight'));
   return spotlight;
 }
-
-
-/*************************************************/
-
-//        SCROLL TO TOP ET NAVBAR OPACITY        //
-
-/*************************************************/
-const scrollTopButton = document.querySelector('#scrollTopButton')
-const navbar = document.querySelector('#navbar-opacity')
-
-window.onscroll = () => {
-    if(window.scrollY>50){
-        scrollTopButton.classList.add("show");
-        navbar.classList.remove('bg-opacity-75');
-    }
-    else{
-        scrollTopButton.classList.remove("show");
-        navbar.classList.add('bg-opacity-75')
-    };
-};

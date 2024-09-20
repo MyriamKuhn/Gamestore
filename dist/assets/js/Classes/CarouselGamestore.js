@@ -57,7 +57,7 @@ class CarouselTouchPlugin {
 
 }
 
-class Carousel {
+export class CarouselGamestore {
 
   constructor (element, options = {}) {
     this.element = element;
@@ -95,6 +95,7 @@ class Carousel {
       ]
       this.goToItem(this.offset, false);
     }
+
     this.items.forEach(item => this.container.appendChild(item));
 
     this.setStyle();
@@ -110,6 +111,7 @@ class Carousel {
     this.moveCallbacks.forEach(cb => cb(this.currentItem));
     this.onWindowResize();
     window.addEventListener('resize', this.onWindowResize.bind(this));
+
     this.root.addEventListener('keyup', e => {
       if (e.key === 'ArrowRight' || e.key === 'Right') {
         this.next();
@@ -117,9 +119,11 @@ class Carousel {
         this.prev();
       }
     });
+
     if (this.options.infinite === true) {
       this.container.addEventListener('transitionend', this.resetInfinte.bind(this));
     }
+    
     new CarouselTouchPlugin(this);
   }
 
@@ -285,14 +289,3 @@ class Carousel {
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-  new Carousel(document.querySelector('#carousel-gamestore'), {
-  slidesToScroll: 1,
-  slidesVisible: 1,
-  loop: false,
-  pagination: true,
-  navigation: false,
-  infinite: true,
-  navigation: false
-  });
-});
