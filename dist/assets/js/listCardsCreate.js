@@ -3,7 +3,7 @@
 // IMPORTS //
 
 /**********/
-import { getSpotlightImg } from "./utils.js";
+import { getImgByName } from "./utils.js";
 import { cardsNantesDiv, cardsLilleDiv, cardsBordeauxDiv, cardsParisDiv, cardsToulouseDiv } from './listPage.js';
 import { searchGame } from './listFilters.js';
 
@@ -60,7 +60,7 @@ export function createHtmlCard(datas, city) {
 
     const cardImg = document.createElement('img');
     cardImg.classList.add('card-img-top');
-    cardImg.src = './uploads/games/' + getSpotlightImg(game['images']);
+    cardImg.src = './uploads/games/' + getImgByName(game['images']);
     cardImg.alt = game['game_name'];
     cardImg.loading = 'lazy';
     cardImgBlock.appendChild(cardImg);

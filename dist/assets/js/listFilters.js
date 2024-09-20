@@ -134,4 +134,6 @@ function pagination(searchResult, city, currentPage, isFirstTime) {
     const paginatedGames = searchResult.slice(start, end);
     createHtmlCard(paginatedGames, city);
   }
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }

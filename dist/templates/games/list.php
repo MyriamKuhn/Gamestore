@@ -35,6 +35,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
   <!-- START : Filtres -->
   <section class="my-4 pb-3">
     <div class="accordion" id="filters">
+      <!-- Filtre genre -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#filter-genres" aria-expanded="true" aria-controls="filter-genres">
@@ -50,6 +51,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
           </div>
         </div>
       </div>
+      <!-- Filtre plateforme -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#filter-platform" aria-expanded="false" aria-controls="filter-platform">
@@ -65,6 +67,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
           </div>
         </div>
       </div>
+      <!-- Filtre nom -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#filter-name" aria-expanded="false" aria-controls="filter-name">
@@ -77,6 +80,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
           </div>
         </div>
       </div>
+      <!-- Filtre prix -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#filter-price" aria-expanded="false" aria-controls="filter-price">
@@ -103,6 +107,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
           </div>
         </div>
       </div>
+      <!-- Filtre pages et reset -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#filter-pages" aria-expanded="false" aria-controls="filter-pages">
