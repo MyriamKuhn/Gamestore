@@ -90,16 +90,21 @@ export function createHtmlCard(datas) {
     cardPlatform.src = './assets/images/platforms/' + game['platform_name'].replace(/\s+/g, '-').toLowerCase() + '.svg';
     cardPlatform.alt = game['platform_name'];
     cardPlatform.width = '25';
+    cardPlatform.classList.add('me-3');
     containerDiv.appendChild(cardPlatform);
-
-    const emptyDiv = document.createElement('div');
-    gameInfos.appendChild(emptyDiv);
 
     const cardPegi = document.createElement('img');
     cardPegi.src = './assets/images/pegi/' + game['pegi_name'] + '.jpg';
     cardPegi.alt = game['pegi_name'];
     cardPegi.width = '30';
-    emptyDiv.appendChild(cardPegi);
+    containerDiv.appendChild(cardPegi);
+
+    const cardCart = document.createElement('div');
+    gameInfos.appendChild(cardCart);
+
+    const cardCartImg = document.createElement('i');
+    cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart');
+    cardCart.appendChild(cardCartImg);
 
     const cardFooter = document.createElement('div');
     cardFooter.classList.add('row', 'row-cols-1', 'justify-content-center');
