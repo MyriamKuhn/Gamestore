@@ -19,7 +19,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
 ?>
 
 <!-- START : Main -->
-<main class="container my-4 main" id="hero">
+<main class="container my-4 main">
   <section class="mt-2">
     <div class="d-flex justify-content-between gamestore-title">
       <h2 class="text-uppercase">Nous contacter</h2>
@@ -34,7 +34,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
           $email = Security::secureEmail($_POST['email']);
           $subject = Security::secureInput($_POST['subject']);
           $message = Security::secureInput($_POST['message']);
-          $recaptchaResponse = $_POST['g-recaptcha-response'];
+          $recaptchaResponse = Security::secureInput($_POST['g-recaptcha-response']);
 
           // Vérification du reCAPTCHA
           $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
@@ -51,12 +51,12 @@ require_once _TEMPLATEPATH_ . '/header.php';
             try {
                 // Configuration du serveur SMTP
                 $mail->isSMTP();
-                $mail->Host       = $_ENV['MAILER_HOST']; // Utilisez votre serveur SMTP
+                $mail->Host       = $_ENV['MAILER_HOST']; 
                 $mail->SMTPAuth   = true;
-                $mail->Username   = $_ENV['MAILER_EMAIL']; // Votre email Gmail
-                $mail->Password   = $_ENV['MAILER_PASSWORD']; // Utilisez un mot de passe d'application
+                $mail->Username   = $_ENV['MAILER_EMAIL']; 
+                $mail->Password   = $_ENV['MAILER_PASSWORD']; 
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                $mail->Port       = $_ENV['MAILER_PORT']; // Le port SMTP de votre serveur
+                $mail->Port       = $_ENV['MAILER_PORT']; 
 
                 // Paramètres de l'email
                 $mail->setFrom($email, $name);

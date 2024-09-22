@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-use App\Tools\StringTools;
-
 class Model
 {
 
