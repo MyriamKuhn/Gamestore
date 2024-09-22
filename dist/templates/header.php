@@ -12,6 +12,9 @@ use App\Tools\Security;
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Gamestore">
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="<?php echo $_SESSION['csrf_token']; ?>">
   <!-- START : SEO -->
   <meta name="description" content="<?= NavigationTools::addMetas()['description'] ?>">
   <meta property="og:title" content="<?= NavigationTools::addMetas()['title'] ?>">

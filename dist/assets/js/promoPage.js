@@ -12,6 +12,7 @@ import { searchInput, paginationSelect, resetButton, genresChecks, platformsChec
 // START PAGE PROMO  //
 
 /********************/
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 getDatas();
 
 
@@ -27,7 +28,8 @@ function getDatas() {
     {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken
       },
       body: JSON.stringify({ action: 'getPromoDatas' })
     })

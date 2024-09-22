@@ -10,7 +10,6 @@ use App\Tools\UserValidator;
 use App\Tools\Security;
 use App\Repository\StoreRepository;
 use Dotenv\Dotenv;
-use DateTime;
 use App\Repository\VerificationRepository;
 
 
@@ -49,6 +48,9 @@ class UserController extends RoutingController
       $user = new User();
 
         if (isset($_POST['registerUser'])) {
+          if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+            die('Invalid CSRF token');
+          }
           // Récupération des données du formulaire et sécurisation
           $first_name = Security::secureInput($_POST['first_name']);
           $last_name = Security::secureInput($_POST['last_name']);
@@ -127,6 +129,9 @@ class UserController extends RoutingController
   protected function activation()
   {
     if (isset($_POST["verifyUser"])) {
+      if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die('Invalid CSRF token');
+      }
       $userId = Security::secureInput($_POST['user_id']);
       $is_resend = true;
     }

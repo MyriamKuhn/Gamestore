@@ -12,6 +12,7 @@ import { searchInput, paginationSelect, resetButton, genresChecks, platformsChec
 // START PAGE LIST  //
 
 /********************/
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 getDatas();
 
 
@@ -21,13 +22,16 @@ getDatas();
 
 /*********************/
 export let gameDatas = null;
+// Récupérer le jeton CSRF à partir de la balise meta
+
 
 function getDatas() {
   fetch('index.php?controller=datas',
     {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken
       },
       body: JSON.stringify({ action: 'getListDatas' })
     })

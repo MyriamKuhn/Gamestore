@@ -11,7 +11,7 @@ class AuthController extends RoutingController
       if (isset($_GET['action'])) {
         switch ($_GET['action']) {
           case 'login':
-            $this->login($_GET['id']);
+            $this->login();
             break;
           case 'logout':
             $this->logout();
@@ -31,7 +31,7 @@ class AuthController extends RoutingController
   }
 
 
-  protected function login($id)
+  protected function login()
   {
     $this->render('auth/login');
   }

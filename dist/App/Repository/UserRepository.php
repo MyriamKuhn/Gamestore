@@ -8,6 +8,7 @@ use App\Tools\Security;
 class UserRepository extends MainRepository
 {
 
+  // Ajout d'un utilisateur
   public function addUser(User $user)
   {
     $query = 'INSERT INTO app_user (first_name, last_name, address, postcode, city, email, password, role, fk_store_id) 
@@ -27,6 +28,7 @@ class UserRepository extends MainRepository
     return $stmt->execute();
   }
 
+  // Mise à jour du statut vérifié d'un utilisateur
   public function updateUserStatus(User $user)
   {
     $query = 'UPDATE app_user SET is_verified = 1 WHERE id = :id';
@@ -37,6 +39,7 @@ class UserRepository extends MainRepository
     return $stmt->execute();
   }
 
+  // Récupération d'un utilisateur par son id
   public function getUserById(int $id): User|null
   {
     $query = 'SELECT * FROM app_user WHERE id = :id';
@@ -52,6 +55,7 @@ class UserRepository extends MainRepository
     }
   }
 
+  // Récupération d'un utilisateur par son email
   public function getUserByEmail(string $email): User|null
   {
     $query = 'SELECT * FROM app_user WHERE email = :email';

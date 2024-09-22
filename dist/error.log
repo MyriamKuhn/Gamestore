@@ -842,3 +842,24 @@ Stack trace:
 [22-Sep-2024 18:09:12 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
 [22-Sep-2024 18:09:12 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
 [22-Sep-2024 18:09:12 UTC] PHP   3. App\Controller\AuthController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:19
+[22-Sep-2024 23:34:02 UTC] PHP Warning:  Undefined array key "HTTP_X_CSRF_TOKEN" in D:\GitHub\Gamestore\dist\index.php on line 48
+[22-Sep-2024 23:34:02 UTC] PHP Stack trace:
+[22-Sep-2024 23:34:02 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 23:36:13 UTC] PHP Warning:  Undefined array key "HTTP_X_CSRF_TOKEN" in D:\GitHub\Gamestore\dist\index.php on line 48
+[22-Sep-2024 23:36:13 UTC] PHP Stack trace:
+[22-Sep-2024 23:36:13 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 23:37:59 UTC] PHP Warning:  Undefined array key "HTTP_X_CSRF_TOKEN" in D:\GitHub\Gamestore\dist\index.php on line 48
+[22-Sep-2024 23:37:59 UTC] PHP Stack trace:
+[22-Sep-2024 23:37:59 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 23:41:05 UTC] PHP Warning:  Undefined array key "HTTP_X_CSRF_TOKEN" in D:\GitHub\Gamestore\dist\App\Controller\DatasController.php on line 14
+[22-Sep-2024 23:41:05 UTC] PHP Stack trace:
+[22-Sep-2024 23:41:05 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 23:41:05 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:34
+[22-Sep-2024 23:41:05 UTC] PHP   3. App\Controller\DatasController->__construct() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:30
+[22-Sep-2024 23:41:05 UTC] PHP Fatal error:  Uncaught TypeError: hash_equals(): Argument #2 ($user_string) must be of type string, null given in D:\GitHub\Gamestore\dist\App\Controller\DatasController.php:16
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\DatasController.php(16): hash_equals(Object(SensitiveParameterValue), Object(SensitiveParameterValue))
+#1 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(30): App\Controller\DatasController->__construct()
+#2 D:\GitHub\Gamestore\dist\index.php(34): App\Controller\RoutingController->route()
+#3 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Controller\DatasController.php on line 16

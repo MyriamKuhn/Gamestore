@@ -34,6 +34,9 @@ require_once _TEMPLATEPATH_ . '/header.php';
       <?php
         // Vérifier si le formulaire a été soumis
         if (isset($_POST["verifyUser"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
+          if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+            die('Invalid CSRF token');
+          }
           switch ($_POST["verifyUser"]) {
             case 'Envoyer le code':
               // Récupération des données du formulaire
@@ -59,6 +62,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
                 $mail->Port       = $_ENV['MAILER_PORT']; 
 
                 // Paramètres de l'email
+                $mail->CharSet = 'UTF-8';
                 $mail->setFrom($_ENV['MAILER_EMAIL'], 'Gamestore');
                 $mail->addAddress($userEmail, $userName);
                 $mail->isHTML(true);
@@ -149,6 +153,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
                   $mail->Port       = $_ENV['MAILER_PORT']; 
 
                   // Paramètres de l'email
+                  $mail->CharSet = 'UTF-8';
                   $mail->setFrom($_ENV['MAILER_EMAIL'], 'Gamestore');
                   $mail->addAddress($userEmail, $userName);
                   $mail->isHTML(true);
@@ -239,6 +244,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
                   $mail->Port       = $_ENV['MAILER_PORT']; 
 
                   // Paramètres de l'email
+                  $mail->CharSet = 'UTF-8';
                   $mail->setFrom($_ENV['MAILER_EMAIL'], 'Gamestore');
                   $mail->addAddress($userEmail, $userName);
                   $mail->isHTML(true);
@@ -283,11 +289,13 @@ require_once _TEMPLATEPATH_ . '/header.php';
       ?>
 
       <form method="post" class="my-4" action="index.php?controller=user&action=activation">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
           <input type="hidden" name="user_id" value="<?= $userId ?>">
           <input type="submit" name="verifyUser" class="btn btn-gamestore text-uppercase" value="<?= $is_resend ? 'Renvoyer le code' : 'Envoyer le code' ?>">
       </form>
 
       <form method="post" class="was-validated" action="index.php?controller=user&action=activation">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
         <input type="hidden" name="user_id" value="<?= $userId ?>">
         <div class="form-floating mb-3">
           <input type="number" class="form-control" id="code_verification" name="code_entered" required>
