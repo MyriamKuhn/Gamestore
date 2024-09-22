@@ -8,8 +8,7 @@ ini_set('error_log', $_SERVER['DOCUMENT_ROOT'].'/error.log');
 require_once __DIR__.'/config.php';
 
 // Sécurisation du cookie de session avec httpOnly
-session_set_cookie_params([
-  'lifetime' => 3600,
+session_set_cookie_params(['lifetime' => 3600,
   'path' => '/',
   'domain' => $_SERVER['SERVER_NAME'],
   'httponly' => true

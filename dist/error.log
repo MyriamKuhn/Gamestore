@@ -1,0 +1,571 @@
+[21-Sep-2024 13:59:26 UTC] PHP Warning:  file_get_contents(https://www.distance.to/api/get?from=Paris&amp;to=Lyon): Failed to open stream: HTTP request failed! HTTP/1.1 403 Forbidden
+ in D:\GitHub\Gamestore\dist\index.php on line 52
+[21-Sep-2024 13:59:26 UTC] PHP Stack trace:
+[21-Sep-2024 13:59:26 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 13:59:26 UTC] PHP   2. file_get_contents($filename = 'https://www.distance.to/api/get?from=Paris&to=Lyon') D:\GitHub\Gamestore\dist\index.php:52
+[21-Sep-2024 14:12:51 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method App\Controller\UserController::getStoreByPostcode() in D:\GitHub\Gamestore\dist\App\Controller\UserController.php:55
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(18): App\Controller\UserController->register()
+#1 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#2 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#3 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 55
+[21-Sep-2024 14:13:02 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method App\Controller\UserController::getStoreByPostcode() in D:\GitHub\Gamestore\dist\App\Controller\UserController.php:55
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(18): App\Controller\UserController->register()
+#1 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#2 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#3 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 55
+[21-Sep-2024 14:41:06 UTC] PHP Warning:  Undefined array key "distance_info" in D:\GitHub\Gamestore\dist\index.php on line 97
+[21-Sep-2024 14:41:06 UTC] PHP Stack trace:
+[21-Sep-2024 14:41:06 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 14:41:06 UTC] PHP   2. getDistance($city = 'Paris') D:\GitHub\Gamestore\dist\index.php:105
+[21-Sep-2024 14:41:06 UTC] PHP Warning:  Trying to access array offset on null in D:\GitHub\Gamestore\dist\index.php on line 97
+[21-Sep-2024 14:41:06 UTC] PHP Stack trace:
+[21-Sep-2024 14:41:06 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 14:41:06 UTC] PHP   2. getDistance($city = 'Paris') D:\GitHub\Gamestore\dist\index.php:105
+[21-Sep-2024 14:41:06 UTC] PHP Warning:  Trying to access array offset on null in D:\GitHub\Gamestore\dist\index.php on line 97
+[21-Sep-2024 14:41:06 UTC] PHP Stack trace:
+[21-Sep-2024 14:41:06 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 14:41:06 UTC] PHP   2. getDistance($city = 'Paris') D:\GitHub\Gamestore\dist\index.php:105
+[21-Sep-2024 14:41:06 UTC] PHP Warning:  Trying to access array offset on null in D:\GitHub\Gamestore\dist\index.php on line 97
+[21-Sep-2024 14:41:06 UTC] PHP Stack trace:
+[21-Sep-2024 14:41:06 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 14:41:06 UTC] PHP   2. getDistance($city = 'Paris') D:\GitHub\Gamestore\dist\index.php:105
+[21-Sep-2024 22:52:04 UTC] PHP Warning:  Undefined array key "id" in D:\GitHub\Gamestore\dist\App\Controller\AuthController.php on line 14
+[21-Sep-2024 22:52:04 UTC] PHP Stack trace:
+[21-Sep-2024 22:52:04 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:52:04 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[21-Sep-2024 22:52:04 UTC] PHP   3. App\Controller\AuthController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:21
+[21-Sep-2024 22:54:12 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:54:12 UTC] PHP Stack trace:
+[21-Sep-2024 22:54:12 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:54:12 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(9) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:54:12 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:54:12 UTC] PHP Stack trace:
+[21-Sep-2024 22:54:12 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:54:12 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(11) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:54:12 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:54:12 UTC] PHP Stack trace:
+[21-Sep-2024 22:54:12 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:54:12 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(13) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:56:18 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:56:18 UTC] PHP Stack trace:
+[21-Sep-2024 22:56:18 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:56:18 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(5) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:56:18 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:56:18 UTC] PHP Stack trace:
+[21-Sep-2024 22:56:18 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:56:18 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(7) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:56:18 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:56:18 UTC] PHP Stack trace:
+[21-Sep-2024 22:56:18 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:56:18 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(9) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:56:18 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:56:18 UTC] PHP Stack trace:
+[21-Sep-2024 22:56:18 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:56:18 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(11) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:56:18 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:56:18 UTC] PHP Stack trace:
+[21-Sep-2024 22:56:18 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:56:18 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(13) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:56:18 UTC] PHP Fatal error:  Uncaught ValueError: min(): Argument #1 ($value) must contain at least one element in D:\GitHub\Gamestore\dist\index.php:75
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\index.php(75): min(Array)
+#1 {main}
+  thrown in D:\GitHub\Gamestore\dist\index.php on line 75
+[21-Sep-2024 22:58:06 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:58:06 UTC] PHP Stack trace:
+[21-Sep-2024 22:58:06 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:58:06 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(5) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:58:06 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:58:06 UTC] PHP Stack trace:
+[21-Sep-2024 22:58:06 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:58:06 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(7) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:58:06 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:58:06 UTC] PHP Stack trace:
+[21-Sep-2024 22:58:06 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:58:06 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(9) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:58:06 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:58:06 UTC] PHP Stack trace:
+[21-Sep-2024 22:58:06 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:58:06 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(11) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:58:06 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 22:58:06 UTC] PHP Stack trace:
+[21-Sep-2024 22:58:06 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 22:58:06 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(13) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 22:58:06 UTC] PHP Fatal error:  Uncaught ValueError: min(): Argument #1 ($value) must contain at least one element in D:\GitHub\Gamestore\dist\index.php:75
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\index.php(75): min(Array)
+#1 {main}
+  thrown in D:\GitHub\Gamestore\dist\index.php on line 75
+[21-Sep-2024 23:13:09 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:13:09 UTC] PHP Stack trace:
+[21-Sep-2024 23:13:09 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:13:09 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(6) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:13:09 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:13:09 UTC] PHP Stack trace:
+[21-Sep-2024 23:13:09 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:13:09 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(8) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:13:09 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:13:09 UTC] PHP Stack trace:
+[21-Sep-2024 23:13:09 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:13:09 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(10) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:13:10 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:13:10 UTC] PHP Stack trace:
+[21-Sep-2024 23:13:10 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:13:10 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(12) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:13:10 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:13:10 UTC] PHP Stack trace:
+[21-Sep-2024 23:13:10 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:13:10 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(14) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:13:10 UTC] PHP Fatal error:  Uncaught ValueError: min(): Argument #1 ($value) must contain at least one element in D:\GitHub\Gamestore\dist\index.php:75
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\index.php(75): min(Array)
+#1 {main}
+  thrown in D:\GitHub\Gamestore\dist\index.php on line 75
+[21-Sep-2024 23:13:39 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:13:39 UTC] PHP Stack trace:
+[21-Sep-2024 23:13:39 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:13:39 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(6) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:13:39 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:13:39 UTC] PHP Stack trace:
+[21-Sep-2024 23:13:39 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:13:39 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(8) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:13:39 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:13:39 UTC] PHP Stack trace:
+[21-Sep-2024 23:13:39 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:13:39 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(10) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:13:39 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:13:39 UTC] PHP Stack trace:
+[21-Sep-2024 23:13:39 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:13:39 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(12) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:13:39 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:13:39 UTC] PHP Stack trace:
+[21-Sep-2024 23:13:39 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:13:39 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(14) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:13:39 UTC] PHP Fatal error:  Uncaught ValueError: min(): Argument #1 ($value) must contain at least one element in D:\GitHub\Gamestore\dist\index.php:75
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\index.php(75): min(Array)
+#1 {main}
+  thrown in D:\GitHub\Gamestore\dist\index.php on line 75
+[21-Sep-2024 23:18:03 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:18:03 UTC] PHP Stack trace:
+[21-Sep-2024 23:18:03 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:18:03 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(6) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:18:04 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:18:04 UTC] PHP Stack trace:
+[21-Sep-2024 23:18:04 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:18:04 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(8) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:18:04 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:18:04 UTC] PHP Stack trace:
+[21-Sep-2024 23:18:04 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:18:04 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(10) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:18:04 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:18:04 UTC] PHP Stack trace:
+[21-Sep-2024 23:18:04 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:18:04 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(12) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:18:04 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:18:04 UTC] PHP Stack trace:
+[21-Sep-2024 23:18:04 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:18:04 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(14) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:18:04 UTC] PHP Fatal error:  Uncaught ValueError: min(): Argument #1 ($value) must contain at least one element in D:\GitHub\Gamestore\dist\index.php:75
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\index.php(75): min(Array)
+#1 {main}
+  thrown in D:\GitHub\Gamestore\dist\index.php on line 75
+[21-Sep-2024 23:21:31 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:21:31 UTC] PHP Stack trace:
+[21-Sep-2024 23:21:31 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:21:31 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(5) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:21:31 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:21:31 UTC] PHP Stack trace:
+[21-Sep-2024 23:21:31 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:21:31 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(7) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:21:31 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:21:31 UTC] PHP Stack trace:
+[21-Sep-2024 23:21:31 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:21:31 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(9) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:21:31 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:21:31 UTC] PHP Stack trace:
+[21-Sep-2024 23:21:31 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:21:31 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(11) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:21:31 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:21:31 UTC] PHP Stack trace:
+[21-Sep-2024 23:21:31 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:21:31 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(13) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:21:31 UTC] PHP Fatal error:  Uncaught ValueError: min(): Argument #1 ($value) must contain at least one element in D:\GitHub\Gamestore\dist\index.php:75
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\index.php(75): min(Array)
+#1 {main}
+  thrown in D:\GitHub\Gamestore\dist\index.php on line 75
+[21-Sep-2024 23:24:16 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:24:16 UTC] PHP Stack trace:
+[21-Sep-2024 23:24:16 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:24:16 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(5) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:24:16 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:24:16 UTC] PHP Stack trace:
+[21-Sep-2024 23:24:16 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:24:16 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(7) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:24:16 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:24:16 UTC] PHP Stack trace:
+[21-Sep-2024 23:24:16 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:24:16 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(9) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:24:16 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:24:16 UTC] PHP Stack trace:
+[21-Sep-2024 23:24:16 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:24:16 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(11) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:24:16 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:24:16 UTC] PHP Stack trace:
+[21-Sep-2024 23:24:16 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:24:16 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(13) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:24:16 UTC] PHP Fatal error:  Uncaught ValueError: min(): Argument #1 ($value) must contain at least one element in D:\GitHub\Gamestore\dist\index.php:75
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\index.php(75): min(Array)
+#1 {main}
+  thrown in D:\GitHub\Gamestore\dist\index.php on line 75
+[21-Sep-2024 23:24:34 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:24:34 UTC] PHP Stack trace:
+[21-Sep-2024 23:24:34 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:24:34 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(5) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:24:34 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:24:34 UTC] PHP Stack trace:
+[21-Sep-2024 23:24:34 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:24:34 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(7) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:24:34 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:24:34 UTC] PHP Stack trace:
+[21-Sep-2024 23:24:34 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:24:34 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(9) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:24:34 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:24:34 UTC] PHP Stack trace:
+[21-Sep-2024 23:24:34 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:24:34 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(11) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:24:34 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:24:34 UTC] PHP Stack trace:
+[21-Sep-2024 23:24:34 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:24:34 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(13) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:24:34 UTC] PHP Fatal error:  Uncaught ValueError: min(): Argument #1 ($value) must contain at least one element in D:\GitHub\Gamestore\dist\index.php:75
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\index.php(75): min(Array)
+#1 {main}
+  thrown in D:\GitHub\Gamestore\dist\index.php on line 75
+[21-Sep-2024 23:26:27 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:26:27 UTC] PHP Stack trace:
+[21-Sep-2024 23:26:27 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:26:27 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(5) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:26:27 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:26:27 UTC] PHP Stack trace:
+[21-Sep-2024 23:26:27 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:26:27 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(7) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:26:27 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:26:27 UTC] PHP Stack trace:
+[21-Sep-2024 23:26:27 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:26:27 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(9) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:26:28 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:26:28 UTC] PHP Stack trace:
+[21-Sep-2024 23:26:28 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:26:28 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(11) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:26:28 UTC] PHP Warning:  file_get_contents(https://distanceto.p.rapidapi.com/distance/route): Failed to open stream: HTTP request failed! HTTP/1.1 429 Too Many Requests
+ in D:\GitHub\Gamestore\dist\index.php on line 66
+[21-Sep-2024 23:26:28 UTC] PHP Stack trace:
+[21-Sep-2024 23:26:28 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[21-Sep-2024 23:26:28 UTC] PHP   2. file_get_contents($filename = 'https://distanceto.p.rapidapi.com/distance/route', $use_include_path = FALSE, $context = resource(13) of type (stream-context)) D:\GitHub\Gamestore\dist\index.php:66
+[21-Sep-2024 23:26:28 UTC] PHP Fatal error:  Uncaught ValueError: min(): Argument #1 ($value) must contain at least one element in D:\GitHub\Gamestore\dist\index.php:75
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\index.php(75): min(Array)
+#1 {main}
+  thrown in D:\GitHub\Gamestore\dist\index.php on line 75
+[22-Sep-2024 01:34:36 UTC] PHP Warning:  Undefined array key "nearest_store" in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 53
+[22-Sep-2024 01:34:36 UTC] PHP Stack trace:
+[22-Sep-2024 01:34:36 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:34:36 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:34:36 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:34:36 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:34:36 UTC] PHP Fatal error:  Uncaught TypeError: App\Tools\Security::secureInput(): Argument #1 ($input) must be of type string, null given, called in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 53 and defined in D:\GitHub\Gamestore\dist\App\Tools\Security.php:8
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(53): App\Tools\Security::secureInput(NULL)
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(19): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Tools\Security.php on line 8
+[22-Sep-2024 01:37:21 UTC] PHP Warning:  Undefined array key "nearest_store" in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 54
+[22-Sep-2024 01:37:21 UTC] PHP Stack trace:
+[22-Sep-2024 01:37:21 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:37:21 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:37:21 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:37:21 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:37:21 UTC] PHP Fatal error:  Uncaught TypeError: App\Tools\Security::secureInput(): Argument #1 ($input) must be of type string, null given, called in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 54 and defined in D:\GitHub\Gamestore\dist\App\Tools\Security.php:8
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(54): App\Tools\Security::secureInput(NULL)
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(19): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Tools\Security.php on line 8
+[22-Sep-2024 01:39:07 UTC] PHP Warning:  Undefined array key "nearest_store" in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 53
+[22-Sep-2024 01:39:07 UTC] PHP Stack trace:
+[22-Sep-2024 01:39:07 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:39:07 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:39:07 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:39:07 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:39:07 UTC] PHP Fatal error:  Uncaught TypeError: App\Tools\Security::secureInput(): Argument #1 ($input) must be of type string, null given, called in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 53 and defined in D:\GitHub\Gamestore\dist\App\Tools\Security.php:8
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(53): App\Tools\Security::secureInput(NULL)
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(19): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Tools\Security.php on line 8
+[22-Sep-2024 01:39:08 UTC] PHP Warning:  Undefined array key "nearest_store" in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 53
+[22-Sep-2024 01:39:08 UTC] PHP Stack trace:
+[22-Sep-2024 01:39:08 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:39:08 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:39:08 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:39:08 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:39:08 UTC] PHP Fatal error:  Uncaught TypeError: App\Tools\Security::secureInput(): Argument #1 ($input) must be of type string, null given, called in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 53 and defined in D:\GitHub\Gamestore\dist\App\Tools\Security.php:8
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(53): App\Tools\Security::secureInput(NULL)
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(19): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Tools\Security.php on line 8
+[22-Sep-2024 01:39:28 UTC] PHP Warning:  Undefined array key "nearest_store" in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 53
+[22-Sep-2024 01:39:28 UTC] PHP Stack trace:
+[22-Sep-2024 01:39:28 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:39:28 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:39:28 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:39:28 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:39:28 UTC] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 56
+[22-Sep-2024 01:39:28 UTC] PHP Stack trace:
+[22-Sep-2024 01:39:28 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:39:28 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:39:28 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:39:29 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:39:29 UTC] PHP   5. explode($separator = ',', $string = NULL) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:56
+[22-Sep-2024 01:39:29 UTC] PHP Warning:  Undefined array key 1 in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 58
+[22-Sep-2024 01:39:29 UTC] PHP Stack trace:
+[22-Sep-2024 01:39:29 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:39:29 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:39:29 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:39:29 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:39:29 UTC] PHP Fatal error:  Uncaught TypeError: App\Repository\StoreRepository::getStoreIdByName(): Argument #1 ($storeName) must be of type string, null given, called in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 61 and defined in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php:15
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(61): App\Repository\StoreRepository->getStoreIdByName(NULL)
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(19): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php on line 15
+[22-Sep-2024 01:40:01 UTC] PHP Warning:  Undefined array key "nearest_store" in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 54
+[22-Sep-2024 01:40:01 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:01 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:01 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:01 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:01 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:01 UTC] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 57
+[22-Sep-2024 01:40:01 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:01 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:01 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:01 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:01 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:01 UTC] PHP   5. explode($separator = ',', $string = NULL) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:57
+[22-Sep-2024 01:40:01 UTC] PHP Warning:  Undefined array key 1 in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 59
+[22-Sep-2024 01:40:01 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:01 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:01 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:01 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:01 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:01 UTC] PHP Fatal error:  Uncaught TypeError: App\Repository\StoreRepository::getStoreIdByName(): Argument #1 ($storeName) must be of type string, null given, called in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 62 and defined in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php:15
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(62): App\Repository\StoreRepository->getStoreIdByName(NULL)
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(19): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php on line 15
+[22-Sep-2024 01:40:07 UTC] PHP Warning:  Undefined array key "nearest_store" in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 54
+[22-Sep-2024 01:40:07 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:07 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:07 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:07 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:07 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:07 UTC] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 57
+[22-Sep-2024 01:40:07 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:07 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:07 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:07 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:07 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:07 UTC] PHP   5. explode($separator = ',', $string = NULL) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:57
+[22-Sep-2024 01:40:07 UTC] PHP Warning:  Undefined array key 1 in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 59
+[22-Sep-2024 01:40:07 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:07 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:07 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:07 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:07 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:07 UTC] PHP Fatal error:  Uncaught TypeError: App\Repository\StoreRepository::getStoreIdByName(): Argument #1 ($storeName) must be of type string, null given, called in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 62 and defined in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php:15
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(62): App\Repository\StoreRepository->getStoreIdByName(NULL)
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(19): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php on line 15
+[22-Sep-2024 01:40:27 UTC] PHP Warning:  Undefined array key "nearest_store" in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 54
+[22-Sep-2024 01:40:27 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:27 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:27 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:27 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:27 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:27 UTC] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 57
+[22-Sep-2024 01:40:27 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:27 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:27 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:27 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:27 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:27 UTC] PHP   5. explode($separator = ',', $string = NULL) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:57
+[22-Sep-2024 01:40:27 UTC] PHP Warning:  Undefined array key 1 in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 59
+[22-Sep-2024 01:40:27 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:27 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:27 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:27 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:27 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:27 UTC] PHP Fatal error:  Uncaught TypeError: App\Repository\StoreRepository::getStoreIdByName(): Argument #1 ($storeName) must be of type string, null given, called in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 62 and defined in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php:15
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(62): App\Repository\StoreRepository->getStoreIdByName(NULL)
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(19): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php on line 15
+[22-Sep-2024 01:40:28 UTC] PHP Warning:  Undefined array key "nearest_store" in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 54
+[22-Sep-2024 01:40:28 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:28 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:28 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:28 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:28 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:28 UTC] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 57
+[22-Sep-2024 01:40:28 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:28 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:28 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:28 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:28 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:28 UTC] PHP   5. explode($separator = ',', $string = NULL) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:57
+[22-Sep-2024 01:40:28 UTC] PHP Warning:  Undefined array key 1 in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 59
+[22-Sep-2024 01:40:28 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:28 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:28 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:28 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:28 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:28 UTC] PHP Fatal error:  Uncaught TypeError: App\Repository\StoreRepository::getStoreIdByName(): Argument #1 ($storeName) must be of type string, null given, called in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 62 and defined in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php:15
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(62): App\Repository\StoreRepository->getStoreIdByName(NULL)
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(19): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php on line 15
+[22-Sep-2024 01:40:29 UTC] PHP Warning:  Undefined array key "nearest_store" in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 54
+[22-Sep-2024 01:40:29 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:29 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:29 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:29 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:29 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:29 UTC] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 57
+[22-Sep-2024 01:40:29 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:29 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:29 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:29 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:29 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:29 UTC] PHP   5. explode($separator = ',', $string = NULL) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:57
+[22-Sep-2024 01:40:29 UTC] PHP Warning:  Undefined array key 1 in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 59
+[22-Sep-2024 01:40:29 UTC] PHP Stack trace:
+[22-Sep-2024 01:40:29 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 01:40:29 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 01:40:29 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 01:40:29 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 01:40:29 UTC] PHP Fatal error:  Uncaught TypeError: App\Repository\StoreRepository::getStoreIdByName(): Argument #1 ($storeName) must be of type string, null given, called in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 62 and defined in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php:15
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(62): App\Repository\StoreRepository->getStoreIdByName(NULL)
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(19): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php on line 15
+[22-Sep-2024 01:46:48 UTC] PHP Fatal error:  Uncaught TypeError: App\Repository\StoreRepository::getStoreIdByName(): Return value must be of type int, array returned in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php:21
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(62): App\Repository\StoreRepository->getStoreIdByName('Lille')
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(19): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(25): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(30): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Repository\StoreRepository.php on line 21
+[22-Sep-2024 02:41:24 UTC] PHP Parse error:  syntax error, unexpected token "catch" in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 92
+[22-Sep-2024 02:42:13 UTC] PHP Warning:  Undefined variable $response in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 76
+[22-Sep-2024 02:42:13 UTC] PHP Stack trace:
+[22-Sep-2024 02:42:13 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 02:42:13 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 02:42:13 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 02:42:13 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 02:42:13 UTC] PHP Deprecated:  json_decode(): Passing null to parameter #1 ($json) of type string is deprecated in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 76
+[22-Sep-2024 02:42:13 UTC] PHP Stack trace:
+[22-Sep-2024 02:42:13 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 02:42:13 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 02:42:13 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 02:42:13 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 02:42:13 UTC] PHP   5. json_decode($json = NULL, $associative = TRUE) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:76
+[22-Sep-2024 02:42:13 UTC] PHP Warning:  Trying to access array offset on null in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 77
+[22-Sep-2024 02:42:13 UTC] PHP Stack trace:
+[22-Sep-2024 02:42:13 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 02:42:13 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
+[22-Sep-2024 02:42:13 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
+[22-Sep-2024 02:42:13 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19

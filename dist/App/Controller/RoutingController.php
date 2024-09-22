@@ -18,20 +18,18 @@ class RoutingController
           case 'auth':
             //charger controleur auth
             $controller = new AuthController();
-            //$controller->route();
+            $controller->route();
             break;
           case 'user':
             $controller = new UserController();
-            //$controller->route();
+            $controller->route();
             break;
           case 'games':
             $controller = new GamesController();
-            //$controller->route();
             $controller->route();
             break;
           case 'datas':
             $controller = new DatasController();
-            //$controller->route();
             break;
           default:
             throw new \Exception("Le controleur n'existe pas");
