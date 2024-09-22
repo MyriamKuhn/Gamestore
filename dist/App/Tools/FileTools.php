@@ -49,13 +49,22 @@ class FileTools
             return $scripts;
         }
         break;
+      case 'auth':
+        $scripts = [
+          'utils.js',
+        ];
+        return $scripts;
+        break;
+      case 'user':
+        $scripts = [
+          'utils.js',
+          'registerPage.js',
+        ];
+        return $scripts;
+        break;
       default:
         $scripts = [
           'utils.js',
-          'filters.js',
-          'listPage.js',
-          'promoPage.js',
-          'variables.js'
         ];
         return $scripts;
     }

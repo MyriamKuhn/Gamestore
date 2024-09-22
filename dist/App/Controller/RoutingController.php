@@ -11,27 +11,23 @@ class RoutingController
       if (isset($_GET['controller'])) {
         switch ($_GET['controller']) {
           case 'page':
-            //charger controleur page
             $controller = new PageController();
             $controller->route();
             break;
           case 'auth':
-            //charger controleur auth
             $controller = new AuthController();
-            //$controller->route();
+            $controller->route();
             break;
           case 'user':
             $controller = new UserController();
-            //$controller->route();
+            $controller->route();
             break;
           case 'games':
             $controller = new GamesController();
-            //$controller->route();
             $controller->route();
             break;
           case 'datas':
             $controller = new DatasController();
-            //$controller->route();
             break;
           default:
             throw new \Exception("Le controleur n'existe pas");
@@ -44,7 +40,7 @@ class RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -63,7 +59,7 @@ class RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }

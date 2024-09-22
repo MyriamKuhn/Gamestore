@@ -25,8 +25,10 @@ $needle = 'spotlight';
         <p><strong>Gamestore</strong>, c'est plus qu'un magasin de jeux vidéo, c'est votre univers de divertissement !</p>
         <a href="index.php?controller=page&action=about" class="btn btn-gamestore text-uppercase">En savoir plus</a>
       </div>
+      <!-- Accordion -->
       <div class="mt-4 ps-lg-5">
         <div class="accordion accordion-flush" id="accordionFlushHero">
+          <!-- Comment acheter -->
           <div class="accordion-item">
             <div class="accordion-header">
               <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
@@ -37,6 +39,7 @@ $needle = 'spotlight';
               <div class="accordion-body">Placez le ou les jeux de votre choix dans votre panier, définissez une date de retrait dans votre magasin préféré lors de la confirmation de votre panier et venez retirer vos jeux directement en magasin. Vous avez 7 jours pour retirer votre réservation. <a href="index.php?controller=page&action=buy" class="text-link">Plus d'infos</a></div>
             </div>
           </div>
+          <!-- Pourquoi Choisir Gamestore -->
           <div class="accordion-item">
             <div class="accordion-header">
               <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
@@ -59,6 +62,7 @@ $needle = 'spotlight';
               </div>
             </div>
           </div>
+          <!-- Nous Contacter -->
           <div class="accordion-item">
             <div class="accordion-header">
               <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
@@ -69,6 +73,7 @@ $needle = 'spotlight';
               <div class="accordion-body">Vous pouvez toujours nous rendre visite dans l'un de nos cinq magasins ou nous suivre sur nos réseaux sociaux pour les dernières nouvelles et les offres spéciales. Vous trouverez les coordonnées de nos magasins sur la <a href="index.php?controller=page&action=contact" class="text-link">page de contact</a>.</div>
             </div>
           </div>
+          <!-- Nos prestations -->
           <div class="accordion-item">
             <div class="accordion-header">
               <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">

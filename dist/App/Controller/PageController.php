@@ -12,31 +12,24 @@ class PageController extends RoutingController
       if (isset($_GET['action'])) {
         switch ($_GET['action']) {
           case 'home':
-            //charger controleur home
             $this->home();
             break;
           case 'about':
-            //charger controleur about
             $this->about();
             break;
           case 'buy':
-            //charger controleur buy
             $this->buy();
             break;
           case 'contact':
-            //charger controleur contact
             $this->contact();
             break;
           case 'legal':
-            //charger controleur legal
             $this->legal();
             break;
           case 'cgu':
-            //charger controleur cgu
             $this->cgu();
             break;
           case 'private':
-            //charger controleur private
             $this->private();
             break;
           default:
@@ -48,7 +41,7 @@ class PageController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -67,7 +60,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -79,7 +72,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -91,7 +84,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }	
@@ -103,7 +96,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }	
@@ -115,7 +108,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }	
@@ -127,7 +120,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }	
@@ -139,7 +132,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }	
