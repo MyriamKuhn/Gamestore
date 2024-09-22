@@ -10,6 +10,8 @@ use App\Tools\UserValidator;
 use App\Tools\Security;
 use App\Repository\StoreRepository;
 use Dotenv\Dotenv;
+use DateTime;
+use App\Repository\VerificationRepository;
 
 
 
@@ -23,8 +25,8 @@ class UserController extends RoutingController
           case 'register':
             $this->register();
             break;
-          case 'delete':
-            // Appeler méthode delete()
+          case 'activation':
+            $this->activation();
             break;
           default:
             throw new \Exception("Cette action n'existe pas : " . $_GET['action']);
@@ -35,7 +37,7 @@ class UserController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -60,7 +62,6 @@ class UserController extends RoutingController
           $nearest_store_name = explode(',', $nearest_store_address);
           $nearest_store_city = explode(' ', trim($nearest_store_name[0]));
           $nearest_store = $nearest_store_city[1];
-          var_dump($nearest_store);
           // Récupération de l'ID du magasin le plus proche
           $storeRepository = new StoreRepository();
           $store = $storeRepository->getStoreIdByName($nearest_store);
@@ -93,7 +94,17 @@ class UserController extends RoutingController
             if (empty($errors)) {
               $userRepository = new UserRepository();
               $userRepository->addUser($user);
-              header('Location: index.php');
+              $user = $userRepository->getUserByEmail($email);
+              ($user);
+              // Génération d'un code de vérification du mail
+              $verification_code = random_int(100000, 999999);
+              // Enregistrement du code de vérification en base de données
+              $verificationRepository = new VerificationRepository();
+              $verificationRepository->createVerification($verification_code, $user->getId());
+              $verificationRepository->deleteAllExpiredCodes();
+              // Envoi de l'utilisateur sur la page de vérification
+              header('Location: index.php?controller=user&action=activation&id=' . $user->getId());
+              exit();
             }
           }
         }
@@ -102,10 +113,35 @@ class UserController extends RoutingController
       ]);
 
     } catch (\Exception $e) {
+      if ($e->getCode() == 23000) {
+        $error = "Un utilisateur avec cette adresse email existe déjà. Veuillez vous connecter ou réinitialiser votre mot de passe.";
+      } else {
+        $error = _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")";
+      }
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => $error
       ]);
     } 
   }
 
+  protected function activation()
+  {
+    if (isset($_POST["verifyUser"])) {
+      $userId = Security::secureInput($_POST['user_id']);
+      $is_resend = true;
+    }
+    if (isset($_GET['id'])) {
+      $userId = intval($_GET['id']);
+      $is_resend = false;}
+    try {
+      $this->render('user/activation', [
+        'is_resend' => $is_resend,
+        'userId' => $userId
+      ]);
+    } catch (\Exception $e) {
+      $this->render('errors/default', [
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+      ]);
+    }
+  }
 }

@@ -5,7 +5,7 @@ namespace App\Model;
 class User extends Model
 {
 
-  protected int $id;
+  protected ?int $id = null;
   protected string $first_name;
   protected string $last_name;
   protected string $address;
@@ -14,6 +14,7 @@ class User extends Model
   protected string $email;
   protected string $password;
   protected string $role;
+  protected int $is_verified;
   protected int $fk_store_id;
 
   public function getId(): int
@@ -120,6 +121,18 @@ class User extends Model
   public function setRole(string $role): self
   {
     $this->role = $role;
+
+    return $this;
+  }
+
+  public function getIs_verified(): int
+  {
+    return $this->is_verified;
+  }
+
+  public function setIs_verified(int $is_verified): self
+  {
+    $this->is_verified = $is_verified;
 
     return $this;
   }

@@ -25,7 +25,7 @@ class AuthController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }

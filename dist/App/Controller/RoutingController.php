@@ -11,12 +11,10 @@ class RoutingController
       if (isset($_GET['controller'])) {
         switch ($_GET['controller']) {
           case 'page':
-            //charger controleur page
             $controller = new PageController();
             $controller->route();
             break;
           case 'auth':
-            //charger controleur auth
             $controller = new AuthController();
             $controller->route();
             break;
@@ -42,7 +40,7 @@ class RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -61,7 +59,7 @@ class RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }

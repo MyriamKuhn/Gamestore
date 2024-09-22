@@ -569,3 +569,276 @@ Stack trace:
 [22-Sep-2024 02:42:13 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:30
 [22-Sep-2024 02:42:13 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:25
 [22-Sep-2024 02:42:13 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:19
+[22-Sep-2024 14:56:54 UTC] PHP Fatal error:  Uncaught Error: Typed property App\Model\User::$id must not be accessed before initialization in D:\GitHub\Gamestore\dist\App\Model\User.php:22
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(101): App\Model\User->getId()
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(26): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Model\User.php on line 22
+[22-Sep-2024 15:13:01 UTC] PHP Fatal error:  Uncaught Error: Typed property App\Model\User::$id must not be accessed before initialization in D:\GitHub\Gamestore\dist\App\Model\User.php:22
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(103): App\Model\User->getId()
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(26): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Model\User.php on line 22
+[22-Sep-2024 15:20:50 UTC] PHP Fatal error:  Uncaught TypeError: App\Model\User::getId(): Return value must be of type int, null returned in D:\GitHub\Gamestore\dist\App\Model\User.php:22
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(103): App\Model\User->getId()
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(26): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Model\User.php on line 22
+[22-Sep-2024 15:22:39 UTC] PHP Fatal error:  Uncaught TypeError: App\Model\User::getId(): Return value must be of type int, null returned in D:\GitHub\Gamestore\dist\App\Model\User.php:22
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(105): App\Model\User->getId()
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(26): App\Controller\UserController->register()
+#2 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#3 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#4 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Model\User.php on line 22
+[22-Sep-2024 15:26:49 UTC] PHP Warning:  Undefined variable $user in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 28
+[22-Sep-2024 15:26:49 UTC] PHP Stack trace:
+[22-Sep-2024 15:26:49 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 15:26:49 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 15:26:49 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:23
+[22-Sep-2024 15:26:49 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:26
+[22-Sep-2024 15:26:49 UTC] PHP   5. App\Controller\RoutingController->render($path = 'user/activation', $params = ['userId' => 9, 'is_resend' => FALSE]) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:106
+[22-Sep-2024 15:26:49 UTC] PHP   6. require_once() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:58
+[22-Sep-2024 15:26:49 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getFirst_name() on null in D:\GitHub\Gamestore\dist\templates\user\activation.php:28
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once()
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(106): App\Controller\RoutingController->render('user/activation', Array)
+#2 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(26): App\Controller\UserController->register()
+#3 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#4 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#5 {main}
+  thrown in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 28
+[22-Sep-2024 15:33:31 UTC] PHP Warning:  Undefined array key "verifyUser" in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 86
+[22-Sep-2024 15:33:31 UTC] PHP Stack trace:
+[22-Sep-2024 15:33:31 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 15:33:31 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 15:33:31 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:23
+[22-Sep-2024 15:33:31 UTC] PHP   4. App\Controller\UserController->register() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:26
+[22-Sep-2024 15:33:31 UTC] PHP   5. App\Controller\RoutingController->render($path = 'user/activation', $params = ['userId' => 11, 'is_resend' => FALSE]) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:107
+[22-Sep-2024 15:33:31 UTC] PHP   6. require_once() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:58
+[22-Sep-2024 15:37:32 UTC] PHP Fatal error:  Uncaught Error: Typed property App\Model\Verification::$verification_code must not be accessed before initialization in D:\GitHub\Gamestore\dist\App\Model\Verification.php:27
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\templates\user\activation.php(43): App\Model\Verification->getVerification_code()
+#1 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once('D:\\GitHub\\Games...')
+#2 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(136): App\Controller\RoutingController->render('user/activation', Array)
+#3 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#4 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#5 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#6 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Model\Verification.php on line 27
+[22-Sep-2024 15:38:35 UTC] PHP Fatal error:  Uncaught TypeError: App\Model\Verification::setCreated_at(): Argument #1 ($created_at) must be of type DateTime, string given, called in D:\GitHub\Gamestore\dist\App\Model\Model.php on line 27 and defined in D:\GitHub\Gamestore\dist\App\Model\Verification.php:42
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Model\Model.php(27): App\Model\Verification->setCreated_at('2024-09-22 17:3...')
+#1 D:\GitHub\Gamestore\dist\App\Model\Model.php(12): App\Model\Model->hydrate(Array)
+#2 D:\GitHub\Gamestore\dist\App\Repository\VerificationRepository.php(45): App\Model\Model::createAndHydrate(Array)
+#3 D:\GitHub\Gamestore\dist\templates\user\activation.php(42): App\Repository\VerificationRepository->getLastVerificationByUserId(12)
+#4 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once('D:\\GitHub\\Games...')
+#5 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(136): App\Controller\RoutingController->render('user/activation', Array)
+#6 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#7 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#8 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#9 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Model\Verification.php on line 42
+[22-Sep-2024 15:44:12 UTC] PHP Fatal error:  Uncaught TypeError: App\Model\Verification::setCreated_at(): Argument #1 ($created_at) must be of type DateTime, string given, called in D:\GitHub\Gamestore\dist\App\Model\Model.php on line 27 and defined in D:\GitHub\Gamestore\dist\App\Model\Verification.php:42
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Model\Model.php(27): App\Model\Verification->setCreated_at('2024-09-22 17:3...')
+#1 D:\GitHub\Gamestore\dist\App\Model\Model.php(12): App\Model\Model->hydrate(Array)
+#2 D:\GitHub\Gamestore\dist\App\Repository\VerificationRepository.php(45): App\Model\Model::createAndHydrate(Array)
+#3 D:\GitHub\Gamestore\dist\templates\user\activation.php(42): App\Repository\VerificationRepository->getLastVerificationByUserId(12)
+#4 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once('D:\\GitHub\\Games...')
+#5 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(136): App\Controller\RoutingController->render('user/activation', Array)
+#6 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#7 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#8 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#9 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Model\Verification.php on line 42
+[22-Sep-2024 15:46:08 UTC] PHP Fatal error:  Uncaught TypeError: App\Model\Verification::setCreated_at(): Argument #1 ($created_at) must be of type DateTime, string given, called in D:\GitHub\Gamestore\dist\App\Model\Model.php on line 27 and defined in D:\GitHub\Gamestore\dist\App\Model\Verification.php:42
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Model\Model.php(27): App\Model\Verification->setCreated_at('2024-09-22 17:4...')
+#1 D:\GitHub\Gamestore\dist\App\Model\Model.php(12): App\Model\Model->hydrate(Array)
+#2 D:\GitHub\Gamestore\dist\App\Repository\VerificationRepository.php(45): App\Model\Model::createAndHydrate(Array)
+#3 D:\GitHub\Gamestore\dist\templates\user\activation.php(42): App\Repository\VerificationRepository->getLastVerificationByUserId(13)
+#4 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once('D:\\GitHub\\Games...')
+#5 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(136): App\Controller\RoutingController->render('user/activation', Array)
+#6 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#7 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#8 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#9 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Model\Verification.php on line 42
+[22-Sep-2024 15:48:40 UTC] PHP Fatal error:  Uncaught TypeError: App\Repository\UserRepository::getUserById(): Return value must be of type App\Model\User, null returned in D:\GitHub\Gamestore\dist\App\Repository\UserRepository.php:51
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\templates\user\activation.php(18): App\Repository\UserRepository->getUserById(13)
+#1 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once('D:\\GitHub\\Games...')
+#2 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(136): App\Controller\RoutingController->render('user/activation', Array)
+#3 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#4 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#5 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#6 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Repository\UserRepository.php on line 51
+[22-Sep-2024 15:49:51 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getFirst_name() on null in D:\GitHub\Gamestore\dist\templates\user\activation.php:31
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once()
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(136): App\Controller\RoutingController->render('user/activation', Array)
+#2 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#3 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#4 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#5 {main}
+  thrown in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 31
+[22-Sep-2024 15:51:48 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getFirst_name() on null in D:\GitHub\Gamestore\dist\templates\user\activation.php:32
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once()
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(136): App\Controller\RoutingController->render('user/activation', Array)
+#2 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#3 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#4 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#5 {main}
+  thrown in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 32
+[22-Sep-2024 15:52:35 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getFirst_name() on null in D:\GitHub\Gamestore\dist\templates\user\activation.php:32
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once()
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(137): App\Controller\RoutingController->render('user/activation', Array)
+#2 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#3 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#4 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#5 {main}
+  thrown in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 32
+[22-Sep-2024 15:56:41 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\GitHub\Gamestore\dist\templates\header.php:22) in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 127
+[22-Sep-2024 15:56:41 UTC] PHP Stack trace:
+[22-Sep-2024 15:56:41 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 15:56:41 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 15:56:41 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:23
+[22-Sep-2024 15:56:41 UTC] PHP   4. App\Controller\UserController->activation() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:29
+[22-Sep-2024 15:56:41 UTC] PHP   5. App\Controller\RoutingController->render($path = 'user/activation', $params = ['is_resend' => TRUE, 'userId' => '14']) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:136
+[22-Sep-2024 15:56:41 UTC] PHP   6. require_once() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:58
+[22-Sep-2024 15:56:41 UTC] PHP   7. header($header = 'Location: index.php?controller=auth&action=login') D:\GitHub\Gamestore\dist\templates\user\activation.php:127
+[22-Sep-2024 16:05:56 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getFirst_name() on null in D:\GitHub\Gamestore\dist\templates\user\activation.php:32
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once()
+#1 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(136): App\Controller\RoutingController->render('user/activation', Array)
+#2 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#3 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#4 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#5 {main}
+  thrown in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 32
+[22-Sep-2024 16:10:45 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\GitHub\Gamestore\dist\templates\header.php:22) in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 127
+[22-Sep-2024 16:10:45 UTC] PHP Stack trace:
+[22-Sep-2024 16:10:45 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 16:10:45 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 16:10:45 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:23
+[22-Sep-2024 16:10:45 UTC] PHP   4. App\Controller\UserController->activation() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:29
+[22-Sep-2024 16:10:45 UTC] PHP   5. App\Controller\RoutingController->render($path = 'user/activation', $params = ['is_resend' => TRUE, 'userId' => '15']) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:136
+[22-Sep-2024 16:10:45 UTC] PHP   6. require_once() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:58
+[22-Sep-2024 16:10:45 UTC] PHP   7. header($header = 'Location: index.php?controller=auth&action=login') D:\GitHub\Gamestore\dist\templates\user\activation.php:127
+[22-Sep-2024 16:17:16 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\GitHub\Gamestore\dist\templates\header.php:22) in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 129
+[22-Sep-2024 16:17:16 UTC] PHP Stack trace:
+[22-Sep-2024 16:17:16 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 16:17:16 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 16:17:16 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:23
+[22-Sep-2024 16:17:16 UTC] PHP   4. App\Controller\UserController->activation() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:29
+[22-Sep-2024 16:17:16 UTC] PHP   5. App\Controller\RoutingController->render($path = 'user/activation', $params = ['is_resend' => TRUE, 'userId' => '16']) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:136
+[22-Sep-2024 16:17:16 UTC] PHP   6. require_once() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:58
+[22-Sep-2024 16:17:16 UTC] PHP   7. header($header = 'refresh:10;url=index.php?controller=auth&action=login') D:\GitHub\Gamestore\dist\templates\user\activation.php:129
+[22-Sep-2024 16:17:29 UTC] PHP Warning:  Undefined array key "id" in D:\GitHub\Gamestore\dist\App\Controller\AuthController.php on line 14
+[22-Sep-2024 16:17:29 UTC] PHP Stack trace:
+[22-Sep-2024 16:17:29 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 16:17:29 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 16:17:29 UTC] PHP   3. App\Controller\AuthController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:19
+[22-Sep-2024 16:25:54 UTC] PHP Warning:  Undefined variable $is_resend in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 141
+[22-Sep-2024 16:25:54 UTC] PHP Stack trace:
+[22-Sep-2024 16:25:54 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 16:25:54 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 16:25:54 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:23
+[22-Sep-2024 16:25:54 UTC] PHP   4. App\Controller\UserController->activation() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:29
+[22-Sep-2024 16:25:54 UTC] PHP Warning:  Undefined variable $userId in D:\GitHub\Gamestore\dist\App\Controller\UserController.php on line 142
+[22-Sep-2024 16:25:54 UTC] PHP Stack trace:
+[22-Sep-2024 16:25:54 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 16:25:54 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 16:25:54 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:23
+[22-Sep-2024 16:25:54 UTC] PHP   4. App\Controller\UserController->activation() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:29
+[22-Sep-2024 16:25:55 UTC] PHP Fatal error:  Uncaught TypeError: App\Repository\UserRepository::getUserById(): Argument #1 ($id) must be of type int, null given, called in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 18 and defined in D:\GitHub\Gamestore\dist\App\Repository\UserRepository.php:40
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\templates\user\activation.php(18): App\Repository\UserRepository->getUserById(NULL)
+#1 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once('D:\\GitHub\\Games...')
+#2 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(140): App\Controller\RoutingController->render('user/activation', Array)
+#3 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#4 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#5 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#6 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Repository\UserRepository.php on line 40
+[22-Sep-2024 16:35:29 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\GitHub\Gamestore\dist\templates\user\activation.php:31) in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 128
+[22-Sep-2024 16:35:29 UTC] PHP Stack trace:
+[22-Sep-2024 16:35:29 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 16:35:29 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 16:35:29 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:23
+[22-Sep-2024 16:35:29 UTC] PHP   4. App\Controller\UserController->activation() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:29
+[22-Sep-2024 16:35:29 UTC] PHP   5. App\Controller\RoutingController->render($path = 'user/activation', $params = ['is_resend' => TRUE, 'userId' => '19']) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:137
+[22-Sep-2024 16:35:29 UTC] PHP   6. require_once() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:58
+[22-Sep-2024 16:35:29 UTC] PHP   7. header($header = 'refresh:10;url=index.php?controller=auth&action=login') D:\GitHub\Gamestore\dist\templates\user\activation.php:128
+[22-Sep-2024 16:37:42 UTC] PHP Warning:  Undefined array key "id" in D:\GitHub\Gamestore\dist\App\Controller\AuthController.php on line 14
+[22-Sep-2024 16:37:42 UTC] PHP Stack trace:
+[22-Sep-2024 16:37:42 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 16:37:42 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 16:37:42 UTC] PHP   3. App\Controller\AuthController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:19
+[22-Sep-2024 16:54:05 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\GitHub\Gamestore\dist\templates\user\activation.php:31) in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 125
+[22-Sep-2024 16:54:05 UTC] PHP Stack trace:
+[22-Sep-2024 16:54:05 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 16:54:05 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 16:54:05 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:23
+[22-Sep-2024 16:54:05 UTC] PHP   4. App\Controller\UserController->activation() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:29
+[22-Sep-2024 16:54:05 UTC] PHP   5. App\Controller\RoutingController->render($path = 'user/activation', $params = ['is_resend' => TRUE, 'userId' => '21']) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:137
+[22-Sep-2024 16:54:05 UTC] PHP   6. require_once() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:58
+[22-Sep-2024 16:54:05 UTC] PHP   7. header($header = 'refresh:10;url=index.php?controller=auth&action=login') D:\GitHub\Gamestore\dist\templates\user\activation.php:125
+[22-Sep-2024 17:04:40 UTC] PHP Fatal error:  Uncaught TypeError: App\Repository\VerificationRepository::getLastVerificationByUserId(): Return value must be of type App\Model\Verification, null returned in D:\GitHub\Gamestore\dist\App\Repository\VerificationRepository.php:47
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\templates\user\activation.php(92): App\Repository\VerificationRepository->getLastVerificationByUserId(21)
+#1 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once('D:\\GitHub\\Games...')
+#2 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(137): App\Controller\RoutingController->render('user/activation', Array)
+#3 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#4 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#5 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#6 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Repository\VerificationRepository.php on line 47
+[22-Sep-2024 17:05:56 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at D:\GitHub\Gamestore\dist\templates\user\activation.php:31) in D:\GitHub\Gamestore\dist\templates\user\activation.php on line 57
+[22-Sep-2024 17:05:56 UTC] PHP Stack trace:
+[22-Sep-2024 17:05:56 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 17:05:56 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 17:05:56 UTC] PHP   3. App\Controller\UserController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:23
+[22-Sep-2024 17:05:56 UTC] PHP   4. App\Controller\UserController->activation() D:\GitHub\Gamestore\dist\App\Controller\UserController.php:29
+[22-Sep-2024 17:05:56 UTC] PHP   5. App\Controller\RoutingController->render($path = 'user/activation', $params = ['is_resend' => TRUE, 'userId' => '22']) D:\GitHub\Gamestore\dist\App\Controller\UserController.php:137
+[22-Sep-2024 17:05:56 UTC] PHP   6. require_once() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:58
+[22-Sep-2024 17:05:56 UTC] PHP   7. header($header = 'Location: /index.php') D:\GitHub\Gamestore\dist\templates\user\activation.php:57
+[22-Sep-2024 17:20:00 UTC] PHP Warning:  Undefined array key "id" in D:\GitHub\Gamestore\dist\App\Controller\AuthController.php on line 14
+[22-Sep-2024 17:20:00 UTC] PHP Stack trace:
+[22-Sep-2024 17:20:00 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 17:20:00 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 17:20:00 UTC] PHP   3. App\Controller\AuthController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:19
+[22-Sep-2024 18:04:18 UTC] PHP Fatal error:  Uncaught TypeError: App\Repository\VerificationRepository::getLastVerificationByUserId(): Return value must be of type App\Model\Verification, null returned in D:\GitHub\Gamestore\dist\App\Repository\VerificationRepository.php:47
+Stack trace:
+#0 D:\GitHub\Gamestore\dist\templates\user\activation.php(173): App\Repository\VerificationRepository->getLastVerificationByUserId(24)
+#1 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(58): require_once('D:\\GitHub\\Games...')
+#2 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(137): App\Controller\RoutingController->render('user/activation', Array)
+#3 D:\GitHub\Gamestore\dist\App\Controller\UserController.php(29): App\Controller\UserController->activation()
+#4 D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php(23): App\Controller\UserController->route()
+#5 D:\GitHub\Gamestore\dist\index.php(29): App\Controller\RoutingController->route()
+#6 {main}
+  thrown in D:\GitHub\Gamestore\dist\App\Repository\VerificationRepository.php on line 47
+[22-Sep-2024 18:09:06 UTC] PHP Warning:  Undefined array key "id" in D:\GitHub\Gamestore\dist\App\Controller\AuthController.php on line 14
+[22-Sep-2024 18:09:06 UTC] PHP Stack trace:
+[22-Sep-2024 18:09:06 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 18:09:06 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 18:09:06 UTC] PHP   3. App\Controller\AuthController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:19
+[22-Sep-2024 18:09:12 UTC] PHP Warning:  Undefined array key "id" in D:\GitHub\Gamestore\dist\App\Controller\AuthController.php on line 14
+[22-Sep-2024 18:09:12 UTC] PHP Stack trace:
+[22-Sep-2024 18:09:12 UTC] PHP   1. {main}() D:\GitHub\Gamestore\dist\index.php:0
+[22-Sep-2024 18:09:12 UTC] PHP   2. App\Controller\RoutingController->route() D:\GitHub\Gamestore\dist\index.php:29
+[22-Sep-2024 18:09:12 UTC] PHP   3. App\Controller\AuthController->route() D:\GitHub\Gamestore\dist\App\Controller\RoutingController.php:19

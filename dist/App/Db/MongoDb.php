@@ -38,7 +38,7 @@ class MongoDb
         $this->client = new Client($this->uri);
 
       } catch (Exception $e) {
-        echo "Erreur de connexion à MongoDB : " . $e->getMessage();
+        echo _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")";
         die();
       }
     }

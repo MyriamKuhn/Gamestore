@@ -28,7 +28,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
       </div>
       <!-- START : Formulaire d'inscription -->
       <form method="post" id="register-form" class="needs-validation" novalidate>
-        
+        <!-- Nom et prénom -->
         <div class="input-group mb-3">
           <div class="form-floating">
             <input type="text" class="form-control <?=(isset($errors['last_name']) ? 'is-invalid': '') ?>" id="last_name" name="last_name" minlength="3" maxlength="100" required>
@@ -45,7 +45,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
             </div>
           </div>
         </div>
-
+        <!-- Adresse recherche autocomplétion -->
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="address-search" name="address-search" minlength="3" maxlength="255" required>
           <label for="address-search">Entrez votre adresse</label>
@@ -54,8 +54,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
           </div>
         </div>
         <div id="suggestions"></div>
-
-        
+        <!-- Affichage adresse, code postal, ville et Gamestore le plus proche -->
         <div class="form-floating">
           <input type="text" readonly class="form-control <?=(isset($errors['address']) ? 'is-invalid': '') ?>" id="address" name="address" minlength="3" maxlength="255" required>
           <label for="address">Adresse</label>
@@ -82,7 +81,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
             Entrez votre adresse mail.
           </div>
         </div>
-
+        <!-- Mot de passe -->
         <div class="input-group">
           <div class="form-floating">
             <input type="password" class="form-control <?=(isset($errors['password']) ? 'is-invalid': '') ?>" id="password" name="password" required>
@@ -108,7 +107,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
           <input type="submit" class="btn btn-gamestore text-uppercase" name="registerUser" value="S'inscrire">
         </div>
       </form>
-      <!-- END : Formulaire de contact -->
+      <!-- END : Formulaire d'inscription -->
     </div>
   </section>
 
