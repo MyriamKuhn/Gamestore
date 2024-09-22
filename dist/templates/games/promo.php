@@ -14,6 +14,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
   <!-- START : Filtres -->
   <section class="my-4 pb-3">
     <div class="accordion" id="filters">
+      <!-- Filtre genres -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#filter-genres" aria-expanded="true" aria-controls="filter-genres">
@@ -29,6 +30,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
           </div>
         </div>
       </div>
+      <!-- Filtre plateformes -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#filter-platform" aria-expanded="false" aria-controls="filter-platform">
@@ -44,6 +46,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
           </div>
         </div>
       </div>
+      <!-- Filtre nom de jeu -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#filter-name" aria-expanded="false" aria-controls="filter-name">
@@ -56,6 +59,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
           </div>
         </div>
       </div>
+      <!-- Filtre magasins -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#filter-platform" aria-expanded="false" aria-controls="filter-platform">
@@ -71,6 +75,7 @@ require_once _TEMPLATEPATH_ . '/header.php'; ?>
           </div>
         </div>
       </div>
+      <!-- Filtre pages et reset des filtres -->
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#filter-pages" aria-expanded="false" aria-controls="filter-pages">

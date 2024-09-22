@@ -37,7 +37,7 @@ class Mysql
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
       } catch (\PDOException $e) {
-        echo "Erreur de connexion à la base de données : " . $e->getMessage();
+        echo _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")";
         die();
       }
     }

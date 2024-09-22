@@ -16,7 +16,6 @@ class GamesController extends RoutingController
       if (isset($_GET['action'])) {
         switch ($_GET['action']) {
           case 'list':
-            //charger controleur 
             $this->list();
             break;
           case 'show':
@@ -26,7 +25,6 @@ class GamesController extends RoutingController
             $this->show($_GET['id']);
             break;
           case 'promo':
-            //charger controleur 
             $this->promo();
             break;
           default:
@@ -38,7 +36,7 @@ class GamesController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -61,7 +59,7 @@ class GamesController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -78,7 +76,7 @@ class GamesController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -101,7 +99,7 @@ class GamesController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage()
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
