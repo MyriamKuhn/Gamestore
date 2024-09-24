@@ -97,7 +97,6 @@ class UserController extends RoutingController
               $userRepository = new UserRepository();
               $userRepository->addUser($user);
               $user = $userRepository->getUserByEmail($email);
-              ($user);
               // Génération d'un code de vérification du mail
               $verification_code = random_int(100000, 999999);
               // Enregistrement du code de vérification en base de données
@@ -137,7 +136,8 @@ class UserController extends RoutingController
     }
     if (isset($_GET['id'])) {
       $userId = intval($_GET['id']);
-      $is_resend = false;}
+      $is_resend = false;
+    }
     try {
       $this->render('user/activation', [
         'is_resend' => $is_resend,

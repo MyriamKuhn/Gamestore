@@ -50,16 +50,41 @@ class FileTools
         }
         break;
       case 'auth':
-        $scripts = [
-          'utils.js',
-        ];
-        return $scripts;
-        break;
+        switch (isset($_GET['action']) ? $_GET['action'] : '') {
+          case 'login':
+            $scripts = [
+              'loginPage.js',
+            ];
+            return $scripts;
+            break;
+          case 'password':
+            $scripts = [
+              'passwordPage.js',
+            ];
+            return $scripts;
+            break;
+          default:
+            $scripts = [
+              'utils.js',
+            ];
+            return $scripts;
+            break;
+        }
       case 'user':
-        $scripts = [
-          'utils.js',
-          'registerPage.js',
-        ];
+        switch (isset($_GET['action']) ? $_GET['action'] : '') {
+          case 'register':
+            $scripts = [
+              'registerPage.js',
+            ];
+            return $scripts;
+            break;
+          default:
+            $scripts = [
+              'utils.js',
+            ];
+            return $scripts;
+            break;
+        }
         return $scripts;
         break;
       default:

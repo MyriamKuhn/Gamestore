@@ -38,7 +38,7 @@ class VerificationRepository extends MainRepository
   }
 
   // Récupération du dernier code de vérification par l'id de l'utilisateur
-  public function getLastVerificationByUserId(int $userId): Verification
+  public function getLastVerificationByUserId(int $userId): Verification|null
   {
     $query = "SELECT * FROM email_verification WHERE fk_app_user_id = :fk_app_user_id ORDER BY created_at DESC LIMIT 1";
     $stmt = $this->pdo->prepare($query);

@@ -71,4 +71,16 @@ class UserRepository extends MainRepository
     }
   }
 
+  // Mise ne place d'un token de vérification
+  public function setToken($token, $userId)
+  {
+    $query = 'UPDATE app_user SET token = :token, expires_at = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE id = :id';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':token', $token, $this->pdo::PARAM_STR);
+    $stmt->bindValue(':id', $userId, $this->pdo::PARAM_INT);
+    
+    return $stmt->execute();
+  }
+
 }
