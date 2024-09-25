@@ -63,6 +63,12 @@ class FileTools
             ];
             return $scripts;
             break;
+          case 'reset':
+            $scripts = [
+              'resetPage.js',
+            ];
+            return $scripts;
+            break;
           default:
             $scripts = [
               'utils.js',

@@ -72,13 +72,45 @@ class UserRepository extends MainRepository
   }
 
   // Mise ne place d'un token de vérification
-  public function setToken($token, $userId)
+  public function setToken(string $token, int $userId)
   {
     $query = 'UPDATE app_user SET token = :token, expires_at = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE id = :id';
 
     $stmt = $this->pdo->prepare($query);
     $stmt->bindValue(':token', $token, $this->pdo::PARAM_STR);
     $stmt->bindValue(':id', $userId, $this->pdo::PARAM_INT);
+    
+    return $stmt->execute();
+  }
+
+  // Vérification de l'expiration du token
+  public function checkToken(string $token)
+  {
+    $query = 'SELECT expires_at FROM app_user WHERE token = :token';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':token', $token, $this->pdo::PARAM_STR);
+    $stmt->execute();
+    $expiresAt = $stmt->fetchColumn();
+
+    if (!$expiresAt) {
+      return false;
+    }
+
+    $currentDate = new \DateTime();
+    $expiresAt = new \DateTime($expiresAt);
+
+    return $currentDate < $expiresAt;
+  }
+
+  // Mise à jour du mot de passe et suppression du token
+  public function resetPassword(string $password, string $token)
+  {
+    $query = 'UPDATE app_user SET password = :password, token = NULL, expires_at = NULL WHERE token = :token';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':password', Security::securePassword($password), $this->pdo::PARAM_STR);
+    $stmt->bindValue(':token', $token, $this->pdo::PARAM_STR);
     
     return $stmt->execute();
   }

@@ -14,8 +14,51 @@ import { searchGame } from './promoFilters.js';
 
 /***************************************/
 export function createHtmlCard(datas) {
+  let isUser = false;
+  let storeId = 0;
+  let userId = 0;
+  
+  if (document.getElementById('sessionDataId')) {
+    const sessionDivId = document.getElementById('sessionDataId');
+    userId = sessionDivId.getAttribute('data-session-user');
+    const sessionDivStore = document.getElementById('sessionDataStore');
+    storeId = sessionDivStore.getAttribute('data-session-store');
+    isUser = true;
+    console.log(userId);
+    console.log(storeId);
+  }
+
   cardsDiv.innerHTML = '';
   datas.forEach(game => {
+    let isLogged = false;
+    switch (game['store_location']) {
+      case 'Nantes':
+        if (isUser == true && storeId == 1) {
+          isLogged = true;
+        } 
+        break;
+      case 'Lille':
+        if (isUser == true && storeId == 2) {
+          isLogged = true;
+        } 
+        break;
+      case 'Bordeaux':
+        if (isUser == true && storeId == 3) {
+          isLogged = true;
+        } 
+        break;
+      case 'Paris':
+        if (isUser == true && storeId == 4) {
+          isLogged = true;
+        } 
+        break;
+      case 'Toulouse':
+        if (isUser == true && storeId == 5) {
+          isLogged = true;
+        } 
+        break;
+    }
+
     const gameCard = document.createElement('div');
     gameCard.classList.add('card', 'gamestore-card');
     gameCard.style.width = '18rem';
@@ -103,7 +146,14 @@ export function createHtmlCard(datas) {
     gameInfos.appendChild(cardCart);
 
     const cardCartImg = document.createElement('i');
-    cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart');
+    if (isLogged) {
+      cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart');
+      //cardCartImg.addEventListener('click', function() {
+        //addToCart(game['game_id']);
+      //});
+    } else {
+    cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart', 'disabled');
+    }
     cardCart.appendChild(cardCartImg);
 
     const cardFooter = document.createElement('div');

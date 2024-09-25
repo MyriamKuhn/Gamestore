@@ -236,7 +236,8 @@ require_once _TEMPLATEPATH_ . '/header.php';
                     'email' => $user->getEmail(),
                     'first_name' => $user->getFirst_name(),
                     'last_name' => $user->getLast_name(),
-                    'role' => $user->getRole()
+                    'role' => $user->getRole(),
+                    'store_id' => $user->getFk_store_id(),
                   ];
                   // Redirection vers la page espace client
                   header('Location: index.php');

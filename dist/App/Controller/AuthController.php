@@ -48,7 +48,7 @@ class AuthController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")" . $_GET['action'] . isset($_GET['token'])
       ]);
     }
   }
@@ -255,7 +255,52 @@ class AuthController extends RoutingController
 
   protected function reset()
   {
-    
+    ob_start(); 
+    if (isset($_GET['token']) && empty($_POST['resetPassword'])) {
+      $token = Security::secureInput($_GET['token']);
+      $userRepository = new UserRepository();
+      $tokenCheck = $userRepository->checkToken($token);
+      if ($tokenCheck) {
+        $this->render('auth/reset', [
+          'token' => $token
+        ]);
+      } else {
+        $this->render('errors/default', [
+          'error' => 'Votre demande de réinitialisation de mot de passe a expiré. Veuillez recommencer la procédure.'
+      ]);
+      }
+    } else if ($_POST['resetPassword']) {
+      if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die('Invalid CSRF token');
+      }
+      $errors = [];
+      $password = Security::secureInput($_POST['password']);
+      $token = Security::secureInput($_POST['token']);
+      if (!UserValidator::validatePassword($password)) {
+        $errors['password'] = 'Le mot de passe n\'est pas valide';
+      }
+      if (empty($errors)) {
+        $userRepository = new UserRepository();
+        $userRepository->resetPassword($password, $token);
+        $this->render('auth/reset', [
+          'success' => 'Votre mot de passe a été réinitialisé avec succès ! Vous serez redirigé vers la page de connexion dans 10 secondes.',
+          'token' => $token
+        ]);
+        header('refresh:10;url=index.php?controller=auth&action=login');
+        exit();
+      } else {
+        $this->render('auth/reset', [
+          'errors' => $errors,
+          'token' => $token
+        ]);
+      }
+    } else {
+      $this->render('errors/default', [
+        'error' => 'Votre demande de réinitialisation de mot de passe est invalide. Veuillez recommencer'
+      ]);
+    }
+    ob_end_flush();
   }
 
 }
+
