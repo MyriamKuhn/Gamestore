@@ -23,6 +23,7 @@ const gameId = secureInput(urlParams.get('id'));
 // START PAGE LIST  //
 
 /********************/
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 getDatas();
 
 
@@ -44,7 +45,8 @@ function getDatas() {
       {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
         },
         body: requestBody
       })

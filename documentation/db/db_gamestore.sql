@@ -35,6 +35,8 @@ CREATE TABLE app_user (
   password VARCHAR(255) NOT NULL,
   role VARCHAR(20) NOT NULL,
   is_verified TINYINT(1) NOT NULL DEFAULT 0,
+  token VARCHAR(50) DEFAULT NULL,
+  expires_at DATETIME DEFAULT NULL,
   fk_store_id int(11) UNSIGNED NOT NULL,
   FOREIGN KEY(fk_store_id) REFERENCES store(id) ON DELETE CASCADE ON UPDATE CASCADE
 )
@@ -83,7 +85,8 @@ CREATE TABLE game_platform (
   fk_platform_id INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY(fk_game_id, fk_store_id, fk_platform_id),  
   price DECIMAL(10,2) NOT NULL,
-  is_reduced TINYINT(1) NOT NULL,
+  is_new TINYINT(1) UNSIGNED NOT NULL DEFAULT 1,
+  is_reduced TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   discount_rate DECIMAL(5,2) NOT NULL,
   quantity INT(11) NOT NULL,
   FOREIGN KEY(fk_game_id) REFERENCES game(id) ON DELETE CASCADE ON UPDATE CASCADE,

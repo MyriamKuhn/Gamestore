@@ -37,19 +37,19 @@ class Security
   // Vérification du rôle utilisateur
   public static function isUser(): bool
   {
-      return isset($_SESSION['user']) && $_SESSION['user']['role'] === 'user';
+      return isset($_SESSION['user']) && $_SESSION['user']['role'] === _ROLE_USER_;
   }
 
   // Vérification du rôle administrateur
   public static function isAdmin(): bool
   {
-      return isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin';
+      return isset($_SESSION['user']) && $_SESSION['user']['role'] === _ROLE_ADMIN_;
   }
 
   // Vérification du rôle employé
   public static function isEmploye(): bool
   {
-      return isset($_SESSION['user']) && $_SESSION['user']['role'] === 'employe';
+      return isset($_SESSION['user']) && $_SESSION['user']['role'] === _ROLE_EMPLOYE_;
   }
 
   // Récupération de l'ID de l'utilisateur connecté

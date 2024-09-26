@@ -14,8 +14,49 @@ import { searchGame } from './promoFilters.js';
 
 /***************************************/
 export function createHtmlCard(datas) {
+  let isUser = false;
+  let storeId = 0;
+  let userId = 0;
+  
+  if (document.getElementById('sessionDataId')) {
+    const sessionDivId = document.getElementById('sessionDataId');
+    userId = sessionDivId.getAttribute('data-session-user');
+    const sessionDivStore = document.getElementById('sessionDataStore');
+    storeId = sessionDivStore.getAttribute('data-session-store');
+    isUser = true;
+  }
+
   cardsDiv.innerHTML = '';
   datas.forEach(game => {
+    let isLogged = false;
+    switch (game['store_location']) {
+      case 'Nantes':
+        if (isUser == true && storeId == 1) {
+          isLogged = true;
+        } 
+        break;
+      case 'Lille':
+        if (isUser == true && storeId == 2) {
+          isLogged = true;
+        } 
+        break;
+      case 'Bordeaux':
+        if (isUser == true && storeId == 3) {
+          isLogged = true;
+        } 
+        break;
+      case 'Paris':
+        if (isUser == true && storeId == 4) {
+          isLogged = true;
+        } 
+        break;
+      case 'Toulouse':
+        if (isUser == true && storeId == 5) {
+          isLogged = true;
+        } 
+        break;
+    }
+
     const gameCard = document.createElement('div');
     gameCard.classList.add('card', 'gamestore-card');
     gameCard.style.width = '18rem';
@@ -36,6 +77,13 @@ export function createHtmlCard(datas) {
     badge.classList.add('badge', 'position-absolute', 'badge', 'rounded-pill', 'text-uppercase', 'py-1', 'px-2');
     badge.textContent = 'Promo';
     cardImgBlock.appendChild(badge);
+
+    if (game['is_new'] === 1) {
+      const badge = document.createElement('span');
+      badge.classList.add('badge-new', 'position-absolute', 'rounded-pill', 'text-uppercase', 'py-1', 'px-2');
+      badge.textContent = 'Nouveauté';
+      cardImgBlock.appendChild(badge);
+    }
 
     const cardBody = document.createElement('div');
     cardBody.classList.add('card-body', 'card-body-promos', 'pt-0');
@@ -103,7 +151,14 @@ export function createHtmlCard(datas) {
     gameInfos.appendChild(cardCart);
 
     const cardCartImg = document.createElement('i');
-    cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart');
+    if (isLogged) {
+      cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart');
+      //cardCartImg.addEventListener('click', function() {
+        //addToCart(game['game_id']);
+      //});
+    } else {
+    cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart', 'disabled');
+    }
     cardCart.appendChild(cardCartImg);
 
     const cardFooter = document.createElement('div');
@@ -113,7 +168,7 @@ export function createHtmlCard(datas) {
     const cardLink = document.createElement('a');
     cardLink.href = 'index.php?controller=games&action=show&id=' + game['game_id'];
     cardLink.classList.add('news-card-footer', 'text-uppercase', 'py-3', 'text-center', 'text-decoration-none');
-    cardLink.textContent = 'Acheter';
+    cardLink.textContent = 'Plus d\'infos';
     cardFooter.appendChild(cardLink);
   });
 }

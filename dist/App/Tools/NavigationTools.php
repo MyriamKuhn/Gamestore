@@ -14,6 +14,8 @@ class NavigationTools
       return 'active';
     } else if (!isset($_GET['controller']) && $controller === 'page' && $action === 'home') {
       return 'active';
+    } else if (!isset($_GET['controller']) && $controller === 'admin' && $action === 'admin') {
+      return 'active';
     }
     return '';
   }

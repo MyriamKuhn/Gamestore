@@ -80,14 +80,72 @@ export class LocationSelect {
     discount.innerHTML = '';
     const oldprice = document.getElementById('oldprice');
     oldprice.innerHTML = '';
+    const badgesDiv = document.getElementById('badges-show');
+    badgesDiv.innerHTML = '';
+
+    if (parseInt(priceDatas['is_new']) === 1) {
+      const badgeNew = document.createElement('span');
+      badgeNew.classList.add('badge', 'rounded-pill', 'text-uppercase', 'py-1', 'px-2', 'me-1');
+      badgeNew.textContent = "Nouveauté";
+      badgesDiv.appendChild(badgeNew);
+    }
+
     if (parseInt(priceDatas['is_reduced']) === 1) {
       price.textContent = secureInput((priceDatas['price'] * (1 - priceDatas['discount_rate'])).toFixed(2) + ' €');
       discount.textContent = secureInput(priceDatas['discount_rate'] * 100 + '%');
       oldprice.textContent = secureInput(priceDatas['price']);
+      const badgeReduc = document.createElement('span');
+      badgeReduc.classList.add('badge', 'rounded-pill', 'text-uppercase', 'py-1', 'px-2');
+      badgeReduc.textContent = "Promo";
+      badgesDiv.appendChild(badgeReduc);
     } else {
       price.textContent = secureInput(priceDatas['price'] + ' €');
     }
 
+    let isUser = false;
+    let storeId = 0;
+    let userId = 0;
+    let isLogged = false;
+  
+    if (document.getElementById('sessionDataId')) {
+      const sessionDivId = document.getElementById('sessionDataId');
+      userId = sessionDivId.getAttribute('data-session-user');
+      const sessionDivStore = document.getElementById('sessionDataStore');
+      storeId = sessionDivStore.getAttribute('data-session-store');
+      isUser = true;
+    }
+
+    switch (true) {
+      case this.getLocationSelectValue() === 'Nantes':
+        if (isUser == true && storeId == 1) {
+          isLogged = true;
+        } 
+        break;
+      case this.getLocationSelectValue() === 'Lille':
+        if (isUser == true && storeId == 2) {
+          isLogged = true;
+        } 
+        break;
+      case this.getLocationSelectValue() === 'Bordeaux':
+        if (isUser == true && storeId == 3) {
+          isLogged = true;
+        } 
+        break;
+      case this.getLocationSelectValue() === 'Paris':
+        if (isUser == true && storeId == 4) {
+          isLogged = true;
+        } 
+        break;
+      case this.getLocationSelectValue() === 'Toulouse':
+        if (isUser == true && storeId == 5) {
+          isLogged = true;
+        }
+        break;
+      default:
+        isLogged = false;
+        break;
+    }
+    
     const buyButton = document.getElementById('buy-button');
     const stock = document.getElementById('stock');
     stock.innerHTML = '';
@@ -96,10 +154,18 @@ export class LocationSelect {
       buyButton.disabled = true;
     } else if (parseInt(priceDatas['stock']) <= 5) {
       stock.textContent = secureInput('Plus que ' + priceDatas['stock'] + (parseInt(priceDatas['stock']) === 1 ? ' exemplaire disponible' : ' exemplaires disponibles'));
-      buyButton.disabled = false;
+      if (isLogged == true) {
+        buyButton.disabled = false;
+      } else {
+        buyButton.disabled = true;
+      }
     } else {
       stock.textContent = secureInput(priceDatas['stock'] + ' exemplaires disponibles');
-      buyButton.disabled = false;
+      if (isLogged == true) {
+        buyButton.disabled = false;
+      } else {
+        buyButton.disabled = true;
+      }
     }
   }
 

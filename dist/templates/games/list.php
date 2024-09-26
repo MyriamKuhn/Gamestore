@@ -5,12 +5,15 @@ use App\Tools\Security;
 require_once _TEMPLATEPATH_ . '/header.php'; ?>
 
 <!-- START : Main -->
-<main class="container my-4 main" id="hero">
+<main class="container my-4 main">
   <section class="mt-2">
+
+    <?= isset($_SESSION['user']) && ($_SESSION['user']['role'] == _ROLE_USER_) ? '<div id="sessionDataId" data-session-user="' . Security::secureInput($_SESSION['user']['id']) . '"></div>' : '' ?>
+    <?= isset($_SESSION['user']) && ($_SESSION['user']['role'] == _ROLE_USER_) ? '<div id="sessionDataStore" data-session-store="' . Security::secureInput($_SESSION['user']['store_id']) . '"></div>' : '' ?>
+
     <div class="d-flex justify-content-between gamestore-title">
       <h2 class="text-uppercase">Tous nos jeux vidéo</h2>
     </div>
-
     <!-- START : Sélection de la ville -->
     <ul class="nav justify-content-between justify-content-lg-around mt-3" role="tablist">
       <li class="nav-item pb-2">

@@ -11,8 +11,12 @@ $carousel = FileTools::getImagesAsCategory('carousel', $game['images']);
 ?>
 
 <!-- START : Main -->
-<main class="container my-4 main" id="hero">
+<main class="container my-4 main">
   <section class="mt-2">
+
+    <?= isset($_SESSION['user']) && ($_SESSION['user']['role'] == _ROLE_USER_) ? '<div id="sessionDataId" data-session-user="' . Security::secureInput($_SESSION['user']['id']) . '"></div>' : '' ?>
+    <?= isset($_SESSION['user']) && ($_SESSION['user']['role'] == _ROLE_USER_) ? '<div id="sessionDataStore" data-session-store="' . Security::secureInput($_SESSION['user']['store_id']) . '"></div>' : '' ?>
+
     <div class="d-flex justify-content-between gamestore-title">
       <h2 class="text-uppercase"><?= Security::secureInput($game['game_name']) ?></h2>
     </div>
@@ -26,6 +30,9 @@ $carousel = FileTools::getImagesAsCategory('carousel', $game['images']);
     <!-- Prix  -->
     <div class="pt-3 pt-lg-0 my-auto mx-lg-auto">
       <div class="col-12 d-flex flex-column align-items-center pb-3">
+        <div id="badges-show">
+          <!-- Emplacement des badges -->
+        </div>
         <span class="price-show" id="price"><!-- Emplacement du prix --></span>
         <div id="price-container">
           <span id="discount"><!-- Emplacement de la promo --></span><span class="text-decoration-line-through full-price py-auto ps-1" id="oldprice"><!-- Emplacement du vieux prix --></span>

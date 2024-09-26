@@ -7,6 +7,7 @@ use App\Model\Pegi;
 class PegiRepository extends MainRepository
 {
 
+  // Récupération d'un Pegi par son id
   public function getPegiById(int $id): Pegi|bool
   {
     $query = 'SELECT * FROM pegi WHERE id = :id';

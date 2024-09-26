@@ -4,6 +4,8 @@ namespace App\Repository;
 
 class ImageRepository extends MainRepository
 {
+
+  // Récupération d'une image par son id
   public function getImagesByGameId(int $id): array
   {
     $query = 'SELECT image.name FROM image WHERE fk_game_id = :id';
@@ -14,4 +16,5 @@ class ImageRepository extends MainRepository
 
     return $gameImages;
   }
+
 }
