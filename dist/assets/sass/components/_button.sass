@@ -85,9 +85,18 @@
 .navbar-cart
   color: var(--gamestore-blue)
   text-shadow: var(--gamestore-box-shadow)
+  cursor: pointer
   &:hover
     color: var(--gamestore-red) !important
     text-shadow: var(--gamestore-box-shadow)
+    cursor: pointer
+  &:active
+    color: var(--gamestore-red) !important
+    text-shadow: var(--gamestore-box-shadow)
+  &.disabled
+    color: var(--gamestore-darkblue) !important
+    text-shadow: var(--gamestore-box-shadow)
+    cursor: default
 
 .navbar-cart-img::before
   vertical-align: 0

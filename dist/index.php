@@ -11,10 +11,15 @@ require_once __DIR__.'/config.php';
 session_set_cookie_params(['lifetime' => 3600,
   'path' => '/',
   'domain' => $_SERVER['SERVER_NAME'],
-  'httponly' => true
+  //'secure' => true,
+  'httponly' => true,
+  'samesite' => 'Strict'
 ]);
 // Démarrage de la session
 session_start();
+if (empty($_SESSION['csrf_token'])) {
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
 // Définition des chemins racines
 define('_ROOTPATH_', __DIR__);
@@ -32,10 +37,12 @@ $controller->route();
 
 
 // JUST FOR TESTING
+
 use App\Repository\GamePlatformRepository;
+use App\Repository\UserRepository;
 
 // Create an instance of GamesRepository
 $gamesRepository = new GamePlatformRepository();
 // Call the getGames method
-$games = $gamesRepository->getGameById(14);
+$games = $gamesRepository->getGameById(1);
 // Output the result

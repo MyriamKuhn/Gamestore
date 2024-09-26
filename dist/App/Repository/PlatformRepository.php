@@ -5,6 +5,7 @@ namespace App\Repository;
 class PlatformRepository extends MainRepository
 {
 
+  // Récupération de tous les plateformes
   public function getAllPlatforms(): array
   {
     $query = "SELECT * FROM platform";

@@ -1,4 +1,4 @@
 ### Files ###
 # Ignore all files above
 .env
-dist\error.log
+error.log

@@ -28,6 +28,8 @@ require_once _TEMPLATEPATH_ . '/header.php';
       </div>
       <!-- START : Formulaire d'inscription -->
       <form method="post" id="register-form" class="needs-validation" novalidate>
+        <!-- Inclusion du token CSRF -->
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
         <!-- Nom et prénom -->
         <div class="input-group mb-3">
           <div class="form-floating">

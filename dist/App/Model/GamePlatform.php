@@ -9,6 +9,7 @@ class GamePlatform extends Model
   protected int $fk_store_id;
   protected int $fk_plattform_id;
   protected float $price;
+  protected bool $is_new;
   protected bool $is_reduced;
   protected float $discount_rate;
     
@@ -56,6 +57,18 @@ class GamePlatform extends Model
   public function setPrice(float $price): self
   {
     $this->price = $price;
+
+    return $this;
+  }
+
+  public function getIs_new(): bool
+  {
+    return $this->is_new;
+  }
+
+  public function setIs_new(bool $is_new): self
+  {
+    $this->is_new = $is_new;
 
     return $this;
   }

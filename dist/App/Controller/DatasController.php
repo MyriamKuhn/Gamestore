@@ -11,26 +11,30 @@ class DatasController extends RoutingController
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // Lire les données JSON envoyées
+      $csrfToken = $_SERVER['HTTP_X_CSRF_TOKEN'];
       $data = json_decode(file_get_contents('php://input'), true);
-  
-      // Vérifier l'action demandée
-      if (isset($data['action'])) {
-          // Appeler une fonction spécifique en fonction de l'action
-          if ($data['action'] === 'getListDatas') {
-              // Appeler la fonction getData()
-              $this->getListDatas();
-          } elseif ($data['action'] === 'getPromoDatas') {
-              // Appeler la fonction getPromoDatas()
-              $this->getPromoDatas();
-          } elseif ($data['action'] === 'getGameDatas') {
-              // Appeler la fonction getGameDatas()
-              $this->getGameDatas($data['gameId']);
-          } else {
-              // Si l'action n'est pas reconnue
-              $this->sendResponse(false, "Action inconnue");
-          }
+      if (hash_equals($_SESSION['csrf_token'], $csrfToken)) {
+        // Vérifier l'action demandée
+        if (isset($data['action'])) {
+            // Appeler une fonction spécifique en fonction de l'action
+            if ($data['action'] === 'getListDatas') {
+                // Appeler la fonction getData()
+                $this->getListDatas();
+            } elseif ($data['action'] === 'getPromoDatas') {
+                // Appeler la fonction getPromoDatas()
+                $this->getPromoDatas();
+            } elseif ($data['action'] === 'getGameDatas') {
+                // Appeler la fonction getGameDatas()
+                $this->getGameDatas($data['gameId']);
+            } else {
+                // Si l'action n'est pas reconnue
+                $this->sendResponse(false, "Action inconnue", 400);
+            }
+        } else {
+          $this->sendResponse(false, "Aucune action spécifiée", 400);
+        }
       } else {
-        $this->sendResponse(false, "Aucune action spécifiée");
+        $this->sendResponse(false, "Invalid CSRF token", 403);
       }
     }
   }
@@ -40,7 +44,7 @@ class DatasController extends RoutingController
     $gpRepository = new GamePlatformRepository();
     $reducedGames = $gpRepository->getAllReducedGames();
     
-    $this->sendResponse(true, $reducedGames);
+    $this->sendResponse(true, $reducedGames, 200);
   }
 
   protected function getListDatas()
@@ -58,7 +62,7 @@ class DatasController extends RoutingController
       'datasBordeaux' => $gamesBordeaux,
       'datasParis' => $gamesParis,
       'datasToulouse' => $gamesToulouse
-    ]);
+    ], 200);
   }
 
   protected function getGameDatas($gameId)
@@ -66,12 +70,14 @@ class DatasController extends RoutingController
     $gpRepository = new GamePlatformRepository();
     $game = $gpRepository->getGameById($gameId);
 
-    $this->sendResponse(true, $game);
+    $this->sendResponse(true, $game, 200);
   }
 
   // Fonction pour envoyer une réponse JSON
-  protected function sendResponse($success, $datas) {
-    header('Content-Type: application/json');
+  protected function sendResponse($success, $datas, $statusCode = 200) 
+  {
+    http_response_code($statusCode);
+    header('Content-Type: application/json; charset=utf-8');
     echo json_encode([
         'success' => $success,
         'datas' => $datas
