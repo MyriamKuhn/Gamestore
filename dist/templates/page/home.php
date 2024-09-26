@@ -166,6 +166,9 @@ $needle = 'spotlight';
         <div class="card gamestore-card" style="width: 18rem;">
           <div class="card-img-block">
             <img class="card-img-top" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= Security::secureInput($reducedGameData['game_name']) ?>" loading="lazy">
+            <?php if ($reducedGameData['is_new'] == 1) : ?>
+              <span class="badge-new position-absolute rounded-pill text-uppercase py-1 px-2">Nouveauté</span>
+            <?php endif; ?>
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Promo</span>
           </div>
           <div class="card-body card-body-promos pt-0">

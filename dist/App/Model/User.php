@@ -15,6 +15,8 @@ class User extends Model
   protected string $password;
   protected string $role;
   protected int $is_verified;
+  protected ?string $token;
+  protected ?string $expires_at;
   protected int $fk_store_id;
 
   public function getId(): int
@@ -133,6 +135,30 @@ class User extends Model
   public function setIs_verified(int $is_verified): self
   {
     $this->is_verified = $is_verified;
+
+    return $this;
+  }
+
+  public function getToken(): string|null
+  {
+    return $this->token;
+  }
+
+  public function setToken(?string $token): self
+  {
+    $this->token = $token;
+
+    return $this;
+  }
+
+  public function getExpires_at(): string|null
+  {
+    return $this->expires_at;
+  }
+
+  public function setExpires_at(?string $expires_at): self
+  {
+    $this->expires_at = $expires_at;
 
     return $this;
   }

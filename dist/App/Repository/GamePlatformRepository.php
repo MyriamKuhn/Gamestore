@@ -5,7 +5,7 @@ namespace App\Repository;
 class GamePlatformRepository extends MainRepository
 {
 
-  // Récupération de la liste des X derniers jeux ajoutés à la base de données
+  // Récupération de la liste des X nouveaux jeux ajoutés à la base de données
   public function getAllNewGames(int $limit): array
   {
     $query = 'SELECT
@@ -20,7 +20,7 @@ class GamePlatformRepository extends MainRepository
     INNER JOIN platform AS pl ON gp.fk_platform_id = pl.id
     INNER JOIN image AS i ON g.id = i.fk_game_id
     INNER JOIN store AS s ON gp.fk_store_id = s.id
-    WHERE gp.quantity > 0
+    WHERE gp.quantity > 0 AND gp.is_new = 1
     GROUP BY g.id, g.name, p.name
     ORDER BY g.id DESC LIMIT :limit';
 
@@ -52,7 +52,8 @@ class GamePlatformRepository extends MainRepository
       GROUP_CONCAT(DISTINCT i.name) AS images,
       gp.price AS platform_price,
       gp.discount_rate AS discount_rate,
-      s.location AS store_location
+      s.location AS store_location,
+      gp.is_new AS is_new
       FROM game_platform AS gp
       INNER JOIN game AS g ON gp.fk_game_id = g.id
       INNER JOIN pegi AS p ON g.fk_pegi_id = p.id
@@ -93,6 +94,7 @@ class GamePlatformRepository extends MainRepository
     GROUP_CONCAT(DISTINCT i.name) AS images,
     gp.price AS platform_price,
     gp.is_reduced AS is_reduced,
+    gp.is_new AS is_new,
     gp.discount_rate AS discount_rate
     FROM game_platform AS gp
     INNER JOIN game AS g ON gp.fk_game_id = g.id
@@ -102,7 +104,8 @@ class GamePlatformRepository extends MainRepository
     INNER JOIN genre AS ge ON gg.fk_genre_id = ge.id
     INNER JOIN image AS i ON g.id = i.fk_game_id
     WHERE gp.fk_store_id = :storeId AND gp.quantity > 0
-    GROUP BY g.id, gp.price, gp.discount_rate, gp.is_reduced';
+    GROUP BY g.id, gp.price, gp.discount_rate, gp.is_reduced
+    ORDER BY g.id DESC';
 
     $stmt = $this->pdo->prepare($query);
     $stmt->bindValue(':storeId', $storeId, \PDO::PARAM_INT);
@@ -134,6 +137,7 @@ class GamePlatformRepository extends MainRepository
     GROUP_CONCAT(DISTINCT i.name) AS images,
     gp.price AS platform_price,
     gp.is_reduced AS is_reduced,
+    gp.is_new AS is_new,
     gp.discount_rate AS discount_rate,
     gp.quantity AS quantity,
     s.location AS store_location
@@ -183,7 +187,7 @@ class GamePlatformRepository extends MainRepository
     p.name AS pegi_name,
     GROUP_CONCAT(DISTINCT i.name) AS images,
     GROUP_CONCAT(DISTINCT ge.name SEPARATOR ", ") AS genres,
-    GROUP_CONCAT(DISTINCT CONCAT(s.location, ",", pl.name, ",", gp.price, ",", gp.is_reduced, ",", gp.discount_rate, ",", gp.quantity)) AS game_prices
+    GROUP_CONCAT(DISTINCT CONCAT(s.location, ",", pl.name, ",", gp.price, ",", gp.is_new, ",", gp.is_reduced, ",", gp.discount_rate, ",", gp.quantity)) AS game_prices
     FROM game_platform AS gp
     INNER JOIN game AS g ON gp.fk_game_id = g.id
     INNER JOIN pegi AS p ON g.fk_pegi_id = p.id
@@ -205,15 +209,16 @@ class GamePlatformRepository extends MainRepository
     if ($result) {
       $result['images'] = explode(',', $result['images']);
       $result['game_prices'] = explode(',', $result['game_prices']);
-      $result['game_prices'] = array_chunk($result['game_prices'], 6);
+      $result['game_prices'] = array_chunk($result['game_prices'], 7);
       $result['game_prices'] = array_map(function ($price) {
         return [
           'location' => $price[0],
           'platform' => $price[1],
           'price' => $price[2],
-          'is_reduced' => $price[3],
-          'discount_rate' => $price[4],
-          'stock' => $price[5]
+          'is_new' => $price[3],
+          'is_reduced' => $price[4],
+          'discount_rate' => $price[5],
+          'stock' => $price[6]
         ];
         }, $result['game_prices']);
         

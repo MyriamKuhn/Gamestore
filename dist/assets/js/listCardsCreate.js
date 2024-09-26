@@ -14,21 +14,49 @@ import { searchGame } from './listFilters.js';
 
 /***************************************/
 export function createHtmlCard(datas, city) {
+  let isUser = false;
+  let storeId = 0;
+  let userId = 0;
+  let isLogged = false;
+  
+  if (document.getElementById('sessionDataId')) {
+    const sessionDivId = document.getElementById('sessionDataId');
+    userId = sessionDivId.getAttribute('data-session-user');
+    const sessionDivStore = document.getElementById('sessionDataStore');
+    storeId = sessionDivStore.getAttribute('data-session-store');
+    isUser = true;
+  }
+
   switch (city) {
     case 'nantes':
       cardsNantesDiv.innerHTML = '';
+      if (isUser == true && storeId == 1) {
+        isLogged = true;
+      } 
       break;
     case 'lille':
       cardsLilleDiv.innerHTML = '';
+      if (isUser == true && storeId == 2) {
+        isLogged = true;
+      } 
       break;
     case 'bordeaux':
       cardsBordeauxDiv.innerHTML = '';
+      if (isUser == true && storeId == 3) {
+        isLogged = true;
+      } 
       break;
     case 'paris':
       cardsParisDiv.innerHTML = '';
+      if (isUser == true && storeId == 4) {
+        isLogged = true;
+      } 
       break;
     case 'toulouse':
       cardsToulouseDiv.innerHTML = '';
+      if (isUser == true && storeId == 5) {
+        isLogged = true;
+      } 
       break;
   }
   datas.forEach(game => {
@@ -69,6 +97,13 @@ export function createHtmlCard(datas, city) {
       const badge = document.createElement('span');
       badge.classList.add('badge', 'position-absolute', 'badge', 'rounded-pill', 'text-uppercase', 'py-1', 'px-2');
       badge.textContent = 'Promo';
+      cardImgBlock.appendChild(badge);
+    }
+
+    if (game['is_new'] === 1) {
+      const badge = document.createElement('span');
+      badge.classList.add('badge-new', 'position-absolute', 'rounded-pill', 'text-uppercase', 'py-1', 'px-2');
+      badge.textContent = 'Nouveauté';
       cardImgBlock.appendChild(badge);
     }
 
@@ -139,7 +174,14 @@ export function createHtmlCard(datas, city) {
     cardInfos.appendChild(cardCart);
 
     const cardCartImg = document.createElement('i');
-    cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart');
+    if (isLogged) {
+      cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart');
+      //cardCartImg.addEventListener('click', function() {
+        //addToCart(game['game_id']);
+      //});
+    } else {
+    cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart', 'disabled');
+    }
     cardCart.appendChild(cardCartImg);
 
     const cardEnd = document.createElement('div');

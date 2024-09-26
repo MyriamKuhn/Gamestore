@@ -12,6 +12,9 @@ use App\Tools\Security;
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Gamestore">
+  <!-- CSRF Token -->
+  <meta name="csrf-token" content="<?php echo $_SESSION['csrf_token']; ?>">
   <!-- START : SEO -->
   <meta name="description" content="<?= NavigationTools::addMetas()['description'] ?>">
   <meta property="og:title" content="<?= NavigationTools::addMetas()['title'] ?>">
@@ -56,11 +59,27 @@ use App\Tools\Security;
           </ul>
           <div class="d-flex flex-column flex-lg-row justify-content-center align-items-center p-3 py-lg-0 pe-lg-0 position-relative">
             <?php if (Security::isLogged()) : ?>
-              <a href="index.php?controller=user&action=logout" class="btn btn-gamestore text-uppercase shadow me-lg-5">Se déconnecter</a>
-              <a href="#" class="nav-link navbar-cart pt-2 align-self-end me-lg-5 fw-bold fs-5"><sub>0</sub><i class="bi bi-cart2 fs-1 navbar-cart-img"></i></a>
+              <a href="index.php?controller=auth&action=logout" class="btn btn-gamestore text-uppercase shadow me-lg-5 mb-2 mb-lg-0">Se déconnecter</a>
+              <a href="index.php?controller=auth&action=logout" class="btn btn-gamestore text-uppercase shadow me-lg-5 <?= NavigationTools::addActiveClass('admin', 'admin') ?>">
+                <?php switch (true) {
+                  case Security::isUser():
+                    echo "Espace client";
+                    echo '<a href="#" class="nav-link navbar-cart pt-2 align-self-end me-lg-5 fw-bold fs-5"><sub>0</sub><i class="bi bi-cart2 fs-1 navbar-cart-img"></i></a>';
+                    break;
+                  case Security::isEmploye():
+                    echo "Espace employé";
+                    break;
+                  case Security::isAdmin():
+                    echo "Espace administrateur";
+                    break;
+                  default:
+                    echo "Espace client";
+                    break;
+                } ?>
+              </a>
             <?php else : ?>
             <a href="/index.php?controller=auth&action=login" class="btn btn-gamestore text-uppercase shadow me-lg-5 mb-2 mb-lg-0 <?= NavigationTools::addActiveClass('auth', 'login') ?>">Se connecter</a>
-            <a href="/index.php?controller=user&action=register" class="btn btn-gamestore text-uppercase shadow me-lg-5 <?= NavigationTools::addActiveClass('auth', 'register') ?>">S'inscrire</a>
+            <a href="/index.php?controller=user&action=register" class="btn btn-gamestore text-uppercase shadow me-lg-5 <?= NavigationTools::addActiveClass('user', 'register') ?>">S'inscrire</a>
             <?php endif; ?>
           </div>
         </div>

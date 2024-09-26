@@ -59,6 +59,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
                 $mail->Port       = $_ENV['MAILER_PORT']; 
 
                 // Paramètres de l'email
+                $mail->CharSet = 'UTF-8';
                 $mail->setFrom($email, $name);
                 $mail->addAddress($_ENV['MAILER_EMAIL'], 'Gamestore');
                 $mail->isHTML(true);
