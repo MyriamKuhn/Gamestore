@@ -25,8 +25,6 @@ export function createHtmlCard(datas, city) {
     const sessionDivStore = document.getElementById('sessionDataStore');
     storeId = sessionDivStore.getAttribute('data-session-store');
     isUser = true;
-    console.log(userId);
-    console.log(storeId);
   }
 
   switch (city) {

@@ -145,8 +145,6 @@ export class LocationSelect {
         isLogged = false;
         break;
     }
-
-    console.log(isLogged);
     
     const buyButton = document.getElementById('buy-button');
     const stock = document.getElementById('stock');

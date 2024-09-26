@@ -24,8 +24,6 @@ export function createHtmlCard(datas) {
     const sessionDivStore = document.getElementById('sessionDataStore');
     storeId = sessionDivStore.getAttribute('data-session-store');
     isUser = true;
-    console.log(userId);
-    console.log(storeId);
   }
 
   cardsDiv.innerHTML = '';
