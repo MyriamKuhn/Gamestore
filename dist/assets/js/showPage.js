@@ -53,6 +53,7 @@ function getDatas() {
       .then(response => response.json())
       .then(datas => {
         gameDatas = datas;
+        console.log(datas);
         new PlatformSelect(gameDatas);
       })
       .catch(error => console.error('Erreur : ' + error));

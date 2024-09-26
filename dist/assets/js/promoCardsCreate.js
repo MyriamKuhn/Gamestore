@@ -80,6 +80,13 @@ export function createHtmlCard(datas) {
     badge.textContent = 'Promo';
     cardImgBlock.appendChild(badge);
 
+    if (game['is_new'] === 1) {
+      const badge = document.createElement('span');
+      badge.classList.add('badge-new', 'position-absolute', 'rounded-pill', 'text-uppercase', 'py-1', 'px-2');
+      badge.textContent = 'Nouveauté';
+      cardImgBlock.appendChild(badge);
+    }
+
     const cardBody = document.createElement('div');
     cardBody.classList.add('card-body', 'card-body-promos', 'pt-0');
     gameCard.appendChild(cardBody);
@@ -163,7 +170,7 @@ export function createHtmlCard(datas) {
     const cardLink = document.createElement('a');
     cardLink.href = 'index.php?controller=games&action=show&id=' + game['game_id'];
     cardLink.classList.add('news-card-footer', 'text-uppercase', 'py-3', 'text-center', 'text-decoration-none');
-    cardLink.textContent = 'Acheter';
+    cardLink.textContent = 'Plus d\'infos';
     cardFooter.appendChild(cardLink);
   });
 }

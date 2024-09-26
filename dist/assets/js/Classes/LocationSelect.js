@@ -80,10 +80,24 @@ export class LocationSelect {
     discount.innerHTML = '';
     const oldprice = document.getElementById('oldprice');
     oldprice.innerHTML = '';
+    const badgesDiv = document.getElementById('badges-show');
+    badgesDiv.innerHTML = '';
+
+    if (parseInt(priceDatas['is_new']) === 1) {
+      const badgeNew = document.createElement('span');
+      badgeNew.classList.add('badge', 'rounded-pill', 'text-uppercase', 'py-1', 'px-2', 'me-1');
+      badgeNew.textContent = "Nouveauté";
+      badgesDiv.appendChild(badgeNew);
+    }
+
     if (parseInt(priceDatas['is_reduced']) === 1) {
       price.textContent = secureInput((priceDatas['price'] * (1 - priceDatas['discount_rate'])).toFixed(2) + ' €');
       discount.textContent = secureInput(priceDatas['discount_rate'] * 100 + '%');
       oldprice.textContent = secureInput(priceDatas['price']);
+      const badgeReduc = document.createElement('span');
+      badgeReduc.classList.add('badge', 'rounded-pill', 'text-uppercase', 'py-1', 'px-2');
+      badgeReduc.textContent = "Promo";
+      badgesDiv.appendChild(badgeReduc);
     } else {
       price.textContent = secureInput(priceDatas['price'] + ' €');
     }

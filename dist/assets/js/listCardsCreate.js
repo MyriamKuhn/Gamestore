@@ -102,6 +102,13 @@ export function createHtmlCard(datas, city) {
       cardImgBlock.appendChild(badge);
     }
 
+    if (game['is_new'] === 1) {
+      const badge = document.createElement('span');
+      badge.classList.add('badge-new', 'position-absolute', 'rounded-pill', 'text-uppercase', 'py-1', 'px-2');
+      badge.textContent = 'Nouveauté';
+      cardImgBlock.appendChild(badge);
+    }
+
     const cardBody = document.createElement('div');
     cardBody.classList.add('card-body', 'card-body-games', 'pt-0');
     gameCard.appendChild(cardBody);
