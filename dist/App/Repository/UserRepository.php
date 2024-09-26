@@ -91,11 +91,12 @@ class UserRepository extends MainRepository
     $stmt = $this->pdo->prepare($query);
     $stmt->bindValue(':token', $token, $this->pdo::PARAM_STR);
     $stmt->execute();
-    $expiresAt = $stmt->fetchColumn();
 
-    if (!$expiresAt) {
-      return false;
+    if ($stmt->rowCount() === 0) {
+      return false; // Aucune ligne trouvée
     }
+
+    $expiresAt = $stmt->fetchColumn();
 
     $currentDate = new \DateTime();
     $expiresAt = new \DateTime($expiresAt);

@@ -88,6 +88,52 @@ export class LocationSelect {
       price.textContent = secureInput(priceDatas['price'] + ' €');
     }
 
+    let isUser = false;
+    let storeId = 0;
+    let userId = 0;
+    let isLogged = false;
+  
+    if (document.getElementById('sessionDataId')) {
+      const sessionDivId = document.getElementById('sessionDataId');
+      userId = sessionDivId.getAttribute('data-session-user');
+      const sessionDivStore = document.getElementById('sessionDataStore');
+      storeId = sessionDivStore.getAttribute('data-session-store');
+      isUser = true;
+    }
+
+    switch (true) {
+      case this.getLocationSelectValue() === 'Nantes':
+        if (isUser == true && storeId == 1) {
+          isLogged = true;
+        } 
+        break;
+      case this.getLocationSelectValue() === 'Lille':
+        if (isUser == true && storeId == 2) {
+          isLogged = true;
+        } 
+        break;
+      case this.getLocationSelectValue() === 'Bordeaux':
+        if (isUser == true && storeId == 3) {
+          isLogged = true;
+        } 
+        break;
+      case this.getLocationSelectValue() === 'Paris':
+        if (isUser == true && storeId == 4) {
+          isLogged = true;
+        } 
+        break;
+      case this.getLocationSelectValue() === 'Toulouse':
+        if (isUser == true && storeId == 5) {
+          isLogged = true;
+        }
+        break;
+      default:
+        isLogged = false;
+        break;
+    }
+
+    console.log(isLogged);
+    
     const buyButton = document.getElementById('buy-button');
     const stock = document.getElementById('stock');
     stock.innerHTML = '';
@@ -96,10 +142,18 @@ export class LocationSelect {
       buyButton.disabled = true;
     } else if (parseInt(priceDatas['stock']) <= 5) {
       stock.textContent = secureInput('Plus que ' + priceDatas['stock'] + (parseInt(priceDatas['stock']) === 1 ? ' exemplaire disponible' : ' exemplaires disponibles'));
-      buyButton.disabled = false;
+      if (isLogged == true) {
+        buyButton.disabled = false;
+      } else {
+        buyButton.disabled = true;
+      }
     } else {
       stock.textContent = secureInput(priceDatas['stock'] + ' exemplaires disponibles');
-      buyButton.disabled = false;
+      if (isLogged == true) {
+        buyButton.disabled = false;
+      } else {
+        buyButton.disabled = true;
+      }
     }
   }
 

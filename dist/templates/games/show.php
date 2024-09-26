@@ -11,8 +11,12 @@ $carousel = FileTools::getImagesAsCategory('carousel', $game['images']);
 ?>
 
 <!-- START : Main -->
-<main class="container my-4 main" id="hero">
+<main class="container my-4 main">
   <section class="mt-2">
+
+    <?= isset($_SESSION['user']) && ($_SESSION['user']['role'] == _ROLE_USER_) ? '<div id="sessionDataId" data-session-user="' . Security::secureInput($_SESSION['user']['id']) . '"></div>' : '' ?>
+    <?= isset($_SESSION['user']) && ($_SESSION['user']['role'] == _ROLE_USER_) ? '<div id="sessionDataStore" data-session-store="' . Security::secureInput($_SESSION['user']['store_id']) . '"></div>' : '' ?>
+
     <div class="d-flex justify-content-between gamestore-title">
       <h2 class="text-uppercase"><?= Security::secureInput($game['game_name']) ?></h2>
     </div>

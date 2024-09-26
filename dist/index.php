@@ -42,5 +42,5 @@ use App\Repository\UserRepository;
 // Create an instance of GamesRepository
 $gamesRepository = new UserRepository();
 // Call the getGames method
-$games = $gamesRepository;
+$games = $gamesRepository->checkToken('75b398ba37f36ba5f0ee1afcd6b05c48cf1f316af646287e2c55c3f8d0d6453f08388540b3c50ea1ab2eee41c5b4236cf828');
 // Output the result

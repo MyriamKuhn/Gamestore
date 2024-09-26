@@ -64,6 +64,7 @@ use App\Tools\Security;
                 <?php switch (true) {
                   case Security::isUser():
                     echo "Espace client";
+                    echo '<a href="#" class="nav-link navbar-cart pt-2 align-self-end me-lg-5 fw-bold fs-5"><sub>0</sub><i class="bi bi-cart2 fs-1 navbar-cart-img"></i></a>';
                     break;
                   case Security::isEmploye():
                     echo "Espace employé";
@@ -76,7 +77,6 @@ use App\Tools\Security;
                     break;
                 } ?>
               </a>
-              <a href="#" class="nav-link navbar-cart pt-2 align-self-end me-lg-5 fw-bold fs-5"><sub>0</sub><i class="bi bi-cart2 fs-1 navbar-cart-img"></i></a>
             <?php else : ?>
             <a href="/index.php?controller=auth&action=login" class="btn btn-gamestore text-uppercase shadow me-lg-5 mb-2 mb-lg-0 <?= NavigationTools::addActiveClass('auth', 'login') ?>">Se connecter</a>
             <a href="/index.php?controller=user&action=register" class="btn btn-gamestore text-uppercase shadow me-lg-5 <?= NavigationTools::addActiveClass('user', 'register') ?>">S'inscrire</a>
