@@ -1,0 +1,4 @@
+### Files ###
+# Ignore all files above
+.env
+error.log
