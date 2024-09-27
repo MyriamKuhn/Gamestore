@@ -240,7 +240,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
                     'store_id' => $user->getFk_store_id(),
                   ];
                   // Redirection vers la page espace client
-                  header('Location: index.php');
+                  header('Location: index.php?controller=dashboard&action=home');
                   exit();
                 } else {
                   echo '<div class="alert alert-danger py-5 my-5">Le code de vérification est incorrect. Veuillez réessayer.</div>';

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Tools\Security;
+
 class RoutingController
 {
 
@@ -28,6 +30,14 @@ class RoutingController
             break;
           case 'datas':
             $controller = new DatasController();
+            break;
+          case 'dashboard':
+            if (Security::isUser()) {
+              $controller = new DashboardController();
+              $controller->route();
+            } else {
+              throw new \Exception("Vous n'avez pas les droits pour accéder à cette page");
+            }
             break;
           default:
             throw new \Exception("Le controleur n'existe pas");
