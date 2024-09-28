@@ -61,12 +61,12 @@ use App\Tools\Security;
             <?php if (Security::isLogged()) : ?>
               <a href="index.php?controller=auth&action=logout" class="btn btn-gamestore text-uppercase shadow me-lg-5 mb-2 mb-lg-0">Se déconnecter</a>
                 <?php if (Security::isUser()) : ?>
-                  <a href="index.php?controller=dashboard&action=home" class="btn btn-gamestore text-uppercase shadow me-lg-5 <?= NavigationTools::addActiveClass('dashboard', 'user') ?>">Espace client</a>
+                  <a href="index.php?controller=dashboard&action=home" class="btn btn-gamestore text-uppercase shadow me-lg-5">Espace client</a>
                   <a href="#" class="nav-link navbar-cart pt-2 align-self-end me-lg-5 fw-bold fs-5"><sub>0</sub><i class="bi bi-cart2 fs-1 navbar-cart-img"></i></a>
                 <?php elseif (Security::isEmploye()) : ?>
-                  <a href="index.php?controller=employe&action=home" class="btn btn-gamestore text-uppercase shadow me-lg-5 <?= NavigationTools::addActiveClass('employe', 'user') ?>">Espace employé</a>
+                  <a href="index.php?controller=employe&action=home" class="btn btn-gamestore text-uppercase shadow me-lg-5">Espace employé</a>
                 <?php elseif (Security::isAdmin()) : ?>
-                  <a href="index.php?controller=admin&action=home" class="btn btn-gamestore text-uppercase shadow me-lg-5 <?= NavigationTools::addActiveClass('admin', 'user') ?>">Espace administrateur</a>
+                  <a href="index.php?controller=admin&action=home" class="btn btn-gamestore text-uppercase shadow me-lg-5">Espace administrateur</a>
                 <?php endif; ?>
             <?php else : ?>
             <a href="/index.php?controller=auth&action=login" class="btn btn-gamestore text-uppercase shadow me-lg-5 mb-2 mb-lg-0 <?= NavigationTools::addActiveClass('auth', 'login') ?>">Se connecter</a>
