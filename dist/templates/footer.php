@@ -38,9 +38,11 @@ use App\Tools\NavigationTools;
   <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <?php 
     $scripts = FileTools::addScripts();
-    foreach($scripts as $script) : ?>
-      <script type="module" src="./assets/js/<?= $script ?>"></script>
-    <?php endforeach; ?>
+    if (!empty($scripts)) :
+      foreach($scripts as $script) : ?>
+        <script type="module" src="./assets/js/<?= $script ?>"></script>
+      <?php endforeach; ?>
+    <?php endif; ?>
   <script src="./assets/js/scrollOnPages.js"></script>
 </body>
 

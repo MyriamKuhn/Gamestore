@@ -39,6 +39,14 @@ class RoutingController
               throw new \Exception("Vous n'avez pas les droits pour accéder à cette page");
             }
             break;
+          case 'order':
+            if (Security::isUser()) {
+              $controller = new OrderController();
+              $controller->route();
+            } else {
+              throw new \Exception("Vous n'avez pas les droits pour accéder à cette page");
+            }
+            break;
           default:
             throw new \Exception("Le controleur n'existe pas");
             break;

@@ -95,4 +95,12 @@ class Security
     }
   }
 
+  // Vérification du token CSRF
+  public static function checkCSRF(string $token): void
+  {
+    if ($token !== $_SESSION['csrf_token']) {
+      die('Invalid CSRF token');
+    }
+  }
+
 }

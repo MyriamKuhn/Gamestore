@@ -8,7 +8,7 @@ use App\Tools\Security;
 class NavigationTools
 {
 
-  public static function addActiveClass($controller, $action)
+  public static function addActiveClass($controller, $action): string
   {
     if (isset($_GET['controller']) && $_GET['controller'] === $controller && isset($_GET['action']) && $_GET['action'] === $action) {
       return 'active';
@@ -20,7 +20,7 @@ class NavigationTools
     return '';
   }
 
-  public static function addMetas()
+  public static function addMetas(): array
   {
   
     switch (isset($_GET['controller']) ? $_GET['controller'] : '') {
@@ -93,7 +93,7 @@ class NavigationTools
     } 
   }
 
-  private static function getGameDetails()
+  private static function getGameDetails(): array
   {
     $gameId = Security::secureInput($_GET['id']);
     $gamesRepository = new GamesRepository();

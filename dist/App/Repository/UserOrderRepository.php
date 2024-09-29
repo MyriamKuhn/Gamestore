@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Repository;
+
+class UserOrderRepository extends MainRepository
+{
+
+  // Création d'un panier vide
+  public function createEmptyCart(int $userId, string $status, int $storeId): bool
+  {
+    $query = 'INSERT INTO user_order (status, fk_app_user_id, fk_store_id) VALUE (:status, :fk_app_user_id, :fk_store_id)';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':status', $status, $this->pdo::PARAM_STR);
+    $stmt->bindValue(':fk_app_user_id', $userId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':fk_store_id', $storeId, $this->pdo::PARAM_INT);
+
+    return $stmt->execute();
+  }
+
+  // Récupération de tous les jeux d'une commande d'un utilisateur d'après son statut
+  public function findAllOrdersByStatus(int $userId, string $status): array
+  {
+    $query = 'SELECT
+      uo.id AS order_id,
+      uo.order_date_time AS order_date_time,
+      s.location AS store_location,
+      GROUP_CONCAT(CONCAT(g.name, "," ,pl.name, "," ,guo.quantity, "," ,guo.price_at_order)) AS games
+      FROM user_order AS uo
+      INNER JOIN game_user_order AS guo ON guo.fk_user_order_id = uo.id
+      INNER JOIN game AS g ON guo.fk_game_id = g.id
+      INNER JOIN platform AS pl ON guo.fk_platform_id = pl.id
+      INNER JOIN store AS s ON uo.fk_store_id = s.id
+      WHERE uo.fk_app_user_id = :userId AND uo.status = :status
+      GROUP BY uo.id, uo.order_date_time, s.location';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':userId', $userId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':status', $status, $this->pdo::PARAM_STR);
+    $stmt->execute();
+
+    $orders = $stmt->fetchAll();
+
+    $userOrders = [];
+
+    if ($orders) {
+      foreach ($orders as $order) {
+        $order['games'] = explode(',', $order['games']);
+        $order['games'] = array_chunk($order['games'], 4);
+        $order['games'] = array_map(function ($game) {
+          return [
+            'name' => $game[0],
+            'platform' => $game[1],
+            'quantity' => $game[2],
+            'price' => $game[3]
+          ];
+        }, $order['games']);
+
+        $userOrders[] = $order;
+      }
+    }
+    return $userOrders;
+  }
+
+
+
+}

@@ -35,9 +35,8 @@ require_once _TEMPLATEPATH_ . '/header.php';
       <?php
         // Vérifier si le formulaire a été soumis
         if (isset($_POST["verifyUser"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
-          if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-            die('Invalid CSRF token');
-          }
+          // Vérification du token CSRF
+          Security::checkCSRF($_POST['csrf_token']);
           switch ($_POST["verifyUser"]) {
             case 'Envoyer le code':
               // Récupération des données du formulaire

@@ -90,8 +90,11 @@ export class LocationSelect {
       badgesDiv.appendChild(badgeNew);
     }
 
+    let priceToPay = 0;
+
     if (parseInt(priceDatas['is_reduced']) === 1) {
-      price.textContent = secureInput((priceDatas['price'] * (1 - priceDatas['discount_rate'])).toFixed(2) + ' €');
+      priceToPay = secureInput((priceDatas['price'] * (1 - priceDatas['discount_rate'])).toFixed(2));
+      price.textContent = priceToPay + ' €';
       discount.textContent = secureInput(priceDatas['discount_rate'] * 100 + '%');
       oldprice.textContent = secureInput(priceDatas['price']);
       const badgeReduc = document.createElement('span');
@@ -99,7 +102,8 @@ export class LocationSelect {
       badgeReduc.textContent = "Promo";
       badgesDiv.appendChild(badgeReduc);
     } else {
-      price.textContent = secureInput(priceDatas['price'] + ' €');
+      priceToPay = secureInput(priceDatas['price']);
+      price.textContent = priceToPay + ' €';
     }
 
     let isUser = false;
@@ -145,7 +149,7 @@ export class LocationSelect {
         isLogged = false;
         break;
     }
-    
+
     const buyButton = document.getElementById('buy-button');
     const stock = document.getElementById('stock');
     stock.innerHTML = '';
@@ -166,6 +170,57 @@ export class LocationSelect {
       } else {
         buyButton.disabled = true;
       }
+    }
+
+    if (isLogged == true) {
+      buyButton.addEventListener('click', () => {
+        try {
+          const gameId = this.gameDatas['datas']['game_id'];
+          const platform = this.PlatformSelectValue;
+          const price = priceToPay;
+          let discountRate = 0;
+          let oldPrice = 0;
+          if (secureInput(priceDatas['price']) !== priceToPay) {
+            discountRate = secureInput(priceDatas['discount_rate']);
+            oldPrice = secureInput(priceDatas['price']);
+          }
+          const location = storeId;
+          const user = userId;
+          const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+          const requestBody = JSON.stringify({
+            action: 'addCart',
+            gameId: gameId,
+            platform: platform,
+            price: price,
+            discountRate: discountRate,
+            oldPrice: oldPrice,
+            location: location,
+            userId: user
+          });
+      
+          fetch('index.php?controller=datas',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+              },
+              body: requestBody
+            })
+            .then(response => response.json())
+            .then(datas => {
+              if (datas.success) {
+                alert ('Le jeu a bien été ajouté au panier');
+              } else {
+                alert ('Le jeu n\'a pas pu être ajouté au panier');
+              }
+            })
+            .catch(error => console.error('Erreur : ' + error));
+        } catch (error) {
+          console.error('Erreur : ' + error);
+        }
+      });
     }
   }
 

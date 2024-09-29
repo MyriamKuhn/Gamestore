@@ -41,7 +41,7 @@ Security::userOnly();
     <header class="flex-shrink-0 vh-100 position-sticky top-0">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-auto min-vh-100 bg-white">
+          <div class="col-auto min-vh-100 bg-white bg-opacity-75">
             <div class="pt-5 pb-5 px-sm-5 text-center">
               <a href="index.php?controller=page&action=home">
                 <img src="./assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="d-none d-sm-inline w-auto">
@@ -49,7 +49,7 @@ Security::userOnly();
             </div>
             <ul class="nav nav-pills flex-column mb-auto">
               <li class="nav-item mb-3">
-                <a href="index.php?controller=page&action=home" class="menu-link text-uppercase">
+                <a href="index.php?controller=dashboard&action=home" class="menu-link text-uppercase">
                   <i class="bi bi-house me-2"></i>
                   <span class="d-none d-sm-inline">Accueil</span>
                 </a>

@@ -41,7 +41,7 @@ class PageController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -53,6 +53,10 @@ class PageController extends RoutingController
       $lastGames = $gpRepository->getAllNewGames(5);
       $reducedGames = $gpRepository->getReducedGamesListShort(8);
 
+      if (empty($lastGames) || empty($reducedGames)) {
+        throw new \Exception("Aucun jeu n'a été trouvé");
+      }
+
       $this->render('page/home', [
         'lastGamesDatas' => $lastGames,
         'reducedGamesDatas' => $reducedGames
@@ -60,7 +64,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -72,7 +76,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -84,7 +88,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }	
@@ -96,7 +100,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }	
@@ -108,7 +112,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }	
@@ -120,7 +124,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }	
@@ -132,7 +136,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }	

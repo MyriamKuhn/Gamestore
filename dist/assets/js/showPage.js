@@ -26,6 +26,20 @@ const gameId = secureInput(urlParams.get('id'));
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 getDatas();
 
+// Fonction récursive pour valider si une structure JSON contient uniquement des objets et des tableaux
+const validateJSONStructure = (data) => {
+  if (Array.isArray(data)) {
+    return data.every(item => validateJSONStructure(item));
+  } else if (typeof data === 'object' && data !== null) {
+    return Object.values(data).every(value => validateJSONStructure(value));
+  } else {
+    // Valider que ce ne soit pas un type inattendu (par exemple une fonction)
+    return ['string', 'number', 'boolean'].includes(typeof data);
+  }
+};
+
+
+
 
 /**********************/
 
@@ -51,12 +65,15 @@ function getDatas() {
         body: requestBody
       })
       .then(response => response.json())
-      .then(datas => {
-        gameDatas = datas;
-        new PlatformSelect(gameDatas);
+      .then(data => {
+        if (validateJSONStructure(data)) {
+          gameDatas = data;
+          new PlatformSelect(gameDatas);
+        } else {
+          console.error('Format inattendu des données');
+        }
       })
       .catch(error => console.error('Erreur : ' + error));
-      
     } catch (error) {
     console.error('Erreur : ' + error);
   }

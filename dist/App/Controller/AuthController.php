@@ -48,7 +48,7 @@ class AuthController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")" . $_GET['action'] . isset($_GET['token'])
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")" . $_GET['action'] . isset($_GET['token'])
       ]);
     }
   }
@@ -56,74 +56,84 @@ class AuthController extends RoutingController
 
   protected function login()
   {
-    $errors = [];
+    try {
+      $errors = [];
 
-    if (isset($_POST['loginUser'])) {
-      if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        die('Invalid CSRF token');
-      }
-      // Récupération des données
-      $email = Security::secureEmail($_POST['email']);
-      $password = Security::secureInput($_POST['password']);
-      // Validation des données
-      if (!UserValidator::validateEmail($email)) {
-        $errors['email'] = 'L\'adresse mail n\'est pas valide';
-      }
-      if (!UserValidator::validatePassword($password)) {
-        $errors['password'] = 'Le mot de passe n\'est pas valide';
-      }
-      // Clé secrète reCAPTCHA
-      $recaptchaSecret = $_ENV['SITE_RECAPTCHA_SECRET'];
-      // Vérification du reCAPTCHA
-      $recaptchaResponse = $_POST['g-recaptcha-response'];
-      $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
-      $response = file_get_contents($recaptchaUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
-      $responseKeys = json_decode($response, true);
-      if (intval($responseKeys["success"]) !== 1) {
-        $errors['captcha'] = 'Échec de la vérification reCAPTCHA. Veuillez réessayer';
-      } else {
-        // Si la vérification CAPTCHA est réussie et si aucune erreur n'est détectée, enregistrement en base de données
-        if (empty($errors)) {
-          $userRepository = new UserRepository();
-          $user = $userRepository->getUserByEmail($email);
-          if ($user && Security::verifyPassword($password, $user->getPassword())) {
-            // Si l'activation n'est pas effectuée, renvoi vers la page d'activation
-            if ($user->getIs_verified() == 0) {
-              header('Location: index.php?controller=user&action=activation&id=' . $user->getId());
-              exit();
+      if (isset($_POST['loginUser'])) {
+        // Vérification du token CSRF
+        Security::checkCSRF($_POST['csrf_token']);
+        // Récupération des données
+        $email = Security::secureEmail($_POST['email']);
+        $password = Security::secureInput($_POST['password']);
+        // Validation des données
+        if (!UserValidator::validateEmail($email)) {
+          $errors['email'] = 'L\'adresse mail n\'est pas valide';
+        }
+        if (!UserValidator::validatePassword($password)) {
+          $errors['password'] = 'Le mot de passe n\'est pas valide';
+        }
+        // Clé secrète reCAPTCHA
+        $recaptchaSecret = $_ENV['SITE_RECAPTCHA_SECRET'];
+        // Vérification du reCAPTCHA
+        $recaptchaResponse = $_POST['g-recaptcha-response'];
+        $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+        $response = file_get_contents($recaptchaUrl . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
+        $responseKeys = json_decode($response, true);
+        if (intval($responseKeys["success"]) !== 1) {
+          $errors['captcha'] = 'Échec de la vérification reCAPTCHA. Veuillez réessayer';
+        } else {
+          // Si la vérification CAPTCHA est réussie et si aucune erreur n'est détectée, enregistrement en base de données
+          if (empty($errors)) {
+            $userRepository = new UserRepository();
+            $user = $userRepository->getUserByEmail($email);
+            if ($user && Security::verifyPassword($password, $user->getPassword())) {
+              // Si l'activation n'est pas effectuée, renvoi vers la page d'activation
+              if ($user->getIs_verified() == 0) {
+                header('Location: index.php?controller=user&action=activation&id=' . $user->getId());
+                exit();
+              } else {
+                // Génération d'un code de vérification du mail
+                $verification_code = random_int(100000, 999999);
+                // Enregistrement du code de vérification en base de données
+                $verificationRepository = new VerificationRepository();
+                $verificationRepository->createVerification($verification_code, $user->getId());
+                $verificationRepository->deleteAllExpiredCodes();
+                // Envoi de l'utilisateur sur la page de vérification
+                header('Location: index.php?controller=auth&action=check&id=' . $user->getId());
+                exit();
+              }
             } else {
-              // Génération d'un code de vérification du mail
-              $verification_code = random_int(100000, 999999);
-              // Enregistrement du code de vérification en base de données
-              $verificationRepository = new VerificationRepository();
-              $verificationRepository->createVerification($verification_code, $user->getId());
-              $verificationRepository->deleteAllExpiredCodes();
-              // Envoi de l'utilisateur sur la page de vérification
-              header('Location: index.php?controller=auth&action=check&id=' . $user->getId());
-              exit();
-            }
-          } else {
-            $errors['password_check'] = 'Email ou mot de passe incorrect, veuillez réessayer ou vous inscrire si vous n\'avez pas de compte';
-          } 
+              $errors['password_check'] = 'Email ou mot de passe incorrect, veuillez réessayer ou vous inscrire si vous n\'avez pas de compte';
+            } 
+          }
         }
       }
+      $this->render('auth/login', [
+        'errors' => $errors,
+      ]);
+    } catch (\Exception $e) {
+      $this->render('errors/default', [
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+      ]);
     }
-    $this->render('auth/login', [
-      'errors' => $errors,
-    ]);
   }
 
   protected function logout()
   {
-    $this->render('auth/logout');
+    try {
+      $this->render('auth/logout');
+    } catch (\Exception $e) {
+      $this->render('errors/default', [
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+      ]);
+    }
   }
   
   protected function check()
   {
     if (isset($_POST["authenticateUser"])) {
-      if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        die('Invalid CSRF token');
-      }
+      // Vérification du token CSRF
+      Security::checkCSRF($_POST['csrf_token']);
       $userId = Security::secureInput($_POST['user_id']);
       $is_resend = true;
     }
@@ -146,9 +156,8 @@ class AuthController extends RoutingController
   protected function password()
   {
     if (isset($_POST['password'])) {
-      if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        die('Invalid CSRF token');
-      }
+      // Vérification du token CSRF
+      Security::checkCSRF($_POST['csrf_token']);
       $errors = [];
       $success = "";
       $email = Security::secureEmail($_POST['email']);
@@ -270,9 +279,8 @@ class AuthController extends RoutingController
       ]);
       }
     } else if ($_POST['resetPassword']) {
-      if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        die('Invalid CSRF token');
-      }
+      // Vérification du token CSRF
+      Security::checkCSRF($_POST['csrf_token']);
       $errors = [];
       $password = Security::secureInput($_POST['password']);
       $token = Security::secureInput($_POST['token']);
@@ -281,13 +289,19 @@ class AuthController extends RoutingController
       }
       if (empty($errors)) {
         $userRepository = new UserRepository();
-        $userRepository->resetPassword($password, $token);
-        $this->render('auth/reset', [
-          'success' => 'Votre mot de passe a été réinitialisé avec succès ! Vous serez redirigé vers la page de connexion dans 10 secondes.',
-          'token' => $token
-        ]);
-        header('refresh:10;url=index.php?controller=auth&action=login');
-        exit();
+        $isReset = $userRepository->resetPassword($password, $token);
+        if ($isReset) {
+          $this->render('auth/reset', [
+            'success' => 'Votre mot de passe a été réinitialisé avec succès ! Vous serez redirigé vers la page de connexion dans 10 secondes.',
+            'token' => $token
+          ]);
+          header('refresh:10;url=index.php?controller=auth&action=login');
+          exit();
+        } else {
+          $this->render('errors/default', [
+            'error' => 'Erreur lors de la réinitialisation de votre mot de passe. Veuillez réessayer.'
+          ]);
+        }
       } else {
         $this->render('auth/reset', [
           'errors' => $errors,

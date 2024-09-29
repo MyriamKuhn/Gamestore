@@ -6,7 +6,7 @@ use App\Tools\Security;
 
 ?>
 
-        <div class="container mt-5 d-flex flex-column align-items-center">
+        <section class="container mt-5 d-flex flex-column align-items-center mb-5">
           <img src="./assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="my-5" style="width: 200px;">
           <p class="mt-3 fs-2 text-center">Bienvenue dans votre espace client, <?= Security::getCurrentUserFullName() ?>.</p>
           <p>Vous pouvez gérer vos informations personnelles, suivre vos commandes, consulter vos factures et bénéficier de nos services en ligne.</p>
@@ -14,18 +14,9 @@ use App\Tools\Security;
             <div class="col-md-6 mt-2">
               <div class="card shadow">
                 <div class="card-body d-flex flex-column">
-                  <h2 class="card-title text-uppercase"><i class="bi bi-house me-2"></i>Accueil</h2>
-                  <p class="card-text">Retourner vers la page d'accueil de Gamestore</p>
-                  <a href="index.php?controller=page&action=home" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 mt-2">
-              <div class="card shadow">
-                <div class="card-body d-flex flex-column">
                   <h2 class="card-title text-uppercase"><i class="bi bi-person-fill me-2"></i>Données personnelles</h2>
                   <p class="card-text">Consultez et modifiez vos informations personnelles.</p>
-                  <a href="" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>
+                  <a href="index.php?controller=dashboard&action=modify" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>
                 </div>
               </div>
             </div>
@@ -34,7 +25,7 @@ use App\Tools\Security;
                 <div class="card-body d-flex flex-column">
                   <h2 class="card-title text-uppercase"><i class="bi bi-cart2 me-2"></i>Panier</h2>
                   <p class="card-text">Consultez, modifiez et validez le contenu de votre panier.</p>
-                  <a href="" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>
+                  <a href="index.php?controller=dashboard&action=cart" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>
                 </div>
               </div>
             </div>
@@ -43,7 +34,7 @@ use App\Tools\Security;
                 <div class="card-body d-flex flex-column">
                   <h2 class="card-title text-uppercase"><i class="bi bi-receipt-cutoff me-2"></i>Commandes</h2>
                   <p class="card-text">Consultez l'historique de vos commandes et vos factures.</p>
-                  <a href="" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>
+                  <a href="index.php?controller=dashboard&action=orders" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>
                 </div>
               </div>
             </div>
@@ -57,6 +48,7 @@ use App\Tools\Security;
               </div>
             </div>
           </div>
-        </div>
+          <a href="index.php?controller=page&action=home" class="menu-link text-uppercase">Retourner voir les jeux</a>
+        </section>
         
 <?php require_once _TEMPLATEPATH_ . '/dashboard/footer.php'; ?>

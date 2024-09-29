@@ -228,5 +228,29 @@ class GamePlatformRepository extends MainRepository
     return $game;
   }
 
+  // Vérifier si les données d'un jeu sont correctes
+  public function checkGameDatas(int $gameId, int $platformId, float $price, float $discountRate, int $location): bool
+  {
+    $query = 'SELECT
+    gp.id AS game_platform_id
+    FROM game_platform AS gp
+    WHERE gp.fk_game_id = :gameId AND gp.fk_platform_id = :platformId AND gp.price = :price AND gp.discount_rate = :discountRate AND gp.fk_store_id = :location AND gp.quantity > 0';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':gameId', $gameId, \PDO::PARAM_INT);
+    $stmt->bindValue(':platformId', $platformId, \PDO::PARAM_INT);
+    $stmt->bindValue(':price', $price, \PDO::PARAM_STR);
+    $stmt->bindValue(':discountRate', $discountRate, \PDO::PARAM_STR);
+    $stmt->bindValue(':location', $location, \PDO::PARAM_INT);
+    $stmt->execute();
+    $game = $stmt->fetch();
+
+    if ($game) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
 
