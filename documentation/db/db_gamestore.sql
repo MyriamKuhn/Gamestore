@@ -61,7 +61,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE user_order (
   id INT(11) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  order_date_time DATETIME,
+  order_date DATE,
   status VARCHAR(50) NOT NULL,
   fk_app_user_id INT(11) UNSIGNED NOT NULL,
   fk_store_id INT(11) UNSIGNED NOT NULL,
