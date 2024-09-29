@@ -47,7 +47,7 @@ class UserController extends RoutingController
       $errors = [];
       $user = new User();
 
-        if (isset($_POST['registerUser'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registerUser'])) {
           // Vérification du token CSRF
           Security::checkCSRF($_POST['csrf_token']);
           // Récupération des données du formulaire et sécurisation
@@ -134,7 +134,7 @@ class UserController extends RoutingController
 
   protected function activation()
   {
-    if (isset($_POST["verifyUser"])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["verifyUser"])) {
       // Vérification du token CSRF
       Security::checkCSRF($_POST['csrf_token']);
       $userId = Security::secureInput($_POST['user_id']);

@@ -36,15 +36,7 @@ class RoutingController
               $controller = new DashboardController();
               $controller->route();
             } else {
-              throw new \Exception("Vous n'avez pas les droits pour accéder à cette page");
-            }
-            break;
-          case 'order':
-            if (Security::isUser()) {
-              $controller = new OrderController();
-              $controller->route();
-            } else {
-              throw new \Exception("Vous n'avez pas les droits pour accéder à cette page");
+              throw new \Exception("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter");
             }
             break;
           default:

@@ -252,5 +252,21 @@ class GamePlatformRepository extends MainRepository
     }
   }
 
+    // Vérification du stock d'un jeu
+    public function checkGameStock(int $gameId, int $platformId, int $storeId): int
+    {
+      $query = 'SELECT quantity FROM game_platform WHERE fk_game_id = :gameId AND fk_platform_id = :platformId AND fk_store_id = :storeId';
+  
+      $stmt = $this->pdo->prepare($query);
+      $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
+      $stmt->bindValue(':platformId', $platformId, $this->pdo::PARAM_INT);
+      $stmt->bindValue(':storeId', $storeId, $this->pdo::PARAM_INT);
+      $stmt->execute();
+  
+      $stock = $stmt->fetchColumn();
+  
+      return $stock;
+    }
+
 }
 

@@ -70,6 +70,8 @@ CREATE TABLE user_order (
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+ALTER TABLE `user_order` ADD INDEX(`fk_app_user_id`, `fk_store_id`); 
+
 CREATE TABLE game_genre (
   fk_game_id INT(11) UNSIGNED NOT NULL,
   fk_genre_id INT(11) UNSIGNED NOT NULL,

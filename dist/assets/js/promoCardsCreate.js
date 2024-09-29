@@ -3,7 +3,7 @@
 // IMPORTS //
 
 /**********/
-import { getImgByName } from "./utils.js";
+import { getImgByName, secureInput, showCart } from "./utils.js";
 import { cardsDiv } from './promoPage.js';
 import { searchGame } from './promoFilters.js';
 
@@ -28,6 +28,7 @@ export function createHtmlCard(datas) {
 
   cardsDiv.innerHTML = '';
   datas.forEach(game => {
+    let priceToPay = 0;
     let isLogged = false;
     switch (game['store_location']) {
       case 'Nantes':
@@ -114,7 +115,8 @@ export function createHtmlCard(datas) {
 
     const cardPriceText = document.createElement('div');
     cardPriceText.classList.add('card-price', 'm-0');
-    cardPriceText.textContent = (game['platform_price'] * (1 - game['discount_rate'])).toFixed(2) + ' €';
+    priceToPay = (game['platform_price'] * (1 - game['discount_rate'])).toFixed(2);
+    cardPriceText.textContent = priceToPay + ' €';
     containerPriceText.appendChild(cardPriceText);
 
     const cardPriceOld = document.createElement('div');
@@ -153,9 +155,55 @@ export function createHtmlCard(datas) {
     const cardCartImg = document.createElement('i');
     if (isLogged) {
       cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart');
-      //cardCartImg.addEventListener('click', function() {
-        //addToCart(game['game_id']);
-      //});
+      // Ajouter un event listener pour ajouter le jeu au panier
+      cardCartImg.addEventListener('click', () => {
+        try {
+          const gameIdToSend = game['game_id'];
+          const platformToSend = game['platform_name'];
+          const priceToSend = priceToPay;
+          let discountRateToSend = 0;
+          let oldPriceToSend = 0;
+          if (secureInput(game['platform_price']) !== priceToPay) {
+            discountRateToSend = secureInput(game['discount_rate']);
+            oldPriceToSend = secureInput(game['platform_price']);
+          }
+          const locationToSend = storeId;
+          const userToSend = userId;
+          const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+          const requestBody = JSON.stringify({
+            action: 'addCart',
+            gameId: gameIdToSend,
+            platform: platformToSend,
+            price: priceToSend,
+            discountRate: discountRateToSend,
+            oldPrice: oldPriceToSend,
+            location: locationToSend,
+            userId: userToSend
+          });
+
+          fetch('index.php?controller=datas',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+              },
+              body: requestBody
+            })
+            .then(response => response.json())
+            .then(datas => {
+              if (datas.success) {
+                showCart();
+              } else {
+                alert ('Le jeu n\'a pas pu être ajouté au panier');
+              }
+            })
+            .catch(error => console.error('Erreur : ' + error));
+        } catch (error) {
+          console.error('Erreur : ' + error);
+        }
+      });
     } else {
     cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart', 'disabled');
     }

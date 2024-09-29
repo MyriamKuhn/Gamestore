@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use DateTime;
+
 class UserOrderRepository extends MainRepository
 {
 
@@ -87,6 +89,18 @@ class UserOrderRepository extends MainRepository
 
     $stmt = $this->pdo->prepare($query);
     $stmt->bindValue(':cartId', $cartId, $this->pdo::PARAM_INT);
+
+    return $stmt->execute();
+  }
+
+  // Validation de la commande de l'utilisateur avec ajout de date de retrait
+  public function validateOrder(int $cartId, DateTime $pickupDate): bool
+  {
+    $query = 'UPDATE user_order SET status = "Validée", order_date = :pickupDate  WHERE id = :cartId';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':cartId', $cartId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':pickupDate', $pickupDate->format('Y-m-d'), $this->pdo::PARAM_STR);
 
     return $stmt->execute();
   }

@@ -1,8 +1,9 @@
 <?php 
 
-require_once _TEMPLATEPATH_ . '/dashboard/header.php'; 
-
 use App\Tools\Security;
+use App\Tools\NavigationTools;
+
+require_once _TEMPLATEPATH_ . '/dashboard/header.php'; 
 
 ?>
 
@@ -20,7 +21,7 @@ use App\Tools\Security;
                 </div>
               </div>
             </div>
-            <div class="col-md-6 mt-2">
+            <div class="col-md-6 mt-2 <?= NavigationTools::showCart($cartContent) ?>">
               <div class="card shadow">
                 <div class="card-body d-flex flex-column">
                   <h2 class="card-title text-uppercase"><i class="bi bi-cart2 me-2"></i>Panier</h2>
@@ -48,7 +49,7 @@ use App\Tools\Security;
               </div>
             </div>
           </div>
-          <a href="index.php?controller=page&action=home" class="menu-link text-uppercase">Retourner voir les jeux</a>
+          <a href="index.php?controller=page&action=home" class="btn btn-gamestore text-uppercase">Retourner voir les jeux</a>
         </section>
         
 <?php require_once _TEMPLATEPATH_ . '/dashboard/footer.php'; ?>

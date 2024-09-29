@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Repository\GamePlatformRepository;
 use App\Tools\Security;
 use App\Repository\UserRepository;
 use App\Tools\UserValidator;
 use App\Repository\UserOrderRepository;
+use App\Repository\GameUserOrderRepository;
 
 class DashboardController extends RoutingController
 {
@@ -35,7 +37,7 @@ class DashboardController extends RoutingController
         throw new \Exception("Aucune action détectée");
       }
     } catch (\Exception $e) {
-      $this->render('errors/default', [
+      $this->render('dashboard/error', [
         'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
@@ -43,14 +45,34 @@ class DashboardController extends RoutingController
 
   protected function home()
   {
-    $this->render('dashboard/home');
+    try {
+      if (!isset($_SESSION['user'])) {
+        $this->render('dashboard/error', [
+          'error' => 'Veuillez vous connecter pour accéder à cette page.'
+        ]);
+      }
+      // Récupération du contenu du panier de l'utilisateur
+      $cartId = $_SESSION['user']['cart_id'];
+      if ($cartId === 0) {
+        throw new \Exception("Erreur lors de la récupération de votre panier.");
+      }
+      $gameUserOrderRepository = new GameUserOrderRepository();
+      $cartContent = $gameUserOrderRepository->findCartContent($cartId);
+      $this->render('dashboard/home', [
+        'cartContent' => $cartContent
+      ]);
+    } catch (\Exception $e) {
+      $this->render('dashboard/error', [
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+      ]);
+    }
   }
 
   protected function modify()
   {
     try {
       // Si modification des données personnelles
-      if (isset($_POST['modifyUser'])) {
+      if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modifyUser'])) {
         // Vérification du token CSRF
         Security::checkCSRF($_POST['csrf_token']);
         // Récupération des données du formulaire et sécurisation
@@ -68,7 +90,7 @@ class DashboardController extends RoutingController
         UserValidator::validatePostcode($postcode) ?: $errors['postcode'] = 'Le champ code postal n\'est pas valide';
         UserValidator::validateCity($city) ?: $errors['city'] = 'Le champ ville n\'est pas valide';
         if ($userId === false) {
-          $this->render('errors/default', [
+          $this->render('dashboard/error', [
             'error' => 'Veuillez vous connecter pour accéder à cette page.'
           ]);
         }
@@ -108,7 +130,7 @@ class DashboardController extends RoutingController
               'success' => 'Vos données personnelles ont bien été modifiées.'
             ]);
           } else {
-            $this->render('errors/default', [
+            $this->render('dashboard/error', [
               'error' => 'Erreur lors de la modification de vos données personnelles.'
             ]);
           }
@@ -125,7 +147,7 @@ class DashboardController extends RoutingController
           }
         }
       // Si modification du Gamestore le plus proche
-      } else if (isset($_POST['modifyStore'])) {
+      } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modifyStore'])) {
         // Vérification du token CSRF
         Security::checkCSRF($_POST['csrf_token']);
         // Récupération des données du formulaire et sécurisation
@@ -137,7 +159,7 @@ class DashboardController extends RoutingController
           $errors['store_id'] = 'Veuillez sélectionner un Gamestore.';
         }
         if ($userId === false) {
-          $this->render('errors/default', [
+          $this->render('dashboard/error', [
             'error' => 'Veuillez vous connecter pour accéder à cette page.'
           ]);
         }
@@ -190,7 +212,7 @@ class DashboardController extends RoutingController
               'success' => 'Votre Gamestore a bien été modifié.'
             ]);
           } else {
-            $this->render('errors/default', [
+            $this->render('dashboard/error', [
               'error' => 'Erreur lors de la modification de votre Gamestore.'
             ]);
           }
@@ -207,7 +229,7 @@ class DashboardController extends RoutingController
           }
         }
       // Si modification du mot de passe
-      } else if (isset($_POST['modifyPassword'])) {
+      } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modifyPassword'])) {
         // Vérification du token CSRF
         Security::checkCSRF($_POST['csrf_token']);
         // Récupération des données du formulaire et sécurisation
@@ -219,7 +241,7 @@ class DashboardController extends RoutingController
         UserValidator::validatePassword($oldPassword) ?: $errors['old_password'] = 'Le champ mot de passe actuel n\'est pas valide';
         UserValidator::validatePassword($newPassword) ?: $errors['new_password'] = 'Le champ nouveau mot de passe n\'est pas valide';
         if ($userId === false) {
-          $this->render('errors/default', [
+          $this->render('dashboard/error', [
             'error' => 'Veuillez vous connecter pour accéder à cette page.'
           ]);
         }
@@ -236,7 +258,7 @@ class DashboardController extends RoutingController
                 'success' => 'Votre mot de passe a bien été modifié.'
               ]);
             } else {
-              $this->render('errors/default', [
+              $this->render('dashboard/error', [
                 'error' => 'Erreur lors de la modification de votre mot de passe.'
               ]);
             }
@@ -279,7 +301,7 @@ class DashboardController extends RoutingController
             ]);
           }
         } else {
-          $this->render('errors/default', [
+          $this->render('dashboard/error', [
             'error' => 'Veuillez vous connecter pour accéder à cette page.'
           ]);
         }
@@ -294,10 +316,220 @@ class DashboardController extends RoutingController
   protected function cart()
   {
     try {
-
-      $this->render('dashboard/cart');
+      // Si modification de la quantité dans le panier
+      if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateQuantity'])) {
+        // Vérification du token CSRF
+        Security::checkCSRF($_POST['csrf_token']);
+        // Vérification sur l'utilisateur connecté
+        if (!isset($_SESSION['user'])) {
+          throw new \Exception("Veuillez vous connecter pour accéder à cette page.");
+        }
+        // Récupération des données du formulaire
+        $gameId = Security::secureInput($_POST['game_id']);
+        $platformId = Security::secureInput($_POST['platform_id']);
+        $price_at_order = Security::secureInput($_POST['price_at_order']);
+        $quantity = Security::secureInput($_POST['quantity']); 
+        // Vérification des données
+        if (empty($gameId) || empty($platformId)) {
+          throw new \Exception("Erreur lors de la modification, veuillez retenter.");
+        }
+        // Récupération de l'identifiant du panier de l'utilisateur
+        $cartId = $_SESSION['user']['cart_id'];
+        if ($cartId === 0) {
+          throw new \Exception("Erreur lors de la récupération de votre panier.");
+        }
+        $gameUserOrderRepository = new GameUserOrderRepository();
+        // Si ajout d'une quantité du panier
+        if ($_POST['updateQuantity'] === 'increase') {
+          // Vérification du stock du jeu
+          $storeId = $_SESSION['user']['store_id'];
+          $gamePlatformRepository = new GamePlatformRepository();
+          $stock = $gamePlatformRepository->checkGameStock($gameId, $platformId, $storeId);
+          if ($stock === 0) {
+            throw new \Exception("Le jeu est en rupture de stock.");
+          } else if (($quantity + 1) > $stock) {
+            throw new \Exception("Le stock du jeu est insuffisant.");
+          } else {
+            $isAdded = $gameUserOrderRepository->addGameInCart($gameId, $platformId, $cartId, 1, $price_at_order, 'add');
+            if (!$isAdded) {
+              throw new \Exception("Erreur lors de l'ajout de la quantité.");
+            } else {
+              header('Location: index.php?controller=dashboard&action=cart');
+              exit();
+            }
+          }
+        } else if ($_POST['updateQuantity'] === 'decrease') {
+          $isRemoved = $gameUserOrderRepository->addGameInCart($gameId, $platformId, $cartId, 1, $price_at_order, 'remove');
+          if (!$isRemoved) {
+            throw new \Exception("Erreur lors de la suppression de la quantité.");
+          } else {
+            header('Location: index.php?controller=dashboard&action=cart');
+            exit();
+          }
+        } else {
+          throw new \Exception("Erreur lors de la modification, veuillez retenter.");
+        }
+      // Si suppression d'un jeu complet du panier
+      } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteGame'])) {
+        // Vérification du token CSRF
+        Security::checkCSRF($_POST['csrf_token']);
+        // Vérification sur l'utilisateur connecté
+        if (!isset($_SESSION['user'])) {
+          throw new \Exception("Veuillez vous connecter pour accéder à cette page.");
+        }
+        // Récupération des données du formulaire
+        $gameId = Security::secureInput($_POST['game_id']);
+        $platformId = Security::secureInput($_POST['platform_id']);
+        // Récupération de l'identifiant du panier de l'utilisateur
+        $cartId = $_SESSION['user']['cart_id'];
+        if ($cartId === 0) {
+          throw new \Exception("Erreur lors de la récupération de votre panier.");
+        }
+        // Vérification des données
+        if (empty($gameId) || empty($platformId)) {
+          throw new \Exception("Erreur lors de la suppression, veuillez retenter.");
+        }
+        $gameUserOrderRepository = new GameUserOrderRepository();
+        $isDeleted = $gameUserOrderRepository->removeGameFromCart($gameId, $platformId, $cartId);
+        if (!$isDeleted) {
+          throw new \Exception("Erreur lors de la suppression du jeu.");
+        } else {
+          header('Location: index.php?controller=dashboard&action=cart');
+          exit();
+        }
+      // Si validation du panier
+      } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['validateCart'])) {
+        // Vérification du token CSRF
+        Security::checkCSRF($_POST['csrf_token']);
+        // Vérification sur l'utilisateur connecté
+        if (!isset($_SESSION['user'])) {
+          throw new \Exception("Veuillez vous connecter pour accéder à cette page.");
+        }
+        // Récupération des données du formulaire
+        $cartId = $_SESSION['user']['cart_id'];
+        if ($cartId === 0) {
+          throw new \Exception("Erreur lors de la récupération de votre panier.");
+        }
+        $userId = $_SESSION['user']['id'];
+        $storeId = $_SESSION['user']['store_id'];
+        $gameUserOrderRepository = new GameUserOrderRepository();
+        $cartContent = $gameUserOrderRepository->findCartContent($cartId);
+        if (!$cartContent) {
+          throw new \Exception("Votre panier est vide.");
+        }
+        // Vérification si le panier est tjs valide et qu'il n'y a pas de jeux en rupture de stock
+        $gamePlatformRepository = new GamePlatformRepository();
+        foreach ($cartContent as $content) {
+          $stock = $gamePlatformRepository->checkGameStock($content['game_id'], $content['platform_id'], $storeId);
+          if ($content['quantity'] === 0) {
+            $isDeleted = $gameUserOrderRepository->removeGameFromCart($content['game_id'], $content['platform_id'], $cartId);
+            if (!$isDeleted) {
+              throw new \Exception("Erreur lors de la suppression du jeu.");
+            }
+          } else if ($stock === 0) {
+            $isDeleted = $gameUserOrderRepository->removeGameFromCart($content['game_id'], $content['platform_id'], $cartId);
+            if (!$isDeleted) {
+              throw new \Exception("Erreur lors de la suppression du jeu.");
+            }
+          } else if ($content['quantity'] > $stock) {
+            $quantity = $content['quantity'] - $stock;
+            $isRemoved = $gameUserOrderRepository->addGameInCart($content['game_id'], $content['platform_id'], $cartId, $quantity, $content['price'], 'remove');
+            if (!$isRemoved) {
+              throw new \Exception("Erreur lors de la suppression de la quantité.");
+            }
+          }
+        }
+        // Récupération du contenu du panier mis à jour
+        $cartContent = $gameUserOrderRepository->findCartContent($cartId);
+        if (!$cartContent) {
+          throw new \Exception("Votre panier est vide.");
+        }
+        // Vérification de la date
+        $orderDate = new \DateTime();
+        $pickupDate = new \DateTime($_POST['pickupDate']);
+        $diff = $orderDate->diff($pickupDate);
+        if ($diff->days > 7) {
+          throw new \Exception("La date de retrait doit être inférieure à 7 jours.");
+        }
+        // Vérification que la date de retrait est un jour d'ouverture du magasin
+        if ($pickupDate->format('N') === '1' || $pickupDate->format('N') === '7') {
+          throw new \Exception("Le magasin est fermé le lundi et le dimanche.");
+        }
+        // Création de la commande
+        $userOrderRepository = new UserOrderRepository();
+        $isOrderCreated = $userOrderRepository->validateOrder($cartId, $pickupDate);
+        if (!$isOrderCreated) {
+          throw new \Exception("Erreur lors de la validation de votre commande.");
+        }
+        // Création d'un nouveau panier vide
+        $isCartCreated = $userOrderRepository->createEmptyCart($userId, $storeId);
+        if (!$isCartCreated) {
+          throw new \Exception("Erreur lors de la création de votre nouveau panier.");
+        }
+        // Mise à jour du panier de l'utilisateur
+        $cartId = $userOrderRepository->findCartId($userId);
+        if ($cartId === 0) {
+          throw new \Exception("Erreur lors de la récupération de votre panier.");
+        }
+        // Régénère l'identifiant de session pour éviter les attaques de fixation de session (vol de cookie de session)
+        session_regenerate_id(true);
+        // Mise à jour des données de session
+        $_SESSION['user']['cart_id'] = $cartId;
+        header('Location: index.php?controller=dashboard&action=orders');
+        exit();
+      // Au chargement de la page du panier
+      } else {
+        if (!isset($_SESSION['user'])) {
+          $this->render('dashboard/error', [
+            'error' => 'Veuillez vous connecter pour accéder à cette page.'
+          ]);
+        }
+        $cartId = $_SESSION['user']['cart_id'];
+        if ($cartId === 0) {
+          throw new \Exception("Erreur lors de la récupération de votre panier.");
+        }
+        $storeId = $_SESSION['user']['store_id'];
+        if ($storeId === 0) {
+          throw new \Exception("Erreur lors de la récupération de votre Gamestore.");
+        }
+        $gameUserOrderRepository = new GameUserOrderRepository();
+        $cartContent = $gameUserOrderRepository->findCartContent($cartId);
+        if (!$cartContent) {
+          throw new \Exception("Votre panier est vide.");
+        }
+        // Vérifier si le panier est tjs valide et qu'il n'y a pas de jeux en rupture de stock
+        $gamePlatformRepository = new GamePlatformRepository();
+        foreach ($cartContent as $content) {
+          $stock = $gamePlatformRepository->checkGameStock($content['game_id'], $content['platform_id'], $storeId);
+          if ($content['quantity'] === 0) {
+            $isDeleted = $gameUserOrderRepository->removeGameFromCart($content['game_id'], $content['platform_id'], $cartId);
+            if (!$isDeleted) {
+              throw new \Exception("Erreur lors de la suppression du jeu.");
+            }
+          } else if ($stock === 0) {
+            $isDeleted = $gameUserOrderRepository->removeGameFromCart($content['game_id'], $content['platform_id'], $cartId);
+            if (!$isDeleted) {
+              throw new \Exception("Erreur lors de la suppression du jeu.");
+            }
+          } else if ($content['quantity'] > $stock) {
+            $quantity = $content['quantity'] - $stock;
+            $isRemoved = $gameUserOrderRepository->addGameInCart($content['game_id'], $content['platform_id'], $cartId, $quantity, $content['price'], 'remove');
+            if (!$isRemoved) {
+              throw new \Exception("Erreur lors de la suppression de la quantité.");
+            }
+          }
+        }
+        // Récupération du contenu du panier mis à jour
+        $cartContent = $gameUserOrderRepository->findCartContent($cartId);
+        if (!$cartContent) {
+          throw new \Exception("Votre panier est vide.");
+        }
+        $this->render('dashboard/cart', [
+          'cartContent' => $cartContent
+        ]);
+      }
     } catch (\Exception $e) {
-      $this->render('errors/default', [
+      $this->render('dashboard/error', [
         'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
@@ -308,7 +540,7 @@ class DashboardController extends RoutingController
     try {
       $this->render('dashboard/orders');
     } catch (\Exception $e) {
-      $this->render('errors/default', [
+      $this->render('dashboard/error', [
         'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }

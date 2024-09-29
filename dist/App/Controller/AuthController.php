@@ -59,7 +59,7 @@ class AuthController extends RoutingController
     try {
       $errors = [];
 
-      if (isset($_POST['loginUser'])) {
+      if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['loginUser'])) {
         // Vérification du token CSRF
         Security::checkCSRF($_POST['csrf_token']);
         // Récupération des données
@@ -131,7 +131,7 @@ class AuthController extends RoutingController
   
   protected function check()
   {
-    if (isset($_POST["authenticateUser"])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["authenticateUser"])) {
       // Vérification du token CSRF
       Security::checkCSRF($_POST['csrf_token']);
       $userId = Security::secureInput($_POST['user_id']);
@@ -155,7 +155,7 @@ class AuthController extends RoutingController
 
   protected function password()
   {
-    if (isset($_POST['password'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password'])) {
       // Vérification du token CSRF
       Security::checkCSRF($_POST['csrf_token']);
       $errors = [];

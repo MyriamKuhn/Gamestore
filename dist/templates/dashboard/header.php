@@ -2,8 +2,17 @@
 
 use App\Tools\NavigationTools;
 use App\Tools\Security;
+use App\Repository\GameUserOrderRepository;
 
 Security::userOnly();
+
+// Récupération du contenu du panier de l'utilisateur
+$cartId = $_SESSION['user']['cart_id'];
+if ($cartId === 0) {
+  throw new \Exception("Erreur lors de la récupération de votre panier.");
+}
+$gameUserOrderRepository = new GameUserOrderRepository();
+$cartContent = $gameUserOrderRepository->findCartContent($cartId);
 
 ?>
 
@@ -60,7 +69,7 @@ Security::userOnly();
                   <span class="d-none d-sm-inline">Données personnelles</span>
                 </a>
               </li>
-              <li class="nav-item mb-3">
+              <li class="nav-item mb-3 <?= NavigationTools::showCart($cartContent) ?>">
                 <a href="index.php?controller=dashboard&action=cart" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'cart') ?>">
                   <i class="bi bi-cart2 me-2"></i>
                   <span class="d-none d-sm-inline">Panier</span>

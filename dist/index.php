@@ -41,4 +41,3 @@ $controller->route();
 use App\Repository\GameUserOrderRepository;
 
 $userOrderRepository = new GameUserOrderRepository();
-$cartId = $userOrderRepository->findCartContent($_SESSION['user']['cart_id']);
