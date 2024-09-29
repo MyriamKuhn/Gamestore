@@ -58,7 +58,7 @@ class RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -77,7 +77,7 @@ class RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }

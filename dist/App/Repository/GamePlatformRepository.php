@@ -232,7 +232,7 @@ class GamePlatformRepository extends MainRepository
   public function checkGameDatas(int $gameId, int $platformId, float $price, float $discountRate, int $location): bool
   {
     $query = 'SELECT
-    gp.id AS game_platform_id
+    gp.fk_game_id AS game_platform_id
     FROM game_platform AS gp
     WHERE gp.fk_game_id = :gameId AND gp.fk_platform_id = :platformId AND gp.price = :price AND gp.discount_rate = :discountRate AND gp.fk_store_id = :location AND gp.quantity > 0';
 

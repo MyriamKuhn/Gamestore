@@ -6,6 +6,7 @@
 import { secureInput } from './utils.js';
 import { PlatformSelect } from './Classes/PlatformSelect.js';
 import { CarouselGamestore } from './Classes/CarouselGamestore.js';
+import { validateJSONStructure } from './utils.js';
 
 
 //**************/
@@ -25,20 +26,6 @@ const gameId = secureInput(urlParams.get('id'));
 /********************/
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 getDatas();
-
-// Fonction récursive pour valider si une structure JSON contient uniquement des objets et des tableaux
-const validateJSONStructure = (data) => {
-  if (Array.isArray(data)) {
-    return data.every(item => validateJSONStructure(item));
-  } else if (typeof data === 'object' && data !== null) {
-    return Object.values(data).every(value => validateJSONStructure(value));
-  } else {
-    // Valider que ce ne soit pas un type inattendu (par exemple une fonction)
-    return ['string', 'number', 'boolean'].includes(typeof data);
-  }
-};
-
-
 
 
 /**********************/

@@ -38,11 +38,7 @@ $controller->route();
 
 // JUST FOR TESTING
 
-use App\Repository\UserOrderRepository;
+use App\Repository\GameUserOrderRepository;
 
-// Create an instance of GamesRepository
-$gpRepository = new UserOrderRepository();
-// Call the getGames method
-$games = $gpRepository->findAllOrdersByStatus(1, 'En attente');
-// Output the result
-
+$userOrderRepository = new GameUserOrderRepository();
+$cartId = $userOrderRepository->findCartContent($_SESSION['user']['cart_id']);

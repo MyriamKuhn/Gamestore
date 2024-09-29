@@ -230,18 +230,25 @@ require_once _TEMPLATEPATH_ . '/header.php';
                   $verificationRepository->deleteAllExpiredCodes();
                   // Récupération du panier de l'utilisateur
                   $userOrderRepository = new UserOrderRepository();
-                  $cart = $userOrderRepository->findAllOrdersByStatus($user->getId(), 'En attente');
+                  $cartId = $userOrderRepository->findCartId($user->getId());
+                  if ($cartId == 0) {
+                    $isCardCreated = $userOrderRepository->createEmptyCart($user->getId(), $user->getFk_store_id());
+                    if ($isCardCreated) {
+                      $cartId = $userOrderRepository->findCartId($user->getId());
+                    } else {
+                      echo '<div class="alert alert-danger py-5 my-5">Une erreur est survenue lors de la création du panier. Veuillez réessayer.</div>';
+                    }
+                  }
                   // Régénère l'identifiant de session pour éviter les attaques de fixation de session (vol de cookie de session)
                   session_regenerate_id(true);
                   // Enregistrement des données de l'utilisateur en session
                   $_SESSION['user'] = [
                     'id' => $user->getId(),
-                    'email' => $user->getEmail(),
                     'first_name' => $user->getFirst_name(),
                     'last_name' => $user->getLast_name(),
                     'role' => $user->getRole(),
                     'store_id' => $user->getFk_store_id(),
-                    'cart_id' => $cart
+                    'cart_id' => $cartId
                   ];
                   // Redirection vers la page espace client
                   header('Location: index.php?controller=dashboard&action=home');

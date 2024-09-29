@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Tools\Security;
 use App\Repository\UserRepository;
 use App\Tools\UserValidator;
+use App\Repository\UserOrderRepository;
 
 class DashboardController extends RoutingController
 {
@@ -77,16 +78,30 @@ class DashboardController extends RoutingController
           $user = $userRepository->updateUser($userId, $first_name, $last_name, $address, $postcode, $city);
           // Si mise en place en base de données réussie
           if ($user) {
+            // Mise à jour du panier de l'utilisateur
+            $userOrderRepository = new UserOrderRepository();
+            $cartId = $userOrderRepository->findCartId($userId);
+            if ($cartId === 0) {
+              $isCardCreated = $userOrderRepository->createEmptyCart($userId, $user->getFk_store_id());
+              if (!$isCardCreated) {
+                throw new \Exception("Erreur lors de la création de votre panier.");
+              } else {
+                $cartId = $userOrderRepository->findCartId($userId);
+              }
+            }
+            if ($cartId === 0) {
+              throw new \Exception("Erreur lors de la création de votre panier.");
+            }
             // Régénère l'identifiant de session pour éviter les attaques de fixation de session (vol de cookie de session)
             session_regenerate_id(true);
             // Mise à jour des données de session
             $_SESSION['user'] = [
               'id' => $user->getId(),
-              'email' => $user->getEmail(),
               'first_name' => $user->getFirst_name(),
               'last_name' => $user->getLast_name(),
               'role' => $user->getRole(),
               'store_id' => $user->getFk_store_id(),
+              'cart_id' => $cartId
             ];
             $this->render('dashboard/modify', [
               'user' => $user,
@@ -132,6 +147,32 @@ class DashboardController extends RoutingController
           $user = $userRepository->updateUserStore($userId, $store_id);
           // Si mise en place en base de données réussie
           if ($user) {
+            // Mise à jour du panier de l'utilisateur
+            $userOrderRepository = new UserOrderRepository();
+            $cartId = $userOrderRepository->findCartId($userId);
+            if ($cartId === 0) {
+              $isCardCreated = $userOrderRepository->createEmptyCart($userId, $store_id);
+              if (!$isCardCreated) {
+                throw new \Exception("Erreur lors de la création de votre panier.");
+              } else {
+                $cartId = $userOrderRepository->findCartId($userId);
+              }
+            } else {
+              // Supprimer le panier actuel si l'utilisateur change de Gamestore et créer un nouveau panier
+              $isDeleted = $userOrderRepository->deleteCart($cartId);
+              if (!$isDeleted) {
+                throw new \Exception("Erreur lors de la suppression de votre panier actuel.");
+              }
+              $isCardCreated = $userOrderRepository->createEmptyCart($userId, $store_id);
+              if (!$isCardCreated) {
+                throw new \Exception("Erreur lors de la création de votre nouveau panier.");
+              } else {
+                $cartId = $userOrderRepository->findCartId($userId);
+              }
+            }
+            if ($cartId === 0) {
+              throw new \Exception("Erreur lors de la création de votre nouveau panier.");
+            }
             // Régénère l'identifiant de session pour éviter les attaques de fixation de session (vol de cookie de session)
             session_regenerate_id(true);
             // Mise à jour des données de session
@@ -142,6 +183,7 @@ class DashboardController extends RoutingController
               'last_name' => $user->getLast_name(),
               'role' => $user->getRole(),
               'store_id' => $user->getFk_store_id(),
+              'cart_id' => $cartId
             ];
             $this->render('dashboard/modify', [
               'user' => $user,

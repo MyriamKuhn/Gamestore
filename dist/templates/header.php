@@ -3,6 +3,8 @@
 use App\Tools\NavigationTools;
 use App\Tools\Security;
 
+$cartContent = NavigationTools::getCartContent();
+
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +64,7 @@ use App\Tools\Security;
               <a href="index.php?controller=auth&action=logout" class="btn btn-gamestore text-uppercase shadow me-lg-5 mb-2 mb-lg-0">Se déconnecter</a>
                 <?php if (Security::isUser()) : ?>
                   <a href="index.php?controller=dashboard&action=home" class="btn btn-gamestore text-uppercase shadow me-lg-5">Espace client</a>
-                  <a href="#" class="nav-link navbar-cart pt-2 align-self-end me-lg-5 fw-bold fs-5"><sub>0</sub><i class="bi bi-cart2 fs-1 navbar-cart-img"></i></a>
+                  <a href="#" id="navbar-cart" class="nav-link navbar-cart pt-2 align-self-end me-lg-5 fw-bold fs-5 <?= NavigationTools::showCart($cartContent) ?>"><sub id="cart-count"><?= NavigationTools::getCartCount($cartContent) ?></sub><i class="bi bi-cart2 fs-1 navbar-cart-img"></i></a>
                 <?php elseif (Security::isEmploye()) : ?>
                   <a href="index.php?controller=employe&action=home" class="btn btn-gamestore text-uppercase shadow me-lg-5">Espace employé</a>
                 <?php elseif (Security::isAdmin()) : ?>

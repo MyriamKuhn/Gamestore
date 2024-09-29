@@ -6,12 +6,12 @@ class UserOrderRepository extends MainRepository
 {
 
   // Création d'un panier vide
-  public function createEmptyCart(int $userId, string $status, int $storeId): bool
+  public function createEmptyCart(int $userId, int $storeId): bool
   {
     $query = 'INSERT INTO user_order (status, fk_app_user_id, fk_store_id) VALUE (:status, :fk_app_user_id, :fk_store_id)';
 
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':status', $status, $this->pdo::PARAM_STR);
+    $stmt->bindValue(':status', 'En attente', $this->pdo::PARAM_STR);
     $stmt->bindValue(':fk_app_user_id', $userId, $this->pdo::PARAM_INT);
     $stmt->bindValue(':fk_store_id', $storeId, $this->pdo::PARAM_INT);
 
@@ -62,6 +62,33 @@ class UserOrderRepository extends MainRepository
     return $userOrders;
   }
 
+  // Récupération de l'ID de la commande qui correspond au panier en cours de l'utilisateur
+  public function findCartId(int $userId): int
+  {
+    $query = 'SELECT id FROM user_order WHERE fk_app_user_id = :userId AND status = "En attente"';
 
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':userId', $userId, $this->pdo::PARAM_INT);
+    $stmt->execute();
+
+    $cartId = $stmt->fetchColumn();
+    
+    if ($cartId) {
+      return $cartId;
+    } else {
+      return 0;
+    }
+  }
+
+  // Suppression du panier de l'utilisateur
+  public function deleteCart(int $cartId): bool
+  {
+    $query = 'DELETE FROM user_order WHERE id = :cartId';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':cartId', $cartId, $this->pdo::PARAM_INT);
+
+    return $stmt->execute();
+  }
 
 }

@@ -1,4 +1,4 @@
-import { secureInput } from '../utils.js';
+import { secureInput, showCart } from '../utils.js';
 
 export class LocationSelect {
 
@@ -211,7 +211,7 @@ export class LocationSelect {
             .then(response => response.json())
             .then(datas => {
               if (datas.success) {
-                alert ('Le jeu a bien été ajouté au panier');
+                showCart();
               } else {
                 alert ('Le jeu n\'a pas pu être ajouté au panier');
               }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\GamePlatformRepository;
 use App\Tools\Security;
 use App\Repository\GameUserOrderRepository;
+use App\Repository\PlatformRepository;
 
 class DatasController extends RoutingController
 {
@@ -20,17 +21,15 @@ class DatasController extends RoutingController
         if (isset($data['action'])) {
             // Appeler une fonction spécifique en fonction de l'action
             if ($data['action'] === 'getListDatas') {
-                // Appeler la fonction getData()
                 $this->getListDatas();
             } elseif ($data['action'] === 'getPromoDatas') {
-                // Appeler la fonction getPromoDatas()
                 $this->getPromoDatas();
             } elseif ($data['action'] === 'getGameDatas') {
-                // Appeler la fonction getGameDatas()
                 $this->getGameDatas($data['gameId']);
             } elseif ($data['action'] === 'addCart') {
-                // Appeler la fonction getGameDatas()
                 $this->getAddCart($data['gameId'], $data['platform'], $data['price'], $data['discountRate'], $data['oldPrice'], $data['location'], $data['userId']);
+            } elseif ($data['action'] === 'getCartContent') {
+                $this->getCartContent();
             } else {
                 // Si l'action n'est pas reconnue
                 $this->sendResponse(false, "Action inconnue", 400);
@@ -100,8 +99,11 @@ class DatasController extends RoutingController
     $quantity = 1;
     $orderId = $_SESSION['user']['cart_id'];
 
-    // Faire la récupération de la plateforme ID à partir du nom
-
+    $platformRepository = new PlatformRepository();
+    $platformId = $platformRepository->getPlatformIdByName($platform);
+    if ($platformId === 0) {
+      $this->sendResponse(false, "Plateforme inconnue", 400);
+    }
     // Calcul du prix total
     $price_at_order = $price * $quantity;
     // Vérification des données du jeu
@@ -110,17 +112,38 @@ class DatasController extends RoutingController
     }
     $gpRepository = new GamePlatformRepository();
     if ($discountRate > 0) {
-      $game = $gpRepository->checkGameDatas($gameId, $platform, $oldPrice, $discountRate, $location);
+      $game = $gpRepository->checkGameDatas($gameId, $platformId, $oldPrice, $discountRate, $location);
     } else {
-      $game = $gpRepository->checkGameDatas($gameId, $platform, $price, $discountRate, $location);
+      $game = $gpRepository->checkGameDatas($gameId, $platformId, $price, $discountRate, $location);
     }
     if ($game) {
       // Ajout du jeu dans le panier
       $guoRepository = new GameUserOrderRepository();
-      $guoRepository->addGameInCart($gameId, $orderId, $quantity, $price_at_order);
-      $this->sendResponse(true, "Le jeu a bien été ajouté au panier", 200);
+      $isAdded = $guoRepository->addGameInCart($gameId, $platformId, $orderId, $quantity, $price_at_order);
+      if (!$isAdded) {
+        $this->sendResponse(false, "Erreur lors de l'ajout du jeu dans le panier", 500);
+      } else {
+        $this->sendResponse(true, $orderId, 200);
+      }
     } else {
       $this->sendResponse(false, "Données du jeu incorrectes", 400);
+    }
+  }
+
+  protected function getCartContent()
+  {
+    if (empty($_SESSION['user']) || empty($_SESSION['user']['cart_id'])) {
+      $this->sendResponse(false, "Aucun panier n'a été trouvé", 404);
+      return;
+    }
+    $cartId = $_SESSION['user']['cart_id'];
+    $guoRepository = new GameUserOrderRepository();
+    $cartContent = $guoRepository->findCartContent($cartId);
+
+    if (empty($cartContent)) {
+      $this->sendResponse(false, "Le panier est vide", 404);
+    } else {
+      $this->sendResponse(true, $cartContent, 200);
     }
   }
     

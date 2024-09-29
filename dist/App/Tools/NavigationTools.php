@@ -4,10 +4,12 @@ namespace App\Tools;
 
 use App\Repository\GamesRepository;
 use App\Tools\Security;
+use App\Repository\GameUserOrderRepository;
 
 class NavigationTools
 {
 
+  // Ajout de la classe active sur le lien de navigation correspondant à la page actuelle
   public static function addActiveClass($controller, $action): string
   {
     if (isset($_GET['controller']) && $_GET['controller'] === $controller && isset($_GET['action']) && $_GET['action'] === $action) {
@@ -20,6 +22,7 @@ class NavigationTools
     return '';
   }
 
+  // Ajout des métadonnées pour le référencement
   public static function addMetas(): array
   {
   
@@ -93,12 +96,58 @@ class NavigationTools
     } 
   }
 
+  // Récupération des détails du jeu
   private static function getGameDetails(): array
   {
     $gameId = Security::secureInput($_GET['id']);
     $gamesRepository = new GamesRepository();
     $game = $gamesRepository->getGameById($gameId);
     return $game;
+  }
+
+  // Récupération du contenu du panier
+  public static function getCartContent(): array|bool
+  {
+    if (isset($_SESSION['user']) && isset($_SESSION['user']['cart_id'])) {
+      $cartId = $_SESSION['user']['cart_id'];
+      $guoRepository = new GameUserOrderRepository();
+      $cartContent = $guoRepository->findCartContent($cartId);
+      if ($cartContent) {
+      return $cartContent;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  // Ajout de la classe pour afficher ou masquer le panier
+  public static function showCart(array|bool $cartContent): string
+  {
+    if ($cartContent === false) {
+      return 'visually-hidden';
+    } else {
+      if (count($cartContent) > 0) {
+        return '';
+      } else {
+        return 'visually-hidden';
+      }
+    }
+  }
+
+  // Récupération du nombre d'objets dans le panier
+  public static function getCartCount(array|bool $cartContent): int
+  {
+    if ($cartContent === false) {
+      return 0;
+    } else {
+      if (count($cartContent) > 0) {
+        return count($cartContent);
+      } else {
+        return 0;
+      }
+    }
   }
 
 }
