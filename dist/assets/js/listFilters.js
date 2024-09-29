@@ -80,6 +80,7 @@ function searchGameByAll(datas, searchedName, genres, platforms, minPrice, maxPr
     const notFound = document.createElement('h4');
     notFound.classList.add('text-center', 'text-uppercase', 'fs-5');
     notFound.textContent = 'Aucun jeu ne correspond à votre recherche';
+    document.getElementById('pagination-container').innerHTML = '';
     switch (city) {
       case 'nantes':
         cardsNantesDiv.innerHTML = '';

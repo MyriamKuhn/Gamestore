@@ -3,8 +3,9 @@
 /* IMPORT */
 
 /**********/
-
 import { secureInput } from './utils.js';
+import { validateJSONStructure } from './utils.js';
+
 
 /****************************************************************************/
 
@@ -165,9 +166,14 @@ addressSearchInput.addEventListener('input', () => {
     // Requête à l'API OpenStreetMap Nominatim
     try {
       const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(query)}`);
-      const results = await response.json();  
+      const results = await response.json();
+      // Vérifie si les données sont bien formatées et les sécurise
+      if (validateJSONStructure(results)) {
       // Stocke les résultats dans le cache pour éviter de refaire la requête
       cache[query] = results;
+      } else {
+        console.error('Format inattendu des données');
+      }
       // Affiche les suggestions
       displaySuggestions(results);
     } catch (error) {

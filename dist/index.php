@@ -38,11 +38,6 @@ $controller->route();
 
 // JUST FOR TESTING
 
-use App\Repository\GamePlatformRepository;
-use App\Repository\UserRepository;
+use App\Repository\GameUserOrderRepository;
 
-// Create an instance of GamesRepository
-$gamesRepository = new GamePlatformRepository();
-// Call the getGames method
-$games = $gamesRepository->getGameById(1);
-// Output the result
+$userOrderRepository = new GameUserOrderRepository();

@@ -61,7 +61,7 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE user_order (
   id INT(11) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-  order_date_time DATETIME NOT NULL,
+  order_date_time DATETIME,
   status VARCHAR(50) NOT NULL,
   fk_app_user_id INT(11) UNSIGNED NOT NULL,
   fk_store_id INT(11) UNSIGNED NOT NULL,
@@ -69,6 +69,8 @@ CREATE TABLE user_order (
   FOREIGN KEY(fk_store_id) REFERENCES store(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `user_order` ADD INDEX(`fk_app_user_id`, `fk_store_id`); 
 
 CREATE TABLE game_genre (
   fk_game_id INT(11) UNSIGNED NOT NULL,
@@ -97,11 +99,13 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE game_user_order (
   fk_game_id INT(11) UNSIGNED NOT NULL,
+  fk_platform_id INT(11) UNSIGNED NOT NULL,
   fk_user_order_id INT(11) UNSIGNED NOT NULL,
-  PRIMARY KEY(fk_game_id, fk_user_order_id),
+  PRIMARY KEY(fk_game_id, fk_platform_id, fk_user_order_id),
   quantity INT(11) NOT NULL,
   price_at_order DECIMAL(10,2) NOT NULL,
   FOREIGN KEY(fk_game_id) REFERENCES game(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY(fk_platform_id) REFERENCES platform(id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY(fk_user_order_id) REFERENCES user_order(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) 
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
