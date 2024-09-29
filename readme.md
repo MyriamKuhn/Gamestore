@@ -93,7 +93,7 @@ Start your server and open a web browser and go to http://localhost (or to the a
 
 ## Deployed Application
 
-[https://gamestore.myriamkuhn.com](https://gamestore.myriamkuhn.com)
+[https://gamestore.mkcodecreations.dev/](https://gamestore.mkcodecreations.dev/)
 
 
 
