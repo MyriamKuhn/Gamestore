@@ -20,6 +20,8 @@ Before deploying the application, make sure you have installed the following :
 - Apache or Nginx (or other web server)
 - Node.js and npm (to collect JS modules with Rollup)
 - Git (to clone the repository, if necessary)
+- google Account with reCAPTCHA v2 Keys activated and register for your site
+- .env file at the root of the project
 
 
 ### Clone the Git repository
