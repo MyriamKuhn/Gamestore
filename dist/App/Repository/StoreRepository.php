@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Model\Store;
+
 class StoreRepository extends MainRepository
 {
 
@@ -22,5 +24,21 @@ class StoreRepository extends MainRepository
     $stmt->execute();
     return $stmt->fetchColumn();
   }
+  
+  // Récupération d'un magasin par son ID
+  public function getStoreById(int $storeId): Store|null
+  {
+    $query = "SELECT location FROM store WHERE id = :storeId";
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':storeId', $storeId, \PDO::PARAM_INT);
+    $stmt->execute();
+    $store = $stmt->fetch();
+    if ($store) {
+      return Store::createAndHydrate($store);
+    } else {
+      return null;
+    }
+  }
+
   
 }

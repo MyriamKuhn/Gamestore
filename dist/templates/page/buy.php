@@ -1,7 +1,7 @@
 <?php require_once _TEMPLATEPATH_.'/header.php'; ?>
 
 <!-- START : Main -->
-<main class="container my-4 main" id="hero">
+<main class="container my-4 main">
 <section class="mt-2">
   <div class="d-flex justify-content-between gamestore-title">
     <h2 class="text-uppercase">Comment acheter</h2>

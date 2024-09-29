@@ -11,7 +11,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
 
 ?>
 
-<main class="container my-4 main" id="hero">
+<main class="container my-4 main">
   <section class="mt-2">
     <div class="d-flex justify-content-between gamestore-title">
       <h2 class="text-uppercase">Créez votre compte</h2>
@@ -74,8 +74,9 @@ require_once _TEMPLATEPATH_ . '/header.php';
         <div class="form-floating mb-3">
           <input type="text" readonly class="form-control" id="nearest_store" name="nearest_store" minlength="3" maxlength="255" required>
           <label for="nearest_store">Votre Gamestore le plus proche</label>
+          Vous pourrez modifier ces informations après votre inscription.
         </div>
-
+        <!-- Adresse mail -->
         <div class="form-floating mb-3">
           <input type="email" class="form-control <?=(isset($errors['email']) ? 'is-invalid': '') ?>" id="email" name="email" required>
           <label for="email">Adresse mail</label>
