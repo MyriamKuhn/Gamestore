@@ -66,6 +66,7 @@ function searchGameByAll(datas, searchedName, genres, platforms, stores, current
     notFound.textContent = 'Aucun jeu ne correspond à votre recherche';
     cardsDiv.innerHTML = '';
     cardsDiv.appendChild(notFound);
+    document.getElementById('pagination-container').innerHTML = '';
   } else {
     pagination(searchResult, currentPage, isFirstTime);
   }

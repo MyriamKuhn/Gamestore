@@ -5,6 +5,7 @@
 /**********/
 import { searchGame } from './listFilters.js';
 import { searchInput, paginationSelect, resetButton, genresChecks, platformsChecks } from './variables.js';
+import { validateJSONStructure } from './utils.js';
 
 
 /********************/
@@ -36,9 +37,13 @@ function getDatas() {
       body: JSON.stringify({ action: 'getListDatas' })
     })
     .then(response => response.json())
-    .then(datas => {
-      gameDatas = datas;
-      prepareHtmlCard();
+    .then(data => {
+      if (validateJSONStructure(data)) {
+        gameDatas = data;
+        prepareHtmlCard();
+      } else {
+        console.error('Format inattendu des données');
+      }
     })
     .catch(error => console.error('Erreur : ' + error));
 }

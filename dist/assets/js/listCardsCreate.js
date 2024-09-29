@@ -3,7 +3,7 @@
 // IMPORTS //
 
 /**********/
-import { getImgByName } from "./utils.js";
+import { getImgByName, showCart, secureInput } from "./utils.js";
 import { cardsNantesDiv, cardsLilleDiv, cardsBordeauxDiv, cardsParisDiv, cardsToulouseDiv } from './listPage.js';
 import { searchGame } from './listFilters.js';
 
@@ -60,6 +60,7 @@ export function createHtmlCard(datas, city) {
       break;
   }
   datas.forEach(game => {
+    let priceToPay = 0;
     const gameCard = document.createElement('div');
     gameCard.classList.add('card', 'gamestore-card');
     gameCard.style.width = '18rem';
@@ -136,7 +137,8 @@ export function createHtmlCard(datas, city) {
 
     const cardPriceList = document.createElement('div');
     cardPriceList.classList.add('card-price-list', 'm-0');
-    cardPriceList.textContent = game['platform_price'] + ' €';
+    priceToPay = game['platform_price'];
+    cardPriceList.textContent = priceToPay + ' €';
     cardList.appendChild(cardPriceList);
 
     if (game['is_reduced'] === 1) {
@@ -146,7 +148,8 @@ export function createHtmlCard(datas, city) {
 
       const cardPriceOld = document.createElement('span');
       cardPriceOld.classList.add('text-decoration-line-through');
-      cardPriceOld.textContent = (game['platform_price'] * (1 - game['discount_rate'])).toFixed(2) + ' €';
+      priceToPay = (game['platform_price'] * (1 - game['discount_rate'])).toFixed(2);
+      cardPriceOld.textContent = priceToPay + ' €';
       cardPercent.appendChild(cardPriceOld);
     }
 
@@ -176,9 +179,55 @@ export function createHtmlCard(datas, city) {
     const cardCartImg = document.createElement('i');
     if (isLogged) {
       cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart');
-      //cardCartImg.addEventListener('click', function() {
-        //addToCart(game['game_id']);
-      //});
+      // Ajouter un event listener pour ajouter le jeu au panier
+      cardCartImg.addEventListener('click', () => {
+        try {
+          const gameIdToSend = game['game_id'];
+          const platformToSend = game['platform_name'];
+          const priceToSend = priceToPay;
+          let discountRateToSend = 0;
+          let oldPriceToSend = 0;
+          if (secureInput(game['platform_price']) !== priceToPay) {
+            discountRateToSend = secureInput(game['discount_rate']);
+            oldPriceToSend = secureInput(game['platform_price']);
+          }
+          const locationToSend = storeId;
+          const userToSend = userId;
+          const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+          const requestBody = JSON.stringify({
+            action: 'addCart',
+            gameId: gameIdToSend,
+            platform: platformToSend,
+            price: priceToSend,
+            discountRate: discountRateToSend,
+            oldPrice: oldPriceToSend,
+            location: locationToSend,
+            userId: userToSend
+          });
+      
+          fetch('index.php?controller=datas',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+              },
+              body: requestBody
+            })
+            .then(response => response.json())
+            .then(datas => {
+              if (datas.success) {
+                showCart();
+              } else {
+                alert ('Le jeu n\'a pas pu être ajouté au panier');
+              }
+            })
+            .catch(error => console.error('Erreur : ' + error));
+        } catch (error) {
+          console.error('Erreur : ' + error);
+        }
+      });
     } else {
     cardCartImg.classList.add('bi', 'bi-cart2', 'fs-2', 'navbar-cart-img', 'navbar-cart', 'disabled');
     }

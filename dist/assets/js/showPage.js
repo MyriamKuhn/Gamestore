@@ -6,6 +6,7 @@
 import { secureInput } from './utils.js';
 import { PlatformSelect } from './Classes/PlatformSelect.js';
 import { CarouselGamestore } from './Classes/CarouselGamestore.js';
+import { validateJSONStructure } from './utils.js';
 
 
 //**************/
@@ -51,12 +52,15 @@ function getDatas() {
         body: requestBody
       })
       .then(response => response.json())
-      .then(datas => {
-        gameDatas = datas;
-        new PlatformSelect(gameDatas);
+      .then(data => {
+        if (validateJSONStructure(data)) {
+          gameDatas = data;
+          new PlatformSelect(gameDatas);
+        } else {
+          console.error('Format inattendu des données');
+        }
       })
       .catch(error => console.error('Erreur : ' + error));
-      
     } catch (error) {
     console.error('Erreur : ' + error);
   }

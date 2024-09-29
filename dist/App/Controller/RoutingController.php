@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Tools\Security;
+
 class RoutingController
 {
 
@@ -29,6 +31,14 @@ class RoutingController
           case 'datas':
             $controller = new DatasController();
             break;
+          case 'dashboard':
+            if (Security::isUser()) {
+              $controller = new DashboardController();
+              $controller->route();
+            } else {
+              throw new \Exception("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter");
+            }
+            break;
           default:
             throw new \Exception("Le controleur n'existe pas");
             break;
@@ -40,7 +50,7 @@ class RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -59,7 +69,7 @@ class RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }

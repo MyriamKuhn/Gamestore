@@ -12,7 +12,7 @@ $needle = 'spotlight';
 ?>
 
 <!-- START : Main -->
-<main class="container my-4 main" id="hero">
+<main class="container my-4 main">
     <!-- START : Hero -->
     <section class="hero row row-cols-1 row-cols-lg-2 align-items-lg-center">
       <div class="pe-lg-5">
