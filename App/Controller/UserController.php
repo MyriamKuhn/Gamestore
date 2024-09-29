@@ -36,7 +36,7 @@ class UserController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -47,10 +47,9 @@ class UserController extends RoutingController
       $errors = [];
       $user = new User();
 
-        if (isset($_POST['registerUser'])) {
-          if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-            die('Invalid CSRF token');
-          }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registerUser'])) {
+          // Vérification du token CSRF
+          Security::checkCSRF($_POST['csrf_token']);
           // Récupération des données du formulaire et sécurisation
           $first_name = Security::secureInput($_POST['first_name']);
           $last_name = Security::secureInput($_POST['last_name']);
@@ -95,17 +94,25 @@ class UserController extends RoutingController
             // Si la vérification CAPTCHA est réussie et si aucune erreur n'est détectée, enregistrement en base de données
             if (empty($errors)) {
               $userRepository = new UserRepository();
-              $userRepository->addUser($user);
-              $user = $userRepository->getUserByEmail($email);
-              // Génération d'un code de vérification du mail
-              $verification_code = random_int(100000, 999999);
-              // Enregistrement du code de vérification en base de données
-              $verificationRepository = new VerificationRepository();
-              $verificationRepository->createVerification($verification_code, $user->getId());
-              $verificationRepository->deleteAllExpiredCodes();
-              // Envoi de l'utilisateur sur la page de vérification
-              header('Location: index.php?controller=user&action=activation&id=' . $user->getId());
-              exit();
+              $newUser = $userRepository->addUser($user);
+              if ($newUser) {
+                $user = $userRepository->getUserByEmail($email);
+                if ($user) {
+                  // Génération d'un code de vérification du mail
+                  $verification_code = random_int(100000, 999999);
+                  // Enregistrement du code de vérification en base de données
+                  $verificationRepository = new VerificationRepository();
+                  $verificationRepository->createVerification($verification_code, $user->getId());
+                  $verificationRepository->deleteAllExpiredCodes();
+                  // Envoi de l'utilisateur sur la page de vérification
+                  header('Location: index.php?controller=user&action=activation&id=' . $user->getId());
+                  exit();
+                } else {
+                  throw new \Exception("Erreur lors de la récupération de l'utilisateur");
+                }
+              } else {
+                throw new \Exception("'Erreur lors de l'enregistrement de l'utilisateur';");
+              }
             }
           }
         }
@@ -114,10 +121,10 @@ class UserController extends RoutingController
       ]);
 
     } catch (\Exception $e) {
-      if ($e->getCode() == 23000) {
+      if ($e->getCode() == 2300) {
         $error = "Un utilisateur avec cette adresse email existe déjà. Veuillez vous connecter ou réinitialiser votre mot de passe.";
       } else {
-        $error = _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")";
+        $error = $e->getMessage() . "(Erreur : " . $e->getCode() . ")";
       }
       $this->render('errors/default', [
         'error' => $error
@@ -127,10 +134,9 @@ class UserController extends RoutingController
 
   protected function activation()
   {
-    if (isset($_POST["verifyUser"])) {
-      if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        die('Invalid CSRF token');
-      }
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["verifyUser"])) {
+      // Vérification du token CSRF
+      Security::checkCSRF($_POST['csrf_token']);
       $userId = Security::secureInput($_POST['user_id']);
       $is_resend = true;
     }
@@ -145,7 +151,7 @@ class UserController extends RoutingController
       ]);
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }

@@ -22,6 +22,7 @@ class FileTools
         ];
         return $scripts;
         break;
+
       case 'games':
         switch (isset($_GET['action']) ? $_GET['action'] : '') {
           case 'list':
@@ -42,13 +43,9 @@ class FileTools
             ];
             return $scripts;
             break;
-          default:
-            $scripts = [
-              'utils.js',
-            ];
-            return $scripts;
         }
         break;
+
       case 'auth':
         switch (isset($_GET['action']) ? $_GET['action'] : '') {
           case 'login':
@@ -69,13 +66,9 @@ class FileTools
             ];
             return $scripts;
             break;
-          default:
-            $scripts = [
-              'utils.js',
-            ];
-            return $scripts;
-            break;
         }
+        break;
+
       case 'user':
         switch (isset($_GET['action']) ? $_GET['action'] : '') {
           case 'register':
@@ -84,20 +77,19 @@ class FileTools
             ];
             return $scripts;
             break;
-          default:
+        }
+        break;
+
+      case 'dashboard':
+        switch (isset($_GET['action']) ? $_GET['action'] : '') {
+          case 'modify':
             $scripts = [
-              'utils.js',
+              'modifyUserPage.js',
             ];
             return $scripts;
             break;
         }
-        return $scripts;
         break;
-      default:
-        $scripts = [
-          'utils.js',
-        ];
-        return $scripts;
     }
   }
 

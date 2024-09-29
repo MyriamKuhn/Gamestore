@@ -8,7 +8,7 @@ class VerificationRepository extends MainRepository
 {
 
   // Création d'un code de vérification
-  public function createVerification(int $verification_code, int $fk_app_user_id)
+  public function createVerification(int $verification_code, int $fk_app_user_id): bool
   {
     $query = "INSERT INTO email_verification (verification_code, created_at, fk_app_user_id) VALUES (:verification_code, NOW(), :fk_app_user_id)";
     $stmt = $this->pdo->prepare($query);
@@ -19,7 +19,7 @@ class VerificationRepository extends MainRepository
   }
 
   // Suppression d'un code de vérification
-  public function deleteAllCodesFromUser(int $userId)
+  public function deleteAllCodesFromUser(int $userId): bool
   {
     $query = "DELETE FROM email_verification WHERE fk_app_user_id = :fk_app_user_id";
     $stmt = $this->pdo->prepare($query);
@@ -29,7 +29,7 @@ class VerificationRepository extends MainRepository
   }
 
   // Suppression de tous les codes expirés
-  public function deleteAllExpiredCodes()
+  public function deleteAllExpiredCodes(): bool
   {
     $query = "DELETE FROM email_verification WHERE created_at < DATE_SUB(NOW(), INTERVAL 1 HOUR)";
     $stmt = $this->pdo->prepare($query);

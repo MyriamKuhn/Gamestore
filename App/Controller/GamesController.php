@@ -36,30 +36,34 @@ class GamesController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
 
   protected function list()
   {
-    $genreRepository = new GenreRepository();
-    $allGenres = $genreRepository->getAllGenres();
-    $platformRepository = new PlatformRepository();
-    $allPlatforms = $platformRepository->getAllPlatforms();
-    $gpRepository = new GamePlatformRepository();
-    $prices = $gpRepository->getAllPrices();
-
+    
     try {
+      $genreRepository = new GenreRepository();
+      $allGenres = $genreRepository->getAllGenres();
+      $platformRepository = new PlatformRepository();
+      $allPlatforms = $platformRepository->getAllPlatforms();
+      $gpRepository = new GamePlatformRepository();
+      $prices = $gpRepository->getAllPrices();
+
+      if (empty($allGenres) || empty($allPlatforms) || empty($prices)) {
+        throw new \Exception("Aucune donnée n'a été trouvée");
+      } else {
         $this->render('games/list', [
           'genres' => $allGenres,
           'platforms' => $allPlatforms,
           'prices' => $prices
         ]);
-
+      }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -70,13 +74,16 @@ class GamesController extends RoutingController
       $gpRepository = new GamePlatformRepository();
       $game = $gpRepository->getGameById($gameId);
 
-      $this->render('games/show', [
-        'game' => $game
-      ]);
-
+      if (empty($game)) {
+        throw new \Exception("Aucun jeu n'a été trouvé");
+      } else {
+        $this->render('games/show', [
+          'game' => $game
+        ]);
+      }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }
@@ -91,15 +98,18 @@ class GamesController extends RoutingController
       $storeRepository = new StoreRepository();
       $allStores = $storeRepository->getAllStores();
 
-      $this->render('games/promo', [
-        'genres' => $allGenres,
-        'platforms' => $allPlatforms,
-        'stores' => $allStores
-      ]);
-
+      if (empty($allGenres) || empty($allPlatforms) || empty($allStores)) {
+        throw new \Exception("Aucune donnée n'a été trouvée");
+      } else {
+        $this->render('games/promo', [
+          'genres' => $allGenres,
+          'platforms' => $allPlatforms,
+          'stores' => $allStores
+        ]);
+      }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => _ERORR_MESSAGE_ . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
       ]);
     }
   }

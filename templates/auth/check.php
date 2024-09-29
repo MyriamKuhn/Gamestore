@@ -11,6 +11,7 @@ use Dotenv\Dotenv;
 use App\Tools\Security;
 use App\Repository\UserRepository;
 use App\Repository\VerificationRepository;
+use App\Repository\UserOrderRepository;
 
 $dotenv = new Dotenv(_ROOTPATH_);
 $dotenv->load();
@@ -35,9 +36,8 @@ require_once _TEMPLATEPATH_ . '/header.php';
       <?php
         // Vérifier si le formulaire a été soumis
         if (isset($_POST["authenticateUser"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
-          if ($_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-            die('Invalid CSRF token');
-          }
+          // Vérification du token CSRF
+          Security::checkCSRF($_POST['csrf_token']);
           switch ($_POST["authenticateUser"]) {
             case 'Envoyer le code':
               // Récupération des données du formulaire
@@ -228,19 +228,30 @@ require_once _TEMPLATEPATH_ . '/header.php';
                   //$verificationRepository = new VerificationRepository();
                   $verificationRepository->deleteAllCodesFromUser($user->getId());
                   $verificationRepository->deleteAllExpiredCodes();
+                  // Récupération du panier de l'utilisateur
+                  $userOrderRepository = new UserOrderRepository();
+                  $cartId = $userOrderRepository->findCartId($user->getId());
+                  if ($cartId == 0) {
+                    $isCardCreated = $userOrderRepository->createEmptyCart($user->getId(), $user->getFk_store_id());
+                    if ($isCardCreated) {
+                      $cartId = $userOrderRepository->findCartId($user->getId());
+                    } else {
+                      echo '<div class="alert alert-danger py-5 my-5">Une erreur est survenue lors de la création du panier. Veuillez réessayer.</div>';
+                    }
+                  }
                   // Régénère l'identifiant de session pour éviter les attaques de fixation de session (vol de cookie de session)
                   session_regenerate_id(true);
                   // Enregistrement des données de l'utilisateur en session
                   $_SESSION['user'] = [
                     'id' => $user->getId(),
-                    'email' => $user->getEmail(),
                     'first_name' => $user->getFirst_name(),
                     'last_name' => $user->getLast_name(),
                     'role' => $user->getRole(),
                     'store_id' => $user->getFk_store_id(),
+                    'cart_id' => $cartId
                   ];
                   // Redirection vers la page espace client
-                  header('Location: index.php');
+                  header('Location: index.php?controller=dashboard&action=home');
                   exit();
                 } else {
                   echo '<div class="alert alert-danger py-5 my-5">Le code de vérification est incorrect. Veuillez réessayer.</div>';

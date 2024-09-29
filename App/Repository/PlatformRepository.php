@@ -13,4 +13,15 @@ class PlatformRepository extends MainRepository
     return $stmt->fetchAll();
   }
   
+  // Récupération de l'ID d'une plateforme par son nom
+  public function getPlatformIdByName(string $platformName): int
+  {
+    $query = "SELECT id FROM platform WHERE name = :name";
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindParam(':name', $platformName, $this->pdo::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->fetchColumn();
+  }
 }
