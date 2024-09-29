@@ -9,6 +9,16 @@ use App\Tools\UserValidator;
 use App\Repository\UserOrderRepository;
 use App\Repository\GameUserOrderRepository;
 
+require './vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+use Dotenv\Dotenv;
+
+$dotenv = new Dotenv(_ROOTPATH_);
+$dotenv->load();
+
 class DashboardController extends RoutingController
 {
 
@@ -28,6 +38,9 @@ class DashboardController extends RoutingController
             break;
           case 'orders':
             $this->orders();
+            break;
+          case 'order':
+            $this->order();
             break;
           default:
             throw new \Exception("Cette action n'existe pas : " . $_GET['action']);
@@ -455,11 +468,83 @@ class DashboardController extends RoutingController
         if ($pickupDate->format('N') === '1' || $pickupDate->format('N') === '7') {
           throw new \Exception("Le magasin est fermé le lundi et le dimanche.");
         }
-        // Création de la commande
+        // Validation de la commande
         $userOrderRepository = new UserOrderRepository();
         $isOrderCreated = $userOrderRepository->validateOrder($cartId, $pickupDate);
         if (!$isOrderCreated) {
           throw new \Exception("Erreur lors de la validation de votre commande.");
+        }
+        // Envoi d'un email de confirmation
+        $userRepository = new UserRepository();
+        $user = $userRepository->getUserById($userId);
+        if (!$user) {
+          throw new \Exception("Erreur lors de la récupération de vos données personnelles.");
+        }
+        $userName = $user->getFirst_name() . ' ' . $user->getLast_name();
+        $userEmail = $user->getEmail();
+        $link = $_SERVER['HTTP_ORIGIN'] . '/index.php?controller=page&action=home';
+        $mail = new PHPMailer(true);
+        try {
+          // Configuration du serveur SMTP
+          $mail->isSMTP();
+          $mail->Host       = $_ENV['MAILER_HOST']; 
+          $mail->SMTPAuth   = true;
+          $mail->Username   = $_ENV['MAILER_EMAIL']; 
+          $mail->Password   = $_ENV['MAILER_PASSWORD']; 
+          $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+          $mail->Port       = $_ENV['MAILER_PORT']; 
+
+          // Paramètres de l'email
+          $mail->CharSet = 'UTF-8';
+          $mail->setFrom($_ENV['MAILER_EMAIL'], 'Gamestore');
+          $mail->addAddress($userEmail, $userName);
+          $mail->isHTML(true);
+          $mail->addEmbeddedImage(_ROOTPATH_ . '/assets/images/logo_png.png', 'logo_cid');
+          $mail->Subject = "[Gamestore] Confirmation de commande";
+          $mail->Body = "
+            <html>
+            <head>
+              <style>
+                body {
+                  font-family: Arial, sans-serif;
+                  color: #333;
+                }
+                .header {
+                  text-align: center;
+                  margin-bottom: 20px;
+                }
+                .content {
+                  margin: 0 20px;
+                }
+                .footer {
+                  margin-top: 20px;
+                  text-align: center;
+                  font-size: 12px;
+                  color: #777;
+                }
+              </style>
+            </head>
+            <body>
+              <div class='header'>
+                <img src='cid:logo_cid' alt='Logo Gamestore' style='width: 150px; height: auto;' />
+              </div>
+              <div class='content'>
+                <p>Bonjour " . $userName . ",</p>
+                <p>Merci d'avoir passé commande sur notre site !</p>
+                <p>Votre commande a bien été validée et sera prête à être retirée le " . $pickupDate->format('d/m/Y') . ".</p>
+                <p>Rendez-vous sur notre site pour consulter les détails de la commande dans votre <a href='" . $link . "'>espace client</a>.</p>
+              </div>
+              <div class='footer'>
+                <p>Merci pour votre confiance !</p>
+              </div>
+            </body>
+            </html>
+            ";
+          $mail->AltBody = "Bonjour " . $userName . ",\n\nMerci d'avoir passé commande sur notre site !\nVotre commande a bien été validée et sera prête à être retirée le " . $pickupDate->format('d/m/Y') . ".\nRendez-vous sur notre site pour consulter les détails de la commande dans votre espace client : " . $link . "\n\nMerci pour votre confiance !";
+          // Envoyer l'email
+          $mail->send();
+        } catch (Exception $e) {
+          throw new \Exception("Erreur lors de l'envoi de l'email de confirmation.");
         }
         // Création d'un nouveau panier vide
         $isCartCreated = $userOrderRepository->createEmptyCart($userId, $storeId);
@@ -538,7 +623,47 @@ class DashboardController extends RoutingController
   protected function orders()
   {
     try {
-      $this->render('dashboard/orders');
+      if (!isset($_SESSION['user'])) {
+        throw new \Exception("Veuillez vous connecter pour accéder à cette page.");
+      }
+      $userId = $_SESSION['user']['id'];
+      if ($userId === 0) {
+        throw new \Exception("Erreur lors de la récupération de votre identifiant.");
+      }
+      $userOrderRepository = new UserOrderRepository();
+      $validatedOrders = $userOrderRepository->findAllOrdersByStatus($userId, 'Validée');
+      $finishedOrders = $userOrderRepository->findAllOrdersByStatus($userId, 'Livrée');
+      $deletedOrders = $userOrderRepository->findAllOrdersByStatus($userId, 'Annulée');
+      $this->render('dashboard/orders', [
+        'validatedOrders' => $validatedOrders,
+        'finishedOrders' => $finishedOrders,
+        'deletedOrders' => $deletedOrders
+      ]);
+    } catch (\Exception $e) {
+      $this->render('dashboard/error', [
+        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+      ]);
+    }
+  }
+
+  protected function order()
+  {
+    try {
+      if (!isset($_SESSION['user'])) {
+        throw new \Exception("Veuillez vous connecter pour accéder à cette page.");
+      }
+      if (!isset($_GET['id'])) {
+        throw new \Exception("Aucune commande sélectionnée.");
+      }
+      $orderId = Security::secureInput($_GET['id']);
+      $userOrderRepository = new UserOrderRepository();
+      $order = $userOrderRepository->findOrderById($orderId);
+      if (!$order) {
+        throw new \Exception("Erreur lors de la récupération de la commande.");
+      }
+      $this->render('dashboard/order', [
+        'order' => $order,
+      ]);
     } catch (\Exception $e) {
       $this->render('dashboard/error', [
         'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"

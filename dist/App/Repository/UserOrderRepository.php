@@ -25,7 +25,7 @@ class UserOrderRepository extends MainRepository
   {
     $query = 'SELECT
       uo.id AS order_id,
-      uo.order_date_time AS order_date_time,
+      uo.order_date AS order_date,
       s.location AS store_location,
       GROUP_CONCAT(CONCAT(g.name, "," ,pl.name, "," ,guo.quantity, "," ,guo.price_at_order)) AS games
       FROM user_order AS uo
@@ -34,7 +34,7 @@ class UserOrderRepository extends MainRepository
       INNER JOIN platform AS pl ON guo.fk_platform_id = pl.id
       INNER JOIN store AS s ON uo.fk_store_id = s.id
       WHERE uo.fk_app_user_id = :userId AND uo.status = :status
-      GROUP BY uo.id, uo.order_date_time, s.location';
+      GROUP BY uo.id, uo.order_date, s.location';
 
     $stmt = $this->pdo->prepare($query);
     $stmt->bindValue(':userId', $userId, $this->pdo::PARAM_INT);
@@ -62,6 +62,43 @@ class UserOrderRepository extends MainRepository
       }
     }
     return $userOrders;
+  }
+
+  // Récupération d'une commande d'un utilisateur d'après son ID
+  public function findOrderById(int $orderId): array
+  {
+    $query = 'SELECT
+      uo.id AS order_id,
+      uo.order_date AS order_date,
+      s.location AS store_location,
+      GROUP_CONCAT(CONCAT(g.id, "," ,g.name, "," ,pl.name, "," ,guo.quantity, "," ,guo.price_at_order)) AS games
+      FROM user_order AS uo
+      INNER JOIN game_user_order AS guo ON guo.fk_user_order_id = uo.id
+      INNER JOIN game AS g ON guo.fk_game_id = g.id
+      INNER JOIN platform AS pl ON guo.fk_platform_id = pl.id
+      INNER JOIN store AS s ON uo.fk_store_id = s.id
+      WHERE uo.id = :orderId';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':orderId', $orderId, $this->pdo::PARAM_INT);
+    $stmt->execute();
+
+    $order = $stmt->fetch();
+
+    if ($order) {
+      $order['games'] = explode(',', $order['games']);
+      $order['games'] = array_chunk($order['games'], 5);
+      $order['games'] = array_map(function ($game) {
+        return [
+          'game_id' => $game[0],
+          'name' => $game[1],
+          'platform' => $game[2],
+          'quantity' => $game[3],
+          'price' => $game[4]
+        ];
+      }, $order['games']);
+    }
+    return $order;
   }
 
   // Récupération de l'ID de la commande qui correspond au panier en cours de l'utilisateur

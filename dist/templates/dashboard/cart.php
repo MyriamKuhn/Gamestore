@@ -80,10 +80,11 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
     <p>Après avoir validé votre panier, vous pourrez récupérer vos jeux dans votre magasin :</p>
     <?php switch ($_SESSION['user']['store_id']) :
       case 1: ?>
-        
-        <p class="fw-bold mb-0">Gamestore Nantes</p>
-        <p class="mb-0">42 Rue des Joueurs, 44000 Nantes</p>
-        <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h00</p>
+        <div class="text-center">
+          <p class="fw-bold mb-0">Gamestore Nantes</p>
+          <p class="mb-0">42 Rue des Joueurs, 44000 Nantes</p>
+          <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h00</p>
+        </div>
       <?php break;
       case 2: ?>
         <div class="text-center">
@@ -93,19 +94,25 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
         </div>
       <?php break;
       case 3: ?>
-        <p class="fw-bold mb-0">Gamestore Bordeaux</p>
-        <p class="mb-0">23 Place du Geek, 33000 Bordeaux</p>
-        <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h30</p>
+        <div class="text-center">
+          <p class="fw-bold mb-0">Gamestore Bordeaux</p>
+          <p class="mb-0">23 Place du Geek, 33000 Bordeaux</p>
+          <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h30</p>
+        </div>
       <?php break;
       case 4: ?>
-        <p class="fw-bold mb-0">Gamestore Paris</p>
-        <p class="mb-0">12 Rue du Gamer, 75001 Paris</p>
-        <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h30</p>
+        <div class="text-center">
+          <p class="fw-bold mb-0">Gamestore Paris</p>
+          <p class="mb-0">12 Rue du Gamer, 75001 Paris</p>
+          <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h30</p>
+        </div>
       <?php break;
       case 5: ?>
-        <p class="fw-bold mb-0">Gamestore Toulouse</p>
-        <p class="mb-0">67 Avenue du Game, 31000 Toulouse</p>
-        <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h30</p>
+        <div class="text-center">
+          <p class="fw-bold mb-0">Gamestore Toulouse</p>
+          <p class="mb-0">67 Avenue du Game, 31000 Toulouse</p>
+          <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h30</p>
+        </div>
       <?php break;
     endswitch; ?>
     <p class="mb-0">Vous pouvez définir votre magasin de retrait en vous rendant dans l'onglet <a href="index.php?controller=dashboard&action=modify" class="text-link">Données personnelles</a> de votre espace client.</p>
