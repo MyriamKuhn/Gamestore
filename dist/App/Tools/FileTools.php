@@ -90,6 +90,34 @@ class FileTools
             break;
         }
         break;
+
+      case 'employe':
+        switch (isset($_GET['action']) ? $_GET['action'] : '') {
+          case 'password':
+            $scripts = [
+              'passwordChangePage.js',
+            ];
+            return $scripts;
+            break;
+          case 'orders':
+            $scripts = [
+              'ordersPage.js',
+            ];
+            return $scripts;
+            break;
+        }
+        break;
+
+        case 'admin':
+          switch (isset($_GET['action']) ? $_GET['action'] : '') {
+            case 'password':
+              $scripts = [
+                'passwordChangePage.js',
+              ];
+              return $scripts;
+              break;
+          }
+          break;
     }
   }
 

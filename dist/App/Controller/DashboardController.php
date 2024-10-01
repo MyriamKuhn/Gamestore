@@ -51,7 +51,7 @@ class DashboardController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('dashboard/error', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -76,7 +76,7 @@ class DashboardController extends RoutingController
       ]);
     } catch (\Exception $e) {
       $this->render('dashboard/error', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -321,7 +321,7 @@ class DashboardController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -615,7 +615,7 @@ class DashboardController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('dashboard/error', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -641,7 +641,7 @@ class DashboardController extends RoutingController
       ]);
     } catch (\Exception $e) {
       $this->render('dashboard/error', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -666,7 +666,7 @@ class DashboardController extends RoutingController
       ]);
     } catch (\Exception $e) {
       $this->render('dashboard/error', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }

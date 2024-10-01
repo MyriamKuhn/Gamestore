@@ -2,7 +2,7 @@
 
 use App\Tools\Security;
 
-require_once _TEMPLATEPATH_ . '/dashboard/header.php'; 
+require_once _TEMPLATEPATH_ . '/employe/header.php'; 
 
 ?>
 
@@ -46,49 +46,17 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
   </div>
   <!-- END : Affichage de la commande en tableau -->
   <div class="mb-5">
-    <?php switch ($order['store_location']) :
-      case 'Nantes': ?>
-        <div class="text-center">
-          <p class="fw-bold mb-0">Gamestore Nantes</p>
-          <p class="mb-0">42 Rue des Joueurs, 44000 Nantes</p>
-          <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h00</p>
-        </div>
-      <?php break;
-      case 'Lille': ?>
-        <div class="text-center">
-          <p class="fw-bold mb-0">Gamestore Lille</p>
-          <p class="mb-0">15 Rue du Pixel, 59000 Lille</p>
-          <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h00</p>
-        </div>
-      <?php break;
-      case 'Bordeaux': ?>
-        <div class="text-center">
-          <p class="fw-bold mb-0">Gamestore Bordeaux</p>
-          <p class="mb-0">23 Place du Geek, 33000 Bordeaux</p>
-          <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h30</p>
-        </div>
-      <?php break;
-      case 'Paris': ?>
-        <div class="text-center">
-          <p class="fw-bold mb-0">Gamestore Paris</p>
-          <p class="mb-0">12 Rue du Gamer, 75001 Paris</p>
-          <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h30</p>
-        </div>
-      <?php break;
-      case 'Toulouse': ?>
-        <div class="text-center">
-          <p class="fw-bold mb-0">Gamestore Toulouse</p>
-          <p class="mb-0">67 Avenue du Game, 31000 Toulouse</p>
-          <p>Horaires d'ouverture : Mardi - Samedi : 10h00 - 19h30</p>
-        </div>
-      <?php break;
-    endswitch; ?>
+    <div class="text-center">
+      <p class="mb-0">Commande passée par :</p>
+      <p class="mb-0"><?= Security::secureInput($order['order_user']) ?></p>
+      <p><?= Security::secureInput($order['order_address']) ?></p>
+    </div>
   </div>
   <div class="text-center mt-5">
-    <a href="index.php?controller=dashboard&action=orders" class="btn btn-gamestore text-uppercase">Voir toutes les commandes</a>
+    <a href="index.php?controller=employe&action=orders" class="btn btn-gamestore text-uppercase">Voir toutes les commandes</a>
   </div>
 </section>
 
 
 
-<?php require_once _TEMPLATEPATH_ . '/dashboard/footer.php'; ?>
+<?php require_once _TEMPLATEPATH_ . '/employe/footer.php'; ?>

@@ -69,7 +69,7 @@ class UserValidator
 
   public static function validatePassword(string $password): bool
   {
-    $passwordRegex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{15,}$/';
+    $passwordRegex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{15,}$/';
     if (preg_match($passwordRegex, $password)) {
       return true;
     } else {

@@ -2,17 +2,10 @@
 
 use App\Tools\NavigationTools;
 use App\Tools\Security;
-use App\Repository\GameUserOrderRepository;
 
-Security::userOnly();
+Security::employeOnly();
 
 // Récupération du contenu du panier de l'utilisateur
-$cartId = $_SESSION['user']['cart_id'];
-if ($cartId === 0) {
-  throw new \Exception("Erreur lors de la récupération de votre panier.");
-}
-$gameUserOrderRepository = new GameUserOrderRepository();
-$cartContent = $gameUserOrderRepository->findCartContent($cartId);
 
 ?>
 
@@ -27,14 +20,15 @@ $cartContent = $gameUserOrderRepository->findCartContent($cartId);
   <!-- CSRF Token -->
   <meta name="csrf-token" content="<?= $_SESSION['csrf_token']; ?>">
   <!-- START : SEO -->
-  <meta name="description" content="Accédez à votre espace client pour gérer vos informations personnelles, suivre vos commandes, consulter vos factures et bénéficier de nos services en ligne.">
-  <meta name="keywords" content="espace client, gestion des commandes, suivi des commandes, factures, informations personnelles, services en ligne, compte client, support client">
+  <meta name="description" content="Accédez à votre espace employé pour gérer les commandes. Modifiez le statut des commandes et analysez les statistiques de vente de votre magasin.">
+  <meta name="keywords" content="espace employé, gestion des commandes, suivi des commandes, statistiques des ventes, suivi des commandes">
   <!-- END : SEO -->
-  <title>Espace Client - Gérer vos informations et commandes en ligne</title>
+  <title>Espace Employé - Gestion des Commandes</title>
   <link rel="shortcut icon" href="./assets/images/logo_small.svg" type="image/svg+xml">
   <!-- START : Styles -->
   <link rel="stylesheet" href="./assets/css/main.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
   <!-- END : Styles -->
   <!-- START : Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,27 +52,33 @@ $cartContent = $gameUserOrderRepository->findCartContent($cartId);
             </div>
             <ul class="nav nav-pills flex-column mb-auto text-center text-lg-start">
               <li class="nav-item mb-5">
-                <a href="index.php?controller=dashboard&action=home" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'home') ?>">
+                <a href="index.php?controller=employe&action=home" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('employe', 'home') ?>">
                   <i class="bi bi-house me-2"></i>
                   <span class="d-none d-lg-inline">Accueil</span>
                 </a>
               </li>
               <li class="nav-item mb-5">
-                <a href="index.php?controller=dashboard&action=modify" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'modify') ?>">
-                  <i class="bi bi-person-fill me-2"></i>
-                  <span class="d-none d-lg-inline">Données personnelles</span>
+                <a href="index.php?controller=employe&action=password" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('employe', 'password') ?>">
+                  <i class="bi bi-key me-2"></i>
+                  <span class="d-none d-lg-inline">Mot de passe</span>
                 </a>
               </li>
-              <li class="nav-item mb-3 <?= NavigationTools::showCart($cartContent) ?>">
-                <a href="index.php?controller=dashboard&action=cart" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'cart') ?>">
-                  <i class="bi bi-cart2 me-2"></i>
-                  <span class="d-none d-lg-inline">Panier</span>
+              <li class="nav-item mb-3">
+                <a href="index.php?controller=employe&action=orders" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('employe', 'orders') ?>">
+                  <i class="bi bi-receipt-cutoff me-2"></i>
+                  <span class="d-none d-lg-inline">Gestion des commandes</span>
                 </a>
               </li>
               <li class="nav-item mb-5">
-                <a href="index.php?controller=dashboard&action=orders" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'orders') ?>">
-                  <i class="bi bi-receipt-cutoff me-2"></i>
-                  <span class="d-none d-lg-inline">Commandes</span>
+                <a href="index.php?controller=employe&action=buying" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('employe', 'buying') ?>">
+                  <i class="bi bi-shop me-2"></i>
+                  <span class="d-none d-lg-inline">Gestion des ventes</span>
+                </a>
+              </li>
+              <li class="nav-item mb-5">
+                <a href="index.php?controller=employe&action=sales" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('employe', 'sales') ?>">
+                  <i class="bi bi-graph-up me-2"></i>
+                  <span class="d-none d-lg-inline">Statistiques des ventes</span>
                 </a>
               </li>
               <li class="nav-item">

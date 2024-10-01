@@ -48,7 +48,7 @@ class AuthController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")" . $_GET['action'] . isset($_GET['token'])
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -113,7 +113,7 @@ class AuthController extends RoutingController
       ]);
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -124,7 +124,7 @@ class AuthController extends RoutingController
       $this->render('auth/logout');
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -148,7 +148,7 @@ class AuthController extends RoutingController
       ]);
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }

@@ -59,7 +59,7 @@ function checkEmail() {
 
 function checkPassword() {
   const password = passwordInput.value;
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{15,}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{15,}$/;
   if (!passwordRegex.test(secureInput(password))) {
     passwordInput.classList.add("is-invalid");
   } else {
