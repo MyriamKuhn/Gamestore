@@ -35,6 +35,7 @@ $cartContent = $gameUserOrderRepository->findCartContent($cartId);
   <!-- START : Styles -->
   <link rel="stylesheet" href="./assets/css/main.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.7/b-3.1.2/b-html5-3.1.2/r-3.0.3/datatables.min.css" rel="stylesheet">
   <!-- END : Styles -->
   <!-- START : Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -10,6 +10,9 @@ use App\Repository\SalesRepository;
 use App\Model\Sale;
 use DateTime;
 use App\Repository\GameGenreRepository;
+use App\Repository\GamePlatformRepository;
+use App\Repository\PlatformRepository;
+use App\Repository\GameUserOrderRepository;
 
 class EmployeController extends RoutingController
 {
@@ -103,12 +106,13 @@ class EmployeController extends RoutingController
             // Enregistrement des ventes en base de données
             $salesRepository = new SalesRepository();
             $salesRepository->setOneSale($sale);
-          }
-          // Mise à jour du stock des jeux
-
-
-
-          
+            // Mise à jour du stock des jeux
+            $gamePlatformRepository = new GamePlatformRepository();
+            $isStockUpdated = $gamePlatformRepository->updateGameStock($game['game_id'], $game['platform_id'], $order['store_id'], $game['quantity'], 'remove');
+            if (!$isStockUpdated) {
+              throw new \Exception("Erreur lors de la mise à jour du stock du jeu.");
+            }
+          }          
           header('Location: index.php?controller=employe&action=orders');
           exit;
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancelOrder'])) {
@@ -251,8 +255,98 @@ class EmployeController extends RoutingController
   public function buying(): void
   {
     try {
+      // Si validation d'une vente
       if (Security::isEmploye()) {
-        $this->render('employe/buying');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['orderStore'])) {
+          // Vérification du token CSRF
+          Security::checkCSRF($_POST['csrf_token']);
+          // Récupération des données du formulaire et sécurisation
+          $userId = Security::secureInput($_POST['user_id']);
+          if ($userId == 0) {
+            $userId = $_SESSION['user']['id'];
+          }
+          $gameId = Security::secureInput($_POST['gameId']);
+          $platformId = Security::secureInput($_POST['platformId']);
+          $quantity = Security::secureInput($_POST['quantity']);
+          $price = Security::secureInput($_POST['price']);
+          $discount = Security::secureInput($_POST['discount']);
+          // Vérification des données du jeu
+          $gamePlatformRepository = new GamePlatformRepository();
+          $isChecked = $gamePlatformRepository->checkGameDatas($gameId, $platformId, $price, $discount, $_SESSION['user']['store_id']);
+          if (!$isChecked) {
+            throw new \Exception("Les données du jeu ne sont pas correctes, veuillez rafraichir la page.");
+          }
+          // Vérification si le jeu est encore en stock
+          $stock = $gamePlatformRepository->checkGameStock($gameId, $platformId, $_SESSION['user']['store_id']);
+          if ($stock < $quantity) {
+            throw new \Exception("Veuillez vérifier le stock du jeu.");
+          }
+          // Création d'une commande magasin vide
+          $userOrderRepository = new UserOrderRepository();
+          $orderId = $userOrderRepository->createEmptyOrder($userId, $_SESSION['user']['store_id']);
+          if (!$orderId) {
+            throw new \Exception("Erreur lors de la création de la commande.");
+          }
+          // Ajout du jeu dans la commande
+          $gameUserOrderRepository = new GameUserOrderRepository();
+          $isGameAdded = $gameUserOrderRepository->addGameInCart($gameId, $platformId, $orderId, $quantity, $price, 'add');
+          if (!$isGameAdded) {
+            throw new \Exception("Erreur lors de l'ajout du jeu dans la commande.");
+          }
+          // Recherche des données de la commande
+          $order = $userOrderRepository->findOrderById($orderId);
+          if (!$order) {
+            throw new \Exception("La commande n'existe pas.");
+          }
+          foreach ($order['games'] as $game) {
+            //Pour chaque jeu de la commande, récupérer son genre
+            $gameGenreRepository = new GameGenreRepository();
+            $gameGenres = $gameGenreRepository->findAllGenresByGame($game['game_id']);
+            // Création d'un objet Sale pour chaque jeu de la commande
+            $sale = new Sale();
+            $sale->setId($game['game_id']);
+            $sale->setName($game['name']);
+            $sale->setGenre($gameGenres);
+            $sale->setPlatform($game['platform']);
+            $sale->setStore($order['store_location']);
+            $sale->setPrice($game['price']);
+            $sale->setQuantity($game['quantity']);
+            $sale->setDate(new DateTime());
+            // Enregistrement des ventes en base de données
+            $salesRepository = new SalesRepository();
+            $salesRepository->setOneSale($sale);
+            // Mise à jour du stock des jeux
+            $gamePlatformRepository = new GamePlatformRepository();
+            $isStockUpdated = $gamePlatformRepository->updateGameStock($game['game_id'], $game['platform_id'], $order['store_id'], $game['quantity'], 'remove');
+            if (!$isStockUpdated) {
+              throw new \Exception("Erreur lors de la mise à jour du stock du jeu.");
+            }
+          }          
+          header('Location: index.php?controller=employe&action=buying');
+          exit;
+        } else {
+          // Comportement par défaut : affichage de la liste des jeux
+          $gamePlatformRepository = new GamePlatformRepository();
+          $allGames = $gamePlatformRepository->getAllGamesByStoreForEmployes($_SESSION['user']['store_id']);
+          $platformRepository = new PlatformRepository();
+          $platforms = $platformRepository->getAllPlatforms();
+          $userRepository = new UserRepository();
+          $allUsers = $userRepository->findAllUsersByStore($_SESSION['user']['store_id']);
+          if (empty($platforms)) {
+            throw new \Exception("Erreur lors de la récupération des plateformes.");
+          }
+          if (empty($allGames)) {
+            throw new \Exception("Erreur lors de la récupération des jeux.");
+          }
+          if (empty($allUsers)) {
+            throw new \Exception("Erreur lors de la récupération des utilisateurs.");
+          }
+          $this->render('employe/buying', [
+            'games' => $allGames,
+            'platforms' => $platforms,
+            'users' => $allUsers
+          ]);
+        }
       } else {
         throw new \Exception("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter");
       }

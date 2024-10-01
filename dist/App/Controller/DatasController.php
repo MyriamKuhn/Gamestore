@@ -119,7 +119,7 @@ class DatasController extends RoutingController
     if ($game) {
       // Ajout du jeu dans le panier
       $guoRepository = new GameUserOrderRepository();
-      $isAdded = $guoRepository->addGameInCart($gameId, $platformId, $orderId, $quantity, $price_at_order);
+      $isAdded = $guoRepository->addGameInCart($gameId, $platformId, $orderId, $quantity, $price_at_order, 'add');
       if (!$isAdded) {
         $this->sendResponse(false, "Erreur lors de l'ajout du jeu dans le panier", 500);
       } else {

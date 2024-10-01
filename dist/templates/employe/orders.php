@@ -5,11 +5,6 @@ use App\Tools\Security;
 require_once _TEMPLATEPATH_ . '/employe/header.php'; 
 
 ?>
-  <style>
-    .dataTables_filter {
-      display: none; /* Masquer le filtre de recherche intégré */
-      }
-  </style>
 
   <section class="container my-5">
     <div class="d-flex justify-content-between gamestore-title mb-4">
@@ -32,6 +27,7 @@ require_once _TEMPLATEPATH_ . '/employe/header.php';
         <option value="Validée">Validée</option>
         <option value="Livrée">Livrée</option>
         <option value="Annulée">Annulée</option>
+        <option value="Annulée">Magasin</option>
       </select>
       <label for="statusFilter" class="form-label">Filtrer par Statut</label>
     </div>
@@ -45,12 +41,12 @@ require_once _TEMPLATEPATH_ . '/employe/header.php';
       <table class="table table-striped table-hover" id="ordersTable">
         <thead>
           <tr>
-            <th scope="col">N° Commande</th>
-            <th scope="col">Date</th>
-            <th scope="col">Client</th>
-            <th scope="col">Adresse</th>
-            <th scope="col">Statut</th>
-            <th scope="col">Actions</th>
+            <th scope="col" class="tablet desktop">N° Commande</th>
+            <th scope="col" class="all">Date</th>
+            <th scope="col" class="all">Client</th>
+            <th scope="col" class="desktop">Email</th>
+            <th scope="col" class="tablet desktop">Statut</th>
+            <th scope="col" class="tablet desktop">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -65,10 +61,10 @@ require_once _TEMPLATEPATH_ . '/employe/header.php';
                 <form method="post">
                   <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                   <input type="hidden" name="order_id" value="<?= Security::secureInput($order['order_id']) ?>">
-                  <button type="submit" name="validateOrder" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Passer la commande en statut 'Livrée'" class="btn btn-gamestore <?= Security::secureInput($order['order_status']) == 'Livrée' || Security::secureInput($order['order_status']) == 'Annulée' ? 'disabled' : '' ?>">
+                  <button type="submit" name="validateOrder" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Passer la commande en statut 'Livrée'" class="btn btn-gamestore <?= Security::secureInput($order['order_status']) == 'Validée' ? '' : 'disabled' ?>">
                     <i class="bi bi-check2-square"></i>
                   </button>
-                  <button type="submit" name="cancelOrder" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Annuler la commande" class="btn btn-gamestore <?= Security::secureInput($order['order_status']) == 'Livrée' || Security::secureInput($order['order_status']) == 'Annulée' ? 'disabled' : '' ?>">
+                  <button type="submit" name="cancelOrder" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Annuler la commande" class="btn btn-gamestore <?= Security::secureInput($order['order_status']) == 'Validée' ? '' : 'disabled' ?>">
                     <i class="bi bi-x-square"></i>
                   </button>
                 </form>

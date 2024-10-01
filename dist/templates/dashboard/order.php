@@ -12,7 +12,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
   </div>
   <!-- START : Affichage de la commande en tableau -->
   <div class="table-responsive">
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover" id="orderTable">
       <thead>
         <tr>
           <th scope="col">Jeu</th>

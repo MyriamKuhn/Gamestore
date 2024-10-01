@@ -88,6 +88,12 @@ class FileTools
             ];
             return $scripts;
             break;
+          case 'order':
+            $scripts = [
+              'orderPage.js',
+            ];
+            return $scripts;
+            break;
         }
         break;
 
@@ -102,6 +108,18 @@ class FileTools
           case 'orders':
             $scripts = [
               'ordersPage.js',
+            ];
+            return $scripts;
+            break;
+          case 'buying':
+            $scripts = [
+              'buyingPage.js',
+            ];
+            return $scripts;
+            break;
+          case 'order':
+            $scripts = [
+              'orderPage.js',
             ];
             return $scripts;
             break;

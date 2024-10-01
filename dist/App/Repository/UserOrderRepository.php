@@ -20,6 +20,20 @@ class UserOrderRepository extends MainRepository
     return $stmt->execute();
   }
 
+  // Ajout d'une commande magasin vide et retour de son ID
+  public function createEmptyOrder(int $userId, int $storeId): int
+  {
+    $query = 'INSERT INTO user_order (status, fk_app_user_id, fk_store_id, order_date) VALUE (:status, :fk_app_user_id, :fk_store_id, NOW())';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':status', 'Magasin', $this->pdo::PARAM_STR);
+    $stmt->bindValue(':fk_app_user_id', $userId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':fk_store_id', $storeId, $this->pdo::PARAM_INT);
+    $stmt->execute();
+
+    return $this->pdo->lastInsertId();
+  }
+
   // Récupération de tous les jeux d'une commande d'un utilisateur d'après son statut
   public function findAllOrdersByStatus(int $userId, string $status): array
   {
@@ -71,8 +85,9 @@ class UserOrderRepository extends MainRepository
     $query = 'SELECT
       uo.id AS order_id,
       uo.order_date AS order_date,
+      s.id AS store_id,
       s.location AS store_location,
-      GROUP_CONCAT(CONCAT(g.id, "," ,g.name, "," ,pl.name, "," ,guo.quantity, "," ,guo.price_at_order)) AS games,
+      GROUP_CONCAT(CONCAT(g.id, "," ,g.name, "," ,pl.id, "," ,pl.name, "," ,guo.quantity, "," ,guo.price_at_order)) AS games,
       CONCAT(au.first_name, " ", au.last_name) AS order_user,
       CONCAT(au.address, " ", au.postcode, " ", au.city) AS order_address
       FROM user_order AS uo
@@ -91,14 +106,15 @@ class UserOrderRepository extends MainRepository
 
     if ($order) {
       $order['games'] = explode(',', $order['games']);
-      $order['games'] = array_chunk($order['games'], 5);
+      $order['games'] = array_chunk($order['games'], 6);
       $order['games'] = array_map(function ($game) {
         return [
           'game_id' => $game[0],
           'name' => $game[1],
-          'platform' => $game[2],
-          'quantity' => $game[3],
-          'price' => $game[4]
+          'platform_id' => $game[2],
+          'platform' => $game[3],
+          'quantity' => $game[4],
+          'price' => $game[5]
         ];
       }, $order['games']);
     }
@@ -167,7 +183,7 @@ class UserOrderRepository extends MainRepository
       uo.status AS order_status,
       uo.fk_app_user_id AS user_id,
       CONCAT(au.first_name, " ", au.last_name) AS user_name,
-      CONCAT(au.address, " ", au.postcode, " ", au.city) AS user_address
+      au.email AS user_address
       FROM user_order AS uo
       INNER JOIN game_user_order AS guo ON guo.fk_user_order_id = uo.id
       INNER JOIN app_user AS au ON uo.fk_app_user_id = au.id

@@ -15,8 +15,27 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 $(document).ready(function() {
   // Initialiser DataTables
   const table = $('#ordersTable').DataTable({
+    dom: '<"row"<"col-md-6"l><"col-md-6 text-end"B>>rt<"row"<"col-md-6"i><"col-md-6 d-flex justify-content-end"p>>',  // i = info, B = buttons, f = filter, l = length changing input, p = pagination, t = table
+      buttons: [
+        {
+          extend: 'copy',
+          text: 'Copier',
+          className: 'btn btn-gamestore-outline text-uppercase'
+        },
+        {
+          extend: 'csv',
+          text: 'CSV',
+          className: 'btn btn-gamestore-outline text-uppercase'
+        },
+        {
+          extend: 'excel',
+          text: 'Excel',
+          className: 'btn btn-gamestore-outline text-uppercase'
+        },      
+      ],
     "responsive": true,
     "paging": true,
+    "pagingType": "simple_numbers",
     "pageLength": 10,
     "lengthMenu": [5, 10, 25, 50],
     "ordering": true,
@@ -24,10 +43,8 @@ $(document).ready(function() {
     "searching": true,
     "language": {
       "paginate": {
-        "first":      "Première",
-        "last":       "Dernière",
-        "next":       "Suivante",
-        "previous":   "Précédente"
+        "next":       ">>",
+        "previous":   "<<"
       },
       "lengthMenu": "Afficher _MENU_ entrées par page",
       "zeroRecords": "Aucune commande trouvée",
