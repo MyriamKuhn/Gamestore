@@ -6,6 +6,7 @@ use App\Repository\GamePlatformRepository;
 use App\Tools\Security;
 use App\Repository\GameUserOrderRepository;
 use App\Repository\PlatformRepository;
+use App\Repository\SalesRepository;
 
 class DatasController extends RoutingController
 {
@@ -30,6 +31,8 @@ class DatasController extends RoutingController
                 $this->getAddCart($data['gameId'], $data['platform'], $data['price'], $data['discountRate'], $data['oldPrice'], $data['location'], $data['userId']);
             } elseif ($data['action'] === 'getCartContent') {
                 $this->getCartContent();
+            } elseif ($data['action'] === 'getSaleDatas') {
+                $this->getSaleDatas();
             } else {
                 // Si l'action n'est pas reconnue
                 $this->sendResponse(false, "Action inconnue", 400);
@@ -119,7 +122,7 @@ class DatasController extends RoutingController
     if ($game) {
       // Ajout du jeu dans le panier
       $guoRepository = new GameUserOrderRepository();
-      $isAdded = $guoRepository->addGameInCart($gameId, $platformId, $orderId, $quantity, $price_at_order);
+      $isAdded = $guoRepository->addGameInCart($gameId, $platformId, $orderId, $quantity, $price_at_order, 'add');
       if (!$isAdded) {
         $this->sendResponse(false, "Erreur lors de l'ajout du jeu dans le panier", 500);
       } else {
@@ -144,6 +147,21 @@ class DatasController extends RoutingController
       $this->sendResponse(false, "Le panier est vide", 404);
     } else {
       $this->sendResponse(true, $cartContent, 200);
+    }
+  }
+
+  protected function getSaleDatas()
+  {
+    if (Security::isEmploye()) {
+      $salesRepository = new SalesRepository();
+      $sales = $salesRepository->getAllSalesByDate(Security::getEmployeStore());
+      if (empty($sales)) {
+        $this->sendResponse(false, "Aucune vente n'a été trouvée", 404);
+      } else {
+        $this->sendResponse(true, $sales, 200);
+      }
+    } else {
+      $this->sendResponse(false, "Vous n'êtes pas autorisé à accéder à cette ressource", 403);
     }
   }
     

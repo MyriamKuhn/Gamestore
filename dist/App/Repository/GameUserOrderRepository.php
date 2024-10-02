@@ -5,7 +5,7 @@ namespace App\Repository;
 class GameUserOrderRepository extends MainRepository
 {
 
-  // Ajout ou retrait d'une quantité d'un jeu dans le panier
+  // Ajout ou retrait d'une quantité d'un jeu
   public function addGameInCart(int $gameId, int $platformId, int $orderId, int $quantity, float $price_at_order, string $operation = 'add'): bool
   {
     $increment = ($operation === 'add') ? $quantity : -$quantity;
