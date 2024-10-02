@@ -103,4 +103,28 @@ class Security
     }
   }
 
+  // Récupération du nom du magasin des employés
+  public static function getEmployeStore(): string
+  {
+    switch ($_SESSION['user']['store_id']) {
+      case 1:
+        $store = 'Nantes';
+        break;
+      case 2:
+        $store = 'Lille';
+        break;
+      case 3:
+        $store = 'Bordeaux';
+        break;
+      case 4:
+        $store = 'Paris';
+        break;
+      case 5:
+        $store = 'Toulouse';
+        break;
+    }
+
+    return $store;
+  }
+
 }

@@ -14,8 +14,7 @@ class MongoRepository
   protected Client $client;
   protected $collection;
 
-  // Constructor
-  private function __construct()
+  public function __construct()
   {
     $dotenv = new Dotenv(__DIR__ . '/../..');
     $dotenv->load();

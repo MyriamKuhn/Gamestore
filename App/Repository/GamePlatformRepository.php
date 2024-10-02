@@ -124,6 +124,36 @@ class GamePlatformRepository extends MainRepository
     return $storeGames;
   }
 
+  // Récupération de la liste des jeux par magasin incluant les jeux qui ne sont pas disponibles pour les employés
+  public function getAllGamesByStoreForEmployes(int $storeId): array
+  {
+    $query = 'SELECT
+    g.id AS game_id,
+    g.name AS game_name,
+    pl.id AS platform_id,
+    pl.name AS platform_name,
+    GROUP_CONCAT(DISTINCT ge.name SEPARATOR ", ") AS genres,
+    gp.price AS platform_price,
+    gp.is_reduced AS is_reduced,
+    gp.discount_rate AS discount_rate,
+    gp.quantity AS quantity
+    FROM game_platform AS gp
+    INNER JOIN game AS g ON gp.fk_game_id = g.id
+    INNER JOIN platform AS pl ON gp.fk_platform_id = pl.id
+    INNER JOIN game_genre AS gg ON g.id = gg.fk_game_id
+    INNER JOIN genre AS ge ON gg.fk_genre_id = ge.id
+    WHERE gp.fk_store_id = :storeId
+    GROUP BY g.id, gp.price, gp.discount_rate, gp.is_reduced
+    ORDER BY g.id DESC';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':storeId', $storeId, \PDO::PARAM_INT);
+    $stmt->execute();
+    $games = $stmt->fetchAll();
+
+    return $games;
+  }
+
   // Récupération de la liste des jeux en promotion disponibles
   public function getAllReducedGames(): array
   {
@@ -268,5 +298,20 @@ class GamePlatformRepository extends MainRepository
       return $stock;
     }
 
+    // Ajout ou suppression du stock d'un jeu
+    public function updateGameStock(int $gameId, int $platformId, int $storeId, int $quantity, string $operation = 'add'): bool
+    {
+      $increment = ($operation === 'add') ? $quantity : -$quantity;
+  
+      $query = 'UPDATE game_platform SET quantity = GREATEST(0, quantity + :increment) WHERE fk_game_id = :gameId AND fk_platform_id = :platformId AND fk_store_id = :storeId';
+  
+      $stmt = $this->pdo->prepare($query);
+      $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
+      $stmt->bindValue(':platformId', $platformId, $this->pdo::PARAM_INT);
+      $stmt->bindValue(':storeId', $storeId, $this->pdo::PARAM_INT);
+      $stmt->bindValue(':increment', $increment, $this->pdo::PARAM_INT);
+  
+      return $stmt->execute();
+    }
 }
 

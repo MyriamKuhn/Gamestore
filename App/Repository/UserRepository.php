@@ -171,4 +171,21 @@ class UserRepository extends MainRepository
     }
   }
 
+  // Récupération de tous les utilisateurs d'un magasin
+  public function findAllUsersByStore(int $storeId): array
+  {
+    $query = 'SELECT 
+      au.id AS user_id,
+      CONCAT(au.first_name, " ", last_name) AS user_name,
+      au.email AS user_address
+      FROM app_user AS au 
+      WHERE fk_store_id = :fk_store_id AND role = "user"';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':fk_store_id', $storeId, $this->pdo::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll();
+  }
+
 }
