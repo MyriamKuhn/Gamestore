@@ -53,7 +53,7 @@ require_once _TEMPLATEPATH_ . '/employe/header.php';
           <?php foreach ($orders as $order) : ?>
             <tr>
               <th scope="row"><a href="index.php?controller=employe&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Voir les détails de la commande"><?= Security::secureInput($order['order_id']) ?></a></th>
-              <td><?= (new DateTime($order['order_date']))->format('d/m/Y') ?></td>
+              <td data-order="<?= $order['order_date'] ?>"><?= (new DateTime($order['order_date']))->format('d/m/Y') ?></td>
               <td><?= Security::secureInput($order['user_name']) ?></td>
               <td><?= Security::secureInput($order['user_address']) ?></td>
               <td><?= Security::secureInput($order['order_status']) ?></td>

@@ -152,12 +152,16 @@ class DatasController extends RoutingController
 
   protected function getSaleDatas()
   {
-    $salesRepository = new SalesRepository();
-    $sales = $salesRepository->getAllSalesByDate();
-    if (empty($sales)) {
-      $this->sendResponse(false, "Aucune vente n'a été trouvée", 404);
+    if (Security::isEmploye()) {
+      $salesRepository = new SalesRepository();
+      $sales = $salesRepository->getAllSalesByDate(Security::getEmployeStore());
+      if (empty($sales)) {
+        $this->sendResponse(false, "Aucune vente n'a été trouvée", 404);
+      } else {
+        $this->sendResponse(true, $sales, 200);
+      }
     } else {
-      $this->sendResponse(true, $sales, 200);
+      $this->sendResponse(false, "Vous n'êtes pas autorisé à accéder à cette ressource", 403);
     }
   }
     

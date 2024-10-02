@@ -34,7 +34,7 @@ class AdminController extends RoutingController
     }
   }
 
-  public function home(): void
+  protected function home(): void
   {
     try {
       if (Security::isAdmin()) {
@@ -49,7 +49,7 @@ class AdminController extends RoutingController
     }
   }
 
-  public function password(): void
+  protected function password(): void
   {
     try {
       if (Security::isAdmin()) {

@@ -40,6 +40,9 @@ class EmployeController extends RoutingController
           case 'order':
             $this->order();
             break;
+          case 'details':
+            $this->details();
+            break;
           default:
             throw new \Exception("Cette action n'existe pas : " . $_GET['action']);
             break;
@@ -54,7 +57,7 @@ class EmployeController extends RoutingController
     }
   }
 
-  public function home(): void
+  protected function home(): void
   {
     try {
       if (Security::isEmploye()) {
@@ -69,7 +72,7 @@ class EmployeController extends RoutingController
     }
   }
 
-  public function orders(): void
+  protected function orders(): void
   {
     try {
       if (Security::isEmploye()) {
@@ -146,7 +149,7 @@ class EmployeController extends RoutingController
     }
   }
 
-  public function sales(): void
+  protected function sales(): void
   {
     try {
       if (Security::isEmploye()) {
@@ -161,7 +164,7 @@ class EmployeController extends RoutingController
     }
   }
 
-  public function password(): void
+  protected function password(): void
   {
     try {
       if (Security::isEmploye()) {
@@ -252,7 +255,7 @@ class EmployeController extends RoutingController
     }
   }
 
-  public function buying(): void
+  protected function buying(): void
   {
     try {
       // Si validation d'une vente
@@ -357,7 +360,7 @@ class EmployeController extends RoutingController
     }
   }
 
-  public function order() : void
+  protected function order() : void
   {
     try {
       if (Security::isEmploye()) {
@@ -383,5 +386,32 @@ class EmployeController extends RoutingController
     } 
   }
 
+  protected function details(): void
+  {
+    try {
+      if (Security::isEmploye()) {
+        $salesRepository = new SalesRepository();
+        $sales = $salesRepository->getAllSalesDatas(Security::getEmployeStore());
+        if (!$sales) {
+          throw new \Exception("Erreur lors de la récupération des ventes.");
+        }
+        $platformRepository = new PlatformRepository();
+        $platforms = $platformRepository->getAllPlatforms();
+        if (!$platforms) {
+          throw new \Exception("Erreur lors de la récupération des plateformes.");
+        }
+        $this->render('employe/details', [
+          'sales' => $sales,
+          'platforms' => $platforms
+        ]);
+      } else {
+        throw new \Exception("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter");
+      }
+    } catch (\Exception $e) {
+      $this->render('employe/error', [
+        'error' => $e->getMessage()
+      ]);
+    }
+  }
 
 }

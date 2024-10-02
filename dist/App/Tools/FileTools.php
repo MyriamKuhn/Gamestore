@@ -129,6 +129,12 @@ class FileTools
             ];
             return $scripts;
             break;
+          case 'details':
+            $scripts = [
+              'detailsPage.js',
+            ];
+            return $scripts;
+            break;
         }
         break;
 

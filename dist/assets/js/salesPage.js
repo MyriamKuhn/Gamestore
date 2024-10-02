@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(response => response.json())
     .then(data => {
       if (validateJSONStructure(data)) {
-        console.log("data:", JSON.stringify(data, null, 2));
         if (data.success === false) {
           console.error("Erreur : " + data.error);
           return;
@@ -102,12 +101,8 @@ document.addEventListener('DOMContentLoaded', function () {
               text: "Quantité",
             },
           },
-          title: {
-            text: "Ventes par jeu et par date",
-            align: "left",
-          },
           legend: {
-            position: "top",
+            position: "bottom",
           },
         };
 
