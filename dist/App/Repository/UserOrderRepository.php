@@ -20,6 +20,20 @@ class UserOrderRepository extends MainRepository
     return $stmt->execute();
   }
 
+  // Ajout d'une commande magasin vide et retour de son ID
+  public function createEmptyOrder(int $userId, int $storeId): int
+  {
+    $query = 'INSERT INTO user_order (status, fk_app_user_id, fk_store_id, order_date) VALUE (:status, :fk_app_user_id, :fk_store_id, NOW())';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':status', 'Magasin', $this->pdo::PARAM_STR);
+    $stmt->bindValue(':fk_app_user_id', $userId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':fk_store_id', $storeId, $this->pdo::PARAM_INT);
+    $stmt->execute();
+
+    return $this->pdo->lastInsertId();
+  }
+
   // Récupération de tous les jeux d'une commande d'un utilisateur d'après son statut
   public function findAllOrdersByStatus(int $userId, string $status): array
   {
@@ -34,7 +48,8 @@ class UserOrderRepository extends MainRepository
       INNER JOIN platform AS pl ON guo.fk_platform_id = pl.id
       INNER JOIN store AS s ON uo.fk_store_id = s.id
       WHERE uo.fk_app_user_id = :userId AND uo.status = :status
-      GROUP BY uo.id, uo.order_date, s.location';
+      GROUP BY uo.id, uo.order_date, s.location
+      ORDER BY uo.order_date DESC';
 
     $stmt = $this->pdo->prepare($query);
     $stmt->bindValue(':userId', $userId, $this->pdo::PARAM_INT);
@@ -70,13 +85,17 @@ class UserOrderRepository extends MainRepository
     $query = 'SELECT
       uo.id AS order_id,
       uo.order_date AS order_date,
+      s.id AS store_id,
       s.location AS store_location,
-      GROUP_CONCAT(CONCAT(g.id, "," ,g.name, "," ,pl.name, "," ,guo.quantity, "," ,guo.price_at_order)) AS games
+      GROUP_CONCAT(CONCAT(g.id, "," ,g.name, "," ,pl.id, "," ,pl.name, "," ,guo.quantity, "," ,guo.price_at_order)) AS games,
+      CONCAT(au.first_name, " ", au.last_name) AS order_user,
+      CONCAT(au.address, " ", au.postcode, " ", au.city) AS order_address
       FROM user_order AS uo
       INNER JOIN game_user_order AS guo ON guo.fk_user_order_id = uo.id
       INNER JOIN game AS g ON guo.fk_game_id = g.id
       INNER JOIN platform AS pl ON guo.fk_platform_id = pl.id
       INNER JOIN store AS s ON uo.fk_store_id = s.id
+      INNER JOIN app_user AS au ON uo.fk_app_user_id = au.id
       WHERE uo.id = :orderId';
 
     $stmt = $this->pdo->prepare($query);
@@ -87,14 +106,15 @@ class UserOrderRepository extends MainRepository
 
     if ($order) {
       $order['games'] = explode(',', $order['games']);
-      $order['games'] = array_chunk($order['games'], 5);
+      $order['games'] = array_chunk($order['games'], 6);
       $order['games'] = array_map(function ($game) {
         return [
           'game_id' => $game[0],
           'name' => $game[1],
-          'platform' => $game[2],
-          'quantity' => $game[3],
-          'price' => $game[4]
+          'platform_id' => $game[2],
+          'platform' => $game[3],
+          'quantity' => $game[4],
+          'price' => $game[5]
         ];
       }, $order['games']);
     }
@@ -138,6 +158,58 @@ class UserOrderRepository extends MainRepository
     $stmt = $this->pdo->prepare($query);
     $stmt->bindValue(':cartId', $cartId, $this->pdo::PARAM_INT);
     $stmt->bindValue(':pickupDate', $pickupDate->format('Y-m-d'), $this->pdo::PARAM_STR);
+
+    return $stmt->execute();
+  }
+
+  // Validation de la commande de l'employé avec ajout de date de retrait
+  public function validateOrderByEmployee(int $orderId, string $status): bool
+  {
+    $query = 'UPDATE user_order SET status = :status, order_date = NOW()  WHERE id = :orderId';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':orderId', $orderId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':status', $status, $this->pdo::PARAM_STR);
+
+    return $stmt->execute();
+  }
+
+  // Récupération de toutes les commandes par magasin
+  public function findAllOrdersByStore(int $storeId): array|bool
+  {
+    $query = 'SELECT
+      uo.id AS order_id,
+      uo.order_date AS order_date,
+      uo.status AS order_status,
+      uo.fk_app_user_id AS user_id,
+      CONCAT(au.first_name, " ", au.last_name) AS user_name,
+      au.email AS user_address
+      FROM user_order AS uo
+      INNER JOIN game_user_order AS guo ON guo.fk_user_order_id = uo.id
+      INNER JOIN app_user AS au ON uo.fk_app_user_id = au.id
+      WHERE uo.fk_store_id = :storeId AND uo.status != "En attente" AND au.role = "user"
+      GROUP BY uo.id
+      ORDER BY uo.order_date DESC';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':storeId', $storeId, $this->pdo::PARAM_INT);
+    $stmt->execute();
+
+    $orders = $stmt->fetchAll();
+
+    if ($orders) {
+      return $orders;
+    } else {
+      return false;
+    }
+  }
+
+  // Mise à jour des status des commandes en fonction des dates (effectué à chaque connexion)
+  public function updateOrdersStatus(): bool
+  {
+    $query = 'UPDATE user_order SET status = "Annulée" WHERE status = "Validée" AND order_date < NOW()';
+
+    $stmt = $this->pdo->prepare($query);
 
     return $stmt->execute();
   }

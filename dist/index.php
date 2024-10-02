@@ -38,6 +38,8 @@ $controller->route();
 
 // JUST FOR TESTING
 
-use App\Repository\GameUserOrderRepository;
+use App\Repository\UserRepository;
 
-$userOrderRepository = new GameUserOrderRepository();
+
+$userOrderRepository = new UserRepository();
+

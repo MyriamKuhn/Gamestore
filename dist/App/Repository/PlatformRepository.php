@@ -10,6 +10,7 @@ class PlatformRepository extends MainRepository
   {
     $query = "SELECT * FROM platform";
     $stmt = $this->pdo->query($query);
+    
     return $stmt->fetchAll();
   }
   

@@ -51,7 +51,7 @@ class DashboardController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('dashboard/error', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -76,7 +76,7 @@ class DashboardController extends RoutingController
       ]);
     } catch (\Exception $e) {
       $this->render('dashboard/error', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -321,7 +321,7 @@ class DashboardController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -615,7 +615,7 @@ class DashboardController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('dashboard/error', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -634,14 +634,16 @@ class DashboardController extends RoutingController
       $validatedOrders = $userOrderRepository->findAllOrdersByStatus($userId, 'Validée');
       $finishedOrders = $userOrderRepository->findAllOrdersByStatus($userId, 'Livrée');
       $deletedOrders = $userOrderRepository->findAllOrdersByStatus($userId, 'Annulée');
+      $storeOrders = $userOrderRepository->findAllOrdersByStatus($userId, 'Magasin');
       $this->render('dashboard/orders', [
         'validatedOrders' => $validatedOrders,
         'finishedOrders' => $finishedOrders,
-        'deletedOrders' => $deletedOrders
+        'deletedOrders' => $deletedOrders,
+        'storeOrders' => $storeOrders
       ]);
     } catch (\Exception $e) {
       $this->render('dashboard/error', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -666,7 +668,7 @@ class DashboardController extends RoutingController
       ]);
     } catch (\Exception $e) {
       $this->render('dashboard/error', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }

@@ -88,8 +88,66 @@ class FileTools
             ];
             return $scripts;
             break;
+          case 'order':
+            $scripts = [
+              'orderPage.js',
+            ];
+            return $scripts;
+            break;
         }
         break;
+
+      case 'employe':
+        switch (isset($_GET['action']) ? $_GET['action'] : '') {
+          case 'password':
+            $scripts = [
+              'passwordChangePage.js',
+            ];
+            return $scripts;
+            break;
+          case 'orders':
+            $scripts = [
+              'ordersPage.js',
+            ];
+            return $scripts;
+            break;
+          case 'buying':
+            $scripts = [
+              'buyingPage.js',
+            ];
+            return $scripts;
+            break;
+          case 'order':
+            $scripts = [
+              'orderPage.js',
+            ];
+            return $scripts;
+            break;
+          case 'sales':
+            $scripts = [
+              'salesPage.js',
+            ];
+            return $scripts;
+            break;
+          case 'details':
+            $scripts = [
+              'detailsPage.js',
+            ];
+            return $scripts;
+            break;
+        }
+        break;
+
+        case 'admin':
+          switch (isset($_GET['action']) ? $_GET['action'] : '') {
+            case 'password':
+              $scripts = [
+                'passwordChangePage.js',
+              ];
+              return $scripts;
+              break;
+          }
+          break;
     }
   }
 
