@@ -65,7 +65,7 @@ class AdminController extends RoutingController
           UserValidator::validatePassword($oldPassword) ?: $errors['old_password'] = 'Le champ mot de passe actuel n\'est pas valide';
           UserValidator::validatePassword($newPassword) ?: $errors['new_password'] = 'Le champ nouveau mot de passe n\'est pas valide';
           if ($userId === false) {
-            $this->render('employe/error', [
+            $this->render('admin/error', [
               'error' => 'Veuillez vous connecter pour accéder à cette page.'
             ]);
           }
