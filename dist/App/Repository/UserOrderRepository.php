@@ -187,7 +187,7 @@ class UserOrderRepository extends MainRepository
       FROM user_order AS uo
       INNER JOIN game_user_order AS guo ON guo.fk_user_order_id = uo.id
       INNER JOIN app_user AS au ON uo.fk_app_user_id = au.id
-      WHERE uo.fk_store_id = :storeId AND uo.status != "En attente"
+      WHERE uo.fk_store_id = :storeId AND uo.status != "En attente" AND au.role = "user"
       GROUP BY uo.id
       ORDER BY uo.order_date DESC';
 

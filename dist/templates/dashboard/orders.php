@@ -117,12 +117,12 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
     <h2 class="text-uppercase">Vos commandes en magasin</h2>
   </div>
   <div class="row">
-    <?php if (empty($deletedOrders)): ?>
+    <?php if (empty($storeOrders)): ?>
       <div class="col-12">
         <p class="text-center">Vous n'avez pas encore de commandes en magasin.</p>
       </div>
     <?php endif; ?>
-    <?php foreach ($deletedOrders as $order): ?>
+    <?php foreach ($storeOrders as $order): ?>
       <div class="col-12 col-lg-6 col-xl-4">
         <div class="card mb-4">
           <div class="card-header">
