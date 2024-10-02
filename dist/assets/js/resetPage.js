@@ -62,7 +62,7 @@ function checkPasswords() {
   const password = passwordInput.value;
   const confirmPassword = confirmPasswordInput.value;  
   // Règles pour le mot de passe
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{15,}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{15,}$/;
   if (!passwordRegex.test(secureInput(password))) {
     passwordError.textContent = 'Le mot de passe doit contenir au moins 15 caractères, avec une majuscule, une minuscule, un chiffre, et un caractère spécial.';
     passwordInput.classList.add("is-invalid");

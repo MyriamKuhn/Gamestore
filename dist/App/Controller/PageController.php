@@ -41,7 +41,7 @@ class PageController extends RoutingController
       }
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -64,7 +64,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -76,7 +76,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }
@@ -88,7 +88,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }	
@@ -100,7 +100,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }	
@@ -112,7 +112,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }	
@@ -124,7 +124,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }	
@@ -136,7 +136,7 @@ class PageController extends RoutingController
 
     } catch (\Exception $e) {
       $this->render('errors/default', [
-        'error' => $e->getMessage() . "(Erreur : " . $e->getCode() . ")"
+        'error' => $e->getMessage() 
       ]);
     }
   }	

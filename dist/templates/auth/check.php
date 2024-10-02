@@ -225,34 +225,67 @@ require_once _TEMPLATEPATH_ . '/header.php';
                 // Vérification du code
                 if ($verificationCode == $enteredCode) {
                   // Suppression du code de vérification
-                  //$verificationRepository = new VerificationRepository();
                   $verificationRepository->deleteAllCodesFromUser($user->getId());
                   $verificationRepository->deleteAllExpiredCodes();
-                  // Récupération du panier de l'utilisateur
+                  // Lancement du script pour mettre à jour les commandes validée non récupérées
                   $userOrderRepository = new UserOrderRepository();
-                  $cartId = $userOrderRepository->findCartId($user->getId());
-                  if ($cartId == 0) {
-                    $isCardCreated = $userOrderRepository->createEmptyCart($user->getId(), $user->getFk_store_id());
-                    if ($isCardCreated) {
-                      $cartId = $userOrderRepository->findCartId($user->getId());
-                    } else {
-                      echo '<div class="alert alert-danger py-5 my-5">Une erreur est survenue lors de la création du panier. Veuillez réessayer.</div>';
+                  $userOrderRepository->updateOrdersStatus();
+                  // Si utilisateur alors récupération du panier de l'utilisateur et redirection vers la page espace client
+                  if ($user->getRole() == 'user') {
+                    $cartId = $userOrderRepository->findCartId($user->getId());
+                    if ($cartId == 0) {
+                      $isCardCreated = $userOrderRepository->createEmptyCart($user->getId(), $user->getFk_store_id());
+                      if ($isCardCreated) {
+                        $cartId = $userOrderRepository->findCartId($user->getId());
+                      } else {
+                        echo '<div class="alert alert-danger py-5 my-5">Une erreur est survenue lors de la création du panier. Veuillez réessayer.</div>';
+                      }
                     }
+                    // Régénère l'identifiant de session pour éviter les attaques de fixation de session (vol de cookie de session)
+                    session_regenerate_id(true);
+                    // Enregistrement des données de l'utilisateur en session
+                    $_SESSION['user'] = [
+                      'id' => $user->getId(),
+                      'first_name' => $user->getFirst_name(),
+                      'last_name' => $user->getLast_name(),
+                      'role' => $user->getRole(),
+                      'store_id' => $user->getFk_store_id(),
+                      'cart_id' => $cartId
+                    ];
+                    // Redirection vers la page espace client
+                    header('Location: index.php?controller=dashboard&action=home');
+                    exit();
+                    // Si employé alors redirection vers la page espace employé
+                  } else if ($user->getRole() == 'employe') {
+                    // Régénère l'identifiant de session pour éviter les attaques de fixation de session (vol de cookie de session)
+                    session_regenerate_id(true);
+                    // Enregistrement des données de l'utilisateur en session
+                    $_SESSION['user'] = [
+                      'id' => $user->getId(),
+                      'first_name' => $user->getFirst_name(),
+                      'last_name' => $user->getLast_name(),
+                      'role' => $user->getRole(),
+                      'store_id' => $user->getFk_store_id()
+                    ];
+                    // Redirection vers la page espace employé
+                    header('Location: index.php?controller=employe&action=home');
+                    exit();
+                  } else if ($user->getRole() == 'admin') {
+                    // Régénère l'identifiant de session pour éviter les attaques de fixation de session (vol de cookie de session)
+                    session_regenerate_id(true);
+                    // Enregistrement des données de l'utilisateur en session
+                    $_SESSION['user'] = [
+                      'id' => $user->getId(),
+                      'first_name' => $user->getFirst_name(),
+                      'last_name' => $user->getLast_name(),
+                      'role' => $user->getRole()
+                    ];
+                    // Redirection vers la page espace admin
+                    header('Location: index.php?controller=admin&action=home');
+                    exit();
+                  } else {
+                    echo '<div class="alert alert-danger py-5 my-5">Une erreur est survenue. Veuillez réessayer.</div>';
                   }
-                  // Régénère l'identifiant de session pour éviter les attaques de fixation de session (vol de cookie de session)
-                  session_regenerate_id(true);
-                  // Enregistrement des données de l'utilisateur en session
-                  $_SESSION['user'] = [
-                    'id' => $user->getId(),
-                    'first_name' => $user->getFirst_name(),
-                    'last_name' => $user->getLast_name(),
-                    'role' => $user->getRole(),
-                    'store_id' => $user->getFk_store_id(),
-                    'cart_id' => $cartId
-                  ];
-                  // Redirection vers la page espace client
-                  header('Location: index.php?controller=dashboard&action=home');
-                  exit();
                 } else {
                   echo '<div class="alert alert-danger py-5 my-5">Le code de vérification est incorrect. Veuillez réessayer.</div>';
                 }
