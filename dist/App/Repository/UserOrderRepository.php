@@ -204,4 +204,14 @@ class UserOrderRepository extends MainRepository
     }
   }
 
+  // Mise à jour des status des commandes en fonction des dates (effectué à chaque connexion)
+  public function updateOrdersStatus(): bool
+  {
+    $query = 'UPDATE user_order SET status = "Annulée" WHERE status = "Validée" AND order_date < NOW()';
+
+    $stmt = $this->pdo->prepare($query);
+
+    return $stmt->execute();
+  }
+
 }

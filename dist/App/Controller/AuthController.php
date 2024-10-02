@@ -89,8 +89,14 @@ class AuthController extends RoutingController
             if ($user && Security::verifyPassword($password, $user->getPassword())) {
               // Si l'activation n'est pas effectuée, renvoi vers la page d'activation
               if ($user->getIs_verified() == 0) {
+                // Pour les employés à leur première connexion forcer le changement de mot de passe
+                if ($user->getRole() == 'employe') {
+                  header('Location: index.php?controller=auth&action=reset&id=' . $user->getId());
+                  exit();
+                } else {
                 header('Location: index.php?controller=user&action=activation&id=' . $user->getId());
                 exit();
+                }
               } else {
                 // Génération d'un code de vérification du mail
                 $verification_code = random_int(100000, 999999);
@@ -265,6 +271,7 @@ class AuthController extends RoutingController
   protected function reset()
   {
     ob_start(); 
+    // A l'ouverture du lien de réinitialisation de mot de passe
     if (isset($_GET['token']) && empty($_POST['resetPassword'])) {
       $token = Security::secureInput($_GET['token']);
       $userRepository = new UserRepository();
@@ -278,7 +285,8 @@ class AuthController extends RoutingController
           'error' => 'Votre demande de réinitialisation de mot de passe a expiré. Veuillez recommencer la procédure.'
       ]);
       }
-    } else if ($_POST['resetPassword']) {
+    // A la validation du formulaire pour modifier le mot de passe
+    } else if (isset($_POST['resetPassword'])) {
       // Vérification du token CSRF
       Security::checkCSRF($_POST['csrf_token']);
       $errors = [];
@@ -291,12 +299,32 @@ class AuthController extends RoutingController
         $userRepository = new UserRepository();
         $isReset = $userRepository->resetPassword($password, $token);
         if ($isReset) {
-          $this->render('auth/reset', [
-            'success' => 'Votre mot de passe a été réinitialisé avec succès ! Vous serez redirigé vers la page de connexion dans 10 secondes.',
-            'token' => $token
-          ]);
-          header('refresh:10;url=index.php?controller=auth&action=login');
-          exit();
+          // Si c'est un employé lors de sa première connexion, on force le changement de mot de passe
+          if (strpos($token, '3m47013t0k3n-') !== false) {
+            $tokenParts = explode('-', $token);
+            $userId = intval($tokenParts[1]);
+            $user = $userRepository->getUserById($userId);
+            $isVerified = $userRepository->updateUserStatus($user);
+            if ($isVerified) {
+              $this->render('auth/reset', [
+                'success' => 'Votre mot de passe a été réinitialisé avec succès ! Votre compte a été activé. Vous serez redirigé vers la page de connexion dans 10 secondes.',
+                'token' => $token
+              ]);
+              header('refresh:10;url=index.php?controller=auth&action=login');
+              exit();
+            } else {
+              $this->render('errors/default', [
+                'error' => 'Erreur lors de la réinitialisation de votre mot de passe. Veuillez réessayer.'
+              ]);
+            }
+          } else {
+            $this->render('auth/reset', [
+              'success' => 'Votre mot de passe a été réinitialisé avec succès ! Vous serez redirigé vers la page de connexion dans 10 secondes.',
+              'token' => $token
+            ]);
+            header('refresh:10;url=index.php?controller=auth&action=login');
+            exit();
+          }
         } else {
           $this->render('errors/default', [
             'error' => 'Erreur lors de la réinitialisation de votre mot de passe. Veuillez réessayer.'
@@ -306,6 +334,23 @@ class AuthController extends RoutingController
         $this->render('auth/reset', [
           'errors' => $errors,
           'token' => $token
+        ]);
+      }
+    // Si c'est un employé lors de sa première connexion, on force le changement de mot de passe
+    } else if (isset($_GET['id'])) {
+      $userRepository = new UserRepository();
+      $user = $userRepository->getUserById(intval($_GET['id']));
+      if ($user->getRole() == 'employe') {
+        $userId = intval($_GET['id']);
+        // Génération d'un token unique pour la réinitialisation du mot de passe
+        $token = '3m47013t0k3n-' . intval($_GET['id']);
+        $userRepository->setToken($token, $userId);
+        $this->render('auth/reset', [
+          'token' => $token
+        ]);
+      } else {
+        $this->render('errors/default', [
+          'error' => 'Vous n\'avez pas les droits pour accéder à cette page.'
         ]);
       }
     } else {

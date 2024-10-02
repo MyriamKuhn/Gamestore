@@ -225,12 +225,13 @@ require_once _TEMPLATEPATH_ . '/header.php';
                 // Vérification du code
                 if ($verificationCode == $enteredCode) {
                   // Suppression du code de vérification
-                  //$verificationRepository = new VerificationRepository();
                   $verificationRepository->deleteAllCodesFromUser($user->getId());
                   $verificationRepository->deleteAllExpiredCodes();
+                  // Lancement du script pour mettre à jour les commandes validée non récupérées
+                  $userOrderRepository = new UserOrderRepository();
+                  $userOrderRepository->updateOrdersStatus();
                   // Si utilisateur alors récupération du panier de l'utilisateur et redirection vers la page espace client
                   if ($user->getRole() == 'user') {
-                    $userOrderRepository = new UserOrderRepository();
                     $cartId = $userOrderRepository->findCartId($user->getId());
                     if ($cartId == 0) {
                       $isCardCreated = $userOrderRepository->createEmptyCart($user->getId(), $user->getFk_store_id());

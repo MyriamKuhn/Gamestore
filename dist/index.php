@@ -38,7 +38,8 @@ $controller->route();
 
 // JUST FOR TESTING
 
-use App\Repository\SalesRepository;
+use App\Repository\UserRepository;
 
 
-$userOrderRepository = new SalesRepository();
+$userOrderRepository = new UserRepository();
+
