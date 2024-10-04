@@ -32,6 +32,15 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
             <div class="col-md-6 mt-2">
               <div class="card shadow">
                 <div class="card-body d-flex flex-column">
+                  <h2 class="card-title text-uppercase"><i class="bi bi-shop me-2"></i>Magasin</h2>
+                  <p class="card-text">Enregistrez un achat direct en magasin.</p>
+                  <a href="index.php?controller=admin&action=buying" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mt-2">
+              <div class="card shadow">
+                <div class="card-body d-flex flex-column">
                   <h2 class="card-title text-uppercase"><i class="bi bi-person-lines-fill"></i>Employés</h2>
                   <p class="card-text">Gérez tous vos employés pour chaque magasin Gamestore.</p>
                   <a href="index.php?controller=admin&action=employes" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>

@@ -112,7 +112,7 @@ $needle = 'spotlight';
         <!-- START : Card News -->
         <div class="card gamestore-card" style="width: 15rem;">
           <div class="card-img-block">
-            <img class="card-img-top" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= Security::secureInput($lastGameData['game_name']) ?> loading="lazy">
+            <img class="card-img-top" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= Security::secureInput($lastGameData['game_name']) ?>" loading="lazy">
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Nouveauté</span>
           </div>
           <div class="card-body card-body-news pt-0">

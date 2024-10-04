@@ -6,11 +6,11 @@
 import { validateJSONStructure } from './utils.js';
 
 
-/**********************/
+/*****************************************************************/
 
 // FETCH DES DONNEES ET PREPARATIONS POUR LE GRAPHIQUE CHART.JS //
 
-/*********************/
+/****************************************************************/
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 document.addEventListener('DOMContentLoaded', function () {

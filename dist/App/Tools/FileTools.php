@@ -146,6 +146,24 @@ class FileTools
               ];
               return $scripts;
               break;
+            case 'order':
+              $scripts = [
+                'orderPage.js',
+              ];
+              return $scripts;
+              break;
+            case 'orders':
+              $scripts = [
+                'ordersAdminPage.js',
+              ];
+              return $scripts;
+              break;
+            case 'buying':
+              $scripts = [
+                'buyingAdminPage.js',
+              ];
+              return $scripts;
+              break;
           }
           break;
     }

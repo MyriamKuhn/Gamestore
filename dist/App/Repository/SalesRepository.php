@@ -25,7 +25,8 @@ class SalesRepository extends MongoRepository
 			'store' => $sale->getStore(),
 			'price' => $sale->getPrice(),
 			'quantity' => $sale->getQuantity(),
-			'date' => $utcDate
+			'date' => $utcDate,
+			'orderId' => $sale->getOrderId()
 		]);
 
 		return $result->getInsertedId();
@@ -45,6 +46,7 @@ class SalesRepository extends MongoRepository
 		$sale->setPrice($result['price']);
 		$sale->setQuantity($result['quantity']);
 		$sale->setDate($date);
+		$sale->setOrderId($result['orderId']);
 
 		return $sale;
 	}
@@ -65,6 +67,7 @@ class SalesRepository extends MongoRepository
 			$sale->setPrice($sale['price']);
 			$sale->setQuantity($sale['quantity']);
 			$sale->setDate($date);
+			$sale->setOrderId($sale['orderId']);
 			$sales[] = $sale;
 		}
 
@@ -73,10 +76,10 @@ class SalesRepository extends MongoRepository
 
 	public function getAllSalesByDate(string|null $store = null): array
 	{
-		// Prépare le pipeline d'agrégation
+		// Préparation du pipeline d'agrégation
 		$pipeline = [];
 
-		// Ajoute une condition de filtrage par magasin si spécifiée
+		// Ajout d'une condition de filtrage par magasin si spécifiée
 		if ($store) {
 			$pipeline[] = [
 				'$match' => [
@@ -85,7 +88,7 @@ class SalesRepository extends MongoRepository
 			];
 		}
 
-		// Ajoute le groupe pour agréger les ventes par date et par jeu
+		// Ajout du groupe pour agréger les ventes par date et par jeu
 		$pipeline[] = [
 			'$group' => [
 				'_id' => [
@@ -105,7 +108,7 @@ class SalesRepository extends MongoRepository
 			'$sort' => ['_id.date' => 1]
 		];
 
-		// Exécutez l'agrégation
+		// Exécution de l'agrégation
 		$result = $this->collection->aggregate($pipeline);
 
 		$sales = [];
@@ -124,10 +127,10 @@ class SalesRepository extends MongoRepository
 
 	public function getAllSalesDatas(string|null $store = null): array
 	{
-		// Prépare le pipeline d'agrégation
+		// Préparation du pipeline d'agrégation
 		$pipeline = [];
 
-		// Ajoute une condition de filtrage par magasin si spécifiée
+		// Ajout d'une condition de filtrage par magasin si spécifiée
 		if ($store) {
 			$pipeline[] = [
 				'$match' => [
@@ -136,7 +139,7 @@ class SalesRepository extends MongoRepository
 			];
 		}
 
-		// Ajoute le groupe pour agréger les ventes par date et par jeu
+		// Ajout d'un groupe pour agréger les ventes par date et par jeu
 		$pipeline[] = [
 			'$group' => [
 				'_id' => [
@@ -157,7 +160,7 @@ class SalesRepository extends MongoRepository
 			'$sort' => ['_id.date' => 1]
 		];
 
-		// Exécutez l'agrégation
+		// Exécution de l'agrégation
 		$result = $this->collection->aggregate($pipeline);
 
 		$sales = [];
@@ -173,5 +176,21 @@ class SalesRepository extends MongoRepository
 		}
 
 		return $sales;
+	}
+
+	public function deleteSale(Sale $sale): bool
+	{
+		$result = $this->collection->deleteOne([
+			'id' => $sale->getId(),
+			'name' => $sale->getName(),
+			'genre' => $sale->getGenre(),
+			'platform' => $sale->getPlatform(),
+			'store' => $sale->getStore(),
+			'price' => $sale->getPrice(),
+			'quantity' => $sale->getQuantity(),
+			'orderId' => $sale->getOrderId()
+		]);
+
+		return $result->getDeletedCount() > 0;
 	}
 }

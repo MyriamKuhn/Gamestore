@@ -188,4 +188,23 @@ class UserRepository extends MainRepository
     return $stmt->fetchAll();
   }
 
+    // Récupération de tous les utilisateurs en général
+    public function findAllUsers(): array
+    {
+      $query = 'SELECT 
+        au.id AS user_id,
+        CONCAT(au.first_name, " ", last_name) AS user_name,
+        au.email AS user_address,
+        s.location AS store_location,
+        s.id AS store_id,
+        au.role AS user_role
+        FROM app_user AS au
+        INNER JOIN store AS s ON au.fk_store_id = s.id';
+  
+      $stmt = $this->pdo->query($query);
+      $stmt->execute();
+  
+      return $stmt->fetchAll();
+    }
+
 }

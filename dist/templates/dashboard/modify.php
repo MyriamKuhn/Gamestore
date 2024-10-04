@@ -71,7 +71,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
     </div>
   </form>
   <!-- END : Formulaire de modification des données personnelles -->
-    <!-- Gamestore le plus proche -->
+  <!-- Gamestore le plus proche -->
   <div class="d-flex justify-content-between gamestore-title mt-5 mb-4">
     <h2 class="text-uppercase">Modifiez votre Gamestore le plus proche</h2>
   </div>

@@ -188,7 +188,7 @@ class UserOrderRepository extends MainRepository
       INNER JOIN game_user_order AS guo ON guo.fk_user_order_id = uo.id
       INNER JOIN app_user AS au ON uo.fk_app_user_id = au.id
       WHERE uo.fk_store_id = :storeId AND uo.status != "En attente" AND au.role = "user"
-      GROUP BY uo.id
+      GROUP BY uo.id, uo.order_date, uo.status, uo.fk_app_user_id
       ORDER BY uo.order_date DESC';
 
     $stmt = $this->pdo->prepare($query);
@@ -203,6 +203,39 @@ class UserOrderRepository extends MainRepository
       return false;
     }
   }
+
+    // Récupération de toutes les commandes pour tous les magasins
+    public function findAllOrders(): array|bool
+    {
+      $query = 'SELECT
+        uo.id AS order_id,
+        uo.order_date AS order_date,
+        uo.status AS order_status,
+        uo.fk_app_user_id AS user_id,
+        CONCAT(au.first_name, " ", au.last_name) AS user_name,
+        au.email AS user_address,
+        s.location AS store_location,
+        s.id AS store_id,
+        au.role AS user_role
+        FROM user_order AS uo
+        INNER JOIN game_user_order AS guo ON guo.fk_user_order_id = uo.id
+        INNER JOIN app_user AS au ON uo.fk_app_user_id = au.id
+        INNER JOIN store AS s ON uo.fk_store_id = s.id
+        WHERE uo.status != "En attente"
+        GROUP BY uo.id, uo.order_date, uo.status, uo.fk_app_user_id, s.location, s.id, au.role
+        ORDER BY uo.order_date DESC';
+  
+      $stmt = $this->pdo->prepare($query);
+      $stmt->execute();
+  
+      $orders = $stmt->fetchAll();
+  
+      if ($orders) {
+        return $orders;
+      } else {
+        return false;
+      }
+    }
 
   // Mise à jour des status des commandes en fonction des dates (effectué à chaque connexion)
   public function updateOrdersStatus(): bool
