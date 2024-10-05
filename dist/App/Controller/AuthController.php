@@ -72,6 +72,12 @@ class AuthController extends RoutingController
         if (!UserValidator::validatePassword($password)) {
           $errors['password'] = 'Le mot de passe n\'est pas valide';
         }
+        // Vérification si l'utilisateur est bloqué
+        $userRepository = new UserRepository();
+        $user = $userRepository->getUserByEmail($email);
+        if ($user && $user->getIs_blocked() == 1) {
+          $errors['blocked'] = 'Votre compte a été bloqué. Veuillez contacter un administrateur pour plus d\'informations.';
+        }
         // Clé secrète reCAPTCHA
         $recaptchaSecret = $_ENV['SITE_RECAPTCHA_SECRET'];
         // Vérification du reCAPTCHA
@@ -84,8 +90,6 @@ class AuthController extends RoutingController
         } else {
           // Si la vérification CAPTCHA est réussie et si aucune erreur n'est détectée, enregistrement en base de données
           if (empty($errors)) {
-            $userRepository = new UserRepository();
-            $user = $userRepository->getUserByEmail($email);
             if ($user && Security::verifyPassword($password, $user->getPassword())) {
               // Si l'activation n'est pas effectuée, renvoi vers la page d'activation
               if ($user->getIs_verified() == 0) {
@@ -170,6 +174,12 @@ class AuthController extends RoutingController
       if (!UserValidator::validateEmail($email)) {
         $errors['email'] = 'L\'adresse mail n\'est pas valide';
       }
+      // Vérification si l'utilisateur est bloqué
+      $userRepository = new UserRepository();
+      $user = $userRepository->getUserByEmail($email);
+      if ($user && $user->getIs_blocked() == 1) {
+        $errors['blocked'] = 'Votre compte a été bloqué. Veuillez contacter un administrateur pour plus d\'informations.';
+      }
       // Clé secrète reCAPTCHA
       $recaptchaSecret = $_ENV['SITE_RECAPTCHA_SECRET'];
       // Vérification du reCAPTCHA
@@ -180,7 +190,7 @@ class AuthController extends RoutingController
       if (intval($responseKeys["success"]) !== 1) {
         $errors['captcha'] = 'Échec de la vérification reCAPTCHA. Veuillez réessayer';
       } else {
-        // Si la vérification CAPTCHA est réussie et si aucune erreur n'est détectée, enregistrement en base de données
+        // Si la vérification CAPTCHA est réussie et si aucune erreur n'est détectée, envoi du mail
         if (empty($errors)) {
           $userRepository = new UserRepository();
           $user = $userRepository->getUserByEmail($email);

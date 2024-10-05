@@ -164,6 +164,18 @@ class FileTools
               ];
               return $scripts;
               break;
+            case 'employes':
+              $scripts = [
+                'employesAdminPage.js',
+              ];
+              return $scripts;
+              break;
+            case 'employe':
+              $scripts = [
+                'employeAdminPage.js',
+              ];
+              return $scripts;
+              break;
           }
           break;
     }

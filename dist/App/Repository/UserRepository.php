@@ -154,6 +154,29 @@ class UserRepository extends MainRepository
     }
   }
 
+    // Mise à jour des données par un administrateur
+    public function updateUserByAdmin(int $userId, string $firstname, string $lastname, string $address, int $postcode, string $city, string $email, int $storeId): User|bool
+    {
+      $query = 'UPDATE app_user SET first_name = :first_name, last_name = :last_name, address = :address, postcode = :postcode, city = :city, email = :email, fk_store_id = :fk_store_id WHERE id = :id';
+  
+      $stmt = $this->pdo->prepare($query);
+      $stmt->bindValue(':first_name', $firstname, $this->pdo::PARAM_STR);
+      $stmt->bindValue(':last_name', $lastname, $this->pdo::PARAM_STR);
+      $stmt->bindValue(':address', $address, $this->pdo::PARAM_STR);
+      $stmt->bindValue(':postcode', $postcode, $this->pdo::PARAM_INT);
+      $stmt->bindValue(':city', $city, $this->pdo::PARAM_STR);
+      $stmt->bindValue(':email', $email, $this->pdo::PARAM_STR);
+      $stmt->bindValue(':fk_store_id', $storeId, $this->pdo::PARAM_INT);
+      $stmt->bindValue(':id', $userId, $this->pdo::PARAM_INT);
+  
+      if ($stmt->execute()) {
+        $user = $this->getUserById($userId);
+        return $user;
+      } else {
+        return false;
+      }
+    }
+
   // Mise à jour du mot de passe
   public function updateUserPassword(int $userId, string $password): User|bool
   {
@@ -179,7 +202,7 @@ class UserRepository extends MainRepository
       CONCAT(au.first_name, " ", last_name) AS user_name,
       au.email AS user_address
       FROM app_user AS au 
-      WHERE fk_store_id = :fk_store_id AND role = "user"';
+      WHERE au.fk_store_id = :fk_store_id AND au.role = "user" AND au.is_blocked = 0';
 
     $stmt = $this->pdo->prepare($query);
     $stmt->bindValue(':fk_store_id', $storeId, $this->pdo::PARAM_INT);
@@ -189,22 +212,54 @@ class UserRepository extends MainRepository
   }
 
     // Récupération de tous les utilisateurs en général
-    public function findAllUsers(): array
+    public function findAllUsers(string|null $role = null): array
     {
       $query = 'SELECT 
-        au.id AS user_id,
-        CONCAT(au.first_name, " ", last_name) AS user_name,
-        au.email AS user_address,
+        au.id AS user_id,';
+        if ($role) {
+          $query .= 'au.first_name AS first_name, au.last_name AS last_name, au.address AS address, au.postcode AS postcode, au.city AS city,';
+        } else {
+          $query .= 'CONCAT(au.first_name, " ", last_name) AS user_name, CONCAT(au.address, " ", au.postcode, " ", au.city) AS user_address,';
+        }
+        $query .= 'au.email AS user_mail,
         s.location AS store_location,
         s.id AS store_id,
-        au.role AS user_role
+        au.role AS user_role, 
+        au.is_blocked AS is_blocked
         FROM app_user AS au
         INNER JOIN store AS s ON au.fk_store_id = s.id';
-  
-      $stmt = $this->pdo->query($query);
+      if ($role) {
+        $query .= ' WHERE role = :role';
+      } else {
+        $query .= ' WHERE au.is_blocked = 0';
+      }
+
+      $stmt = $this->pdo->prepare($query);
+      if ($role) $stmt->bindValue(':role', $role, $this->pdo::PARAM_STR);
       $stmt->execute();
   
       return $stmt->fetchAll();
     }
 
+  // Blocage d'un utilisateur
+  public function blockUser(int $userId): bool
+  {
+    $query = 'UPDATE app_user SET is_blocked = 1 WHERE id = :id';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':id', $userId, $this->pdo::PARAM_INT);
+    
+    return $stmt->execute();
+  }
+
+  // Déblocage d'un utilisateur
+  public function unblockUser(int $userId): bool
+  {
+    $query = 'UPDATE app_user SET is_blocked = 0 WHERE id = :id';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':id', $userId, $this->pdo::PARAM_INT);
+    
+    return $stmt->execute();
+  }
 }

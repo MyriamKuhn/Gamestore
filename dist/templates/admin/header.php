@@ -84,7 +84,7 @@ Security::adminOnly();
               <li class="nav-item mb-5">
                 <a href="index.php?controller=admin&action=users" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'users') ?>">
                   <i class="bi bi-person-fill me-2"></i>
-                  <span class="d-none d-sm-inline">Utilisateurs</span>
+                  <span class="d-none d-sm-inline">Clients</span>
                 </a>
               </li>
               <li class="nav-item mb-5">

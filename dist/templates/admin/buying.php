@@ -82,7 +82,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
                     <option value="0">Pas client inscrit</option>
                     <?php foreach ($users as $user) :
                       if (Security::secureInput($user['store_id']) == Security::secureInput($game['store_id']) && Security::secureInput($user['user_role']) !== 'admin') : ?>
-                        <option value="<?= Security::secureInput($user['user_id']) ?>" <?= Security::secureInput($user['user_role']) === 'employe' ? 'data-color="red"' : '' ?>><?= Security::secureInput($user['user_name']) . ' ' . Security::secureInput($user['user_address']) . ' (' . Security::secureInput($user['store_location']) . ')' ?></option>
+                        <option value="<?= Security::secureInput($user['user_id']) ?>" <?= Security::secureInput($user['user_role']) === 'employe' ? 'data-color="red"' : '' ?>><?= Security::secureInput($user['user_name']) . ' ' . Security::secureInput($user['user_mail']) . ' (' . Security::secureInput($user['store_location']) . ')' ?></option>
                     <?php endif;
                     endforeach; ?>
                   </select>
