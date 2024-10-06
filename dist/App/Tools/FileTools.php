@@ -176,6 +176,12 @@ class FileTools
               ];
               return $scripts;
               break;
+            case 'users':
+              $scripts = [
+                'usersAdminPage.js',
+              ];
+              return $scripts;
+              break;
           }
           break;
     }

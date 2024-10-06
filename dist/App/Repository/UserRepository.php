@@ -194,6 +194,23 @@ class UserRepository extends MainRepository
     }
   }
 
+    // Mise à jour du mail
+    public function updateUserEmail(int $userId, string $email): User|bool
+    {
+      $query = 'UPDATE app_user SET email = :email WHERE id = :id';
+  
+      $stmt = $this->pdo->prepare($query);
+      $stmt->bindValue(':email', $email, $this->pdo::PARAM_STR);
+      $stmt->bindValue(':id', $userId, $this->pdo::PARAM_INT);
+      
+      if ($stmt->execute()) {
+        $user = $this->getUserById($userId);
+        return $user;
+      } else {
+        return false;
+      }
+    }
+
   // Récupération de tous les utilisateurs d'un magasin
   public function findAllUsersByStore(int $storeId): array
   {

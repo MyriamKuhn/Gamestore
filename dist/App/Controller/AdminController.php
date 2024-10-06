@@ -96,6 +96,7 @@ class AdminController extends RoutingController
             $this->render('admin/error', [
               'error' => 'Veuillez vous connecter pour accéder à cette page.'
             ]);
+            exit;
           }
           $userRepository = new UserRepository();
           $user = $userRepository->getUserById($userId);
@@ -666,14 +667,78 @@ class AdminController extends RoutingController
   {
     try {
       if (Security::isAdmin()) {
-        $userRepository = new UserRepository();
-        $users = $userRepository->findAllUsers('user');
-        if (!$users) {
-          throw new \Exception("Erreur lors de la récupération des utilisateurs.");
+        // Si modification du mail du client
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editUser'])) {
+          // Vérification du token CSRF
+          Security::checkCSRF($_POST['csrf_token']);
+          // Récupération des données du formulaire et sécurisation
+          $userId = Security::secureInput($_POST['userId']);
+          $email = Security::secureInput($_POST['email']);
+          // Vérification des données
+          $errors = [];
+          UserValidator::validateEmail($email) ?: $errors['email'] = 'Le champ email n\'est pas valide';
+          // Si aucune erreur, modification des données
+          if (empty($errors)) {
+            $userRepository = new UserRepository();
+            $user = $userRepository->updateUserEmail($userId, $email);
+            // Si mise en place en base de données réussie
+            if ($user) {
+              header('Location: index.php?controller=admin&action=users');
+              exit;
+            } else {
+              $this->render('admin/error', [
+                'error' => 'Erreur lors de la modification des données de l\'utilisateur.'
+              ]);
+            }
+          } else {
+            $userRepository = new UserRepository();
+            $users = $userRepository->findAllUsers('user');
+            if (!$users) {
+              throw new \Exception("Erreur lors de la récupération des données de l'utilisateur.");
+            } else {
+              $this->render('admin/users', [
+                'users' => $users,
+                'errors' => $errors
+              ]);
+            }
+          }
+        // Si blocage du client
+        } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['blockUser'])) {
+          // Vérification du token CSRF
+          Security::checkCSRF($_POST['csrf_token']);
+          // Récupération des données du formulaire et sécurisation
+          $userId = Security::secureInput($_POST['userId']);
+          $userRepository = new UserRepository();
+          $user = $userRepository->blockUser($userId);
+          if (!$user) {
+            throw new \Exception("Erreur lors du blocage de l'utilisateur.");
+          }
+          header('Location: index.php?controller=admin&action=users');
+          exit;
+        // Si déblocage du client
+        } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['unblockUser'])) {
+          // Vérification du token CSRF
+          Security::checkCSRF($_POST['csrf_token']);
+          // Récupération des données du formulaire et sécurisation
+          $userId = Security::secureInput($_POST['userId']);
+          $userRepository = new UserRepository();
+          $user = $userRepository->unblockUser($userId);
+          if (!$user) {
+            throw new \Exception("Erreur lors du déblocage de l'utilisateur.");
+          }
+          header('Location: index.php?controller=admin&action=users');
+          exit;
+        // Comportement par défaut au chargement de la page
+        } else {
+          $userRepository = new UserRepository();
+          $users = $userRepository->findAllUsers('user');
+          if (!$users) {
+            throw new \Exception("Erreur lors de la récupération des utilisateurs.");
+          }
+          $this->render('admin/users', [
+            'users' => $users
+          ]);
         }
-        $this->render('admin/users', [
-          'users' => $users
-        ]);
       } else {
         throw new \Exception("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter");
       }

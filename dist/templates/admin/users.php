@@ -10,9 +10,18 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
   <div class="d-flex justify-content-between gamestore-title mb-4">
     <h2 class="text-uppercase">Gestion des clients</h2>
   </div>
+  <!-- Alerte pour signifier que l'utilisateur doit être déconnecté -->
   <div class="alert alert-info py-5 my-5">
     <p><i class="bi bi-exclamation-circle"></i> Pour que les informations soient actualisées, le client doit se déconnecter.</p>
     <p>Lors de sa première reconnexion il devra à nouveau s'authentifier afin de garantir la validité de l'adresse mail.</p>
+  </div>
+  <!-- Affichage des erreurs -->
+  <div class="alert alert-danger py-5 my-5 <?= empty($errors) ? 'visually-hidden' : '' ?>" id="error-message">
+    <?php if (!empty($errors)) {
+      foreach ($errors as $error) {
+        echo $error . '<br>';
+      }
+    } ?>
   </div>
   <!-- Filtre par nom -->
   <div class="form-floating mb-3">
@@ -60,13 +69,15 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
             <td><?= Security::secureInput($user['user_id']) ?></td>
             <td><?= Security::secureInput($user['last_name']) . ' ' . Security::secureInput($user['first_name']) ?></td>
             <td><?= Security::secureInput($user['address']) . ' ' . Security::secureInput($user['postcode']) . ' ' . Security::secureInput($user['city']) ?></td>
-            <td><?= Security::secureInput($user['user_mail']) ?></td>
-            <td><?= Security::secureInput($user['store_location']) ?></td>
-            <td><?= Security::secureInput($user['is_blocked'] == 0) ? 'Actif' : 'Bloqué' ?></td>
-            <td>
-              <form method="post">
-                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-                <input type="hidden" name="userId" value="<?= Security::secureInput($user['user_id']) ?>">
+            <form method="post" id="user-form" class="needs-validation">
+              <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+              <input type="hidden" name="userId" value="<?= Security::secureInput($user['user_id']) ?>">
+              <td>
+                <input type="email" class="form-control <?=(isset($errors['email']) ? 'is-invalid': '') ?>" name="email" value="<?= Security::secureInput($user['user_mail']) ?>" required>
+              </td>
+              <td><?= Security::secureInput($user['store_location']) ?></td>
+              <td><?= Security::secureInput($user['is_blocked'] == 0) ? 'Actif' : 'Bloqué' ?></td>
+              <td>
                 <button type="submit" name="editUser" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Modifier les données" class="btn btn-gamestore">
                   <i class="bi bi-pencil-fill"></i>
                 </button>
@@ -79,8 +90,8 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
                   <i class="bi bi-unlock-fill"></i>
                 </button>
                 <?php endif; ?>
-              </form>
-            </td>
+              </td>
+            </form>
           </tr>
         <?php endforeach; ?>
       </tbody>

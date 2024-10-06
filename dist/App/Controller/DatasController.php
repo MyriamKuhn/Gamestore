@@ -7,6 +7,7 @@ use App\Tools\Security;
 use App\Repository\GameUserOrderRepository;
 use App\Repository\PlatformRepository;
 use App\Repository\SalesRepository;
+use App\Repository\UserRepository;
 
 class DatasController extends RoutingController
 {
@@ -91,6 +92,17 @@ class DatasController extends RoutingController
 
   protected function getAddCart($gameId, $platform, $price, $discountRate, $oldPrice, $location, $userId)
   {
+    // Vérification de la connexion de l'utilisateur
+    $userRepository = new UserRepository();
+    $user = $userRepository->getUserById($userId);
+    if (!$user) {
+      $this->sendResponse(false, "Utilisateur inconnu", 400);
+      exit;
+    }
+    if ($user->getIs_blocked() === 1) {
+      $this->sendResponse(false, "Votre compte est bloqué, veuillez contacter un administrateur", 403);
+      exit;
+    }
     // Récupération de toutes les données nécessaires
     $gameId = (int) $gameId;
     $platform = Security::secureInput($platform);
@@ -106,12 +118,14 @@ class DatasController extends RoutingController
     $platformId = $platformRepository->getPlatformIdByName($platform);
     if ($platformId === 0) {
       $this->sendResponse(false, "Plateforme inconnue", 400);
+      exit;
     }
     // Calcul du prix total
     $price_at_order = $price * $quantity;
     // Vérification des données du jeu
     if ($location !== $_SESSION['user']['store_id']) {
       $this->sendResponse(false, "Vous ne pouvez pas ajouter un jeu d'une autre boutique", 400);
+      exit;
     }
     $gpRepository = new GamePlatformRepository();
     if ($discountRate > 0) {
@@ -125,11 +139,14 @@ class DatasController extends RoutingController
       $isAdded = $guoRepository->addGameInCart($gameId, $platformId, $orderId, $quantity, $price_at_order, 'add');
       if (!$isAdded) {
         $this->sendResponse(false, "Erreur lors de l'ajout du jeu dans le panier", 500);
+        exit;
       } else {
         $this->sendResponse(true, $orderId, 200);
+        exit;
       }
     } else {
       $this->sendResponse(false, "Données du jeu incorrectes", 400);
+      exit;
     }
   }
 
@@ -137,7 +154,7 @@ class DatasController extends RoutingController
   {
     if (empty($_SESSION['user']) || empty($_SESSION['user']['cart_id'])) {
       $this->sendResponse(false, "Aucun panier n'a été trouvé", 404);
-      return;
+      exit;
     }
     $cartId = $_SESSION['user']['cart_id'];
     $guoRepository = new GameUserOrderRepository();
@@ -145,6 +162,7 @@ class DatasController extends RoutingController
 
     if (empty($cartContent)) {
       $this->sendResponse(false, "Le panier est vide", 404);
+      exit;
     } else {
       $this->sendResponse(true, $cartContent, 200);
     }
@@ -157,11 +175,13 @@ class DatasController extends RoutingController
       $sales = $salesRepository->getAllSalesByDate(Security::getEmployeStore());
       if (empty($sales)) {
         $this->sendResponse(false, "Aucune vente n'a été trouvée", 404);
+        exit;
       } else {
         $this->sendResponse(true, $sales, 200);
       }
     } else {
       $this->sendResponse(false, "Vous n'êtes pas autorisé à accéder à cette ressource", 403);
+      exit;
     }
   }
     

@@ -195,6 +195,8 @@ export function createHtmlCard(datas) {
             .then(datas => {
               if (datas.success) {
                 showCart();
+              } else if (datas.datas == "Votre compte est bloqu\u00e9, veuillez contacter un administrateur") {
+                window.location.href = 'index.php?controller=auth&action=logout';
               } else {
                 alert ('Le jeu n\'a pas pu être ajouté au panier');
               }
