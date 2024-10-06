@@ -55,6 +55,10 @@ export class LocationSelect {
 
     // Affichage des données de prix sur le HTML en fonction de la localisation et de la plateforme sélectionnées
     this.updateDatasinHTML();
+
+    // Retrait du chargement
+    document.getElementById('loading').classList.add('visually-hidden');
+    document.getElementById('details').classList.remove('visually-hidden');
   }
 
   updateButton(text, value, iconClass) {

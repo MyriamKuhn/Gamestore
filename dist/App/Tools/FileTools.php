@@ -16,30 +16,23 @@ class FileTools
   public static function addScripts()
   {
     switch (isset($_GET['controller']) ? $_GET['controller'] : '') {
-      case 'page':
-        $scripts = [
-          'utils.js',
-        ];
-        return $scripts;
-        break;
-
       case 'games':
         switch (isset($_GET['action']) ? $_GET['action'] : '') {
           case 'list':
             $scripts = [
-              'listPage.js',
+              'games/list.js',
             ];
             return $scripts;
             break;
           case 'show':
             $scripts = [
-              'showPage.js',
+              'games/show.js',
             ];
             return $scripts;
             break;
           case 'promo':
             $scripts = [
-              'promoPage.js',
+              'games/promo.js',
             ];
             return $scripts;
             break;
@@ -50,19 +43,19 @@ class FileTools
         switch (isset($_GET['action']) ? $_GET['action'] : '') {
           case 'login':
             $scripts = [
-              'loginPage.js',
+              'auth/login.js',
             ];
             return $scripts;
             break;
           case 'password':
             $scripts = [
-              'passwordPage.js',
+              'auth/password.js',
             ];
             return $scripts;
             break;
           case 'reset':
             $scripts = [
-              'resetPage.js',
+              'auth/reset.js',
             ];
             return $scripts;
             break;
@@ -73,7 +66,7 @@ class FileTools
         switch (isset($_GET['action']) ? $_GET['action'] : '') {
           case 'register':
             $scripts = [
-              'registerPage.js',
+              'user/register.js',
             ];
             return $scripts;
             break;
@@ -84,13 +77,13 @@ class FileTools
         switch (isset($_GET['action']) ? $_GET['action'] : '') {
           case 'modify':
             $scripts = [
-              'modifyUserPage.js',
+              'dashboard/modifyUser.js',
             ];
             return $scripts;
             break;
           case 'order':
             $scripts = [
-              'orderPage.js',
+              'order.js',
             ];
             return $scripts;
             break;
@@ -101,37 +94,37 @@ class FileTools
         switch (isset($_GET['action']) ? $_GET['action'] : '') {
           case 'password':
             $scripts = [
-              'passwordChangePage.js',
+              'passwordChange.js',
             ];
             return $scripts;
             break;
           case 'orders':
             $scripts = [
-              'ordersPage.js',
+              'employe/orders.js',
             ];
             return $scripts;
             break;
           case 'buying':
             $scripts = [
-              'buyingPage.js',
+              'employe/buying.js',
             ];
             return $scripts;
             break;
           case 'order':
             $scripts = [
-              'orderPage.js',
+              'order.js',
             ];
             return $scripts;
             break;
           case 'sales':
             $scripts = [
-              'salesPage.js',
+              'employe/sales.js',
             ];
             return $scripts;
             break;
           case 'details':
             $scripts = [
-              'detailsPage.js',
+              'employe/details.js',
             ];
             return $scripts;
             break;
@@ -142,55 +135,55 @@ class FileTools
           switch (isset($_GET['action']) ? $_GET['action'] : '') {
             case 'password':
               $scripts = [
-                'passwordChangePage.js',
+                'passwordChange.js',
               ];
               return $scripts;
               break;
             case 'order':
               $scripts = [
-                'orderPage.js',
+                'order.js',
               ];
               return $scripts;
               break;
             case 'orders':
               $scripts = [
-                'ordersAdminPage.js',
+                'admin/orders.js',
               ];
               return $scripts;
               break;
             case 'buying':
               $scripts = [
-                'buyingAdminPage.js',
+                'admin/buying.js',
               ];
               return $scripts;
               break;
             case 'employes':
               $scripts = [
-                'employesAdminPage.js',
+                'admin/employes.js',
               ];
               return $scripts;
               break;
             case 'employe':
               $scripts = [
-                'employeAdminPage.js',
+                'admin/employe.js',
               ];
               return $scripts;
               break;
             case 'users':
               $scripts = [
-                'usersAdminPage.js',
+                'admin/users.js',
               ];
               return $scripts;
               break;
             case 'sales':
               $scripts = [
-                'salesAdminPage.js',
+                'admin/sales.js',
               ];
               return $scripts;
               break;
             case 'details':
               $scripts = [
-                'detailsAdminPage.js',
+                'admin/details.js',
               ];
               return $scripts;
               break;

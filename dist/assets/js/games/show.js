@@ -1,17 +1,17 @@
 /***********/
 
-// IMPORTS //
+/* IMPORTS */
 
-/**********/
-import { secureInput } from './utils.js';
-import { PlatformSelect } from './Classes/PlatformSelect.js';
-import { CarouselGamestore } from './Classes/CarouselGamestore.js';
-import { validateJSONStructure } from './utils.js';
+/***********/
+import { secureInput } from '../utils.js';
+import { PlatformSelect } from '../Classes/PlatformSelect.js';
+import { CarouselGamestore } from '../Classes/CarouselGamestore.js';
+import { validateJSONStructure } from '../utils.js';
 
 
-//**************/
+//*************/
 
-// URL PARAMS //
+/* URL PARAMS */
 
 /**************/
 const url = new URL(window.location.href);
@@ -21,16 +21,16 @@ const gameId = secureInput(urlParams.get('id'));
 
 /********************/
 
-// START PAGE LIST  //
+/* START PAGE LIST  */
 
 /********************/
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 getDatas();
 
 
-/**********************/
+/*********************/
 
-// FETCH DES DONNEES //
+/* FETCH DES DONNEES */
 
 /*********************/
 export let gameDatas = null;
@@ -66,20 +66,12 @@ function getDatas() {
   }
 }
 
-/*********************************************/
 
-// CONSTRUCTION DES SELECT POUR PLATEFORMES //
+/***************************/
 
-/********************************************/
-function buildPlatformSelect() {
-  new PlatformSelect(gameDatas);
-}
+/* CHARGEMENT DU CAROUSEL */
 
-//********************************************//
-
-// CHARGEMENT DU CAROUSEL //
-
-//******************************************//
+/**************************/
 document.addEventListener('DOMContentLoaded', function() {
   new CarouselGamestore(document.querySelector('#carousel-gamestore'), {
   slidesToScroll: 1,

@@ -3,14 +3,14 @@
 // IMPORTS //
 
 /**********/
-import { validateJSONStructure } from './utils.js';
+import { validateJSONStructure } from '../utils.js';
 
 
-/**********************************************/
+/****************/
 
-// AU DEMARRAGE RECUPERER TOUTES LES DONNEES //
+// AU DEMARRAGE //
 
-/*********************************************/
+/****************/
 document.addEventListener('DOMContentLoaded', function () {
   fetchDatasFirst('getSalesNantesDatas', 'no-datas-nantes', 'chartNantes', 'loading-nantes', 'getSalesGenreNantesDatas', 'chartGenreNantes', 'graphic-title-nantes');
 

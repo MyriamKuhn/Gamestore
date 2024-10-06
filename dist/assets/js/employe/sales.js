@@ -3,7 +3,7 @@
 // IMPORTS //
 
 /**********/
-import { validateJSONStructure } from './utils.js';
+import { validateJSONStructure } from '../utils.js';
 
 
 /*******************************************************************/

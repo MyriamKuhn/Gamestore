@@ -3,8 +3,8 @@
 /* IMPORT */
 
 /**********/
-import { secureInput } from './utils.js';
-import { validateJSONStructure } from './utils.js';
+import { secureInput } from '../utils.js';
+import { validateJSONStructure } from '../utils.js';
 
 
 /****************************************************************************/

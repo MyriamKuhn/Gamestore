@@ -22,8 +22,16 @@ class DatasController extends RoutingController
         // Vérifier l'action demandée
         if (isset($data['action'])) {
             // Appeler une fonction spécifique en fonction de l'action
-            if ($data['action'] === 'getListDatas') {
-                $this->getListDatas();
+            if ($data['action'] === 'getListDatasNantes') {
+              $this->getListDatas(1);
+            } else if ($data['action'] === 'getListDatasLille') {
+              $this->getListDatas(2);
+            } else if ($data['action'] === 'getListDatasBordeaux') {
+              $this->getListDatas(3);
+            } else if ($data['action'] === 'getListDatasParis') {
+              $this->getListDatas(4);
+            } else if ($data['action'] === 'getListDatasToulouse') {
+              $this->getListDatas(5);
             } elseif ($data['action'] === 'getPromoDatas') {
                 $this->getPromoDatas();
             } elseif ($data['action'] === 'getGameDatas') {
@@ -71,7 +79,7 @@ class DatasController extends RoutingController
     }
   }
 
-  protected function getPromoDatas()
+  protected function getPromoDatas(): void
   {
     $gpRepository = new GamePlatformRepository();
     $reducedGames = $gpRepository->getAllReducedGames();
@@ -79,29 +87,19 @@ class DatasController extends RoutingController
     $this->sendResponse(true, $reducedGames, 200);
   }
 
-  protected function getListDatas()
+  protected function getListDatas(int $storeId): void
   {
     $gpRepository = new GamePlatformRepository();
-    $gamesNantes = $gpRepository->getAllGamesByStore(1);
-    $gamesLille = $gpRepository->getAllGamesByStore(2);
-    $gamesBordeaux = $gpRepository->getAllGamesByStore(3);
-    $gamesParis = $gpRepository->getAllGamesByStore(4);
-    $gamesToulouse = $gpRepository->getAllGamesByStore(5);
+    $games = $gpRepository->getAllGamesByStore($storeId);
 
-    if (empty($gamesNantes) || empty($gamesLille) || empty($gamesBordeaux) || empty($gamesParis) || empty($gamesToulouse)) {
+    if (empty($games)) {
       $this->sendResponse(false, "Aucun jeu n'a été trouvé", 404);
     } else {
-      $this->sendResponse(true, [
-        'datasNantes' => $gamesNantes,
-        'datasLille' => $gamesLille,
-        'datasBordeaux' => $gamesBordeaux,
-        'datasParis' => $gamesParis,
-        'datasToulouse' => $gamesToulouse
-      ], 200);
+      $this->sendResponse(true, $games, 200);
     }
   }
 
-  protected function getGameDatas($gameId)
+  protected function getGameDatas(int $gameId): void
   {
     $gameId = (int) $gameId;
     $gpRepository = new GamePlatformRepository();
@@ -114,7 +112,7 @@ class DatasController extends RoutingController
     }
   }
 
-  protected function getAddCart($gameId, $platform, $price, $discountRate, $oldPrice, $location, $userId)
+  protected function getAddCart($gameId, $platform, $price, $discountRate, $oldPrice, $location, $userId): void
   {
     // Vérification de la connexion de l'utilisateur
     $userRepository = new UserRepository();
@@ -174,7 +172,7 @@ class DatasController extends RoutingController
     }
   }
 
-  protected function getCartContent()
+  protected function getCartContent(): void
   {
     if (empty($_SESSION['user']) || empty($_SESSION['user']['cart_id'])) {
       $this->sendResponse(false, "Aucun panier n'a été trouvé", 404);
@@ -192,7 +190,7 @@ class DatasController extends RoutingController
     }
   }
 
-  protected function getSaleDatas()
+  protected function getSaleDatas(): void
   {
     if (Security::isEmploye()) {
       $salesRepository = new SalesRepository();
@@ -209,7 +207,7 @@ class DatasController extends RoutingController
     }
   }
 
-  protected function getSalesDatas($store = null)
+  protected function getSalesDatas(string|null $store = null): void
   {
     if (Security::isAdmin()) {
       $salesRepository = new SalesRepository();
@@ -226,7 +224,7 @@ class DatasController extends RoutingController
     }
   }
 
-  protected function getSalesGenreDatas($store = null)
+  protected function getSalesGenreDatas(string|null $store = null): void
   {
     if (Security::isAdmin()) {
       $salesRepository = new SalesRepository();
@@ -244,7 +242,7 @@ class DatasController extends RoutingController
   }
     
   // Fonction pour envoyer une réponse JSON
-  protected function sendResponse($success, $datas, $statusCode = 200) 
+  protected function sendResponse(bool $success, string|array $datas, int $statusCode = 200): void
   {
     http_response_code($statusCode);
     header('Content-Type: application/json; charset=utf-8');

@@ -3,17 +3,218 @@
 // IMPORTS //
 
 /**********/
-import { getImgByName, secureInput, showCart } from "./utils.js";
-import { cardsDiv } from './promoPage.js';
-import { searchGame } from './promoFilters.js';
+import { validateJSONStructure, secureInput, getImgByName, showCart } from '../utils.js';
+
+
+/**********************/
+
+// VARIABLES GLOBALES //
+
+/**********************/
+const searchInput = document.getElementById('search-game');
+const genresChecks = document.querySelectorAll('.genre-filter');
+const platformsChecks = document.querySelectorAll('.platform-filter');
+const resetButton = document.getElementById('reset-filters');
+const paginationSelect = document.getElementById('games-per-page');
+const cardsDiv = document.getElementById('cards');
+const storesChecks = document.querySelectorAll('.store-filter');
+const loadingDiv = document.getElementById('loading');
+let dataResults = [];
+
+
+/****************/
+
+// AU DEMARRAGE //
+
+/****************/
+document.addEventListener('DOMContentLoaded', function () {
+  fetchDatas();
+  
+  searchInput.addEventListener('search', () => {
+    searchResults(1, true);
+  });
+  searchInput.addEventListener('input', () => {
+    searchResults(1, true);
+  });
+  paginationSelect.addEventListener('change', () => {
+    searchResults(1, true);
+  });
+  resetButton.addEventListener('click', () => {
+    resetFilters();
+  });
+  
+  genresChecks.forEach(genre => {
+    genre.addEventListener('change', () => {
+      searchResults(1, true);
+    });
+  });
+  
+  platformsChecks.forEach(platform => {
+    platform.addEventListener('change', () => {
+      searchResults(1, true);
+    });
+  });
+
+  storesChecks.forEach(store => {
+    store.addEventListener('change', () => {
+      searchResults(1, true);
+    });
+  });
+});
+
+
+/**********************/
+
+// RESET DES FILTRES //
+
+/*********************/
+function resetFilters() {
+  searchInput.value = '';
+  genresChecks.forEach(genre => {
+    genre.checked = false;
+  });
+  platformsChecks.forEach(platform => {
+    platform.checked = false;
+  });
+  storesChecks.forEach(store => {
+    store.checked = false;
+  });
+  paginationSelect.selectedIndex = 1;
+  searchResults(1, true);
+}
+
+
+/**********************/
+
+// FETCH DES DONNEES //
+
+/*********************/
+function fetchDatas() {
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  fetch('index.php?controller=datas',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': csrfToken
+      },
+      body: JSON.stringify({ action: 'getPromoDatas' })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (validateJSONStructure(data)) {
+        dataResults = data.datas;
+        searchResults(1, true);
+      } else {
+        console.error('Format inattendu des données');
+      }
+    })
+    .catch(error => console.error('Erreur : ' + error));
+}
+
+
+/**************************/
+
+// PREPARATION DES CARTES //
+
+/**************************/
+function searchResults(currentPage, isFirstTime) {
+  // Récupération des valeurs
+  const searchedName = secureInput(searchInput.value.toLowerCase());
+  const genres = [];
+  genresChecks.forEach(genre => {
+    if (genre.checked) {
+      genres.push(secureInput(genre.value));
+    }
+  });
+  const platforms = [];
+  platformsChecks.forEach(platform => {
+    if (platform.checked) {
+      platforms.push(secureInput(platform.value));
+    }
+  });
+  const stores = [];
+  storesChecks.forEach(store => {
+    if (store.checked) {
+      stores.push(secureInput(store.value));
+    }
+  });
+
+  // Résultat des filtres
+  let searchResult = [];
+  searchResult = dataResults.filter(game => game['game_name'].toLowerCase().includes(searchedName));
+
+  if (searchedName === '') {
+    searchResult = dataResults;
+  }
+
+  if (genres.length > 0) {
+    const result = searchResult.filter(game => game['genre'].some(genre => genres.includes(genre)));
+    searchResult = result;
+  }
+
+  if (platforms.length > 0) {
+    const result = searchResult.filter(game => platforms.includes(game['platform_name']));
+    searchResult = result;
+  }
+
+  if (stores.length > 0) {
+    const result = searchResult.filter(game => stores.includes(game['store_location']));
+    searchResult = result;
+  }
+
+  if (searchResult.length === 0) {
+    const notFound = document.createElement('h4');
+    notFound.classList.add('text-center', 'text-uppercase', 'fs-5');
+    notFound.textContent = 'Aucun jeu ne correspond à votre recherche';
+
+    cardsDiv.innerHTML = '';
+    cardsDiv.appendChild(notFound);
+    document.getElementById('pagination-container').innerHTML = '';
+  } else {
+    pagination(searchResult, currentPage, isFirstTime);
+  }
+}
+
+
+/****************************/
+
+// PAGINATION DES RESULTATS //
+
+/****************************/
+function pagination(searchResult, currentPage, isFirstTime) {
+  const gamesPerPage = parseInt(paginationSelect.value);
+  const totalGames = searchResult.length;
+  const totalPages = Math.ceil(totalGames / gamesPerPage);
+  if (isFirstTime && totalPages > 1) {
+    if (showPage(currentPage)) {
+      constructPagination(totalPages);
+    };
+  } else if (totalPages === 1) {
+    document.getElementById('pagination-container').innerHTML = '';
+    showPage(currentPage);
+  } else {
+    showPage(currentPage);
+  }
+
+  function showPage(currentPage) {
+    const start = (currentPage - 1) * gamesPerPage;
+    const end = start + gamesPerPage;
+  
+    const paginatedGames = searchResult.slice(start, end);
+    return createHtmlCard(paginatedGames);
+  }
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 
 /***************************************/
 
-// CREATION DES CARTES PROMO DES JEUX //
+// CREATION DES CARTES LISTE DES JEUX //
 
 /***************************************/
-export function createHtmlCard(datas) {
+function createHtmlCard(datas) {
   let isUser = false;
   let storeId = 0;
   let userId = 0;
@@ -27,9 +228,11 @@ export function createHtmlCard(datas) {
   }
 
   cardsDiv.innerHTML = '';
+      
   datas.forEach(game => {
     let priceToPay = 0;
     let isLogged = false;
+
     switch (game['store_location']) {
       case 'Nantes':
         if (isUser == true && storeId == 1) {
@@ -231,6 +434,8 @@ export function createHtmlCard(datas) {
     cardLink.textContent = 'Plus d\'infos';
     cardFooter.appendChild(cardLink);
   });
+  loadingDiv.classList.add('visually-hidden');
+  return true;
 }
 
 
@@ -239,7 +444,7 @@ export function createHtmlCard(datas) {
 // MISE EN PLACE DE LA PAGINATION //
 
 /**********************************/
-export function constructPagination(totalPages) {
+function constructPagination(totalPages) {
   const paginationContainer = document.getElementById('pagination-container');
   paginationContainer.innerHTML = '';
 
@@ -257,7 +462,7 @@ export function constructPagination(totalPages) {
         input.checked = 'checked';
       }
     input.addEventListener('change', function() {
-      searchGame(i+1, false);
+      searchResults(i+1, false);
     });
     paginationPacman.appendChild(input);
 
