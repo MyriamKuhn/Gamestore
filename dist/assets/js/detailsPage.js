@@ -73,6 +73,10 @@ $(document).ready(function() {
       // Mettre à jour le pied de page avec les totaux calculés
       $(api.column(3).footer()).html(totalQuantity);
       $(api.column(4).footer()).html(totalPrice.toFixed(2) + ' €');
+    },
+    initComplete: function () {
+      document.getElementById('salesTable').classList.remove('visually-hidden');
+      document.getElementById('loading').classList.add('visually-hidden');
     }
   });
 

@@ -23,11 +23,17 @@ require_once _TEMPLATEPATH_ . '/employe/header.php';
           <option value="<?= Security::secureInput($platform['name']) ?>"><?= Security::secureInput($platform['name']) ?></option>
         <?php endforeach; ?>
       </select>
-      <label for="statusFilter" class="form-label">Filtrer par Statut</label>
+      <label for="statusFilter" class="form-label">Filtrer par statut</label>
     </div>
+    <!-- START : Spinner de chargement -->
+    <div class="d-flex flex-column align-items-center" id="loading">
+      <div class="loader"></div>
+      <h4 class="text-uppercase fs-2 loading-title">Chargement en cours ...</h4>
+    </div>
+    <!-- END : Spinner de chargement -->
     <!-- Affichage de tous les jeux disponibles dans un tableau -->
     <div class="table-responsive">
-      <table class="table table-striped table-hover" id="gamesTable">
+      <table class="table table-striped table-hover visually-hidden" id="gamesTable">
         <thead>
           <tr>
             <th scope="col">ID</th>

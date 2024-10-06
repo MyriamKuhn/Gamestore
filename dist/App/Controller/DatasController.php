@@ -34,6 +34,30 @@ class DatasController extends RoutingController
                 $this->getCartContent();
             } elseif ($data['action'] === 'getSaleDatas') {
                 $this->getSaleDatas();
+            } elseif ($data['action'] === 'getSalesNantesDatas') {
+              $this->getSalesDatas('Nantes');
+            } elseif ($data['action'] === 'getSalesLilleDatas') {
+              $this->getSalesDatas('Lille');
+            } elseif ($data['action'] === 'getSalesBordeauxDatas') {
+              $this->getSalesDatas('Bordeaux');
+            } elseif ($data['action'] === 'getSalesParisDatas') {
+              $this->getSalesDatas('Paris');
+            } elseif ($data['action'] === 'getSalesToulouseDatas') {
+              $this->getSalesDatas('Toulouse');
+            } elseif ($data['action'] === 'getSalesAllDatas') {
+              $this->getSalesDatas();
+            } elseif ($data['action'] === 'getSalesGenreNantesDatas') {
+              $this->getSalesGenreDatas('Nantes');
+            } elseif ($data['action'] === 'getSalesGenreLilleDatas') {
+              $this->getSalesGenreDatas('Lille');
+            } elseif ($data['action'] === 'getSalesGenreBordeauxDatas') {
+              $this->getSalesGenreDatas('Bordeaux');
+            } elseif ($data['action'] === 'getSalesGenreParisDatas') {
+              $this->getSalesGenreDatas('Paris');
+            } elseif ($data['action'] === 'getSalesGenreToulouseDatas') {
+              $this->getSalesGenreDatas('Toulouse');
+            } elseif ($data['action'] === 'getSalesGenreAllDatas') {
+              $this->getSalesGenreDatas();
             } else {
                 // Si l'action n'est pas reconnue
                 $this->sendResponse(false, "Action inconnue", 400);
@@ -173,6 +197,40 @@ class DatasController extends RoutingController
     if (Security::isEmploye()) {
       $salesRepository = new SalesRepository();
       $sales = $salesRepository->getAllSalesByDate(Security::getEmployeStore());
+      if (empty($sales)) {
+        $this->sendResponse(false, "Aucune vente n'a été trouvée", 404);
+        exit;
+      } else {
+        $this->sendResponse(true, $sales, 200);
+      }
+    } else {
+      $this->sendResponse(false, "Vous n'êtes pas autorisé à accéder à cette ressource", 403);
+      exit;
+    }
+  }
+
+  protected function getSalesDatas($store = null)
+  {
+    if (Security::isAdmin()) {
+      $salesRepository = new SalesRepository();
+      $sales = $salesRepository->getAllSalesByDate($store);
+      if (empty($sales)) {
+        $this->sendResponse(false, "Aucune vente n'a été trouvée", 404);
+        exit;
+      } else {
+        $this->sendResponse(true, $sales, 200);
+      }
+    } else {
+      $this->sendResponse(false, "Vous n'êtes pas autorisé à accéder à cette ressource", 403);
+      exit;
+    }
+  }
+
+  protected function getSalesGenreDatas($store = null)
+  {
+    if (Security::isAdmin()) {
+      $salesRepository = new SalesRepository();
+      $sales = $salesRepository->getAllSalesByGenre($store);
       if (empty($sales)) {
         $this->sendResponse(false, "Aucune vente n'a été trouvée", 404);
         exit;

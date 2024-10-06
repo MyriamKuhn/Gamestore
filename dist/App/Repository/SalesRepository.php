@@ -193,4 +193,66 @@ class SalesRepository extends MongoRepository
 
 		return $result->getDeletedCount() > 0;
 	}
+
+	// Récupération de toutes les ventes par date et par genre
+	public function getAllSalesByGenre(string|null $store = null): array
+	{
+			// Préparation du pipeline d'agrégation
+			$pipeline = [];
+
+			// Ajout d'une condition de filtrage par magasin si spécifiée
+			if ($store) {
+					$pipeline[] = [
+							'$match' => [
+									'store' => $store
+							]
+					];
+			}
+
+			// Utilisation de $unwind pour éclater les genres séparés par des virgules
+			$pipeline[] = [
+					'$addFields' => [
+							'genres' => [
+									'$split' => ['$genre', ', ']
+							]
+					]
+			];
+			
+			$pipeline[] = [
+					'$unwind' => '$genres'
+			];
+
+			// Ajout du groupe pour agréger les ventes par date et par genre
+			$pipeline[] = [
+					'$group' => [
+							'_id' => [
+									'date' => [
+											'$dateToString' => ['format' => '%Y-%m-%d', 'date' => '$date']
+									],
+									'genre' => '$genres',  
+							],
+							'totalQuantity' => ['$sum' => '$quantity']
+					]
+			];
+
+			// Tri des résultats par date
+			$pipeline[] = [
+					'$sort' => ['_id.date' => 1]
+			];
+
+			// Exécution de l'agrégation
+			$result = $this->collection->aggregate($pipeline);
+
+			$sales = [];
+			foreach ($result as $sale) {
+					$sales[] = [
+							'genre' => $sale['_id']['genre'],
+							'date' => $sale['_id']['date'],
+							'totalQuantity' => $sale['totalQuantity']
+					];
+			}
+
+			return $sales;
+	}
+
 }

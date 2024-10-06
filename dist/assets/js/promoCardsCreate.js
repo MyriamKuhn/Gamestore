@@ -90,10 +90,20 @@ export function createHtmlCard(datas) {
     cardBody.classList.add('card-body', 'card-body-promos', 'pt-0');
     gameCard.appendChild(cardBody);
 
+    const emtpyDiv = document.createElement('div');
+    cardBody.appendChild(emtpyDiv);
+
     const cardTitle = document.createElement('div');
-    cardTitle.classList.add('card-title', 'text-uppercase', 'text-center', 'pb-2');
+    cardTitle.classList.add('card-title', 'text-uppercase', 'text-center', 'p-0', 'm-0');
     cardTitle.textContent = game['game_name'];
-    cardBody.appendChild(cardTitle);
+    emtpyDiv.appendChild(cardTitle);
+
+    const cardSubtitle = document.createElement('p');
+    cardSubtitle.classList.add('card-subtitle', 'text-center', 'm-0');
+    game['genre'].forEach(genre => {
+      cardSubtitle.textContent += genre + ' ';
+    });
+    emtpyDiv.appendChild(cardSubtitle);
 
     const cardPrice = document.createElement('div');
     cardPrice.classList.add('d-flex', 'justify-content-center');

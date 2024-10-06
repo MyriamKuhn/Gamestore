@@ -6,14 +6,18 @@
 import { validateJSONStructure } from './utils.js';
 
 
-/*****************************************************************/
+/*******************************************************************/
 
-// FETCH DES DONNEES ET PREPARATIONS POUR LE GRAPHIQUE CHART.JS //
+// FETCH DES DONNEES ET PREPARATIONS POUR LE GRAPHIQUE APEXCHARTS //
 
-/****************************************************************/
+/******************************************************************/
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('loading').classList.remove('visually-hidden');
+  document.getElementById('no-datas').classList.add('visually-hidden');
+  document.getElementById('chart').innerHTML = '';
+
   fetch('index.php?controller=datas',
     {
       method: 'POST',
@@ -108,6 +112,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
+
+        document.getElementById('loading').classList.add('visually-hidden');
+        document.querySelector('.graphic-title').classList.remove('visually-hidden');
+
       } else {
       console.error('Format inattendu des données');
       }

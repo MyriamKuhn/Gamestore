@@ -37,9 +37,15 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
     </select>
     <label for="storeFilter" class="form-label">Filtrer par magasin</label>
   </div>
+  <!-- START : Spinner de chargement -->
+  <div class="d-flex flex-column align-items-center" id="loadingGames">
+      <div class="loader"></div>
+      <h4 class="text-uppercase fs-2 loading-title">Chargement en cours ...</h4>
+    </div>
+    <!-- END : Spinner de chargement -->
   <!-- Affichage de tous les jeux disponibles dans un tableau -->
   <div class="table-responsive">
-    <table class="table table-striped table-hover" id="gamesTable">
+    <table class="table table-striped table-hover visually-hidden" id="gamesTable">
       <thead>
         <tr>
           <th scope="col">ID</th>

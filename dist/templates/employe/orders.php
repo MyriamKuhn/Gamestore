@@ -29,16 +29,22 @@ require_once _TEMPLATEPATH_ . '/employe/header.php';
         <option value="Annulée">Annulée</option>
         <option value="Magasin">Magasin</option>
       </select>
-      <label for="statusFilter" class="form-label">Filtrer par Statut</label>
+      <label for="statusFilter" class="form-label">Filtrer par statut</label>
     </div>
     <!-- Filtre par Date -->
     <div class="form-floating mb-3">
       <input type="date" id="dateFilter" class="form-control">
-      <label for="dateFilter" class="form-label">Filtrer par Date</label>
+      <label for="dateFilter" class="form-label">Filtrer par date</label>
     </div>
+    <!-- START : Spinner de chargement -->
+    <div class="d-flex flex-column align-items-center" id="loading">
+      <div class="loader"></div>
+      <h4 class="text-uppercase fs-2 loading-title">Chargement en cours ...</h4>
+    </div>
+    <!-- END : Spinner de chargement -->
     <!-- Tableau des commandes -->
     <div class="table-responsive">
-      <table class="table table-striped table-hover" id="ordersTable">
+      <table class="table table-striped table-hover visually-hidden" id="ordersTable">
         <thead>
           <tr>
             <th scope="col" class="tablet desktop">N° Commande</th>

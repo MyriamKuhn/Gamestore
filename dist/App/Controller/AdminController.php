@@ -48,6 +48,12 @@ class AdminController extends RoutingController
           case 'users':
             $this->users();
             break;
+          case 'sales':
+            $this->sales();
+            break;
+          case 'details':
+            $this->details();
+            break;
           default:
             throw new \Exception("Cette action n'existe pas : " . $_GET['action']);
             break;
@@ -739,6 +745,49 @@ class AdminController extends RoutingController
             'users' => $users
           ]);
         }
+      } else {
+        throw new \Exception("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter");
+      }
+    } catch (\Exception $e) {
+      $this->render('admin/error', [
+        'error' => $e->getMessage()
+      ]);
+    }
+  }
+
+  protected function sales(): void
+  {
+    try {
+      if (Security::isAdmin()) {
+        $this->render('admin/sales');
+      } else {
+        throw new \Exception("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter");
+      }
+    } catch (\Exception $e) {
+      $this->render('admin/error', [
+        'error' => $e->getMessage()
+      ]);
+    }
+  }
+
+  protected function details(): void
+  {
+    try {
+      if (Security::isAdmin()) {
+        $salesRepository = new SalesRepository();
+        $sales = $salesRepository->getAllSalesDatas();
+        if (!$sales) {
+          throw new \Exception("Erreur lors de la récupération des ventes.");
+        }
+        $platformRepository = new PlatformRepository();
+        $platforms = $platformRepository->getAllPlatforms();
+        if (!$platforms) {
+          throw new \Exception("Erreur lors de la récupération des plateformes.");
+        }
+        $this->render('admin/details', [
+          'sales' => $sales,
+          'platforms' => $platforms
+        ]);
       } else {
         throw new \Exception("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter");
       }

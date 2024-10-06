@@ -1,12 +1,3 @@
-/**************************************/
-
-/* ACTIVATION DU TOOLTIP DE BOOTSTRAP */
-
-/**************************************/
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-
-
 /*********************************/
 
 /* INITIALISATION DE DATATABLES */
@@ -14,7 +5,7 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 /********************************/
 $(document).ready(function() {
   // Initialiser DataTables
-  const table = $('#ordersTable').DataTable({
+  const table = $('#salesTable').DataTable({
     dom: '<"row"<"col-md-6"l><"col-md-6 text-end"B>>rt<"row"<"col-md-6"i><"col-md-6 d-flex justify-content-end"p>>',  // i = info, B = buttons, f = filter, l = length changing input, p = pagination, t = table
       buttons: [
         {
@@ -39,7 +30,7 @@ $(document).ready(function() {
     "pageLength": 10,
     "lengthMenu": [5, 10, 25, 50],
     "ordering": true,
-    "order": [[1, 'desc']],
+    "order": [[0, 'desc']],
     "searching": true,
     "language": {
       "paginate": {
@@ -52,34 +43,57 @@ $(document).ready(function() {
       "infoEmpty": "",
       "infoFiltered": ""
     },
-    "columnDefs": [
-      { "orderable": false, "targets": 6 }  // Désactiver le tri sur la dernière colonne (Actions)
-    ],
+    "footerCallback": function(row, data, start, end, display) {
+      const api = this.api();
+
+      // Nettoyer les colonnes de quantité et de prix pour qu'elles ne contiennent que des chiffres
+      const intVal = function(i) {
+        return typeof i === 'string' ?
+        i.replace(/[\€\$,]/g, '') * 1 :
+          typeof i === 'number' ?
+          i : 0;
+      };
+
+      // Total quantités sur tous les filtres
+      const totalQuantity = api
+        .column(4, { page: 'current' }) // Colonne de la quantité
+        .data()
+        .reduce(function(a, b) {
+          return intVal(a) + intVal(b);
+        }, 0);
+
+      // Total prix sur tous les filtres
+      const totalPrice = api
+        .column(5, { page: 'current' }) // Colonne du prix
+        .data()
+        .reduce(function(a, b) {
+          return intVal(a) + intVal(b);
+        }, 0);
+
+      // Mettre à jour le pied de page avec les totaux calculés
+      $(api.column(4).footer()).html(totalQuantity);
+      $(api.column(5).footer()).html(totalPrice.toFixed(2) + ' €');
+    },
     initComplete: function () {
-      document.getElementById('ordersTable').classList.remove('visually-hidden');
-      document.getElementById('loadingOrders').classList.add('visually-hidden');
+      document.getElementById('salesTable').classList.remove('visually-hidden');
+      document.getElementById('loading').classList.add('visually-hidden');
     }
   });
 
-  // Filtrer par numéro de commande
-  $('#orderIdFilter').on('keyup', function() {
-    table.column(0).search(this.value).draw();  
+  // Filtrer par nom du jeu
+  $('#gameFilter').on('keyup', function() {
+    table.column(1).search(this.value).draw();  
   });
 
-  // Filtrer par nom du client
-  $('#clientFilter').on('keyup', function() {
+    // Filtrer par plateforme
+  $('#platformFilter').on('change', function() {
     table.column(2).search(this.value).draw();  
   });
 
-  // Filtrer par statut
-  $('#statusFilter').on('change', function() {
-    table.column(5).search(this.value).draw();  
-  });
-
-  // Filtrer par magasin
-  $('#storeFilter').on('change', function() {
-    table.column(4).search(this.value).draw();  
-  });
+    // Filtrer par magasins
+    $('#storeFilter').on('change', function() {
+      table.column(3).search(this.value).draw();  
+    });
 
   // Filtrer par date unique
   $('#dateFilter').on('change', function() {
@@ -90,7 +104,7 @@ $(document).ready(function() {
   // Ajouter un filtre personnalisé pour la colonne de date
   $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
     const selectedDate = $('#dateFilter').val();
-    const orderDate = data[1]; 
+    const orderDate = data[0]; 
     // Convertir la date de la table (format d/m/Y) et la date sélectionnée (YYYY-MM-DD)
     if (selectedDate) {
       const parts = orderDate.split('/');

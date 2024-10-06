@@ -23,8 +23,6 @@ getDatas();
 
 /*********************/
 export let gameDatas = null;
-// Récupérer le jeton CSRF à partir de la balise meta
-
 
 function getDatas() {
   fetch('index.php?controller=datas',

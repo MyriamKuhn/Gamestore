@@ -96,7 +96,11 @@ $(document).ready(function() {
     },
     "columnDefs": [
       { "orderable": false, "targets": 6 }  // Désactiver le tri sur la dernière colonne (Actions)
-    ]
+    ],
+    initComplete: function () {
+      document.getElementById('usersTable').classList.remove('visually-hidden');
+      document.getElementById('loading').classList.add('visually-hidden');
+    }
   });
 
   // Filtrer par nom

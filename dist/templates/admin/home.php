@@ -41,7 +41,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
             <div class="col-md-6 mt-2">
               <div class="card shadow">
                 <div class="card-body d-flex flex-column">
-                  <h2 class="card-title text-uppercase"><i class="bi bi-person-lines-fill"></i>Employés</h2>
+                  <h2 class="card-title text-uppercase"><i class="bi bi-person-lines-fill me-2"></i>Employés</h2>
                   <p class="card-text">Gérez tous vos employés pour chaque magasin Gamestore.</p>
                   <a href="index.php?controller=admin&action=employes" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>
                 </div>
@@ -59,7 +59,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
             <div class="col-md-6 mt-2">
               <div class="card shadow">
                 <div class="card-body d-flex flex-column">
-                  <h2 class="card-title text-uppercase"><i class="bi bi-graph-up"></i>Ventes</h2>
+                  <h2 class="card-title text-uppercase"><i class="bi bi-graph-up me-2"></i>Ventes</h2>
                   <p class="card-text">Consultez et analysez toutes les ventes de chaque Gamestore.</p>
                   <a href="index.php?controller=admin&action=sales" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>
                 </div>
@@ -68,7 +68,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
             <div class="col-md-6 mt-2">
               <div class="card shadow">
                 <div class="card-body d-flex flex-column">
-                  <h2 class="card-title text-uppercase"><i class="bi bi-clipboard2"></i>Articles</h2>
+                  <h2 class="card-title text-uppercase"><i class="bi bi-clipboard2 me-2"></i>Articles</h2>
                   <p class="card-text">Gérez la mise en ligne d'articles et les stocks disponibles de chaque Gamestore.</p>
                   <a href="index.php?controller=admin&action=products" class="btn btn-gamestore-outline text-uppercase align-self-end">Accéder</a>
                 </div>
