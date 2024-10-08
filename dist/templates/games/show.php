@@ -73,7 +73,7 @@ $carousel = FileTools::getImagesAsCategory('carousel', $game['images']);
     </section>
     <!-- Deuxième section de description -->
     <section class="flex-column-reverse flex-lg-row row row-cols-1 row-cols-lg-2 g-lg-5 pb-4 ">
-      <div class="px-xl-4"><?= Security::secureInput($game['game_description']) ?></div>
+      <div class="px-xl-4"><?= nl2br(Security::secureInput($game['game_description'])) ?></div>
       <div>
         <p class="text-uppercase title-show"><?= Security::secureInput($game['game_name']) ?></p>
         <p><span class="fw-bold">Genre : </span><?= Security::secureInput($game['genres']) ?></p>

@@ -14,7 +14,7 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 /********************************/
 $(document).ready(function() {
   // Initialiser DataTables
-  const table = $('#employeTable').DataTable({
+  const table = $('#gameTable').DataTable({
     dom: '<"row"<"col-md-6"l><"col-md-6 text-end"B>>rt<"row"<"col-md-6"i><"col-md-6 d-flex justify-content-end"p>>',  // i = info, B = buttons, f = filter, l = length changing input, p = pagination, t = table
       buttons: [
         {
@@ -39,7 +39,7 @@ $(document).ready(function() {
     "pageLength": 10,
     "lengthMenu": [5, 10, 25, 50],
     "ordering": true,
-    "order": [[5, 'asc']],
+    "order": [[0, 'asc']],
     "searching": true,
     "language": {
       "paginate": {
@@ -47,16 +47,16 @@ $(document).ready(function() {
         "previous":   "<<"
       },
       "lengthMenu": "Afficher _MENU_ entrées par page",
-      "zeroRecords": "Aucune employé trouvé",
+      "zeroRecords": "Aucun jeu trouvé",
       "info": "",
       "infoEmpty": "",
       "infoFiltered": ""
     },
     "columnDefs": [
-      { "orderable": false, "targets": 6 }  // Désactiver le tri sur la dernière colonne (Actions)
+      { "orderable": false, "targets": 7 }  // Désactiver le tri sur la dernière colonne (Actions)
     ],
     initComplete: function () {
-      document.getElementById('employeTable').classList.remove('visually-hidden');
+      document.getElementById('gameTable').classList.remove('visually-hidden');
       document.getElementById('loading').classList.add('visually-hidden');
     }
   });
@@ -66,13 +66,14 @@ $(document).ready(function() {
     table.column(1).search(this.value).draw();  
   });
 
-  // Filtrer par magasin
-  $('#storeFilter').on('change', function() {
-    table.column(4).search(this.value).draw();  
+  // Filtrer par plateforme
+  $('#platformFilter').on('change', function() {
+    table.column(2).search(this.value).draw();  
   });
 
-  // Filtrer par statut
-  $('#statusFilter').on('change', function() {
-    table.column(5).search(this.value).draw();  
+  // Filtrer par magasin
+  $('#storeFilter').on('change', function() {
+    table.column(3).search(this.value).draw();  
   });
+
 });

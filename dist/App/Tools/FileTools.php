@@ -187,6 +187,18 @@ class FileTools
               ];
               return $scripts;
               break;
+            case 'products':
+              $scripts = [
+                'admin/products.js',
+              ];
+              return $scripts;
+              break;
+            case 'product':
+              $scripts = [
+                'admin/product.js',
+              ];
+              return $scripts;
+              break;
           }
           break;
     }

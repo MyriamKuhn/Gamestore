@@ -23,4 +23,13 @@ class PegiRepository extends MainRepository
     }
   }
 
+  // Récupération de tous les Pegi
+  public function getAllPegi(): array
+  {
+    $query = 'SELECT * FROM pegi';
+    $stmt = $this->pdo->query($query);
+    
+    return $stmt->fetchAll();
+  }
+
 }

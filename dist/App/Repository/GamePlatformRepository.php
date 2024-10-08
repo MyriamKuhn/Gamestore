@@ -312,36 +312,62 @@ class GamePlatformRepository extends MainRepository
     }
   }
 
-    // Vérification du stock d'un jeu
-    public function checkGameStock(int $gameId, int $platformId, int $storeId): int
-    {
-      $query = 'SELECT quantity FROM game_platform WHERE fk_game_id = :gameId AND fk_platform_id = :platformId AND fk_store_id = :storeId';
-  
-      $stmt = $this->pdo->prepare($query);
-      $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
-      $stmt->bindValue(':platformId', $platformId, $this->pdo::PARAM_INT);
-      $stmt->bindValue(':storeId', $storeId, $this->pdo::PARAM_INT);
-      $stmt->execute();
-  
-      $stock = $stmt->fetchColumn();
-  
-      return $stock;
-    }
+  // Vérification du stock d'un jeu
+  public function checkGameStock(int $gameId, int $platformId, int $storeId): int
+  {
+    $query = 'SELECT quantity FROM game_platform WHERE fk_game_id = :gameId AND fk_platform_id = :platformId AND fk_store_id = :storeId';
 
-    // Ajout ou suppression du stock d'un jeu
-    public function updateGameStock(int $gameId, int $platformId, int $storeId, int $quantity, string $operation = 'add'): bool
-    {
-      $increment = ($operation === 'add') ? $quantity : -$quantity;
-  
-      $query = 'UPDATE game_platform SET quantity = GREATEST(0, quantity + :increment) WHERE fk_game_id = :gameId AND fk_platform_id = :platformId AND fk_store_id = :storeId';
-  
-      $stmt = $this->pdo->prepare($query);
-      $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
-      $stmt->bindValue(':platformId', $platformId, $this->pdo::PARAM_INT);
-      $stmt->bindValue(':storeId', $storeId, $this->pdo::PARAM_INT);
-      $stmt->bindValue(':increment', $increment, $this->pdo::PARAM_INT);
-  
-      return $stmt->execute();
-    }
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':platformId', $platformId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':storeId', $storeId, $this->pdo::PARAM_INT);
+    $stmt->execute();
+
+    $stock = $stmt->fetchColumn();
+
+    return $stock;
+  }
+
+  // Ajout ou suppression du stock d'un jeu
+  public function updateGameStock(int $gameId, int $platformId, int $storeId, int $quantity, string $operation = 'add'): bool
+  {
+    $increment = ($operation === 'add') ? $quantity : -$quantity;
+
+    $query = 'UPDATE game_platform SET quantity = GREATEST(0, quantity + :increment) WHERE fk_game_id = :gameId AND fk_platform_id = :platformId AND fk_store_id = :storeId';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':platformId', $platformId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':storeId', $storeId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':increment', $increment, $this->pdo::PARAM_INT);
+
+    return $stmt->execute();
+  }
+
+  // Récupération de la liste des jeux pour affichage des stocks
+  public function getGamesStockList(): array
+  {
+    $query = 'SELECT
+    g.id AS game_id,
+    g.name AS game_name,
+    pl.id AS platform_id,
+    pl.name AS platform_name,
+    s.id AS store_id,
+    s.location AS store_location,
+    gp.quantity AS quantity,
+    gp.price AS platform_price,
+    gp.discount_rate AS discount_rate
+    FROM game_platform AS gp
+    INNER JOIN game AS g ON gp.fk_game_id = g.id
+    INNER JOIN platform AS pl ON gp.fk_platform_id = pl.id
+    INNER JOIN store AS s ON gp.fk_store_id = s.id';
+
+    $stmt = $this->pdo->query($query);
+    $games = $stmt->fetchAll();
+
+    return $games;
+  }
+
+
 }
 

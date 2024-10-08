@@ -12,6 +12,7 @@ class StoreRepository extends MainRepository
   {
     $query = "SELECT * FROM store";
     $stmt = $this->pdo->query($query);
+    
     return $stmt->fetchAll();
   }
 

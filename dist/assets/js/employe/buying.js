@@ -8,6 +8,7 @@ $(document).ready(function() {
   $('.user-select').select2({
     theme: 'bootstrap-5'
   });
+  
   const table = $('#gamesTable').DataTable({
     "responsive": true,
     "paging": true,
@@ -23,7 +24,7 @@ $(document).ready(function() {
         "previous":   "<<"
       },
       "lengthMenu": "Afficher _MENU_ entrées par page",
-      "zeroRecords": "Aucune commande trouvée",
+      "zeroRecords": "Aucun jeu trouvé",
       "info": "",
       "infoEmpty": "",
       "infoFiltered": ""

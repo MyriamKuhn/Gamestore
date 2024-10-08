@@ -15,6 +15,9 @@ use App\Model\Sale;
 use App\Repository\GameUserOrderRepository;
 use App\Repository\PlatformRepository;
 use App\Model\User;
+use App\Repository\StoreRepository;
+use App\Repository\GenreRepository;
+use App\Repository\PegiRepository;
 
 class AdminController extends RoutingController
 {
@@ -53,6 +56,12 @@ class AdminController extends RoutingController
             break;
           case 'details':
             $this->details();
+            break;
+          case 'products':
+            $this->products();
+            break;
+          case 'product':
+            $this->product();
             break;
           default:
             throw new \Exception("Cette action n'existe pas : " . $_GET['action']);
@@ -493,6 +502,7 @@ class AdminController extends RoutingController
           $userId = Security::secureInput($_POST['userId']);
           // Renvoi vers la page de modification de l'employé
           header('Location: index.php?controller=admin&action=employe&id=' . $userId);
+          exit;
         // Si blocage de l'employé
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['blockEmploye'])) {
           // Vérification du token CSRF
@@ -790,6 +800,403 @@ class AdminController extends RoutingController
         ]);
       } else {
         throw new \Exception("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter");
+      }
+    } catch (\Exception $e) {
+      $this->render('admin/error', [
+        'error' => $e->getMessage()
+      ]);
+    }
+  }
+
+  protected function products(): void
+  {
+    try {
+      if (Security::isAdmin()) {
+        // Si ajout de stock
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addStock'])) {
+          // Vérification du token CSRF
+          Security::checkCSRF($_POST['csrf_token']);
+          // Récupération des données du formulaire et sécurisation
+          $gameId = Security::secureInput($_POST['game_id']);
+          $platformId = Security::secureInput($_POST['platform_id']);
+          $storeId = Security::secureInput($_POST['store_id']);
+          // Vérification des données
+          $gamePlatformRepository = new GamePlatformRepository();
+          $isStockUpdated = $gamePlatformRepository->updateGameStock($gameId, $platformId, $storeId, 1, 'add');
+          if (!$isStockUpdated) {
+            throw new \Exception("Erreur lors de l'ajout du stock.");
+          }
+          header('Location: index.php?controller=admin&action=products');
+          exit;
+        // Si suppression de stock
+        } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['removeStock'])) {
+          // Vérification du token CSRF
+          Security::checkCSRF($_POST['csrf_token']);
+          // Récupération des données du formulaire et sécurisation
+          $gameId = Security::secureInput($_POST['game_id']);
+          $platformId = Security::secureInput($_POST['platform_id']);
+          $storeId = Security::secureInput($_POST['store_id']);
+          // Vérification des données
+          $gamePlatformRepository = new GamePlatformRepository();
+          $isStockUpdated = $gamePlatformRepository->updateGameStock($gameId, $platformId, $storeId, 1, 'remove');
+          if (!$isStockUpdated) {
+            throw new \Exception("Erreur lors de la suppression du stock.");
+          }
+          header('Location: index.php?controller=admin&action=products');
+          exit;
+        // Si modification d'un jeu
+        } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editGame'])) {
+          // Vérification du token CSRF
+          Security::checkCSRF($_POST['csrf_token']);
+          // Récupération des données du formulaire et sécurisation
+          $gameId = Security::secureInput($_POST['game_id']);
+          // Renvoi vers la page de modification de l'employé
+          header('Location: index.php?controller=admin&action=product&id=' . $gameId);
+          exit;
+        // Comportement par défaut : affichage de la liste des jeux
+        } else {
+        $gamePlatformRepository = new GamePlatformRepository();
+        $games = $gamePlatformRepository->getGamesStockList();
+        $platformRepository = new PlatformRepository();
+        $platforms = $platformRepository->getAllPlatforms();
+        if (!$games) {
+          throw new \Exception("Erreur lors de la récupération des jeux.");
+        }
+        if (!$platforms) {
+          throw new \Exception("Erreur lors de la récupération des plateformes.");
+        }
+          $this->render('admin/products', [
+            'games' => $games,
+            'platforms' => $platforms
+          ]);
+        }
+      } else {
+      throw new \Exception("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter");
+      }
+    } catch (\Exception $e) {
+      $this->render('admin/error', [
+        'error' => $e->getMessage()
+      ]);
+    }
+  }
+
+  protected function product(): void
+  {
+    try {
+      if (Security::isAdmin()) {
+        // Si demande de modification
+        if (isset($_GET['id']) && $_SERVER['REQUEST_METHOD'] !== 'POST') {
+          $gameId = Security::secureInput($_GET['id']);
+          $gamePlatformRepository = new GamePlatformRepository();
+          $game = $gamePlatformRepository->getGameById($gameId);
+          if (!$game) {
+            throw new \Exception("Le jeu n'existe pas.");
+          }
+          $platformRepository = new PlatformRepository();
+          $platforms = $platformRepository->getAllPlatforms();
+          if (!$platforms) {
+            throw new \Exception("Erreur lors de la récupération des plateformes.");
+          }
+          $storeRepository = new StoreRepository();
+          $stores = $storeRepository->getAllStores();
+          if (!$stores) {
+            throw new \Exception("Erreur lors de la récupération des Gamestores.");
+          }
+          $genreRepositosry = new GenreRepository();
+          $genres = $genreRepositosry->getAllGenres();
+          if (!$genres) {
+            throw new \Exception("Erreur lors de la récupération des genres.");
+          }
+          $pegiRepository = new PegiRepository();
+          $pegis = $pegiRepository->getAllPegi();
+          if (!$pegis) {
+            throw new \Exception("Erreur lors de la récupération des Pegis.");
+          }
+          $this->render('admin/product', [
+            'game' => $game,
+            'platforms' => $platforms,
+            'stores' => $stores,
+            'genres' => $genres,
+            'pegis' => $pegis,
+            'isModify' => true
+          ]);
+        // Si modification d'un jeu
+        } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modifyGame'])) {
+          // Vérification du token CSRF
+          Security::checkCSRF($_POST['csrf_token']);
+          // Récupération des données simples du formulaire, sécurisation et validation
+          $formDatas = $_POST;
+          $filesDatas = $_FILES;
+          $errors = [];
+          var_dump($formDatas);
+          var_dump($filesDatas);
+          $gameId = Security::secureInput($formDatas['game_id']);
+          // Nom du jeu
+          $gameName = Security::secureInput($formDatas['game_name']);
+          if (empty($gameName)) {
+            $errors['game_name'] = 'Veuillez renseigner le nom du jeu.';
+          }
+          if (strlen($gameName) > 100) {
+            $errors['game_name_length'] = 'Le nom du jeu est trop long.';
+          }
+          if (!preg_match('/^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\!\?\.\(\)\[\]:]{3,}$/', $gameName)) {
+            $errors['game_name'] = 'Le nom n\'est pas valide.';
+          }
+          // Description du jeu
+          $gameDescription = Security::secureInput($formDatas['game_description']);
+          if (empty($gameDescription)) {
+            $errors['game_description'] = 'Veuillez renseigner la description du jeu.';
+          }
+          if (!preg_match('/^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\!\?\.\,\(\)\[\]:;\"\n]{3,}$/', $gameDescription)) {
+            $errors['game_description'] = 'La description n\'est pas valide.';
+          }
+          // PEGI du jeu
+          $pegiId = Security::secureInput($formDatas['pegi_id']);
+          if (empty($pegiId)) {
+            $errors['game_pegi'] = 'Veuillez sélectionner un PEGI.';
+          }
+          // Genres du jeu
+          $genresId = [];
+          foreach ($formDatas['genres_id'] as $genreId) {
+            $genresId[] = Security::secureInput($genreId);
+          }
+          if (empty($genresId)) {
+            $errors['game_genres'] = 'Veuillez sélectionner au moins un genre.';
+          }
+          // Formats autorisés pour les images
+          $allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'];
+          $maxSize = 2 * 1024 * 1024; // 2 Mo
+          // Image spotlight
+          $deleteSpotlight = false;
+          $spotlightToDelete = '';
+          $spotlighToUpload = [];
+          if (isset($formDatas['delete-spotlight']) && $formDatas['delete-spotlight'] === 'on') {
+            $deleteSpotlight = true;
+            $spotlightToDelete = $formDatas['delete-spotlight-image'];
+            $spotlighToUpload = $filesDatas['game_spotlight'];
+            if (empty($spotlighToUpload)) {
+              $errors['game_spotlight'] = 'Veuillez ajouter au moins une image spotlight ou ne pas supprimer l\'existante.';
+            } else {
+              if ($spotlighToUpload['error'] !== 0) {
+                $errors['game_spotlight_error'] = 'Erreur lors de l\'upload de l\'image spotlight.';
+              } else {
+                if (!in_array($spotlighToUpload['type'], $allowedTypes)) {
+                  $errors['game_spotlight_format'] = 'Le format de l\'image spotlight n\'est pas autorisé.';
+                }
+                if ($spotlighToUpload['size'] > $maxSize) {
+                  $errors['game_spotlight_size'] = 'L\'image spotlight est trop lourde.';
+                }
+              }
+            }
+          } else {
+            $deleteSpotlight = false;
+          }
+          // Image de présentation
+          $deletePresentation = false;
+          $presentationToDelete = '';
+          $presentationToUpload = [];
+          if (isset($formDatas['delete-presentation']) && $formDatas['delete-presentation'] === 'on') {
+            $deletePresentation = true;
+            $presentationToDelete = $formDatas['delete-presentation-image'];
+            $presentationToUpload = $filesDatas['game_presentation'];
+            if (empty($presentationToUpload)) {
+              $errors['game_presentation'] = 'Veuillez ajouter au moins une image de présentation ou ne pas supprimer l\'existante.';
+            } else {
+              if ($presentationToUpload['error'] !== 0) {
+                $errors['game_presentation_error'] = 'Erreur lors de l\'upload de l\'image de présentation.';
+              } else {
+                if (!in_array($presentationToUpload['type'], $allowedTypes)) {
+                  $errors['game_presentation_format'] = 'Le format de l\'image de présentation n\'est pas autorisé.';
+                }
+                if ($presentationToUpload['size'] > $maxSize) {
+                  $errors['game_presentation_size'] = 'L\'image de présentation est trop lourde.';
+                }
+              }
+            }
+          } else {
+            $deletePresentation = false;
+          }
+          // Images de carousel
+          $carouselImagesToDelete = [];
+          foreach ($formDatas as $key => $value) {
+            if (strpos($key, 'delete-carousel-') === 0 && $value === 'on') {
+              $index = str_replace('delete-carousel-', '', $key);
+              $carouselImagesToDelete[] = $formDatas['delete-carousel-image-' . $index];
+            }
+          }
+          $carouselImagesToUpload = [];
+          if (!empty($filesDatas['game_carousel']) && !empty($filesDatas['game_carousel']['name'][0])) {
+            foreach ($filesDatas['game_carousel'] as $key => $values) {
+              foreach ($values as $index => $value) {
+                if (!isset($carouselImagesToUpload[$index])) {
+                  $carouselImagesToUpload[$index] = []; 
+                }
+                $carouselImagesToUpload[$index][$key] = $value;
+              }
+            }
+          }
+          $existingImages = 0;
+          foreach ($formDatas as $key => $value) {
+            if (strpos($key, 'delete-carousel-image-') === 0) {
+              $existingImages++;
+            }
+          }
+          if ($existingImages - count($carouselImagesToDelete) + count($carouselImagesToUpload) < 2) {
+            $errors['game_carousel'] = 'Vous devez avoir au moins 2 images de carousel au total.';
+          }
+          if (!empty($carouselImagesToUpload)) {
+            foreach ($carouselImagesToUpload as $index => $carouselImageToUpload) {
+              if ($carouselImageToUpload['error'] !== 0) {
+                $errors['game_carousel_error_' . $index] = 'Erreur lors de l\'upload de l\'image de carousel.';
+              } else {
+                if (!in_array($carouselImageToUpload['type'], $allowedTypes)) {
+                  $errors['game_carousel_format_' . $index] = 'Le format de l\'image de carousel n\'est pas autorisé.';
+                }
+                if ($carouselImageToUpload['size'] > $maxSize) {
+                  $errors['game_carousel_size_' . $index] = 'L\'image de carousel est trop lourde.';
+                }
+              }
+            }
+          }
+          // Données spécifiques à la plateforme et au magasin
+          $specificDatas = [];
+          foreach ($formDatas as $key => $value) {
+            if (preg_match('/^(\d+)-(\d+)-(price|new|reduced|discount|stock)$/', $key, $matches)) {
+              $storeId = $matches[1];
+              $platformId = $matches[2];
+              $type = $matches[3];
+
+              $found = false;
+              foreach ($specificDatas as &$data) {
+                if ($data['store_id'] == $storeId && $data['platform_id'] == $platformId) {
+                  $found = true;
+                  break;
+                }
+              }
+              if (!$found) {
+                $specificDatas[] = [
+                  'store_id' => Security::secureInput($storeId),
+                  'platform_id' => Security::secureInput($platformId),
+                  'price' => null,
+                  'new' => 0,
+                  'reduced' => 0,
+                  'discount' => 0,
+                  'stock' => 0
+                ];
+                $data = &$specificDatas[count($specificDatas) - 1];
+              }
+              if ($type === 'price' && $value == 0) {
+                $data[$type] = null;
+              } elseif (($type === 'new' || $type === 'reduced') && $value == 'on') {
+                $data[$type] = 1;
+              } else {
+                $data[$type] = Security::secureInput($value);
+              }
+            }
+          }
+          $specificDatas = array_filter($specificDatas, function($entry) {
+            return $entry['price'] !== null;
+          });
+          if (empty($specificDatas)) {
+            $errors['game_platforms'] = 'Veuillez renseigner au moins un prix pour une plateforme.';
+          }
+          var_dump($specificDatas);
+          // Si aucune erreur, modification des données
+          if (empty($errors)) {
+
+
+
+
+
+            
+          // Si erreur, renvoi vers la page de modification
+          } else {
+            $gamePlatformRepository = new GamePlatformRepository();
+            $game = $gamePlatformRepository->getGameById($gameId);
+            if (!$game) {
+              throw new \Exception("Le jeu n'existe pas.");
+            }
+            $platformRepository = new PlatformRepository();
+            $platforms = $platformRepository->getAllPlatforms();
+            if (!$platforms) {
+              throw new \Exception("Erreur lors de la récupération des plateformes.");
+            }
+            $storeRepository = new StoreRepository();
+            $stores = $storeRepository->getAllStores();
+            if (!$stores) {
+              throw new \Exception("Erreur lors de la récupération des Gamestores.");
+            }
+            $genreRepositosry = new GenreRepository();
+            $genres = $genreRepositosry->getAllGenres();
+            if (!$genres) {
+              throw new \Exception("Erreur lors de la récupération des genres.");
+            }
+            $pegiRepository = new PegiRepository();
+            $pegis = $pegiRepository->getAllPegi();
+            if (!$pegis) {
+              throw new \Exception("Erreur lors de la récupération des Pegis.");
+            }
+            $this->render('admin/product', [
+              'game' => $game,
+              'platforms' => $platforms,
+              'stores' => $stores,
+              'genres' => $genres,
+              'pegis' => $pegis,
+              'isModify' => true,
+              'errors' => $errors
+            ]);
+          }
+
+
+        
+          
+
+          
+
+          
+
+
+          
+          
+
+
+
+
+
+
+        // Comportement par défaut au chargement de la page pour un ajout de jeu
+        } else {
+          $platformRepository = new PlatformRepository();
+          $platforms = $platformRepository->getAllPlatforms();
+          if (!$platforms) {
+            throw new \Exception("Erreur lors de la récupération des plateformes.");
+          }
+          $storeRepository = new StoreRepository();
+          $stores = $storeRepository->getAllStores();
+          if (!$stores) {
+            throw new \Exception("Erreur lors de la récupération des Gamestores.");
+          }
+          $genreRepositosry = new GenreRepository();
+          $genres = $genreRepositosry->getAllGenres();
+          if (!$genres) {
+            throw new \Exception("Erreur lors de la récupération des genres.");
+          }
+          $pegiRepository = new PegiRepository();
+          $pegis = $pegiRepository->getAllPegi();
+          if (!$pegis) {
+            throw new \Exception("Erreur lors de la récupération des Pegis.");
+          }
+          $this->render('admin/product', [
+            'platforms' => $platforms,
+            'stores' => $stores,
+            'genres' => $genres,
+            'pegis' => $pegis,
+            'isModify' => false
+          ]);
+        }
+
+      } else {
+      throw new \Exception("Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter");
       }
     } catch (\Exception $e) {
       $this->render('admin/error', [

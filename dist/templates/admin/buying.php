@@ -23,7 +23,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
         <option value="<?= Security::secureInput($platform['name']) ?>"><?= Security::secureInput($platform['name']) ?></option>
       <?php endforeach; ?>
     </select>
-    <label for="statusFilter" class="form-label">Filtrer par Statut</label>
+    <label for="platformFilter" class="form-label">Filtrer par plateforme</label>
   </div>
   <!-- Filtre par Magasin -->
   <div class="form-floating mb-3">

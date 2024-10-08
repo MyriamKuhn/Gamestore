@@ -33,7 +33,7 @@ $(document).ready(function() {
         "previous":   "<<"
       },
       "lengthMenu": "Afficher _MENU_ entrées par page",
-      "zeroRecords": "Aucune commande trouvée",
+      "zeroRecords": "Aucun jeu trouvé",
       "info": "",
       "infoEmpty": "",
       "infoFiltered": ""

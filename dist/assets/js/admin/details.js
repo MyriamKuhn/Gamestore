@@ -38,7 +38,7 @@ $(document).ready(function() {
         "previous":   "<<"
       },
       "lengthMenu": "Afficher _MENU_ entrées par page",
-      "zeroRecords": "Aucune commande trouvée",
+      "zeroRecords": "Aucune vente trouvée",
       "info": "",
       "infoEmpty": "",
       "infoFiltered": ""

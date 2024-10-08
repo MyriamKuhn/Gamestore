@@ -15,6 +15,21 @@ export function secureInput(text) {
 }
 
 
+/***************************************/
+
+// SECURISER LES CHAMPS DE TYPE NUMBER //
+
+/***************************************/
+export function validateNumberInput(value) {
+  // Vérifier si la valeur est un nombre valide
+  if (isNaN(value) || value.trim() === '' || parseFloat(value) < 0) {
+    return false;
+  } else {
+    return parseFloat(value); 
+  }
+}
+
+
 /*******************************************/
 
 // CHERCHER IMAGE> EN FONCTION DE SON NOM //
