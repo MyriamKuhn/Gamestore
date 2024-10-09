@@ -8,7 +8,6 @@ export function secureInput(text) {
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    "'": '&#039;',
     '&': '&amp;',
   };
   return text.replace(/[<>"'&]/g, (m) => map[m]);
@@ -108,4 +107,15 @@ export function showCart() {
       cart.classList.add('visually-hidden');
       cartCount.textContent = '0';
   });
+}
+
+/******************************************/
+
+/* FONCTION POUR DECODER LES ENTITES HTML */
+
+/******************************************/
+export function htmlEntityDecode(text) {
+  const textArea = document.createElement('textarea');
+  textArea.innerHTML = text; // Le navigateur décode les entités HTML
+  return textArea.value;
 }

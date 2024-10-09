@@ -12,8 +12,8 @@ class VerificationRepository extends MainRepository
   {
     $query = "INSERT INTO email_verification (verification_code, created_at, fk_app_user_id) VALUES (:verification_code, NOW(), :fk_app_user_id)";
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':verification_code', $verification_code, \PDO::PARAM_INT);
-    $stmt->bindValue(':fk_app_user_id', $fk_app_user_id, \PDO::PARAM_INT);
+    $stmt->bindValue(':verification_code', $verification_code, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':fk_app_user_id', $fk_app_user_id, $this->pdo::PARAM_INT);
     
     return $stmt->execute();
   }
@@ -23,7 +23,7 @@ class VerificationRepository extends MainRepository
   {
     $query = "DELETE FROM email_verification WHERE fk_app_user_id = :fk_app_user_id";
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':fk_app_user_id', $userId, \PDO::PARAM_INT);
+    $stmt->bindValue(':fk_app_user_id', $userId, $this->pdo::PARAM_INT);
 
     return $stmt->execute();
   }
@@ -42,7 +42,7 @@ class VerificationRepository extends MainRepository
   {
     $query = "SELECT * FROM email_verification WHERE fk_app_user_id = :fk_app_user_id ORDER BY created_at DESC LIMIT 1";
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':fk_app_user_id', $userId, \PDO::PARAM_INT);
+    $stmt->bindValue(':fk_app_user_id', $userId, $this->pdo::PARAM_INT);
     $stmt->execute();
     $verification = $stmt->fetch();
     if ($verification) {

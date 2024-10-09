@@ -74,7 +74,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
           ?>
           <tr>
             <td><?= Security::secureInput($game['game_id']) ?></td>
-            <td><a href="index.php?controller=games&action=show&id=<?= Security::secureInput($game['game_id']) ?>"><?= Security::secureInput($game['game_name']) ?></a></td>
+            <td><a href="index.php?controller=games&action=show&id=<?= Security::secureInput($game['game_id']) ?>"><?= html_entity_decode(Security::secureInput($game['game_name'])) ?></a></td>
             <td><?= Security::secureInput($game['platform_name']) ?></td>
             <td><?= Security::secureInput($game['store_location']) ?></td>
             <td><?= Security::secureInput($game['quantity']) ?></td>

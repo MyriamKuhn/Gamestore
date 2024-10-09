@@ -5,8 +5,6 @@ use App\Tools\Security;
 
 require_once _TEMPLATEPATH_ . '/admin/header.php';
 
-var_dump($game);
-
 ?>
 
 <section class="container my-5">
@@ -28,7 +26,7 @@ var_dump($game);
         <input type="hidden" name="game_id" value="<?= $isModify ? Security::secureInput($game['game_id']) : '0' ?>">
         <!-- Nom du jeu -->
         <div class="form-floating mb-4">
-          <input type="text" class="form-control <?=(isset($errors['game_name']) ? 'is-invalid': '') ?>" id="game_name" name="game_name" minlength="3" maxlength="100" <?= $isModify ? 'value="' . Security::secureInput($game['game_name']) . '"' : ''  ?> required>
+          <input type="text" class="form-control <?=(isset($errors['game_name']) ? 'is-invalid': '') ?>" id="game_name" name="game_name" minlength="3" maxlength="100" <?= $isModify ? 'value="' . html_entity_decode(Security::secureInput($game['game_name'])) . '"' : ''  ?> required>
           <label for="game_name">Nom</label>
           <div class="invalid-feedback">
             Entrez le nom du jeu.
@@ -36,7 +34,7 @@ var_dump($game);
         </div>
         <!-- Description du jeu -->
         <div class="form-floating mb-4">
-          <textarea class="form-control <?=(isset($errors['game_description']) ? 'is-invalid': '') ?>" id="game_description" name="game_description" style="height: 200px" required><?= $isModify ? Security::secureInput($game['game_description']) : ''  ?></textarea>
+          <textarea class="form-control <?=(isset($errors['game_description']) ? 'is-invalid': '') ?>" id="game_description" name="game_description" style="height: 200px" required><?= $isModify ? html_entity_decode(Security::secureInput($game['game_description'])) : ''  ?></textarea>
           <label for="game_description">Description</label>
           <div class="invalid-feedback">
             Entrez une description.
@@ -74,7 +72,7 @@ var_dump($game);
         ?>
           <h4 class="text-uppercase">Image spotlight (maximum 1 image)</h4>
           <div class="d-flex flex-column align-items-center mb-2">
-            <img src="<?= _GAMES_IMAGES_FOLDER_ . reset($spotlight) ?>" class="img-thumbnail" alt="Image spotlight de <?= Security::secureInput($game['game_name']) ?>" width="200">
+            <img src="<?= _GAMES_IMAGES_FOLDER_ . reset($spotlight) ?>" class="img-thumbnail" alt="Image spotlight de <?= html_entity_decode(Security::secureInput($game['game_name'])) ?>" width="200">
             <div class="d-flex justify-content-center">
               <input type="checkbox" name="delete-spotlight" id="delete-spotlight" class="me-1">
               <label for="delete-spotlight">Supprimer l'image</label>
@@ -90,7 +88,7 @@ var_dump($game);
           </div>
           <h4 class="text-uppercase">Image de présentation (maximum 1 image)</h4>
           <div class="d-flex flex-column align-items-center mb-2">
-            <img src="<?= _GAMES_IMAGES_FOLDER_ . reset($presentation) ?>" class="img-thumbnail" alt="Image de présentation de <?= Security::secureInput($game['game_name']) ?>" width="200">
+            <img src="<?= _GAMES_IMAGES_FOLDER_ . reset($presentation) ?>" class="img-thumbnail" alt="Image de présentation de <?= html_entity_decode(Security::secureInput($game['game_name'])) ?>" width="200">
             <div class="d-flex justify-content-center">
               <input type="checkbox" name="delete-presentation" id="delete-presentation" class="me-1">
               <label for="delete-presentation">Supprimer l'image</label>
@@ -108,7 +106,7 @@ var_dump($game);
           <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 justify-content-center">
             <?php for ($i = 0 ; $i < (count($carousel)) ; $i++) : ?>
               <div class="d-flex flex-column align-items-center mb-2">
-                <img src="<?= _GAMES_IMAGES_FOLDER_ . $carousel[$i] ?>" alt="Image du carousel de <?= Security::secureInput($game['game_name']) ?>" class="img-thumbnail" width="200">
+                <img src="<?= _GAMES_IMAGES_FOLDER_ . $carousel[$i] ?>" alt="Image du carousel de <?= html_entity_decode(Security::secureInput($game['game_name'])) ?>" class="img-thumbnail" width="200">
                 <div class="d-flex justify-content-center">
                   <input type="checkbox" name="delete-carousel-<?= $i ?>" id="delete-carousel-<?= $i ?>" class="me-1 carousels-deletes">
                   <label for="delete-carousel-<?= $i ?>">Supprimer l'image</label>

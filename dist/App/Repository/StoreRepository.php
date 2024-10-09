@@ -21,7 +21,7 @@ class StoreRepository extends MainRepository
   {
     $query = "SELECT id FROM store WHERE location = :storeName";
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':storeName', $storeName, \PDO::PARAM_STR);
+    $stmt->bindValue(':storeName', $storeName, $this->pdo::PARAM_STR);
     $stmt->execute();
     return $stmt->fetchColumn();
   }
@@ -31,7 +31,7 @@ class StoreRepository extends MainRepository
   {
     $query = "SELECT location FROM store WHERE id = :storeId";
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':storeId', $storeId, \PDO::PARAM_INT);
+    $stmt->bindValue(':storeId', $storeId, $this->pdo::PARAM_INT);
     $stmt->execute();
     $store = $stmt->fetch();
     if ($store) {

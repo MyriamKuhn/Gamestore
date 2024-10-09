@@ -142,7 +142,7 @@ function searchResults(currentPage, isFirstTime) {
 
   // Résultat des filtres
   let searchResult = [];
-  searchResult = dataResults.filter(game => game['game_name'].toLowerCase().includes(searchedName));
+  searchResult = dataResults.filter(game => htmlEntityDecode(game['game_name']).toLowerCase().includes(searchedName));
 
   if (searchedName === '') {
     searchResult = dataResults;
@@ -273,7 +273,7 @@ function createHtmlCard(datas) {
     const cardImg = document.createElement('img');
     cardImg.classList.add('card-img-top');
     cardImg.src = './uploads/games/' + getImgByName(game['images']);
-    cardImg.alt = game['game_name'];
+    cardImg.alt = htmlEntityDecode(game['game_name']);
     cardImg.loading = 'lazy';
     cardImgBlock.appendChild(cardImg);
 
@@ -298,7 +298,7 @@ function createHtmlCard(datas) {
 
     const cardTitle = document.createElement('div');
     cardTitle.classList.add('card-title', 'text-uppercase', 'text-center', 'p-0', 'm-0');
-    cardTitle.textContent = game['game_name'];
+    cardTitle.textContent = htmlEntityDecode(game['game_name']);
     emtpyDiv.appendChild(cardTitle);
 
     const cardSubtitle = document.createElement('p');

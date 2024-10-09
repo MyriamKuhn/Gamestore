@@ -12,7 +12,7 @@ class PegiRepository extends MainRepository
   {
     $query = 'SELECT * FROM pegi WHERE id = :id';
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+    $stmt->bindValue(':id', $id, $this->pdo::PARAM_INT);
     $stmt->execute();
     $pegi = $stmt->fetch();
 

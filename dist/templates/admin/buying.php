@@ -69,7 +69,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
         ?>
           <tr>
             <th scope="row"><?= Security::secureInput($game['game_id']) ?></th>
-            <td><?= Security::secureInput($game['game_name']) ?></td>
+            <td><?= html_entity_decode(Security::secureInput($game['game_name'])) ?></td>
             <td><?= Security::secureInput($game['platform_name']) ?></td>
             <td><?= Security::secureInput($game['store_location']) ?></td>
             <td><?= number_format($priceToPay, 2) ?> €</td>

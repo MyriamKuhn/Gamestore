@@ -22,10 +22,11 @@ class GamePlatformRepository extends MainRepository
     INNER JOIN store AS s ON gp.fk_store_id = s.id
     WHERE gp.quantity > 0 AND gp.is_new = 1
     GROUP BY g.id, g.name, p.name
-    ORDER BY g.id DESC LIMIT :limit';
+    ORDER BY RAND() 
+    LIMIT :limit';
 
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+    $stmt->bindValue(':limit', $limit, $this->pdo::PARAM_INT);
     $stmt->execute();
     $games = $stmt->fetchAll();
 
@@ -66,7 +67,7 @@ class GamePlatformRepository extends MainRepository
       LIMIT :limit';
   
       $stmt = $this->pdo->prepare($query);
-      $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+      $stmt->bindValue(':limit', $limit, $this->pdo::PARAM_INT);
       $stmt->execute();
       $games = $stmt->fetchAll();
   
@@ -108,7 +109,7 @@ class GamePlatformRepository extends MainRepository
     ORDER BY g.id DESC';
 
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':storeId', $storeId, \PDO::PARAM_INT);
+    $stmt->bindValue(':storeId', $storeId, $this->pdo::PARAM_INT);
     $stmt->execute();
     $games = $stmt->fetchAll();
 
@@ -147,7 +148,7 @@ class GamePlatformRepository extends MainRepository
     ORDER BY g.id DESC';
 
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':storeId', $storeId, \PDO::PARAM_INT);
+    $stmt->bindValue(':storeId', $storeId, $this->pdo::PARAM_INT);
     $stmt->execute();
     $games = $stmt->fetchAll();
 
@@ -260,7 +261,7 @@ class GamePlatformRepository extends MainRepository
     GROUP BY g.id, g.name, g.description, p.name';
 
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':gameId', $gameId, \PDO::PARAM_INT);
+    $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetch();
 
@@ -297,11 +298,11 @@ class GamePlatformRepository extends MainRepository
     WHERE gp.fk_game_id = :gameId AND gp.fk_platform_id = :platformId AND gp.price = :price AND gp.discount_rate = :discountRate AND gp.fk_store_id = :location AND gp.quantity > 0';
 
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':gameId', $gameId, \PDO::PARAM_INT);
-    $stmt->bindValue(':platformId', $platformId, \PDO::PARAM_INT);
-    $stmt->bindValue(':price', $price, \PDO::PARAM_STR);
-    $stmt->bindValue(':discountRate', $discountRate, \PDO::PARAM_STR);
-    $stmt->bindValue(':location', $location, \PDO::PARAM_INT);
+    $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':platformId', $platformId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':price', $price, $this->pdo::PARAM_STR);
+    $stmt->bindValue(':discountRate', $discountRate, $this->pdo::PARAM_STR);
+    $stmt->bindValue(':location', $location, $this->pdo::PARAM_INT);
     $stmt->execute();
     $game = $stmt->fetch();
 
@@ -366,6 +367,35 @@ class GamePlatformRepository extends MainRepository
     $games = $stmt->fetchAll();
 
     return $games;
+  }
+
+  // Suppression d'un jeu en fonction de son ID
+  public function deleteGameDatas(int $gameId): bool
+  {
+    $query = 'DELETE FROM game_platform WHERE fk_game_id = :gameId';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
+
+    return $stmt->execute();
+  }
+
+  // Ajout d'un jeu dans sa totalité
+  public function addGameDatas(int $gameId, int $platformId, int $storeId, float $price, int $isNew, int $isReduced, float $discountRate, int $quantity): bool
+  {
+    $query = 'INSERT INTO game_platform (fk_game_id, fk_platform_id, fk_store_id, price, is_new, is_reduced, discount_rate, quantity) VALUE (:gameId, :platformId, :storeId, :price, :isNew, :isReduced, :discountRate, :quantity)';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':price', $price, $this->pdo::PARAM_STR);
+    $stmt->bindValue(':isNew', $isNew, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':isReduced', $isReduced, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':discountRate', $discountRate, $this->pdo::PARAM_STR);
+    $stmt->bindValue(':quantity', $quantity, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':platformId', $platformId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':storeId', $storeId, $this->pdo::PARAM_INT);
+
+    return $stmt->execute();
   }
 
 

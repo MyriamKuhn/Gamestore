@@ -25,14 +25,14 @@ $carousel = FileTools::getImagesAsCategory('carousel', $game['images']);
       <?= isset($_SESSION['user']) && ($_SESSION['user']['role'] == _ROLE_USER_) ? '<div id="sessionDataStore" data-session-store="' . Security::secureInput($_SESSION['user']['store_id']) . '"></div>' : '' ?>
 
       <div class="d-flex justify-content-between gamestore-title">
-        <h2 class="text-uppercase"><?= Security::secureInput($game['game_name']) ?></h2>
+        <h2 class="text-uppercase"><?= html_entity_decode(Security::secureInput($game['game_name'])) ?></h2>
       </div>
     </section>
     <!-- Première section de présentation -->
     <section class="py-4 row row-cols-1 row-cols-xl-2 mx-lg-5 mx-xl-0">
       <!-- Nom du jeu -->
       <div>
-        <img class="mx-md-auto image-presentation" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_ . reset($presentation)) ?>" alt="<?= Security::secureInput($game['game_name']) ?>" loading="lazy">
+        <img class="mx-md-auto image-presentation" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_ . reset($presentation)) ?>" alt="<?= html_entity_decode(Security::secureInput($game['game_name'])) ?>" loading="lazy">
       </div>
       <!-- Prix  -->
       <div class="pt-3 pt-lg-0 my-auto mx-lg-auto">
@@ -73,9 +73,12 @@ $carousel = FileTools::getImagesAsCategory('carousel', $game['images']);
     </section>
     <!-- Deuxième section de description -->
     <section class="flex-column-reverse flex-lg-row row row-cols-1 row-cols-lg-2 g-lg-5 pb-4 ">
-      <div class="px-xl-4"><?= nl2br(Security::secureInput($game['game_description'])) ?></div>
+      <div class="px-xl-4">
+        <?php $gameDescription = html_entity_decode(Security::secureInput($game['game_description'])); 
+        echo nl2br($gameDescription); ?>
+      </div>
       <div>
-        <p class="text-uppercase title-show"><?= Security::secureInput($game['game_name']) ?></p>
+        <p class="text-uppercase title-show"><?= html_entity_decode(Security::secureInput($game['game_name'])) ?></p>
         <p><span class="fw-bold">Genre : </span><?= Security::secureInput($game['genres']) ?></p>
         <img class="pb-3" src="<?= Security::secureInput(_ASSETS_IMAGES_FOLDER_ . 'pegi/' . $game['pegi_name'] . '.jpg') ?>" alt="<?= Security::secureInput($game['pegi_name']) ?>" width="30">
       </div>
@@ -89,7 +92,7 @@ $carousel = FileTools::getImagesAsCategory('carousel', $game['images']);
             <?php for ($i = 0; $i < count($carousel); $i++) : ?>
               <div class="carousel-gamestore__item">
                 <div class="carousel-gamestore__image">
-                  <img src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_ . $carousel[$i]) ?>" alt="<?= Security::secureInput($game['game_name']) ?>">
+                  <img src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_ . $carousel[$i]) ?>" alt="<?= html_entity_decode(Security::secureInput($game['game_name'])) ?>">
                 </div>
               </div>
             <?php endfor; ?>

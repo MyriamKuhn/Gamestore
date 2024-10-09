@@ -134,7 +134,6 @@ const numberInputs = document.querySelectorAll('input[type="number"]');
 function checkGameName() {
   const gameName = gameNameInput.value;
   const gameNameRegex = /^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\!\?\.\(\)\[\]:]{3,}$/;
-  
   if (!gameNameRegex.test(secureInput(gameName).trim())) {
     gameNameInput.classList.add("is-invalid");
   } else {
