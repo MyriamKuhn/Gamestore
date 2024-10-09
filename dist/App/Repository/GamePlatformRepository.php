@@ -62,7 +62,7 @@ class GamePlatformRepository extends MainRepository
       INNER JOIN image AS i ON g.id = i.fk_game_id
       INNER JOIN store AS s ON gp.fk_store_id = s.id
       WHERE gp.is_reduced = 1 AND gp.quantity > 0
-      GROUP BY gp.price, gp.discount_rate, s.location
+      GROUP BY g.id, g.name, p.name, pl.name, gp.price, gp.discount_rate, s.location, gp.is_new
       ORDER BY RAND()
       LIMIT :limit';
   
@@ -105,7 +105,7 @@ class GamePlatformRepository extends MainRepository
     INNER JOIN genre AS ge ON gg.fk_genre_id = ge.id
     INNER JOIN image AS i ON g.id = i.fk_game_id
     WHERE gp.fk_store_id = :storeId AND gp.quantity > 0
-    GROUP BY g.id, p.name, pl.name, gp.price, gp.is_reduced, gp.is_new, gp.discount_rate
+    GROUP BY g.id, g.name, p.name, pl.name, gp.price, gp.is_reduced, gp.is_new, gp.discount_rate
     ORDER BY g.id DESC';
 
     $stmt = $this->pdo->prepare($query);
@@ -144,7 +144,7 @@ class GamePlatformRepository extends MainRepository
     INNER JOIN game_genre AS gg ON g.id = gg.fk_game_id
     INNER JOIN genre AS ge ON gg.fk_genre_id = ge.id
     WHERE gp.fk_store_id = :storeId
-    GROUP BY g.id, pl.id, gp.price, gp.is_reduced, gp.discount_rate, gp.quantity
+    GROUP BY g.id, g.name, pl.id, pl.name, gp.price, gp.is_reduced, gp.discount_rate, gp.quantity
     ORDER BY g.id DESC';
 
     $stmt = $this->pdo->prepare($query);
@@ -211,7 +211,7 @@ class GamePlatformRepository extends MainRepository
     INNER JOIN image AS i ON g.id = i.fk_game_id
     INNER JOIN store AS s ON gp.fk_store_id = s.id
     WHERE is_reduced = 1 AND gp.quantity > 0
-    GROUP BY g.id, g.name, g.description, p.name, pl.name, gp.price, gp.discount_rate, s.location';
+    GROUP BY g.id, g.name, g.description, p.name, pl.name, gp.price, gp.is_new, gp.is_reduced, gp.discount_rate, gp.quantity, s.location';
 
     $stmt = $this->pdo->prepare($query);
     $stmt->execute();

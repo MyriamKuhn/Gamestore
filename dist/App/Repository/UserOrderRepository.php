@@ -222,7 +222,7 @@ class UserOrderRepository extends MainRepository
         INNER JOIN app_user AS au ON uo.fk_app_user_id = au.id
         INNER JOIN store AS s ON uo.fk_store_id = s.id
         WHERE uo.status != "En attente"
-        GROUP BY uo.id, uo.order_date, uo.status, uo.fk_app_user_id, s.location, s.id, au.role
+        GROUP BY uo.id, uo.order_date, uo.status, uo.fk_app_user_id, au.email, s.location, s.id, au.role
         ORDER BY uo.order_date DESC';
   
       $stmt = $this->pdo->prepare($query);
