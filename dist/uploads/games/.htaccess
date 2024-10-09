@@ -1,0 +1,14 @@
+# Bloque l'accès aux fichiers .htaccess et .htpasswd
+<Files ".ht*">
+  Require all denied
+</Files>
+
+# Désactive l'exécution des fichiers PHP dans le dossier images
+<FilesMatch "\.(php|phar|phtml|pht|shtml)$">
+  Require all denied
+</FilesMatch>
+
+# Assure l'accessibilité des fichiers d'images
+<FilesMatch "\.(jpg|jpeg|png|gif|svg|webp)$">
+  Require all granted
+</FilesMatch>

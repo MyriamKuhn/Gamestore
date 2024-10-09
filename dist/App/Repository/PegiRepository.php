@@ -12,7 +12,7 @@ class PegiRepository extends MainRepository
   {
     $query = 'SELECT * FROM pegi WHERE id = :id';
     $stmt = $this->pdo->prepare($query);
-    $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+    $stmt->bindValue(':id', $id, $this->pdo::PARAM_INT);
     $stmt->execute();
     $pegi = $stmt->fetch();
 
@@ -21,6 +21,15 @@ class PegiRepository extends MainRepository
     } else {
       return false;
     }
+  }
+
+  // Récupération de tous les Pegi
+  public function getAllPegi(): array
+  {
+    $query = 'SELECT * FROM pegi';
+    $stmt = $this->pdo->query($query);
+    
+    return $stmt->fetchAll();
   }
 
 }

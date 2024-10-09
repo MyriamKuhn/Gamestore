@@ -33,7 +33,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
       </div>
 
       <!-- START : Formulaire de connexion -->
-      <form method="post" id="password" class="needs-validation my-5" novalidate>
+      <form method="post" id="password" class="needs-validation my-5">
         <!-- Inclusion du token CSRF -->
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
         <!-- Email -->

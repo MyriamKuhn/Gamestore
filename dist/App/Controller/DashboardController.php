@@ -59,10 +59,8 @@ class DashboardController extends RoutingController
   protected function home()
   {
     try {
-      if (!isset($_SESSION['user'])) {
-        $this->render('dashboard/error', [
-          'error' => 'Veuillez vous connecter pour accéder à cette page.'
-        ]);
+      if (!Security::isUser()) {
+        throw new \Exception("Vous n'êtes pas autorisé à accéder à cette page.");
       }
       // Récupération du contenu du panier de l'utilisateur
       $cartId = $_SESSION['user']['cart_id'];
@@ -84,6 +82,9 @@ class DashboardController extends RoutingController
   protected function modify()
   {
     try {
+      if (!Security::isUser()) {
+        throw new \Exception("Vous n'êtes pas autorisé à accéder à cette page.");
+      }
       // Si modification des données personnelles
       if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['modifyUser'])) {
         // Vérification du token CSRF
@@ -329,6 +330,9 @@ class DashboardController extends RoutingController
   protected function cart()
   {
     try {
+      if (!Security::isUser()) {
+        throw new \Exception("Vous n'êtes pas autorisé à accéder à cette page.");
+      }
       // Si modification de la quantité dans le panier
       if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateQuantity'])) {
         // Vérification du token CSRF
