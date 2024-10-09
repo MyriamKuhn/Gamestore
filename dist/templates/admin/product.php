@@ -193,7 +193,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
                   <?php foreach ($platforms as $platform) : ?>
                     <tr>
                       <td><?= Security::secureInput($platform['name']) ?></td>
-                      <td><input type="number" name="<?= Security::secureInput($store['id']) . '-' . Security::secureInput($platform['id']) ?>-price" class="form-control" min="0" value="0"></td>
+                      <td><input type="number" name="<?= Security::secureInput($store['id']) . '-' . Security::secureInput($platform['id']) ?>-price" class="form-control" min="0" step="0.01" value="0"></td>
                       <td>
                         <input type="checkbox" name="<?= Security::secureInput($store['id']) . '-' . Security::secureInput($platform['id']) ?>-new" id="<?= Security::secureInput($store['id']) . '-' . Security::secureInput($platform['id']) ?>-new" class="me-1">
                         <label for="<?= Security::secureInput($store['id']) . '-' . Security::secureInput($platform['id']) ?>-new" class="me-3">Nouveauté</label>

@@ -177,7 +177,7 @@ $needle = 'spotlight';
               <div class="card-percent"><?= Security::secureInput(($reducedGameData['discount_rate'] * 100)) ?></div>
               <img src="./assets/images/percent_icon.svg" alt="Image représentant un pourcentage">
               <div class="d-flex flex-column align-items-center justify-content-center ps-3">
-                <div class="card-price m-0"><?= Security::secureInput(StringTools::truncate_string($reducedPrice, 2)) ?> €</div>
+                <div class="card-price m-0"><?= Security::secureInput(number_format($reducedPrice, 2)) ?> €</div>
                 <div class="text-decoration-line-through"><?= Security::secureInput($reducedGameData['platform_price']) ?> €</div>
               </div>
             </div>

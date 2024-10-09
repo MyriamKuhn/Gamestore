@@ -133,7 +133,7 @@ const numberInputs = document.querySelectorAll('input[type="number"]');
 // Fonctions de vérification des champs
 function checkGameName() {
   const gameName = gameNameInput.value;
-  const gameNameRegex = /^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\!\?\.\(\)\[\]:]{3,}$/;
+  const gameNameRegex = /^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\&\!\?\.\(\)\[\]:]{3,}$/;
   if (!gameNameRegex.test(secureInput(gameName).trim())) {
     gameNameInput.classList.add("is-invalid");
   } else {
@@ -143,7 +143,7 @@ function checkGameName() {
 
 function checkGameDescription() {
   const gameDescription = gameDescriptionInput.value;
-  const gameDescriptionRegex = /^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\!\?\.\,\(\)\[\]:;\"\n]{3,}$/;
+  const gameDescriptionRegex = /^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\&\!\?\.\,\(\)\[\]:;\"\n]{3,}$/;
 
   if (!gameDescriptionRegex.test(secureInput(gameDescription).trim())) {
     gameDescriptionInput.classList.add("is-invalid");
@@ -323,6 +323,19 @@ numberInputs.forEach(function(priceInput) {
 
         stockInput.value = 0;
         stockInput.disabled = true;
+      } else if (validateNumberInput(priceInput.value) === false) {
+        priceInput.value = 0;
+        newCheckbox.checked = false;
+        newCheckbox.disabled = true;
+
+        reducedCheckbox.checked = false;
+        reducedCheckbox.disabled = true;
+
+        discountInput.value = 0;
+        discountInput.disabled = true;
+
+        stockInput.value = 0;
+        stockInput.disabled = true;
       } else {
         // Si le prix n'est pas 0, réactiver les champs
         newCheckbox.disabled = false;
@@ -347,6 +360,7 @@ numberInputs.forEach(function(discountInput) {
       // Si la réduction est supérieure à 0, cocher la case "reduced", sinon décocher la case "reduced"
       if (validateNumberInput(discountInput.value) > 0) {
         reducedCheckbox.checked = true;
+        discountInput.classList.remove("is-invalid");
       } else {
         reducedCheckbox.checked = false;
       }

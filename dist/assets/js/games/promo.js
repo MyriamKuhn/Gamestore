@@ -3,7 +3,7 @@
 // IMPORTS //
 
 /**********/
-import { validateJSONStructure, secureInput, getImgByName, showCart } from '../utils.js';
+import { validateJSONStructure, secureInput, getImgByName, showCart, htmlEntityDecode } from '../utils.js';
 
 
 /**********************/

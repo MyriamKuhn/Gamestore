@@ -940,7 +940,7 @@ class AdminController extends RoutingController
           if (strlen($gameName) > 100) {
             $errors['game_name_length'] = 'Le nom du jeu est trop long.';
           }
-          if (!preg_match('/^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\!\?\.\(\)\[\]:]{3,}$/', $gameName)) {
+          if (!preg_match('/^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\&\!\?\.\(\)\[\]:]{3,}$/', $gameName)) {
             $errors['game_name'] = 'Le nom n\'est pas valide.';
           }
           $gameName = Security::secureInput($formDatas['game_name']);
@@ -949,7 +949,7 @@ class AdminController extends RoutingController
           if (empty($gameDescription)) {
             $errors['game_description'] = 'Veuillez renseigner la description du jeu.';
           }
-          if (!preg_match('/^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\!\?\.\,\(\)\[\]:;\"\n]{3,}$/', $gameDescription)) {
+          if (!preg_match('/^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\&\!\?\.\,\(\)\[\]:;\"\n]{3,}$/', $gameDescription)) {
             $errors['game_description'] = 'La description n\'est pas valide.';
           }
           $gameDescription = Security::secureInput($formDatas['game_description']);
@@ -1354,7 +1354,7 @@ class AdminController extends RoutingController
           if (strlen($gameName) > 100) {
             $errors['game_name_length'] = 'Le nom du jeu est trop long.';
           }
-          if (!preg_match('/^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\!\?\.\(\)\[\]:]{3,}$/', $gameName)) {
+          if (!preg_match('/^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\&\!\?\.\(\)\[\]:]{3,}$/', $gameName)) {
             $errors['game_name'] = 'Le nom n\'est pas valide.';
           }
           $gameName = Security::secureInput($formDatas['game_name']);
@@ -1363,7 +1363,7 @@ class AdminController extends RoutingController
           if (empty($gameDescription)) {
             $errors['game_description'] = 'Veuillez renseigner la description du jeu.';
           }
-          if (!preg_match('/^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\!\?\.\,\(\)\[\]:;\"\n]{3,}$/', $gameDescription)) {
+          if (!preg_match('/^[a-zA-ZÀ-ÿœŒæÆ0-9\-\s\'\’\&\!\?\.\,\(\)\[\]:;\"\n]{3,}$/', $gameDescription)) {
             $errors['game_description'] = 'La description n\'est pas valide.';
           }
           $gameDescription = Security::secureInput($formDatas['game_description']);

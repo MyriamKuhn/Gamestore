@@ -78,7 +78,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
             <td><?= Security::secureInput($game['platform_name']) ?></td>
             <td><?= Security::secureInput($game['store_location']) ?></td>
             <td><?= Security::secureInput($game['quantity']) ?></td>
-            <td><?= Security::secureInput($price) ?></td>
+            <td><?= Security::secureInput(number_format($price, 2)) ?></td>
             <td><?= Security::secureInput($rate) ?></td>
             <td>
               <form method="post">
