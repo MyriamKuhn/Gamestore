@@ -31,7 +31,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
           $contentTotal = Security::secureInput($content['quantity']) * Security::secureInput($content['price']);
           $totalPrice += $contentTotal; ?>
           <tr>
-            <td><a href="index.php?controller=games&action=show&id=<?=Security::secureInput($content['game_id']) ?>" class="text-link"><?= Security::secureInput($content['game_name']) ?></a></td>
+            <td><a href="index.php?controller=games&action=show&id=<?=Security::secureInput($content['game_id']) ?>" class="text-link"><?= html_entity_decode(Security::secureInput($content['game_name'])) ?></a></td>
             <td><?= Security::secureInput($content['platform_name']) ?></td>
             <td>
               <form method="post">

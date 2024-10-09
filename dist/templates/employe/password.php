@@ -20,7 +20,7 @@ require_once _TEMPLATEPATH_ . '/employe/header.php';
       <?php if (!empty($success)) echo $success; ?>
     </div>
     <!-- START : Formulaire de modification du mot de passe -->
-    <form method="post" id="password-form" class="needs-validation" novalidate>
+    <form method="post" id="password-form" class="needs-validation">
       <!-- Inclusion du token CSRF -->
       <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
       <!-- Mot de passe -->

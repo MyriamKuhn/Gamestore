@@ -22,7 +22,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
     <?php if (!empty($success)) echo $success; ?>
   </div>
   <!-- START : Formulaire de modification des données personnelles -->
-  <form method="post" id="personal-form" class="needs-validation" novalidate>
+  <form method="post" id="personal-form" class="needs-validation">
     <!-- Inclusion du token CSRF -->
     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
     <!-- Nom et prénom -->
@@ -71,16 +71,16 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
     </div>
   </form>
   <!-- END : Formulaire de modification des données personnelles -->
-    <!-- Gamestore le plus proche -->
+  <!-- Gamestore le plus proche -->
   <div class="d-flex justify-content-between gamestore-title mt-5 mb-4">
     <h2 class="text-uppercase">Modifiez votre Gamestore le plus proche</h2>
   </div>
   <!-- START : Formulaire de modification du Gamestore le plus proche -->
-  <form method="post" id="gamestore-form" class="needs-validation" novalidate>
+  <form method="post" id="gamestore-form" class="needs-validation">
     <!-- Inclusion du token CSRF -->
     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
     <div class="form-floating mb-3">
-      <select type="text" class="form-select" id="nearest_store" name="nearest_store" required>
+      <select class="form-select" id="nearest_store" name="nearest_store" required>
         <option value="1" <?= (Security::secureInput($user->getFk_store_id()) == 1) ? 'selected' : '' ?>>Gamestore Nantes, 42 Rue des Joueurs, 44000 Nantes</option>
         <option value="2" <?= (Security::secureInput($user->getFk_store_id()) == 2) ? 'selected' : '' ?>>Gamestore Lille, 15 Rue du Pixel, 59000 Lille</option>
         <option value="3" <?= (Security::secureInput($user->getFk_store_id()) == 3) ? 'selected' : '' ?>>Gamestore Bordeaux, 23 Place du Geek, 33000 Bordeaux</option>
@@ -88,9 +88,6 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
         <option value="5" <?= (Security::secureInput($user->getFk_store_id()) == 5) ? 'selected' : '' ?>>Gamestore Toulouse, 67 Avenue du Game, 31000 Toulouse</option>
       </select>
       <label for="nearest_store">Votre Gamestore le plus proche</label>
-    </div>
-    <div class="invalid-feedback">
-      Sélectionnez le nom de votre Gamestore le plus proche.
     </div>
     <div class="text-end mt-3">
       <input type="submit" class="btn btn-gamestore text-uppercase" name="modifyStore" value="Modifier">
@@ -101,7 +98,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
     <h2 class="text-uppercase">Modifiez votre mot de passe</h2>
   </div>
   <!-- START : Formulaire de modification du mot de passe -->
-  <form method="post" id="password-form" class="needs-validation" novalidate>
+  <form method="post" id="password-form" class="needs-validation">
     <!-- Inclusion du token CSRF -->
     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
     <!-- Mot de passe -->

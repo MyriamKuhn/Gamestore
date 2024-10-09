@@ -82,54 +82,67 @@ class EmployeController extends RoutingController
           Security::checkCSRF($_POST['csrf_token']);
           // Récupération des données du formulaire et sécurisation
           $orderId = Security::secureInput($_POST['order_id']);
+          $orderStatus = Security::secureInput($_POST['order_status']);
           $userOrderRepository = new UserOrderRepository();
           $order = $userOrderRepository->validateOrderByEmployee($orderId, 'Livrée');
           if (!$order) {
             throw new \Exception("Erreur lors de la mise à jour du statut de la commande.");
           }
-          // Recherche des données de la commande
-          $order = $userOrderRepository->findOrderById($orderId);
-          if (!$order) {
-            throw new \Exception("La commande n'existe pas.");
-          }
-          foreach ($order['games'] as $game) {
-            //Pour chaque jeu de la commande, récupérer son genre
-            $gameGenreRepository = new GameGenreRepository();
-            $gameGenres = $gameGenreRepository->findAllGenresByGame($game['game_id']);
-            // Création d'un objet Sale pour chaque jeu de la commande
-            $sale = new Sale();
-            $sale->setId($game['game_id']);
-            $sale->setName($game['name']);
-            $sale->setGenre($gameGenres);
-            $sale->setPlatform($game['platform']);
-            $sale->setStore($order['store_location']);
-            $sale->setPrice($game['price']);
-            $sale->setQuantity($game['quantity']);
-            $sale->setDate(new DateTime());
-            // Enregistrement des ventes en base de données
-            $salesRepository = new SalesRepository();
-            $salesRepository->setOneSale($sale);
-            // Mise à jour du stock des jeux
-            $gamePlatformRepository = new GamePlatformRepository();
-            $isStockUpdated = $gamePlatformRepository->updateGameStock($game['game_id'], $game['platform_id'], $order['store_id'], $game['quantity'], 'remove');
-            if (!$isStockUpdated) {
-              throw new \Exception("Erreur lors de la mise à jour du stock du jeu.");
+          // Sécurité uniquement si la commande est validée
+          if ($orderStatus === 'Validée') {
+            // Recherche des données de la commande
+            $order = $userOrderRepository->findOrderById($orderId);
+            if (!$order) {
+              throw new \Exception("La commande n'existe pas.");
             }
-          }          
-          header('Location: index.php?controller=employe&action=orders');
-          exit;
+            foreach ($order['games'] as $game) {
+              //Pour chaque jeu de la commande, récupérer son genre
+              $gameGenreRepository = new GameGenreRepository();
+              $gameGenres = $gameGenreRepository->findAllGenresByGame($game['game_id']);
+              // Création d'un objet Sale pour chaque jeu de la commande
+              $sale = new Sale();
+              $sale->setId($game['game_id']);
+              $sale->setName($game['name']);
+              $sale->setGenre($gameGenres);
+              $sale->setPlatform($game['platform']);
+              $sale->setStore($order['store_location']);
+              $sale->setPrice($game['price']);
+              $sale->setQuantity($game['quantity']);
+              $sale->setDate(new DateTime());
+              $sale->setOrderId($orderId);
+              // Enregistrement des ventes en base de données
+              $salesRepository = new SalesRepository();
+              $salesRepository->setOneSale($sale);
+              // Mise à jour du stock des jeux
+              $gamePlatformRepository = new GamePlatformRepository();
+              $isStockUpdated = $gamePlatformRepository->updateGameStock($game['game_id'], $game['platform_id'], $order['store_id'], $game['quantity'], 'remove');
+              if (!$isStockUpdated) {
+                throw new \Exception("Erreur lors de la mise à jour du stock du jeu.");
+              }
+            }
+            header('Location: index.php?controller=employe&action=orders');
+            exit;
+          } else {
+            throw new \Exception("Vous ne pouvez pas modifier le statut de cette commande.");
+          }
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancelOrder'])) {
           // Vérification du token CSRF
           Security::checkCSRF($_POST['csrf_token']);
           // Récupération des données du formulaire et sécurisation
           $orderId = Security::secureInput($_POST['order_id']);
-          $userOrderRepository = new UserOrderRepository();
-          $order = $userOrderRepository->validateOrderByEmployee($orderId, 'Annulée');
-          if (!$order) {
-            throw new \Exception("Erreur lors de la mise à jour du statut de la commande.");
+          $orderStatus = Security::secureInput($_POST['order_status']);
+          // Sécurité uniquement si la commande est validée
+          if ($orderStatus === 'Validée') {
+            $userOrderRepository = new UserOrderRepository();
+            $order = $userOrderRepository->validateOrderByEmployee($orderId, 'Annulée');
+            if (!$order) {
+              throw new \Exception("Erreur lors de la mise à jour du statut de la commande.");
+            }
+            header('Location: index.php?controller=employe&action=orders');
+            exit;
+          } else {
+            throw new \Exception("Vous ne pouvez pas modifier le statut de cette commande.");
           }
-          header('Location: index.php?controller=employe&action=orders');
-          exit;
         } else {
           // Comportement par défaut : affichage de la liste des commandes
           $storeId = $_SESSION['user']['store_id'];
@@ -268,6 +281,15 @@ class EmployeController extends RoutingController
           if ($userId == 0) {
             $userId = $_SESSION['user']['id'];
           }
+          // Vérification de l'utilisateur
+          $userRepository = new UserRepository();
+          $user = $userRepository->getUserById($userId);
+          if (!$user) {
+            throw new \Exception("L'utilisateur n'existe pas.");
+          }
+          if ($user->getFk_store_id() != $_SESSION['user']['store_id']) {
+            throw new \Exception("L'utilisateur n'est pas rattaché à votre magasin.");
+          }
           $gameId = Security::secureInput($_POST['gameId']);
           $platformId = Security::secureInput($_POST['platformId']);
           $quantity = Security::secureInput($_POST['quantity']);
@@ -315,6 +337,7 @@ class EmployeController extends RoutingController
             $sale->setPrice($game['price']);
             $sale->setQuantity($game['quantity']);
             $sale->setDate(new DateTime());
+            $sale->setOrderId($orderId);
             // Enregistrement des ventes en base de données
             $salesRepository = new SalesRepository();
             $salesRepository->setOneSale($sale);

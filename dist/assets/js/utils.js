@@ -8,10 +8,24 @@ export function secureInput(text) {
     '<': '&lt;',
     '>': '&gt;',
     '"': '&quot;',
-    "'": '&#039;',
     '&': '&amp;',
   };
   return text.replace(/[<>"'&]/g, (m) => map[m]);
+}
+
+
+/***************************************/
+
+// SECURISER LES CHAMPS DE TYPE NUMBER //
+
+/***************************************/
+export function validateNumberInput(value) {
+  // Vérifier si la valeur est un nombre valide
+  if (isNaN(value) || value.trim() === '' || parseFloat(value) < 0) {
+    return false;
+  } else {
+    return parseFloat(value); 
+  }
 }
 
 
@@ -93,4 +107,15 @@ export function showCart() {
       cart.classList.add('visually-hidden');
       cartCount.textContent = '0';
   });
+}
+
+/******************************************/
+
+/* FONCTION POUR DECODER LES ENTITES HTML */
+
+/******************************************/
+export function htmlEntityDecode(text) {
+  const textArea = document.createElement('textarea');
+  textArea.innerHTML = text; // Le navigateur décode les entités HTML
+  return textArea.value;
 }

@@ -35,6 +35,7 @@ CREATE TABLE app_user (
   password VARCHAR(255) NOT NULL,
   role VARCHAR(20) NOT NULL,
   is_verified TINYINT(1) NOT NULL DEFAULT 0,
+  is_blocked TINYINT(1) NOT NULL DEFAULT 0,
   token VARCHAR(50) DEFAULT NULL,
   expires_at DATETIME DEFAULT NULL,
   fk_store_id int(11) UNSIGNED NOT NULL,

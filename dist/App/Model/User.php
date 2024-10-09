@@ -15,6 +15,7 @@ class User extends Model
   protected string $password;
   protected string $role;
   protected int $is_verified;
+  protected int $is_blocked;
   protected ?string $token;
   protected ?string $expires_at;
   protected int $fk_store_id;
@@ -135,6 +136,18 @@ class User extends Model
   public function setIs_verified(int $is_verified): self
   {
     $this->is_verified = $is_verified;
+
+    return $this;
+  }
+
+  public function getIs_blocked(): int
+  {
+    return $this->is_blocked;
+  }
+
+  public function setIs_blocked(int $is_blocked): self
+  {
+    $this->is_blocked = $is_blocked;
 
     return $this;
   }

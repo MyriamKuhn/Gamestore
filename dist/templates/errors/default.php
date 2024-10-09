@@ -1,4 +1,12 @@
-<?php require_once _TEMPLATEPATH_.'/header.php'; ?>
+<?php 
+
+require_once _TEMPLATEPATH_.'/header.php'; 
+
+if ($error =="Vous n'avez pas les droits pour accéder à cette page, veuillez vous connecter") {
+	header('refresh:5;url=index.php?controller=auth&action=logout');
+};
+
+?>
 
 <!-- START : Main -->
 <main class="container my-4 main">

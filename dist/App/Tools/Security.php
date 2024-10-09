@@ -2,6 +2,8 @@
 
 namespace App\Tools;
 
+use App\Repository\UserRepository;
+
 class Security
 {
   // Sécurisation des inputs
@@ -37,19 +39,49 @@ class Security
   // Vérification du rôle utilisateur
   public static function isUser(): bool
   {
-    return isset($_SESSION['user']) && $_SESSION['user']['role'] === _ROLE_USER_;
+    if (isset($_SESSION['user']) && $_SESSION['user']['role'] === _ROLE_USER_) {
+      $userRepository = new UserRepository();
+      $user = $userRepository->getUserById($_SESSION['user']['id']);
+      if ($user->getIs_blocked() === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   // Vérification du rôle administrateur
   public static function isAdmin(): bool
   {
-    return isset($_SESSION['user']) && $_SESSION['user']['role'] === _ROLE_ADMIN_;
+    if (isset($_SESSION['user']) && $_SESSION['user']['role'] === _ROLE_ADMIN_) {
+      $userRepository = new UserRepository();
+      $user = $userRepository->getUserById($_SESSION['user']['id']);
+      if ($user->getIs_blocked() === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   // Vérification du rôle employé
   public static function isEmploye(): bool
   {
-    return isset($_SESSION['user']) && $_SESSION['user']['role'] === _ROLE_EMPLOYE_;
+    if (isset($_SESSION['user']) && $_SESSION['user']['role'] === _ROLE_EMPLOYE_) {
+      $userRepository = new UserRepository();
+      $user = $userRepository->getUserById($_SESSION['user']['id']);
+      if ($user->getIs_blocked() === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   // Récupération de l'ID de l'utilisateur connecté
