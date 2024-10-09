@@ -24,7 +24,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
       </div>
 
       <!-- START : Formulaire de réinitialisation du mot de passe -->
-      <form method="post" id="reset-password-form" class="needs-validation" novalidate>
+      <form method="post" id="reset-password-form" class="needs-validation">
         <input type="hidden" name="token" value="<?= $token ?>">
         <!-- Inclusion du token CSRF -->
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">

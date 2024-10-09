@@ -27,18 +27,24 @@ require_once _TEMPLATEPATH_ . '/employe/header.php';
         <option value="Validée">Validée</option>
         <option value="Livrée">Livrée</option>
         <option value="Annulée">Annulée</option>
-        <option value="Annulée">Magasin</option>
+        <option value="Magasin">Magasin</option>
       </select>
-      <label for="statusFilter" class="form-label">Filtrer par Statut</label>
+      <label for="statusFilter" class="form-label">Filtrer par statut</label>
     </div>
     <!-- Filtre par Date -->
     <div class="form-floating mb-3">
       <input type="date" id="dateFilter" class="form-control">
-      <label for="dateFilter" class="form-label">Filtrer par Date</label>
+      <label for="dateFilter" class="form-label">Filtrer par date</label>
     </div>
+    <!-- START : Spinner de chargement -->
+    <div class="d-flex flex-column align-items-center" id="loading">
+      <div class="loader"></div>
+      <h4 class="text-uppercase fs-2 loading-title">Chargement en cours ...</h4>
+    </div>
+    <!-- END : Spinner de chargement -->
     <!-- Tableau des commandes -->
     <div class="table-responsive">
-      <table class="table table-striped table-hover" id="ordersTable">
+      <table class="table table-striped table-hover visually-hidden" id="ordersTable">
         <thead>
           <tr>
             <th scope="col" class="tablet desktop">N° Commande</th>
@@ -61,6 +67,7 @@ require_once _TEMPLATEPATH_ . '/employe/header.php';
                 <form method="post">
                   <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
                   <input type="hidden" name="order_id" value="<?= Security::secureInput($order['order_id']) ?>">
+                  <input type="hidden" name="order_status" value="<?= Security::secureInput($order['order_status']) ?>">
                   <button type="submit" name="validateOrder" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Passer la commande en statut 'Livrée'" class="btn btn-gamestore <?= Security::secureInput($order['order_status']) == 'Validée' ? '' : 'disabled' ?>">
                     <i class="bi bi-check2-square"></i>
                   </button>

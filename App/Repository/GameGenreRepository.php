@@ -25,4 +25,28 @@ class GameGenreRepository extends MainRepository
     return $genresList;
   }
 
+  // Suppression des genres d'un jeu
+  public function deleteGameGenres(int $gameId): bool
+  {
+    $query = 'DELETE FROM game_genre WHERE fk_game_id = :gameId';
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
+
+    return $stmt->execute();
+  }
+
+  // Ajout des genres d'un jeu
+  public function addGameGenre(int $gameId, int $genreId): bool
+  {
+    $query = 'INSERT INTO game_genre (fk_game_id, fk_genre_id) VALUE (:gameId, :genreId)';
+
+    $stmt = $this->pdo->prepare($query);
+    
+    $stmt->bindValue(':gameId', $gameId, $this->pdo::PARAM_INT);
+    $stmt->bindValue(':genreId', $genreId, $this->pdo::PARAM_INT);
+
+    return $stmt->execute();
+  }
+
 }

@@ -112,11 +112,11 @@ $needle = 'spotlight';
         <!-- START : Card News -->
         <div class="card gamestore-card" style="width: 15rem;">
           <div class="card-img-block">
-            <img class="card-img-top" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= Security::secureInput($lastGameData['game_name']) ?> loading="lazy">
+            <img class="card-img-top" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= html_entity_decode(Security::secureInput($lastGameData['game_name'])) ?>" loading="lazy">
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Nouveauté</span>
           </div>
           <div class="card-body card-body-news pt-0">
-            <div class="card-title text-uppercase text-center"><?= Security::secureInput($lastGameData['game_name']) ?></div>
+            <div class="card-title text-uppercase text-center"><?= html_entity_decode(Security::secureInput($lastGameData['game_name'])) ?></div>
             <div class="d-flex justify-content-between align-items-center">
               <div>
               <?php foreach ($lastGameData['platforms'] as $lastGamePlatform) : ?>
@@ -165,19 +165,19 @@ $needle = 'spotlight';
           ?>
         <div class="card gamestore-card" style="width: 18rem;">
           <div class="card-img-block">
-            <img class="card-img-top" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= Security::secureInput($reducedGameData['game_name']) ?>" loading="lazy">
+            <img class="card-img-top" src="<?= Security::secureInput(_GAMES_IMAGES_FOLDER_.reset($spotlight)) ?>" alt="<?= html_entity_decode(Security::secureInput($reducedGameData['game_name'])) ?>" loading="lazy">
             <?php if ($reducedGameData['is_new'] == 1) : ?>
               <span class="badge-new position-absolute rounded-pill text-uppercase py-1 px-2">Nouveauté</span>
             <?php endif; ?>
             <span class="badge position-absolute badge rounded-pill text-uppercase py-1 px-2">Promo</span>
           </div>
           <div class="card-body card-body-promos pt-0">
-            <div class="card-title text-uppercase text-center pb-2"><?= Security::secureInput($reducedGameData['game_name']) ?></div>
+            <div class="card-title text-uppercase text-center pb-2"><?= html_entity_decode(Security::secureInput($reducedGameData['game_name'])) ?></div>
             <div class="d-flex justify-content-center">
               <div class="card-percent"><?= Security::secureInput(($reducedGameData['discount_rate'] * 100)) ?></div>
               <img src="./assets/images/percent_icon.svg" alt="Image représentant un pourcentage">
               <div class="d-flex flex-column align-items-center justify-content-center ps-3">
-                <div class="card-price m-0"><?= Security::secureInput(StringTools::truncate_string($reducedPrice, 2)) ?> €</div>
+                <div class="card-price m-0"><?= Security::secureInput(number_format($reducedPrice, 2)) ?> €</div>
                 <div class="text-decoration-line-through"><?= Security::secureInput($reducedGameData['platform_price']) ?> €</div>
               </div>
             </div>

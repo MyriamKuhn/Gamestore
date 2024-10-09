@@ -15,6 +15,7 @@ class Sale extends Model
   protected float $price;
   protected int $quantity;
   protected DateTime $date;
+  protected int $orderId;
 
   public function getId(): int
   {
@@ -108,6 +109,18 @@ class Sale extends Model
   public function setDate(DateTime $date): self
   {
     $this->date = $date;
+
+    return $this;
+  }
+
+  public function getOrderId(): int
+  {
+    return $this->orderId;
+  }
+
+  public function setOrderId(int $orderId): self
+  {
+    $this->orderId = $orderId;
 
     return $this;
   }
