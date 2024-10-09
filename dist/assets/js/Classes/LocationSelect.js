@@ -55,6 +55,10 @@ export class LocationSelect {
 
     // Affichage des données de prix sur le HTML en fonction de la localisation et de la plateforme sélectionnées
     this.updateDatasinHTML();
+
+    // Retrait du chargement
+    document.getElementById('loading').classList.add('visually-hidden');
+    document.getElementById('details').classList.remove('visually-hidden');
   }
 
   updateButton(text, value, iconClass) {
@@ -212,6 +216,8 @@ export class LocationSelect {
             .then(datas => {
               if (datas.success) {
                 showCart();
+              } else if (datas.datas == "Votre compte est bloqu\u00e9, veuillez contacter un administrateur") {
+                window.location.href = 'index.php?controller=auth&action=logout';
               } else {
                 alert ('Le jeu n\'a pas pu être ajouté au panier');
               }
