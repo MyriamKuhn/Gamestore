@@ -22,9 +22,9 @@ Security::adminOnly();
   <meta name="keywords" content="espace administrateur, gestion des commandes, gestion des utilisateurs, supervision des commandes, statistiques des ventes, contrôle des opérations">
   <!-- END : SEO -->
   <title>Espace Admin - Gestion Utilisateurs et Commandes</title>
-  <link rel="shortcut icon" href="./assets/images/logo_small.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/assets/images/logo_small.svg" type="image/svg+xml">
   <!-- START : Styles -->
-  <link rel="stylesheet" href="./assets/css/main.min.css">
+  <link rel="stylesheet" href="/assets/css/main.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.7/b-3.1.2/b-html5-3.1.2/r-3.0.3/datatables.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -47,7 +47,7 @@ Security::adminOnly();
           <div class="col-auto min-vh-100 bg-white bg-opacity-75">
             <div class="pt-5 pb-5 px-sm-3 text-center">
               <a href="index.php?controller=page&action=home">
-                <img src="./assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="d-none d-sm-inline w-auto">
+                <img src="/assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="d-none d-sm-inline w-auto">
               </a>
             </div>
             <ul class="nav nav-pills flex-column mb-auto">

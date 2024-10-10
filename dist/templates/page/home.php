@@ -175,7 +175,7 @@ $needle = 'spotlight';
             <div class="card-title text-uppercase text-center pb-2"><?= html_entity_decode(Security::secureInput($reducedGameData['game_name'])) ?></div>
             <div class="d-flex justify-content-center">
               <div class="card-percent"><?= Security::secureInput(($reducedGameData['discount_rate'] * 100)) ?></div>
-              <img src="./assets/images/percent_icon.svg" alt="Image représentant un pourcentage">
+              <img src="/assets/images/percent_icon.svg" alt="Image représentant un pourcentage">
               <div class="d-flex flex-column align-items-center justify-content-center ps-3">
                 <div class="card-price m-0"><?= Security::secureInput(number_format($reducedPrice, 2)) ?> €</div>
                 <div class="text-decoration-line-through"><?= Security::secureInput($reducedGameData['platform_price']) ?> €</div>

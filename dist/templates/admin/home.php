@@ -7,7 +7,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
 ?>
 
         <section class="container mt-5 d-flex flex-column align-items-center mb-5">
-          <img src="./assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="my-5" style="width: 200px;">
+          <img src="/assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="my-5" style="width: 200px;">
           <p class="mt-3 fs-2 text-center">Bienvenue dans votre espace administrateur, <?= Security::getCurrentUserFullName() ?>.</p>
           <p>Vous pouvez gérer les utilisateurs, les employés, les commandes, la mise en ligne de nouveaux articles, les stocks de chaque Gamestore ainsi qu'analyser les ventes.</p>
           <div class="row my-5">

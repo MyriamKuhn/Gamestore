@@ -272,7 +272,7 @@ function createHtmlCard(datas) {
 
     const cardImg = document.createElement('img');
     cardImg.classList.add('card-img-top');
-    cardImg.src = './uploads/games/' + getImgByName(game['images']);
+    cardImg.src = '/uploads/games/' + getImgByName(game['images']);
     cardImg.alt = htmlEntityDecode(game['game_name']);
     cardImg.loading = 'lazy';
     cardImgBlock.appendChild(cardImg);
@@ -318,7 +318,7 @@ function createHtmlCard(datas) {
     cardPrice.appendChild(cardPercent);
 
     const imgPercent = document.createElement('img');
-    imgPercent.src = './assets/images/percent_icon.svg';
+    imgPercent.src = '/assets/images/percent_icon.svg';
     imgPercent.alt = 'Image représentant un pourcentage';
     cardPrice.appendChild(imgPercent);
 
@@ -350,14 +350,14 @@ function createHtmlCard(datas) {
     gameInfos.appendChild(containerDiv);
 
     const cardPlatform = document.createElement('img');
-    cardPlatform.src = './assets/images/platforms/' + game['platform_name'].replace(/\s+/g, '-').toLowerCase() + '.svg';
+    cardPlatform.src = '/assets/images/platforms/' + game['platform_name'].replace(/\s+/g, '-').toLowerCase() + '.svg';
     cardPlatform.alt = game['platform_name'];
     cardPlatform.width = '25';
     cardPlatform.classList.add('me-3');
     containerDiv.appendChild(cardPlatform);
 
     const cardPegi = document.createElement('img');
-    cardPegi.src = './assets/images/pegi/' + game['pegi_name'] + '.jpg';
+    cardPegi.src = '/assets/images/pegi/' + game['pegi_name'] + '.jpg';
     cardPegi.alt = game['pegi_name'];
     cardPegi.width = '30';
     containerDiv.appendChild(cardPegi);

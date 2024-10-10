@@ -335,7 +335,7 @@ function createHtmlCard(datas, cardsDiv, loadingId, storeTabId) {
     gameCard.appendChild(cardImgBlock);
     const cardImg = document.createElement('img');
     cardImg.classList.add('card-img-top');
-    cardImg.src = './uploads/games/' + getImgByName(game['images']);
+    cardImg.src = '/uploads/games/' + getImgByName(game['images']);
     cardImg.alt = htmlEntityDecode(game['game_name']);
     cardImg.loading = 'lazy';
     cardImgBlock.appendChild(cardImg);
@@ -412,14 +412,14 @@ function createHtmlCard(datas, cardsDiv, loadingId, storeTabId) {
     cardInfos.appendChild(cardPlatform);
 
     const cardPlatformImg = document.createElement('img');
-    cardPlatformImg.src = './assets/images/platforms/' + game['platform_name'].replace(/\s+/g, '-').toLowerCase() + '.svg';
+    cardPlatformImg.src = '/assets/images/platforms/' + game['platform_name'].replace(/\s+/g, '-').toLowerCase() + '.svg';
     cardPlatformImg.alt = game['platform_name'];
     cardPlatformImg.width = '25';
     cardPlatformImg.classList.add('me-3');
     cardPlatform.appendChild(cardPlatformImg);
 
     const cardPegi = document.createElement('img');
-    cardPegi.src = './assets/images/pegi/' + game['pegi_name'] + '.jpg';
+    cardPegi.src = '/assets/images/pegi/' + game['pegi_name'] + '.jpg';
     cardPegi.alt = game['pegi_name'];
     cardPegi.width = '30';
     cardPlatform.appendChild(cardPegi);

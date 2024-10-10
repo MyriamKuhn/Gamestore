@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-require './vendor/autoload.php';
+require _ROOTPATH_ . '/vendor/autoload.php';
 
 use App\Tools\Security;
 use App\Tools\UserValidator;

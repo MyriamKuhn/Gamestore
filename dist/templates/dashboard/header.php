@@ -31,9 +31,9 @@ $cartContent = $gameUserOrderRepository->findCartContent($cartId);
   <meta name="keywords" content="espace client, gestion des commandes, suivi des commandes, factures, informations personnelles, services en ligne, compte client, support client">
   <!-- END : SEO -->
   <title>Espace Client - Gérer vos informations et commandes en ligne</title>
-  <link rel="shortcut icon" href="./assets/images/logo_small.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/assets/images/logo_small.svg" type="image/svg+xml">
   <!-- START : Styles -->
-  <link rel="stylesheet" href="./assets/css/main.min.css">
+  <link rel="stylesheet" href="/assets/css/main.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.7/b-3.1.2/b-html5-3.1.2/r-3.0.3/datatables.min.css" rel="stylesheet">
   <!-- END : Styles -->
@@ -54,7 +54,7 @@ $cartContent = $gameUserOrderRepository->findCartContent($cartId);
           <div class="col-auto min-vh-100 bg-white bg-opacity-75">
             <div class="pt-5 pb-5 px-sm-5 text-center">
               <a href="index.php?controller=page&action=home">
-                <img src="./assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="d-none d-sm-inline w-auto">
+                <img src="/assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="d-none d-sm-inline w-auto">
               </a>
             </div>
             <ul class="nav nav-pills flex-column mb-auto text-center text-lg-start">

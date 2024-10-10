@@ -25,9 +25,9 @@ $cartContent = NavigationTools::getCartContent();
   <meta name="keywords" content="<?= NavigationTools::addMetas()['keywords'] ?>">
   <!-- END : SEO -->
   <title><?= NavigationTools::addMetas()['title'] ?></title>
-  <link rel="shortcut icon" href="./assets/images/logo_small.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/assets/images/logo_small.svg" type="image/svg+xml">
   <!-- START : Styles -->
-  <link rel="stylesheet" href="./assets/css/main.min.css">
+  <link rel="stylesheet" href="/assets/css/main.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <!-- END : Styles -->
@@ -45,7 +45,7 @@ $cartContent = NavigationTools::getCartContent();
     <nav class="navbar navbar-expand-xl bg-white fixed-top bg-opacity-75 nav-shadow" id="navbar-opacity">
       <div class="container-fluid">
         <a class="navbar-brand ps-xl-5" href="index.php?controller=page&action=home">
-          <img src="./assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" width="180">
+          <img src="/assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" width="180">
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <i class="toggler-logo bi bi-dpad-fill fs-1"></i>
@@ -71,8 +71,8 @@ $cartContent = NavigationTools::getCartContent();
                   <a href="index.php?controller=admin&action=home" class="btn btn-gamestore text-uppercase shadow me-xl-5">Espace administrateur</a>
                 <?php endif; ?>
             <?php else : ?>
-            <a href="/index.php?controller=auth&action=login" class="btn btn-gamestore text-uppercase shadow me-xl-5 mb-2 mb-xl-0 <?= NavigationTools::addActiveClass('auth', 'login') ?>">Se connecter</a>
-            <a href="/index.php?controller=user&action=register" class="btn btn-gamestore text-uppercase shadow me-xl-5 <?= NavigationTools::addActiveClass('user', 'register') ?>">S'inscrire</a>
+            <a href="index.php?controller=auth&action=login" class="btn btn-gamestore text-uppercase shadow me-xl-5 mb-2 mb-xl-0 <?= NavigationTools::addActiveClass('auth', 'login') ?>">Se connecter</a>
+            <a href="index.php?controller=user&action=register" class="btn btn-gamestore text-uppercase shadow me-xl-5 <?= NavigationTools::addActiveClass('user', 'register') ?>">S'inscrire</a>
             <?php endif; ?>
           </div>
         </div>

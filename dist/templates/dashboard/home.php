@@ -8,7 +8,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
 ?>
 
         <section class="container mt-5 d-flex flex-column align-items-center mb-5">
-          <img src="./assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="my-5" style="width: 200px;">
+          <img src="/assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="my-5" style="width: 200px;">
           <p class="mt-3 fs-2 text-center">Bienvenue dans votre espace client, <?= Security::getCurrentUserFullName() ?>.</p>
           <p>Vous pouvez gérer vos informations personnelles, suivre vos commandes, consulter vos factures et bénéficier de nos services en ligne.</p>
           <div class="row my-5">

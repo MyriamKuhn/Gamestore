@@ -9,7 +9,7 @@ use App\Tools\UserValidator;
 use App\Repository\UserOrderRepository;
 use App\Repository\GameUserOrderRepository;
 
-require './vendor/autoload.php';
+require _ROOTPATH_ . '/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

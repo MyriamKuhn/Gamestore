@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-require './vendor/autoload.php';
+require _ROOTPATH_ . '/vendor/autoload.php';
 
 use App\Repository\UserRepository;
 use App\Model\User;
@@ -121,7 +121,7 @@ class UserController extends RoutingController
       ]);
 
     } catch (\Exception $e) {
-      if ($e->getCode() == 2300) {
+      if ($e->getCode() == 23000) {
         $error = "Un utilisateur avec cette adresse email existe déjà. Veuillez vous connecter ou réinitialiser votre mot de passe.";
       } else {
         $error = $e->getMessage() . "(Erreur : " . $e->getCode() . ")";

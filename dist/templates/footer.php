@@ -16,7 +16,7 @@ use App\Tools\NavigationTools;
   <!-- START : Footer -->
   <footer class="container-fluid bg-white footer-shadow">
     <div class="row row-cols-1 row-cols-md-3 justify-content-center justify-content-md-center align-items-center pt-4">
-      <img class="mb-4 logo mx-auto my-md-auto" src="./assets/images/logo_small.svg" alt="Logo de l'entreprise Gamestore" width="50">
+      <img class="mb-4 logo mx-auto my-md-auto" src="/assets/images/logo_small.svg" alt="Logo de l'entreprise Gamestore" width="50">
       <ul class="navbar-nav text-center">
         <li class="nav-item pb-1"><a href="index.php?controller=page&action=about" class="text-uppercase menu-link <?= NavigationTools::addActiveClass('page', 'about') ?>">Nos points de vente</a></li>
         <li class="nav-item pb-3"><a href="index.php?controller=page&action=buy" class="text-uppercase menu-link <?= NavigationTools::addActiveClass('page', 'buy') ?>">Comment acheter</a></li>
@@ -35,15 +35,15 @@ use App\Tools\NavigationTools;
   <!-- END : Footer -->
 
 </div>
-  <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <?php 
     $scripts = FileTools::addScripts();
     if (!empty($scripts)) :
       foreach($scripts as $script) : ?>
-        <script type="module" src="./assets/js/<?= $script ?>"></script>
+        <script type="module" src="/assets/js/<?= $script ?>"></script>
       <?php endforeach; ?>
     <?php endif; ?>
-  <script src="./assets/js/scrollOnPages.js"></script>
+  <script src="/assets/js/scrollOnPages.js"></script>
 </body>
 
 </html>
