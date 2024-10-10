@@ -45,12 +45,12 @@
   </div>
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Données Personnelles</h4>
-    <p class="m-0">L'utilisation du Site peut entraîner la collecte de données personnelles conformément à notre <a href="index.php?controller=page&action=private" class="text-link">Politique de Confidentialité</a>. L'utilisateur dispose des droits d'accès, de rectification, d'effacement et de portabilité de ses données personnelles, conformément à la réglementation en vigueur (notamment le RGPD).</p>
+    <p class="m-0">L'utilisation du Site peut entraîner la collecte de données personnelles conformément à notre <a href="/index.php?controller=page&action=private" class="text-link">Politique de Confidentialité</a>. L'utilisateur dispose des droits d'accès, de rectification, d'effacement et de portabilité de ses données personnelles, conformément à la réglementation en vigueur (notamment le RGPD).</p>
     <p class="m-0">Pour exercer ces droits, l'utilisateur peut contacter le responsable de la protection des données à l'adresse suivante : <a href="mailto:contact@gamestore.myriamkuhn.com" class="text-link">contact@gamestore.myriamkuhn.com</a>.</p>
   </div>
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Cookies</h4>
-    <p class="m-0">Le Site utilise des cookies pour améliorer l'expérience utilisateur et à des fins statistiques. Vous pouvez gérer les préférences de cookies directement dans les paramètres de votre navigateur. Pour plus de détails, consultez notre <a href="index.php?controller=page&action=private" class="text-link">Politique de Cookies</a>.</p>
+    <p class="m-0">Le Site utilise des cookies pour améliorer l'expérience utilisateur et à des fins statistiques. Vous pouvez gérer les préférences de cookies directement dans les paramètres de votre navigateur. Pour plus de détails, consultez notre <a href="/index.php?controller=page&action=private" class="text-link">Politique de Cookies</a>.</p>
   </div>
   <div class="mb-2">
     <h4 class="text-uppercase mt-3">Liens Hypertextes</h4>

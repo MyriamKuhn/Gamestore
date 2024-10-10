@@ -236,7 +236,7 @@ class AdminController extends RoutingController
               }
             }
           }          
-          header('Location: index.php?controller=admin&action=orders');
+          header('Location: /index.php?controller=admin&action=orders');
           exit;
         // Pour mettre le statut d'une commande à Annulée
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancelOrder'])) {
@@ -286,7 +286,7 @@ class AdminController extends RoutingController
               }
             }
           }
-          header('Location: index.php?controller=admin&action=orders');
+          header('Location: /index.php?controller=admin&action=orders');
           exit;
         // Pour placer une commande en statut magasin
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['shopOrder'])) {
@@ -333,7 +333,7 @@ class AdminController extends RoutingController
               }
             }
           }
-          header('Location: index.php?controller=admin&action=orders');
+          header('Location: /index.php?controller=admin&action=orders');
           exit;
         // Comportement par défaut : affichage de la liste des commandes de toutes les villes
         } else {
@@ -458,7 +458,7 @@ class AdminController extends RoutingController
               throw new \Exception("Erreur lors de la mise à jour du stock du jeu.");
             }
           }          
-          header('Location: index.php?controller=admin&action=buying');
+          header('Location: /index.php?controller=admin&action=buying');
           exit;
         // Comportement par défaut : affichage de la liste des jeux
         } else {
@@ -504,7 +504,7 @@ class AdminController extends RoutingController
           // Récupération des données du formulaire et sécurisation
           $userId = Security::secureInput($_POST['userId']);
           // Renvoi vers la page de modification de l'employé
-          header('Location: index.php?controller=admin&action=employe&id=' . $userId);
+          header('Location: /index.php?controller=admin&action=employe&id=' . $userId);
           exit;
         // Si blocage de l'employé
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['blockEmploye'])) {
@@ -517,7 +517,7 @@ class AdminController extends RoutingController
           if (!$employe) {
             throw new \Exception("Erreur lors du blocage de l'employé.");
           }
-          header('Location: index.php?controller=admin&action=employes');
+          header('Location: /index.php?controller=admin&action=employes');
           exit;
         // Si déblocage de l'employé
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['unblockEmploye'])) {
@@ -530,7 +530,7 @@ class AdminController extends RoutingController
           if (!$employe) {
             throw new \Exception("Erreur lors du déblocage de l'employé.");
           }
-          header('Location: index.php?controller=admin&action=employes');
+          header('Location: /index.php?controller=admin&action=employes');
           exit;
         // Comportement par défaut : affichage de la liste des employés
         } else {
@@ -587,7 +587,7 @@ class AdminController extends RoutingController
           $user = $userRepository->updateUserByAdmin($userId, $firstName, $lastName, $address, $postcode, $city, $email, $storeId);
           // Si mise en place en base de données réussie
           if ($user) {
-            header('Location: index.php?controller=admin&action=employes');
+            header('Location: /index.php?controller=admin&action=employes');
             exit;
           } else {
             $this->render('admin/error', [
@@ -641,7 +641,7 @@ class AdminController extends RoutingController
             $user = $userRepository->addUser($user);
             // Si mise en place en base de données réussie
             if ($user) {
-              header('Location: index.php?controller=admin&action=employes');
+              header('Location: /index.php?controller=admin&action=employes');
               exit;
             } else {
               $this->render('admin/error', [
@@ -702,7 +702,7 @@ class AdminController extends RoutingController
             $user = $userRepository->updateUserEmail($userId, $email);
             // Si mise en place en base de données réussie
             if ($user) {
-              header('Location: index.php?controller=admin&action=users');
+              header('Location: /index.php?controller=admin&action=users');
               exit;
             } else {
               $this->render('admin/error', [
@@ -732,7 +732,7 @@ class AdminController extends RoutingController
           if (!$user) {
             throw new \Exception("Erreur lors du blocage de l'utilisateur.");
           }
-          header('Location: index.php?controller=admin&action=users');
+          header('Location: /index.php?controller=admin&action=users');
           exit;
         // Si déblocage du client
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['unblockUser'])) {
@@ -745,7 +745,7 @@ class AdminController extends RoutingController
           if (!$user) {
             throw new \Exception("Erreur lors du déblocage de l'utilisateur.");
           }
-          header('Location: index.php?controller=admin&action=users');
+          header('Location: /index.php?controller=admin&action=users');
           exit;
         // Comportement par défaut au chargement de la page
         } else {
@@ -829,7 +829,7 @@ class AdminController extends RoutingController
           if (!$isStockUpdated) {
             throw new \Exception("Erreur lors de l'ajout du stock.");
           }
-          header('Location: index.php?controller=admin&action=products');
+          header('Location: /index.php?controller=admin&action=products');
           exit;
         // Si suppression de stock
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['removeStock'])) {
@@ -845,7 +845,7 @@ class AdminController extends RoutingController
           if (!$isStockUpdated) {
             throw new \Exception("Erreur lors de la suppression du stock.");
           }
-          header('Location: index.php?controller=admin&action=products');
+          header('Location: /index.php?controller=admin&action=products');
           exit;
         // Si modification d'un jeu
         } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['editGame'])) {
@@ -854,7 +854,7 @@ class AdminController extends RoutingController
           // Récupération des données du formulaire et sécurisation
           $gameId = Security::secureInput($_POST['game_id']);
           // Renvoi vers la page de modification de l'employé
-          header('Location: index.php?controller=admin&action=product&id=' . $gameId);
+          header('Location: /index.php?controller=admin&action=product&id=' . $gameId);
           exit;
         // Comportement par défaut : affichage de la liste des jeux
         } else {
@@ -1299,7 +1299,7 @@ class AdminController extends RoutingController
                 throw new \Exception("Erreur lors de la modification des données spécifiques du jeu.");
               }
             }
-            header('Location: index.php?controller=admin&action=products');
+            header('Location: /index.php?controller=admin&action=products');
             exit;      
           // Si erreur, renvoi vers la page de modification
           } else {
@@ -1613,7 +1613,7 @@ class AdminController extends RoutingController
                 throw new \Exception("Erreur lors de la modification des données spécifiques du jeu.");
               }
             }
-            header('Location: index.php?controller=admin&action=products');
+            header('Location: /index.php?controller=admin&action=products');
             exit;      
           // Si erreur, renvoi vers la page de modification
           } else {

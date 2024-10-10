@@ -31,7 +31,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
           $contentTotal = Security::secureInput($content['quantity']) * Security::secureInput($content['price']);
           $totalPrice += $contentTotal; ?>
           <tr>
-            <td><a href="index.php?controller=games&action=show&id=<?=Security::secureInput($content['game_id']) ?>" class="text-link"><?= html_entity_decode(Security::secureInput($content['game_name'])) ?></a></td>
+            <td><a href="/index.php?controller=games&action=show&id=<?=Security::secureInput($content['game_id']) ?>" class="text-link"><?= html_entity_decode(Security::secureInput($content['game_name'])) ?></a></td>
             <td><?= Security::secureInput($content['platform_name']) ?></td>
             <td>
               <form method="post">
@@ -115,7 +115,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
         </div>
       <?php break;
     endswitch; ?>
-    <p class="mb-0">Vous pouvez définir votre magasin de retrait en vous rendant dans l'onglet <a href="index.php?controller=dashboard&action=modify" class="text-link">Données personnelles</a> de votre espace client.</p>
+    <p class="mb-0">Vous pouvez définir votre magasin de retrait en vous rendant dans l'onglet <a href="/index.php?controller=dashboard&action=modify" class="text-link">Données personnelles</a> de votre espace client.</p>
     <p class="text-danger">Attention, en modifiant votre magasin Gamestore de retrait, vous supprimerez l'intégralité de votre panier !</p>
   </div>
   <div class="mb-2"> Définissez à présent une date de retrait de vos jeux. Elle doit être à moins de 7 jours à partir d'aujourd'hui et uniquement les jours d'ouverture de nos magasins.</div>
@@ -143,7 +143,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
   </form>
   <!-- END : Formulaire de choix de la date de retrait -->
   <div class="text-center mt-5">
-    <a href="index.php?controller=page&action=home" class="btn btn-gamestore text-uppercase">Voir les jeux</a>
+    <a href="/index.php?controller=page&action=home" class="btn btn-gamestore text-uppercase">Voir les jeux</a>
   </div>
 
 </section>

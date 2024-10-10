@@ -203,7 +203,7 @@ export class LocationSelect {
             userId: user
           });
       
-          fetch('index.php?controller=datas',
+          fetch('/index.php?controller=datas',
             {
               method: 'POST',
               headers: {
@@ -217,7 +217,7 @@ export class LocationSelect {
               if (datas.success) {
                 showCart();
               } else if (datas.datas == "Votre compte est bloqu\u00e9, veuillez contacter un administrateur") {
-                window.location.href = 'index.php?controller=auth&action=logout';
+                window.location.href = '/index.php?controller=auth&action=logout';
               } else {
                 alert ('Le jeu n\'a pas pu être ajouté au panier');
               }

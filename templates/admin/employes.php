@@ -12,7 +12,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
   </div>
   <!-- Ajout d'un employé -->
   <div class="my-5 text-center">
-    <a href="index.php?controller=admin&action=employe" class="btn btn-gamestore text-uppercase">Ajouter un employé</a>
+    <a href="/index.php?controller=admin&action=employe" class="btn btn-gamestore text-uppercase">Ajouter un employé</a>
   </div>
   <!-- Filtre par nom -->
   <div class="form-floating mb-3">

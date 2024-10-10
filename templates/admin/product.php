@@ -214,7 +214,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
         </div>
       </form>
       <div class="text-center my-5">
-        <a href="index.php?controller=admin&action=products" class="btn btn-gamestore text-uppercase">Retour vers la page des articles</a>
+        <a href="/index.php?controller=admin&action=products" class="btn btn-gamestore text-uppercase">Retour vers la page des articles</a>
       </div>
       <!-- END : Formulaire d'inscription -->
   </section>

@@ -22,9 +22,9 @@ Security::adminOnly();
   <meta name="keywords" content="espace administrateur, gestion des commandes, gestion des utilisateurs, supervision des commandes, statistiques des ventes, contrôle des opérations">
   <!-- END : SEO -->
   <title>Espace Admin - Gestion Utilisateurs et Commandes</title>
-  <link rel="shortcut icon" href="./assets/images/logo_small.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/assets/images/logo_small.svg" type="image/svg+xml">
   <!-- START : Styles -->
-  <link rel="stylesheet" href="./assets/css/main.min.css">
+  <link rel="stylesheet" href="/assets/css/main.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link href="https://cdn.datatables.net/v/bs5/jq-3.7.0/jszip-3.10.1/dt-2.1.7/b-3.1.2/b-html5-3.1.2/r-3.0.3/datatables.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -46,61 +46,61 @@ Security::adminOnly();
         <div class="row">
           <div class="col-auto min-vh-100 bg-white bg-opacity-75">
             <div class="pt-5 pb-5 px-sm-3 text-center">
-              <a href="index.php?controller=page&action=home">
-                <img src="./assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="d-none d-sm-inline w-auto">
+              <a href="/index.php?controller=page&action=home">
+                <img src="/assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="d-none d-sm-inline w-auto">
               </a>
             </div>
             <ul class="nav nav-pills flex-column mb-auto">
               <li class="nav-item mb-5">
-                <a href="index.php?controller=admin&action=home" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'home') ?>">
+                <a href="/index.php?controller=admin&action=home" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'home') ?>">
                   <i class="bi bi-house me-2"></i>
                   <span class="d-none d-sm-inline">Accueil</span>
                 </a>
               </li>
               <li class="nav-item mb-5">
-                <a href="index.php?controller=admin&action=password" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'password') ?>">
+                <a href="/index.php?controller=admin&action=password" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'password') ?>">
                   <i class="bi bi-key me-2"></i>
                   <span class="d-none d-sm-inline">Mot de passe</span>
                 </a>
               </li>
               <li class="nav-item mb-3">
-                <a href="index.php?controller=admin&action=orders" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'orders') ?>">
+                <a href="/index.php?controller=admin&action=orders" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'orders') ?>">
                   <i class="bi bi-receipt-cutoff me-2"></i>
                   <span class="d-none d-sm-inline">Commandes</span>
                 </a>
               </li>
               <li class="nav-item mb-5">
-                <a href="index.php?controller=admin&action=buying" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'buying') ?>">
+                <a href="/index.php?controller=admin&action=buying" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'buying') ?>">
                   <i class="bi bi-shop me-2"></i>
                   <span class="d-none d-sm-inline">Magasin</span>
                 </a>
               </li>
               <li class="nav-item mb-3">
-                <a href="index.php?controller=admin&action=employes" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'employes') ?>">
+                <a href="/index.php?controller=admin&action=employes" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'employes') ?>">
                   <i class="bi bi-person-lines-fill me-2"></i>
                   <span class="d-none d-sm-inline">Employés</span>
                 </a>
               </li>
               <li class="nav-item mb-5">
-                <a href="index.php?controller=admin&action=users" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'users') ?>">
+                <a href="/index.php?controller=admin&action=users" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'users') ?>">
                   <i class="bi bi-person-fill me-2"></i>
                   <span class="d-none d-sm-inline">Clients</span>
                 </a>
               </li>
               <li class="nav-item mb-5">
-                <a href="index.php?controller=admin&action=sales" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'sales') ?>">
+                <a href="/index.php?controller=admin&action=sales" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'sales') ?>">
                   <i class="bi bi-graph-up me-2"></i>
                   <span class="d-none d-sm-inline">Ventes</span>
                 </a>
               </li>
               <li class="nav-item mb-5">
-                <a href="index.php?controller=admin&action=products" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'products') ?>">
+                <a href="/index.php?controller=admin&action=products" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('admin', 'products') ?>">
                 <i class="bi bi-clipboard2 me-2"></i>
                   <span class="d-none d-sm-inline">Articles</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index.php?controller=auth&action=logout" class="menu-link text-uppercase">
+                <a href="/index.php?controller=auth&action=logout" class="menu-link text-uppercase">
                   <i class="bi bi-box-arrow-in-right me-2"></i>
                   <span class="d-none d-sm-inline">Déconnexion</span>
                 </a>
