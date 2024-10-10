@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('no-datas').classList.add('visually-hidden');
   document.getElementById('chart').innerHTML = '';
 
-  fetch('index.php?controller=datas',
+  fetch('/index.php?controller=datas',
     {
       method: 'POST',
       headers: {
@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(data => {
       if (validateJSONStructure(data)) {
         if (data.success === false) {
+          if (data.datas === "Aucune vente n'a été trouvée") {
+            document.getElementById('loading').classList.add('visually-hidden');
+            document.getElementById('no-datas').classList.remove('visually-hidden');
+            return;
+          }
           console.error("Erreur : " + data.error);
           return;
         }

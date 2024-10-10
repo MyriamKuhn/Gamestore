@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-require './vendor/autoload.php';
+require _ROOTPATH_ . '/vendor/autoload.php';
 
 use App\Repository\UserRepository;
 use App\Model\User;
@@ -105,7 +105,7 @@ class UserController extends RoutingController
                   $verificationRepository->createVerification($verification_code, $user->getId());
                   $verificationRepository->deleteAllExpiredCodes();
                   // Envoi de l'utilisateur sur la page de vérification
-                  header('Location: index.php?controller=user&action=activation&id=' . $user->getId());
+                  header('Location: /index.php?controller=user&action=activation&id=' . $user->getId());
                   exit();
                 } else {
                   throw new \Exception("Erreur lors de la récupération de l'utilisateur");
@@ -121,7 +121,7 @@ class UserController extends RoutingController
       ]);
 
     } catch (\Exception $e) {
-      if ($e->getCode() == 2300) {
+      if ($e->getCode() == 23000) {
         $error = "Un utilisateur avec cette adresse email existe déjà. Veuillez vous connecter ou réinitialiser votre mot de passe.";
       } else {
         $error = $e->getMessage() . "(Erreur : " . $e->getCode() . ")";
@@ -134,21 +134,29 @@ class UserController extends RoutingController
 
   protected function activation()
   {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["verifyUser"])) {
-      // Vérification du token CSRF
-      Security::checkCSRF($_POST['csrf_token']);
-      $userId = Security::secureInput($_POST['user_id']);
-      $is_resend = true;
-    }
-    if (isset($_GET['id'])) {
-      $userId = intval($_GET['id']);
-      $is_resend = false;
-    }
     try {
+      if (!empty($_SESSION['verifyUser'])) {
+        $datas = $_SESSION['verifyUser'];
+        $userId = Security::secureInput($datas['userId']);
+        $action = Security::secureInput($datas['action']);
+        $enteredCode = Security::secureInput($datas['enteredCode']);
+        unset($_SESSION['verifyUser']);
+        $is_resend = true;
+      }
+      if (isset($_GET['id'])) {
+        $userId = intval($_GET['id']);
+        $is_resend = false;
+        $action = '';
+        $enteredCode = '';
+      }
+
       $this->render('user/activation', [
         'is_resend' => $is_resend,
-        'userId' => $userId
+        'userId' => $userId,
+        'action' => $action,
+        'enteredCode' => $enteredCode
       ]);
+      
     } catch (\Exception $e) {
       $this->render('errors/default', [
         'error' => $e->getMessage() 

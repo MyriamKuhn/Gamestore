@@ -9,7 +9,7 @@ use App\Tools\UserValidator;
 use App\Repository\UserOrderRepository;
 use App\Repository\GameUserOrderRepository;
 
-require './vendor/autoload.php';
+require _ROOTPATH_ . '/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -371,7 +371,7 @@ class DashboardController extends RoutingController
             if (!$isAdded) {
               throw new \Exception("Erreur lors de l'ajout de la quantité.");
             } else {
-              header('Location: index.php?controller=dashboard&action=cart');
+              header('Location: /index.php?controller=dashboard&action=cart');
               exit();
             }
           }
@@ -380,7 +380,7 @@ class DashboardController extends RoutingController
           if (!$isRemoved) {
             throw new \Exception("Erreur lors de la suppression de la quantité.");
           } else {
-            header('Location: index.php?controller=dashboard&action=cart');
+            header('Location: /index.php?controller=dashboard&action=cart');
             exit();
           }
         } else {
@@ -411,7 +411,7 @@ class DashboardController extends RoutingController
         if (!$isDeleted) {
           throw new \Exception("Erreur lors de la suppression du jeu.");
         } else {
-          header('Location: index.php?controller=dashboard&action=cart');
+          header('Location: /index.php?controller=dashboard&action=cart');
           exit();
         }
       // Si validation du panier
@@ -564,7 +564,7 @@ class DashboardController extends RoutingController
         session_regenerate_id(true);
         // Mise à jour des données de session
         $_SESSION['user']['cart_id'] = $cartId;
-        header('Location: index.php?controller=dashboard&action=orders');
+        header('Location: /index.php?controller=dashboard&action=orders');
         exit();
       // Au chargement de la page du panier
       } else {

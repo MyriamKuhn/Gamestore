@@ -28,13 +28,13 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
             <ul class="list-group list-group-flush">
               <?php foreach ($order['games'] as $game): ?>
                 <li class="list-group-item d-flex justify-content-between">
-                  <span><?= Security::secureInput($game['name']) ?> (<?= Security::secureInput($game['platform']) ?>)</span>
+                  <span><?= html_entity_decode(Security::secureInput($game['name'])) ?> (<?= Security::secureInput($game['platform']) ?>)</span>
                   <span><?= Security::secureInput($game['quantity']) ?></span>
                 </li>
               <?php endforeach; ?>
             </ul>
             <div class="mt-3 text-center">
-              <a href="index.php?controller=dashboard&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="btn btn-gamestore text-uppercase">Voir la commande</a>
+              <a href="/index.php?controller=dashboard&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="btn btn-gamestore text-uppercase">Voir la commande</a>
             </div>
           </div>
         </div>
@@ -63,13 +63,13 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
             <ul class="list-group list-group-flush">
               <?php foreach ($order['games'] as $game): ?>
                 <li class="list-group-item d-flex justify-content-between">
-                  <span><?= Security::secureInput($game['name']) ?> (<?= Security::secureInput($game['platform']) ?>)</span>
+                  <span><?= html_entity_decode(Security::secureInput($game['name'])) ?> (<?= Security::secureInput($game['platform']) ?>)</span>
                   <span><?= Security::secureInput($game['quantity']) ?></span>
                 </li>
               <?php endforeach; ?>
             </ul>
             <div class="mt-3 text-center">
-              <a href="index.php?controller=dashboard&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="btn btn-gamestore text-uppercase">Voir la commande</a>
+              <a href="/index.php?controller=dashboard&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="btn btn-gamestore text-uppercase">Voir la commande</a>
             </div>
           </div>
         </div>
@@ -98,13 +98,13 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
             <ul class="list-group list-group-flush">
               <?php foreach ($order['games'] as $game): ?>
                 <li class="list-group-item d-flex justify-content-between">
-                  <span><?= Security::secureInput($game['name']) ?> (<?= Security::secureInput($game['platform']) ?>)</span>
+                  <span><?= html_entity_decode(Security::secureInput($game['name'])) ?> (<?= Security::secureInput($game['platform']) ?>)</span>
                   <span><?= Security::secureInput($game['quantity']) ?></span>
                 </li>
               <?php endforeach; ?>
             </ul>
             <div class="mt-3 text-center">
-              <a href="index.php?controller=dashboard&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="btn btn-gamestore text-uppercase">Voir la commande</a>
+              <a href="/index.php?controller=dashboard&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="btn btn-gamestore text-uppercase">Voir la commande</a>
             </div>
           </div>
         </div>
@@ -133,13 +133,13 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
             <ul class="list-group list-group-flush">
               <?php foreach ($order['games'] as $game): ?>
                 <li class="list-group-item d-flex justify-content-between">
-                  <span><?= Security::secureInput($game['name']) ?> (<?= Security::secureInput($game['platform']) ?>)</span>
+                  <span><?= html_entity_decode(Security::secureInput($game['name'])) ?> (<?= Security::secureInput($game['platform']) ?>)</span>
                   <span><?= Security::secureInput($game['quantity']) ?></span>
                 </li>
               <?php endforeach; ?>
             </ul>
             <div class="mt-3 text-center">
-              <a href="index.php?controller=dashboard&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="btn btn-gamestore text-uppercase">Voir la commande</a>
+              <a href="/index.php?controller=dashboard&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="btn btn-gamestore text-uppercase">Voir la commande</a>
             </div>
           </div>
         </div>
