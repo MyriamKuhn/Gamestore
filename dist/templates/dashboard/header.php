@@ -53,37 +53,37 @@ $cartContent = $gameUserOrderRepository->findCartContent($cartId);
         <div class="row">
           <div class="col-auto min-vh-100 bg-white bg-opacity-75">
             <div class="pt-5 pb-5 px-sm-5 text-center">
-              <a href="index.php?controller=page&action=home">
+              <a href="/index.php?controller=page&action=home">
                 <img src="/assets/images/logo_big.svg" alt="Logo de l'entreprise Gamestore" class="d-none d-sm-inline w-auto">
               </a>
             </div>
             <ul class="nav nav-pills flex-column mb-auto text-center text-lg-start">
               <li class="nav-item mb-5">
-                <a href="index.php?controller=dashboard&action=home" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'home') ?>">
+                <a href="/index.php?controller=dashboard&action=home" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'home') ?>">
                   <i class="bi bi-house me-2"></i>
                   <span class="d-none d-lg-inline">Accueil</span>
                 </a>
               </li>
               <li class="nav-item mb-5">
-                <a href="index.php?controller=dashboard&action=modify" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'modify') ?>">
+                <a href="/index.php?controller=dashboard&action=modify" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'modify') ?>">
                   <i class="bi bi-person-fill me-2"></i>
                   <span class="d-none d-lg-inline">Données personnelles</span>
                 </a>
               </li>
               <li class="nav-item mb-3 <?= NavigationTools::showCart($cartContent) ?>">
-                <a href="index.php?controller=dashboard&action=cart" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'cart') ?>">
+                <a href="/index.php?controller=dashboard&action=cart" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'cart') ?>">
                   <i class="bi bi-cart2 me-2"></i>
                   <span class="d-none d-lg-inline">Panier</span>
                 </a>
               </li>
               <li class="nav-item mb-5">
-                <a href="index.php?controller=dashboard&action=orders" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'orders') ?>">
+                <a href="/index.php?controller=dashboard&action=orders" class="menu-link text-uppercase <?= NavigationTools::addActiveClass('dashboard', 'orders') ?>">
                   <i class="bi bi-receipt-cutoff me-2"></i>
                   <span class="d-none d-lg-inline">Commandes</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="index.php?controller=auth&action=logout" class="menu-link text-uppercase">
+                <a href="/index.php?controller=auth&action=logout" class="menu-link text-uppercase">
                   <i class="bi bi-box-arrow-in-right me-2"></i>
                   <span class="d-none d-lg-inline">Déconnexion</span>
                 </a>

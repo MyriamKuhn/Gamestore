@@ -12,7 +12,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
 		<div class="alert alert-danger py-5 my-5"><?= $error; ?></div>
 	<?php endif; ?>
   <div class="mt-5 text-center">
-    <a href="index.php?controller=dashboard&action=home" class="btn btn-gamestore text-uppercase">Retourner à l'accueil</a>
+    <a href="/index.php?controller=dashboard&action=home" class="btn btn-gamestore text-uppercase">Retourner à l'accueil</a>
   </div>
 </section>
 

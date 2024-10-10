@@ -5,45 +5,191 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule \.(css|js|png|jpg|jpeg|gif|ico|svg|webp)$ - [L]
 
-# Rediriger les différentes pages
+# Rediriger la catégorie page
 RewriteCond %{THE_REQUEST} \s/index\.php\?controller=page&action=home\s [NC]
 RewriteRule ^index\.php$ / [R=301,L,QSD]
 
 RewriteCond %{THE_REQUEST} \s/index\.php\?controller=page&action=about\s [NC]
 RewriteRule ^index\.php$ /a-propos [R=301,L,QSD]
-RewriteRule ^a-propos$ index.php?controller=page&action=about [L,QSA]
+RewriteRule ^a-propos$ /index.php?controller=page&action=about [L,QSA]
 
 RewriteCond %{THE_REQUEST} \s/index\.php\?controller=page&action=buy\s [NC]
 RewriteRule ^index\.php$ /acheter [R=301,L,QSD]
-RewriteRule ^acheter$ index.php?controller=page&action=buy [L,QSA]
+RewriteRule ^acheter$ /index.php?controller=page&action=buy [L,QSA]
 
 RewriteCond %{THE_REQUEST} \s/index\.php\?controller=page&action=contact\s [NC]
 RewriteRule ^index\.php$ /contacter [R=301,L,QSD]
-RewriteRule ^contacter$ index.php?controller=page&action=contact [L,QSA]
+RewriteRule ^contacter$ /index.php?controller=page&action=contact [L,QSA]
 
 RewriteCond %{THE_REQUEST} \s/index\.php\?controller=page&action=legal\s [NC]
 RewriteRule ^index\.php$ /mentions-legales [R=301,L,QSD]
-RewriteRule ^mentions-legales$ index.php?controller=page&action=legal [L,QSA]
+RewriteRule ^mentions-legales$ /index.php?controller=page&action=legal [L,QSA]
 
 RewriteCond %{THE_REQUEST} \s/index\.php\?controller=page&action=cgu\s [NC]
 RewriteRule ^index\.php$ /cgu [R=301,L,QSD]
-RewriteRule ^cgu$ index.php?controller=page&action=cgu [L,QSA]
+RewriteRule ^cgu$ /index.php?controller=page&action=cgu [L,QSA]
 
 RewriteCond %{THE_REQUEST} \s/index\.php\?controller=page&action=private\s [NC]
 RewriteRule ^index\.php$ /vie-privee [R=301,L,QSD]
-RewriteRule ^vie-privee$ index.php?controller=page&action=private [L,QSA]
+RewriteRule ^vie-privee$ /index.php?controller=page&action=private [L,QSA]
 
+# Rediriger la catégorie user
 RewriteCond %{THE_REQUEST} \s/index\.php\?controller=user&action=register\s [NC]
 RewriteRule ^index\.php$ /inscription [R=301,L,QSD]
-RewriteRule ^inscription$ index.php?controller=user&action=register [L,QSA]
+RewriteRule ^inscription$ /index.php?controller=user&action=register [L,QSA]
 
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=user&action=activation\s [NC]
+RewriteRule ^index\.php$ /authentification [R=301,L,QSD]
+RewriteRule ^authentification$ /index.php?controller=user&action=activation [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=user&action=activation&id=([0-9]+)\s [NC]
+RewriteRule ^index\.php$ /authentification/%1 [R=301,L,QSD]
+RewriteRule ^authentification/([0-9]+)$ /index.php?controller=user&action=activation&id=$1 [L,QSA]
+
+# Rediriger la catégorie auth
 RewriteCond %{THE_REQUEST} \s/index\.php\?controller=auth&action=login\s [NC]
 RewriteRule ^index\.php$ /connexion [R=301,L,QSD]
-RewriteRule ^connexion$ index.php?controller=auth&action=login [L,QSA]
+RewriteRule ^connexion$ /index.php?controller=auth&action=login [L,QSA]
 
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=auth&action=check\s [NC]
+RewriteRule ^index\.php$ /verification [R=301,L,QSD]
+RewriteRule ^verification$ /index.php?controller=auth&action=check [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=auth&action=check&id=([0-9]+)\s [NC]
+RewriteRule ^index\.php$ /verification/%1 [R=301,L,QSD]
+RewriteRule ^verification/([0-9]+)$ /index.php?controller=auth&action=check&id=$1 [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=auth&action=password\s [NC]
+RewriteRule ^index\.php$ /mot-de-passe [R=301,L,QSD]
+RewriteRule ^mot-de-passe$ /index.php?controller=auth&action=password [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=auth&action=reset\s [NC]
+RewriteRule ^index\.php$ /reset-mdp [R=301,L,QSD]
+RewriteRule ^reset-mdp$ /index.php?controller=auth&action=reset [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=auth&action=reset&token=([a-f0-9]+)\s [NC]
+RewriteRule ^index\.php$ /mot-de-passe/%1 [R=301,L,QSD]
+RewriteRule ^mot-de-passe/([a-f0-9]+)$ /index.php?controller=auth&action=reset&token=$1 [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=auth&action=reset&id=([0-9]+)\s [NC]
+RewriteRule ^index\.php$ /employe-mdp/%1 [R=301,L,QSD]
+RewriteRule ^employe-mdp/([0-9]+)$ /index.php?controller=auth&action=reset&id=$1 [L,QSA]
+
+# Rediriger la catégorie games
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=games&action=list\s [NC]
+RewriteRule ^index\.php$ /jeux [R=301,L,QSD]
+RewriteRule ^jeux$ /index.php?controller=games&action=list [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=games&action=promo\s [NC]
+RewriteRule ^index\.php$ /promotions [R=301,L,QSD]
+RewriteRule ^promotions$ /index.php?controller=games&action=promo [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=games&action=show&id=([0-9]+)\s [NC]
+RewriteRule ^index\.php$ /jeu/%1 [R=301,L,QSD]
+RewriteRule ^jeu/([0-9]+)$ /index.php?controller=games&action=show&id=$1 [L,QSA]
+
+# Rediriger la catégorie dashboard
 RewriteCond %{THE_REQUEST} \s/index\.php\?controller=dashboard&action=home\s [NC]
 RewriteRule ^index\.php$ /espace-client [R=301,L,QSD]
-RewriteRule ^espace-client$ index.php?controller=dashboard&action=home [L,QSA]
+RewriteRule ^espace-client$ /index.php?controller=dashboard&action=home [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=dashboard&action=modify\s [NC]
+RewriteRule ^index\.php$ /donnees-perso [R=301,L,QSD]
+RewriteRule ^donnees-perso$ /index.php?controller=dashboard&action=modify [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=dashboard&action=orders\s [NC]
+RewriteRule ^index\.php$ /commandes [R=301,L,QSD]
+RewriteRule ^commandes$ /index.php?controller=dashboard&action=orders [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=dashboard&action=order&id=([0-9]+)\s [NC]
+RewriteRule ^index\.php$ /commande/%1 [R=301,L,QSD]
+RewriteRule ^commande/([0-9]+)$ /index.php?controller=dashboard&action=order&id=$1 [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=dashboard&action=cart\s [NC]
+RewriteRule ^index\.php$ /panier [R=301,L,QSD]
+RewriteRule ^panier$ /index.php?controller=dashboard&action=cart [L,QSA]
+
+# Rediriger la catégorie employe
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=employe&action=home\s [NC]
+RewriteRule ^index\.php$ /espace-employe [R=301,L,QSD]
+RewriteRule ^espace-employe$ /index.php?controller=employe&action=home [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=employe&action=password\s [NC]
+RewriteRule ^index\.php$ /employe-mdp [R=301,L,QSD]
+RewriteRule ^employe-mdp$ /index.php?controller=employe&action=password [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=employe&action=orders\s [NC]
+RewriteRule ^index\.php$ /employe-commandes [R=301,L,QSD]
+RewriteRule ^employe-commandes$ /index.php?controller=employe&action=orders [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=employe&action=order&id=([0-9]+)\s [NC]
+RewriteRule ^index\.php$ /employe-commande/%1 [R=301,L,QSD]
+RewriteRule ^employe-commande/([0-9]+)$ /index.php?controller=employe&action=order&id=$1 [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=employe&action=buying\s [NC]
+RewriteRule ^index\.php$ /employe-ventes [R=301,L,QSD]
+RewriteRule ^employe-ventes$ /index.php?controller=employe&action=buying [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=employe&action=sales\s [NC]
+RewriteRule ^index\.php$ /employe-stats [R=301,L,QSD]
+RewriteRule ^employe-stats$ /index.php?controller=employe&action=sales [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=employe&action=details\s [NC]
+RewriteRule ^index\.php$ /employe-stats-details [R=301,L,QSD]
+RewriteRule ^employe-stats-details$ /index.php?controller=employe&action=details [L,QSA]
+
+# Rediriger la catégorie admin
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=home\s [NC]
+RewriteRule ^index\.php$ /espace-admin [R=301,L,QSD]
+RewriteRule ^espace-admin$ /index.php?controller=admin&action=home [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=password\s [NC]
+RewriteRule ^index\.php$ /admin-mdp [R=301,L,QSD]
+RewriteRule ^admin-mdp$ /index.php?controller=admin&action=password [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=orders\s [NC]
+RewriteRule ^index\.php$ /admin-commandes [R=301,L,QSD]
+RewriteRule ^admin-commandes$ /index.php?controller=admin&action=orders [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=order&id=([0-9]+)\s [NC]
+RewriteRule ^index\.php$ /admin-commande/%1 [R=301,L,QSD]
+RewriteRule ^admin-commande/([0-9]+)$ /index.php?controller=admin&action=order&id=$1 [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=buying\s [NC]
+RewriteRule ^index\.php$ /admin-ventes [R=301,L,QSD]
+RewriteRule ^admin-ventes$ /index.php?controller=admin&action=buying [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=employes\s [NC]
+RewriteRule ^index\.php$ /admin-employes [R=301,L,QSD]
+RewriteRule ^admin-employes$ /index.php?controller=admin&action=employes [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=employe&id=([0-9]+)\s [NC]
+RewriteRule ^index\.php$ /admin-employe/%1 [R=301,L,QSD]
+RewriteRule ^admin-employe/([0-9]+)$ /index.php?controller=admin&action=employe&id=$1 [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=users\s [NC]
+RewriteRule ^index\.php$ /admin-clients [R=301,L,QSD]
+RewriteRule ^admin-clients$ /index.php?controller=admin&action=users [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=sales\s [NC]
+RewriteRule ^index\.php$ /admin-stats [R=301,L,QSD]
+RewriteRule ^admin-stats$ /index.php?controller=admin&action=sales [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=details\s [NC]
+RewriteRule ^index\.php$ /admin-stats-details [R=301,L,QSD]
+RewriteRule ^admin-stats-details$ /index.php?controller=admin&action=details [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=products\s [NC]
+RewriteRule ^index\.php$ /admin-jeux [R=301,L,QSD]
+RewriteRule ^admin-jeux$ /index.php?controller=admin&action=products [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=product\s [NC]
+RewriteRule ^index\.php$ /admin-jeu [R=301,L,QSD]
+RewriteRule ^admin-jeu$ /index.php?controller=admin&action=product [L,QSA]
+
+RewriteCond %{THE_REQUEST} \s/index\.php\?controller=admin&action=product&id=([0-9]+)\s [NC]
+RewriteRule ^index\.php$ /admin-jeu/%1 [R=301,L,QSD]
+RewriteRule ^admin-jeu/([0-9]+)$ /index.php?controller=admin&action=product&id=$1 [L,QSA]
 
 # Bloque l'accès aux fichiers .htaccess et .htpasswd
 <Files ".ht*">

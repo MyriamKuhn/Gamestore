@@ -28,7 +28,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
           $gameTotal = Security::secureInput($game['quantity']) * Security::secureInput($game['price']);
           $totalPrice += $gameTotal; ?>
           <tr>
-            <td><a href="index.php?controller=games&action=show&id=<?=Security::secureInput($game['game_id']) ?>" class="text-link"><?= Security::secureInput($game['name']) ?></a></td>
+            <td><a href="/index.php?controller=games&action=show&id=<?=Security::secureInput($game['game_id']) ?>" class="text-link"><?= html_entity_decode(Security::secureInput($game['name'])) ?></a></td>
             <td><?= Security::secureInput($game['platform']) ?></td>
             <td><?= Security::secureInput($game['quantity']) ?></td>
             <td><?= number_format($game['price'], 2) ?> €</td>
@@ -85,7 +85,7 @@ require_once _TEMPLATEPATH_ . '/dashboard/header.php';
     endswitch; ?>
   </div>
   <div class="text-center mt-5">
-    <a href="index.php?controller=dashboard&action=orders" class="btn btn-gamestore text-uppercase">Voir toutes les commandes</a>
+    <a href="/index.php?controller=dashboard&action=orders" class="btn btn-gamestore text-uppercase">Voir toutes les commandes</a>
   </div>
 </section>
 

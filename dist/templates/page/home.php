@@ -23,7 +23,7 @@ $needle = 'spotlight';
         <p class="m-0"><strong>Réservez vos jeux préférés en ligne et venez les récupérer dans l'un des nos magasins !</strong></p>
         <p>Rejoignez notre communauté de passionnés et restez à jour avec les dernières sorties et offres spéciales.</p>
         <p><strong>Gamestore</strong>, c'est plus qu'un magasin de jeux vidéo, c'est votre univers de divertissement !</p>
-        <a href="index.php?controller=page&action=about" class="btn btn-gamestore text-uppercase">En savoir plus</a>
+        <a href="/index.php?controller=page&action=about" class="btn btn-gamestore text-uppercase">En savoir plus</a>
       </div>
       <!-- Accordion -->
       <div class="mt-4 ps-lg-5">
@@ -36,7 +36,7 @@ $needle = 'spotlight';
               </button>
             </div>
             <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushHero">
-              <div class="accordion-body">Placez le ou les jeux de votre choix dans votre panier, définissez une date de retrait dans votre magasin préféré lors de la confirmation de votre panier et venez retirer vos jeux directement en magasin. Vous avez 7 jours pour retirer votre réservation. <a href="index.php?controller=page&action=buy" class="text-link">Plus d'infos</a></div>
+              <div class="accordion-body">Placez le ou les jeux de votre choix dans votre panier, définissez une date de retrait dans votre magasin préféré lors de la confirmation de votre panier et venez retirer vos jeux directement en magasin. Vous avez 7 jours pour retirer votre réservation. <a href="/index.php?controller=page&action=buy" class="text-link">Plus d'infos</a></div>
             </div>
           </div>
           <!-- Pourquoi Choisir Gamestore -->
@@ -70,7 +70,7 @@ $needle = 'spotlight';
               </button>
             </div>
             <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushHero">
-              <div class="accordion-body">Vous pouvez toujours nous rendre visite dans l'un de nos cinq magasins ou nous suivre sur nos réseaux sociaux pour les dernières nouvelles et les offres spéciales. Vous trouverez les coordonnées de nos magasins sur la <a href="index.php?controller=page&action=contact" class="text-link">page de contact</a>.</div>
+              <div class="accordion-body">Vous pouvez toujours nous rendre visite dans l'un de nos cinq magasins ou nous suivre sur nos réseaux sociaux pour les dernières nouvelles et les offres spéciales. Vous trouverez les coordonnées de nos magasins sur la <a href="/index.php?controller=page&action=contact" class="text-link">page de contact</a>.</div>
             </div>
           </div>
           <!-- Nos prestations -->
@@ -104,7 +104,7 @@ $needle = 'spotlight';
     <section class="news mt-5">
       <div class="d-flex justify-content-between gamestore-title">
         <h2 class="text-uppercase">Nouveautés</h2>
-        <a href="index.php?controller=games&action=list" class="btn btn-gamestore-outline text-uppercase align-self-start">Voir tout</a>
+        <a href="/index.php?controller=games&action=list" class="btn btn-gamestore-outline text-uppercase align-self-start">Voir tout</a>
       </div>
       <div class="mt-3 row row-cols-1 row-cols-lg-5 justify-content-center justify-content-xl-between gap-4">
         <?php foreach ($lastGamesDatas as $lastGameData) : 
@@ -129,7 +129,7 @@ $needle = 'spotlight';
             </div>
           </div>
           <div class="row row-cols-1 justify-content-center">
-            <a href="index.php?controller=games&action=show&id=<?= Security::secureInput($lastGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Plus d'infos</a>
+            <a href="/index.php?controller=games&action=show&id=<?= Security::secureInput($lastGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Plus d'infos</a>
           </div>
         </div>
         <!-- END : Card News -->
@@ -153,7 +153,7 @@ $needle = 'spotlight';
     <section class="news mt-4">
       <div class="d-flex justify-content-between gamestore-title">
         <h2 class="text-uppercase">Promos</h2>
-        <a href="index.php?controller=games&action=promo" class="btn btn-gamestore-outline text-uppercase align-self-start">Voir tout</a>
+        <a href="/index.php?controller=games&action=promo" class="btn btn-gamestore-outline text-uppercase align-self-start">Voir tout</a>
       </div>
       <div class="mt-3 row row-cols-1 row-cols-lg-5 justify-content-center justify-content-lg-evenly gap-4">
         <!-- START : Card Promos -->
@@ -192,7 +192,7 @@ $needle = 'spotlight';
             </div>
           </div>
           <div class="row row-cols-1 justify-content-center">
-            <a href="index.php?controller=games&action=show&id=<?= Security::secureInput($reducedGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Plus d'infos</a>
+            <a href="/index.php?controller=games&action=show&id=<?= Security::secureInput($reducedGameData['game_id']) ?>" class="news-card-footer text-uppercase py-3 text-center text-decoration-none">Plus d'infos</a>
           </div>
         </div>
         <!-- END : Card Promo -->
@@ -205,7 +205,7 @@ $needle = 'spotlight';
       <div class="banner-community py-4">
         <h3 class="text-uppercase text-center">Ne ratez plus aucune nouveauté ou promo</h3>
         <div class="text-center">
-          <a href="index.php?controller=page&action=contact" class="btn btn-gamestore text-uppercase shadow me-lg-5">Inscrivez-vous</a>
+          <a href="/index.php?controller=page&action=contact" class="btn btn-gamestore text-uppercase shadow me-lg-5">Inscrivez-vous</a>
         </div>
       </div>
     </section>

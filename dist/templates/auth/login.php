@@ -20,7 +20,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
     <div class="my-3">
 
       <p>Connectez-vous à votre espace client pour accéder à l'ensemble de nos services. Vous pourrez ainsi suivre vos commandes, gérer vos informations personnelles et bénéficier de nos offres exclusives.</p>
-      <p>Vous avez oublié votre mot de passe ? Pas de problème, veuillez cliquer <a href="index.php?controller=auth&action=password" class="text-link">ici</a>.</p>
+      <p>Vous avez oublié votre mot de passe ? Pas de problème, veuillez cliquer <a href="/index.php?controller=auth&action=password" class="text-link">ici</a>.</p>
       <!-- Affichage des erreurs -->
       <div class="alert alert-danger py-5 my-5 <?= empty($errors) ? 'visually-hidden' : '' ?>" id="error-message">
         <?php if (!empty($errors)) {

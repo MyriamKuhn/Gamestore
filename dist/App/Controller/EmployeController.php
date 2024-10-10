@@ -120,7 +120,7 @@ class EmployeController extends RoutingController
                 throw new \Exception("Erreur lors de la mise à jour du stock du jeu.");
               }
             }
-            header('Location: index.php?controller=employe&action=orders');
+            header('Location: /index.php?controller=employe&action=orders');
             exit;
           } else {
             throw new \Exception("Vous ne pouvez pas modifier le statut de cette commande.");
@@ -138,7 +138,7 @@ class EmployeController extends RoutingController
             if (!$order) {
               throw new \Exception("Erreur lors de la mise à jour du statut de la commande.");
             }
-            header('Location: index.php?controller=employe&action=orders');
+            header('Location: /index.php?controller=employe&action=orders');
             exit;
           } else {
             throw new \Exception("Vous ne pouvez pas modifier le statut de cette commande.");
@@ -348,7 +348,7 @@ class EmployeController extends RoutingController
               throw new \Exception("Erreur lors de la mise à jour du stock du jeu.");
             }
           }          
-          header('Location: index.php?controller=employe&action=buying');
+          header('Location: /index.php?controller=employe&action=buying');
           exit;
         } else {
           // Comportement par défaut : affichage de la liste des jeux
