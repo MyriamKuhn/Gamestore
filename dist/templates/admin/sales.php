@@ -12,7 +12,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
     </div>
     <div class="my-5 d-flex flex-column">
       <p>Voici les statistiques des ventes. Vous pouvez consulter les détails des ventes en cliquant sur le bouton ci-dessous :</p>
-      <a href="index.php?controller=admin&action=details" class="btn btn-gamestore text-uppercase align-self-center">Plus de détails</a>
+      <a href="/index.php?controller=admin&action=details" class="btn btn-gamestore text-uppercase align-self-center">Plus de détails</a>
     </div>
     <!-- START : Sélection de la ville -->
     <section class="mt-2">

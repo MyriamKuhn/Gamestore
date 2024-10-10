@@ -95,10 +95,10 @@ class AuthController extends RoutingController
               if ($user->getIs_verified() == 0) {
                 // Pour les employés à leur première connexion forcer le changement de mot de passe
                 if ($user->getRole() == 'employe') {
-                  header('Location: index.php?controller=auth&action=reset&id=' . $user->getId());
+                  header('Location: /index.php?controller=auth&action=reset&id=' . $user->getId());
                   exit();
                 } else {
-                header('Location: index.php?controller=user&action=activation&id=' . $user->getId());
+                header('Location: /index.php?controller=user&action=activation&id=' . $user->getId());
                 exit();
                 }
               } else {
@@ -109,7 +109,7 @@ class AuthController extends RoutingController
                 $verificationRepository->createVerification($verification_code, $user->getId());
                 $verificationRepository->deleteAllExpiredCodes();
                 // Envoi de l'utilisateur sur la page de vérification
-                header('Location: index.php?controller=auth&action=check&id=' . $user->getId());
+                header('Location: /index.php?controller=auth&action=check&id=' . $user->getId());
                 exit();
               }
             } else {
@@ -141,20 +141,27 @@ class AuthController extends RoutingController
   
   protected function check()
   {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["authenticateUser"])) {
-      // Vérification du token CSRF
-      Security::checkCSRF($_POST['csrf_token']);
-      $userId = Security::secureInput($_POST['user_id']);
-      $is_resend = true;
-    }
-    if (isset($_GET['id'])) {
-      $userId = intval($_GET['id']);
-      $is_resend = false;
-    }
     try {
+      if (!empty($_SESSION['authenticateUser'])) {
+        $datas = $_SESSION['authenticateUser'];
+        $userId = Security::secureInput($datas['userId']);
+        $action = Security::secureInput($datas['action']);
+        $enteredCode = Security::secureInput($datas['enteredCode']);
+        unset($_SESSION['verifyUser']);
+        $is_resend = true;
+      }
+      if (isset($_GET['id'])) {
+        $userId = intval($_GET['id']);
+        $is_resend = false;
+        $action = '';
+        $enteredCode = '';
+      }
+
       $this->render('auth/check', [
         'is_resend' => $is_resend,
-        'userId' => $userId
+        'userId' => $userId,
+        'action' => $action,
+        'enteredCode' => $enteredCode
       ]);
     } catch (\Exception $e) {
       $this->render('errors/default', [
@@ -263,6 +270,7 @@ class AuthController extends RoutingController
                 // Envoyer l'email
                 $mail->send();
                 $success = "Le message a été envoyé avec succès ! Si vous ne recevez pas l'email dans quelques minutes, veuillez vérifier votre dossier de spam ou courrier indésirable.";
+                header('refresh:5;url=/index.php?controller=auth&action=login');
               } catch (Exception $e) {
                 $errors['send'] = 'Le message n\'a pas pu être envoyé. Erreur: ' . $mail->ErrorInfo . '. Veuillez réessayer.';
               }
@@ -320,7 +328,7 @@ class AuthController extends RoutingController
                 'success' => 'Votre mot de passe a été réinitialisé avec succès ! Votre compte a été activé. Vous serez redirigé vers la page de connexion dans 10 secondes.',
                 'token' => $token
               ]);
-              header('refresh:10;url=index.php?controller=auth&action=login');
+              header('refresh:10;url=/index.php?controller=auth&action=login');
               exit();
             } else {
               $this->render('errors/default', [
@@ -332,7 +340,7 @@ class AuthController extends RoutingController
               'success' => 'Votre mot de passe a été réinitialisé avec succès ! Vous serez redirigé vers la page de connexion dans 10 secondes.',
               'token' => $token
             ]);
-            header('refresh:10;url=index.php?controller=auth&action=login');
+            header('refresh:10;url=/index.php?controller=auth&action=login');
             exit();
           }
         } else {

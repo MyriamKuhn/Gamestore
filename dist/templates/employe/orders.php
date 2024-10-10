@@ -41,7 +41,7 @@ require_once _TEMPLATEPATH_ . '/employe/header.php';
       <div class="loader"></div>
       <h4 class="text-uppercase fs-2 loading-title">Chargement en cours ...</h4>
     </div>
-    <!-- END : Spinner de chargement -->
+    <!-- END : Spinner de chargement -->    
     <!-- Tableau des commandes -->
     <div class="table-responsive">
       <table class="table table-striped table-hover visually-hidden" id="ordersTable">
@@ -56,30 +56,45 @@ require_once _TEMPLATEPATH_ . '/employe/header.php';
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($orders as $order) : ?>
-            <tr>
-              <th scope="row"><a href="index.php?controller=employe&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Voir les détails de la commande"><?= Security::secureInput($order['order_id']) ?></a></th>
-              <td data-order="<?= $order['order_date'] ?>"><?= (new DateTime($order['order_date']))->format('d/m/Y') ?></td>
-              <td><?= Security::secureInput($order['user_name']) ?></td>
-              <td><?= Security::secureInput($order['user_address']) ?></td>
-              <td><?= Security::secureInput($order['order_status']) ?></td>
-              <td>
-                <form method="post">
-                  <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-                  <input type="hidden" name="order_id" value="<?= Security::secureInput($order['order_id']) ?>">
-                  <input type="hidden" name="order_status" value="<?= Security::secureInput($order['order_status']) ?>">
-                  <button type="submit" name="validateOrder" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Passer la commande en statut 'Livrée'" class="btn btn-gamestore <?= Security::secureInput($order['order_status']) == 'Validée' ? '' : 'disabled' ?>">
-                    <i class="bi bi-check2-square"></i>
-                  </button>
-                  <button type="submit" name="cancelOrder" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Annuler la commande" class="btn btn-gamestore <?= Security::secureInput($order['order_status']) == 'Validée' ? '' : 'disabled' ?>">
-                    <i class="bi bi-x-square"></i>
-                  </button>
-                </form>
-              </td>
-            </tr>
-          <?php endforeach; ?>
+        <?php if (empty($orders)) : ?>
+          <tr>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+            <td class="text-center">Aucune commande trouvée</td>
+            <td class="text-center"></td>
+            <td class="text-center"></td>
+          </tr>
         </tbody>
       </table>
+    </div>
+        <?php else: ?>
+            <?php foreach ($orders as $order) : ?>
+              <tr>
+                <th scope="row"><a href="/index.php?controller=employe&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Voir les détails de la commande"><?= Security::secureInput($order['order_id']) ?></a></th>
+                <td data-order="<?= $order['order_date'] ?>"><?= (new DateTime($order['order_date']))->format('d/m/Y') ?></td>
+                <td><?= Security::secureInput($order['user_name']) ?></td>
+                <td><?= Security::secureInput($order['user_address']) ?></td>
+                <td><?= Security::secureInput($order['order_status']) ?></td>
+                <td>
+                  <form method="post">
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+                    <input type="hidden" name="order_id" value="<?= Security::secureInput($order['order_id']) ?>">
+                    <input type="hidden" name="order_status" value="<?= Security::secureInput($order['order_status']) ?>">
+                    <button type="submit" name="validateOrder" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Passer la commande en statut 'Livrée'" class="btn btn-gamestore <?= Security::secureInput($order['order_status']) == 'Validée' ? '' : 'disabled' ?>">
+                      <i class="bi bi-check2-square"></i>
+                    </button>
+                    <button type="submit" name="cancelOrder" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Annuler la commande" class="btn btn-gamestore <?= Security::secureInput($order['order_status']) == 'Validée' ? '' : 'disabled' ?>">
+                      <i class="bi bi-x-square"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    <?php endif; ?>
   </section>
         
 <?php require_once _TEMPLATEPATH_ . '/employe/footer.php'; ?>

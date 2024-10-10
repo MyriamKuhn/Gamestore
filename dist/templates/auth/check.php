@@ -35,10 +35,8 @@ require_once _TEMPLATEPATH_ . '/header.php';
 
       <?php
         // Vérifier si le formulaire a été soumis
-        if (isset($_POST["authenticateUser"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
-          // Vérification du token CSRF
-          Security::checkCSRF($_POST['csrf_token']);
-          switch ($_POST["authenticateUser"]) {
+        if (!empty($action)) {
+          switch ($action) {
             case 'Envoyer le code':
               // Récupération des données du formulaire
               $userEmail = $user->getEmail();
@@ -221,7 +219,6 @@ require_once _TEMPLATEPATH_ . '/header.php';
                 $verificationRepository = new VerificationRepository();
                 $verification = $verificationRepository->getLastVerificationByUserId($userId);
                 $verificationCode = $verification ? $verification->getVerification_code() : null;
-                $enteredCode = Security::secureInput($_POST['code_entered']);
                 // Vérification du code
                 if ($verificationCode == $enteredCode) {
                   // Suppression du code de vérification
@@ -253,7 +250,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
                       'cart_id' => $cartId
                     ];
                     // Redirection vers la page espace client
-                    header('Location: index.php?controller=dashboard&action=home');
+                    header('Location: /index.php?controller=dashboard&action=home');
                     exit();
                     // Si employé alors redirection vers la page espace employé
                   } else if ($user->getRole() == 'employe') {
@@ -268,7 +265,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
                       'store_id' => $user->getFk_store_id()
                     ];
                     // Redirection vers la page espace employé
-                    header('Location: index.php?controller=employe&action=home');
+                    header('Location: /index.php?controller=employe&action=home');
                     exit();
                   } else if ($user->getRole() == 'admin') {
                     // Régénère l'identifiant de session pour éviter les attaques de fixation de session (vol de cookie de session)
@@ -281,7 +278,7 @@ require_once _TEMPLATEPATH_ . '/header.php';
                       'role' => $user->getRole()
                     ];
                     // Redirection vers la page espace admin
-                    header('Location: index.php?controller=admin&action=home');
+                    header('Location: /index.php?controller=admin&action=home');
                     exit();
                   } else {
                     echo '<div class="alert alert-danger py-5 my-5">Une erreur est survenue. Veuillez réessayer.</div>';
@@ -294,13 +291,13 @@ require_once _TEMPLATEPATH_ . '/header.php';
         }
       ?>
 
-      <form method="post" class="my-4" action="index.php?controller=auth&action=check">
+      <form method="post" class="my-4" action="/index.php?controller=formdatas">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
           <input type="hidden" name="user_id" value="<?= $userId ?>">
           <input type="submit" name="authenticateUser" class="btn btn-gamestore text-uppercase" value="<?= $is_resend ? 'Renvoyer le code' : 'Envoyer le code' ?>">
       </form>
 
-      <form method="post" class="was-validated" action="index.php?controller=auth&action=check">
+      <form method="post" class="was-validated" action="/index.php?controller=formdatas">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
         <input type="hidden" name="user_id" value="<?= $userId ?>">
         <div class="form-floating mb-3">

@@ -31,6 +31,9 @@ class RoutingController
           case 'datas':
             $controller = new DatasController();
             break;
+          case 'formdatas':
+            $controller = new FormdatasController();
+            break;
           case 'dashboard':
             if (Security::isUser()) {
               $controller = new DashboardController();

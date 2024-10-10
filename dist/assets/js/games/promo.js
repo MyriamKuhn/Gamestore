@@ -91,7 +91,7 @@ function resetFilters() {
 /*********************/
 function fetchDatas() {
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-  fetch('index.php?controller=datas',
+  fetch('/index.php?controller=datas',
     {
       method: 'POST',
       headers: {
@@ -395,7 +395,7 @@ function createHtmlCard(datas) {
             userId: userToSend
           });
 
-          fetch('index.php?controller=datas',
+          fetch('/index.php?controller=datas',
             {
               method: 'POST',
               headers: {
@@ -409,7 +409,7 @@ function createHtmlCard(datas) {
               if (datas.success) {
                 showCart();
               } else if (datas.datas == "Votre compte est bloqu\u00e9, veuillez contacter un administrateur") {
-                window.location.href = 'index.php?controller=auth&action=logout';
+                window.location.href = '/index.php?controller=auth&action=logout';
               } else {
                 alert ('Le jeu n\'a pas pu être ajouté au panier');
               }
@@ -429,7 +429,7 @@ function createHtmlCard(datas) {
     gameCard.appendChild(cardFooter);
 
     const cardLink = document.createElement('a');
-    cardLink.href = 'index.php?controller=games&action=show&id=' + game['game_id'];
+    cardLink.href = '/index.php?controller=games&action=show&id=' + game['game_id'];
     cardLink.classList.add('news-card-footer', 'text-uppercase', 'py-3', 'text-center', 'text-decoration-none');
     cardLink.textContent = 'Plus d\'infos';
     cardFooter.appendChild(cardLink);

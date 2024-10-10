@@ -34,10 +34,8 @@ require_once _TEMPLATEPATH_ . '/header.php';
       
       <?php
         // Vérifier si le formulaire a été soumis
-        if (isset($_POST["verifyUser"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
-          // Vérification du token CSRF
-          Security::checkCSRF($_POST['csrf_token']);
-          switch ($_POST["verifyUser"]) {
+        if (!empty($action)) {
+          switch ($action) {
             case 'Envoyer le code':
               // Récupération des données du formulaire
               $userEmail = $user->getEmail();
@@ -220,7 +218,6 @@ require_once _TEMPLATEPATH_ . '/header.php';
               $verificationRepository = new VerificationRepository();
               $verification = $verificationRepository->getLastVerificationByUserId($userId);
               $verificationCode = $verification ? $verification->getVerification_code() : null;
-              $enteredCode = Security::secureInput($_POST['code_entered']);
               // Vérification du code
               if ($verificationCode == $enteredCode) {
                 // Mise à jour du statut de l'utilisateur
@@ -230,8 +227,8 @@ require_once _TEMPLATEPATH_ . '/header.php';
                 $verificationRepository = new VerificationRepository();
                 $verificationRepository->deleteAllCodesFromUser($user->getId());
                 $verificationRepository->deleteAllExpiredCodes();
-                echo '<div class="alert alert-warning py-5 my-5">Votre compte a été activé avec succès !<br>Vous serez redirigés dans 10 secondes, vous pouvez également cliquer sur ce lien pour vous connecter : <a href="index.php?controller=auth&action=login">Vers l\'espace client</a></div>';
-                header('refresh:10;url=index.php?controller=auth&action=login');
+                echo '<div class="alert alert-warning py-5 my-5">Votre compte a été activé avec succès !<br>Vous serez redirigés dans 10 secondes, vous pouvez également cliquer sur ce lien pour vous connecter : <a href="/index.php?controller=auth&action=login">Vers l\'espace client</a></div>';
+                header('refresh:10;url=/index.php?controller=auth&action=login');
                 // Envoi du mail de bienvenue
                 $mail = new PHPMailer(true);
                 try {
@@ -289,13 +286,13 @@ require_once _TEMPLATEPATH_ . '/header.php';
           
       ?>
 
-      <form method="post" class="my-4" action="index.php?controller=user&action=activation">
+      <form method="post" class="my-4" action="/index.php?controller=formdatas">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
           <input type="hidden" name="user_id" value="<?= $userId ?>">
           <input type="submit" name="verifyUser" class="btn btn-gamestore text-uppercase" value="<?= $is_resend ? 'Renvoyer le code' : 'Envoyer le code' ?>">
       </form>
 
-      <form method="post" class="was-validated" action="index.php?controller=user&action=activation">
+      <form method="post" class="was-validated" action="/index.php?controller=formdatas">
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
         <input type="hidden" name="user_id" value="<?= $userId ?>">
         <div class="form-floating mb-3">

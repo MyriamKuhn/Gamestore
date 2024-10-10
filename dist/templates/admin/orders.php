@@ -71,7 +71,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
         <tbody>
           <?php foreach ($orders as $order) : ?>
             <tr>
-              <th scope="row"><a href="index.php?controller=admin&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Voir les détails de la commande"><?= Security::secureInput($order['order_id']) ?></a></th>
+              <th scope="row"><a href="/index.php?controller=admin&action=order&id=<?= Security::secureInput($order['order_id']) ?>" class="text-decoration-none" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Voir les détails de la commande"><?= Security::secureInput($order['order_id']) ?></a></th>
               <td data-order="<?= $order['order_date'] ?>"><?= (new DateTime($order['order_date']))->format('d/m/Y') ?></td>
               <td class="<?= in_array(Security::secureInput($order['user_role']), ['employe', 'admin']) ? 'text-danger' : '' ?>"><?= Security::secureInput($order['user_name']) ?></td>
               <td><?= Security::secureInput($order['user_address']) ?></td>
