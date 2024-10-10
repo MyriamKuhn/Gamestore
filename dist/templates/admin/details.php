@@ -13,7 +13,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
     <p class="my-5">Voici les statistiques en détails des ventes.</p>
     <div class="my-5 d-flex flex-column">
       <p>Vous pouvez consulter les statistiques globales des ventes en cliquant sur le bouton ci-dessous :</p>
-      <a href="index.php?controller=admin&action=sales" class="btn btn-gamestore text-uppercase align-self-center">Statistiques globales</a>
+      <a href="/index.php?controller=admin&action=sales" class="btn btn-gamestore text-uppercase align-self-center">Statistiques globales</a>
     </div>
     <!-- Filtre par jeu -->
     <div class="form-floating mb-3">
@@ -70,7 +70,7 @@ require_once _TEMPLATEPATH_ . '/admin/header.php';
           <?php foreach ($sales as $sale) : ?>
             <tr>
               <td data-order="<?= $sale['date'] ?>"><?= (new DateTime($sale['date']))->format('d/m/Y') ?></td>
-              <td><?= Security::secureInput($sale['name']) ?></td>
+              <td><?= html_entity_decode(Security::secureInput($sale['name'])) ?></td>
               <td><?= Security::secureInput($sale['platform']) ?></td>
               <td><?= Security::secureInput($sale['stores'][0]) ?></td>
               <td><?= Security::secureInput($sale['totalQuantity']) ?></td>

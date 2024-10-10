@@ -1,6 +1,6 @@
 <?php 
 
-require './vendor/autoload.php';
+require _ROOTPATH_ . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
 

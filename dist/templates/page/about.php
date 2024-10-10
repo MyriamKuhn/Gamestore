@@ -47,7 +47,7 @@
       </ul>
     </ul>
     <p>Nous sommes heureux de vous recevoir dans l'un de nos magasins et de partager notre passion du jeu vidéo avec vous. Pour toute information supplémentaire, n'hésitez pas à contacter votre Gamestore le plus proche !</p>
-    <p>Pous nous contacter, rien de plus simple, remplissez notre <a href="index.php?controller=page&action=contact" class="text-link">formulaire de contact</a>, nous vous répondrons dans les plus brefs délais.</p>
+    <p>Pous nous contacter, rien de plus simple, remplissez notre <a href="/index.php?controller=page&action=contact" class="text-link">formulaire de contact</a>, nous vous répondrons dans les plus brefs délais.</p>
   </div>
 </section>
 

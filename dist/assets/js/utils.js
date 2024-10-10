@@ -70,7 +70,7 @@ export function showCart() {
     action: 'getCartContent'
   });
 
-  fetch('index.php?controller=datas',
+  fetch('/index.php?controller=datas',
     {
       method: 'POST',
       headers: {

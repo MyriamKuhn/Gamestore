@@ -14,9 +14,9 @@ import { validateJSONStructure } from '../utils.js';
 /* URL PARAMS */
 
 /**************/
-const url = new URL(window.location.href);
-const urlParams = new URLSearchParams(url.search);
-const gameId = secureInput(urlParams.get('id'));
+const url = window.location.pathname; 
+const urlParts = url.split('/'); 
+const gameId = secureInput(urlParts[urlParts.length - 1]);
 
 
 /********************/
@@ -42,7 +42,7 @@ function getDatas() {
       gameId: gameId
     });
 
-    fetch('index.php?controller=datas',
+    fetch('/index.php?controller=datas',
       {
         method: 'POST',
         headers: {

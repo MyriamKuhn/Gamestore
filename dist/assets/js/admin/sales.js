@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
 /*****************************************/
 function fetchDatasFirst(action, idNoDatas, idChart, idLoading, actionSecond, idChartSecond, classTitle) {
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-  fetch('index.php?controller=datas',
+  fetch('/index.php?controller=datas',
     {
       method: 'POST',
       headers: {
@@ -147,7 +147,7 @@ function fetchDatasFirst(action, idNoDatas, idChart, idLoading, actionSecond, id
 
 function fetchDatasSecond(action, idChart, idLoading, classTitle) {
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-  fetch('index.php?controller=datas',
+  fetch('/index.php?controller=datas',
     {
       method: 'POST',
       headers: {
